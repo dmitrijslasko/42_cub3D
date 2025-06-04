@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 14:24:06 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/04 15:51:47 by dmlasko          ###   ########.fr       */
+/*   Created: 2024/06/27 15:00:31 by dmlasko           #+#    #+#             */
+/*   Updated: 2024/07/12 18:40:35 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-int	main(int argc, char **argv)
+// determines if the input char parameter is printable 
+// (32 = space; 126 = ~; 127 is DEL (not printable))
+int	ft_isprint(int c)
 {
-	(void)argc;
-	(void)argv;
-	printf("Hello cub3d!\n");
-	return (0);
+	return (c >= 32 && c <= 126);
 }

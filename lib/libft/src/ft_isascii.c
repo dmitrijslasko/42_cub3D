@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 14:24:06 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/04 15:51:47 by dmlasko          ###   ########.fr       */
+/*   Created: 2024/06/27 15:00:25 by dmlasko           #+#    #+#             */
+/*   Updated: 2024/07/12 18:40:40 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-int	main(int argc, char **argv)
+// determines if the input char parameter is ASCII (0-127)
+int	ft_isascii(int c)
 {
-	(void)argc;
-	(void)argv;
-	printf("Hello cub3d!\n");
+	if (c == 0)
+		return (1);
+	if (c > 0 && c <= 127)
+		return (c);
 	return (0);
 }

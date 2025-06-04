@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 14:24:06 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/04 15:51:47 by dmlasko          ###   ########.fr       */
+/*   Created: 2024/07/12 18:24:23 by dmlasko           #+#    #+#             */
+/*   Updated: 2024/07/12 18:32:17 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+// add node to the front of the list
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	(void)argc;
-	(void)argv;
-	printf("Hello cub3d!\n");
-	return (0);
+	if (new == NULL || lst == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

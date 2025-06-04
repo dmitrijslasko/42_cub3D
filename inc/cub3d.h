@@ -6,8 +6,105 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/04 14:56:48 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/04 18:54:26 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef CUB3D_H
+# define CUB3D_H
+
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+
+# include <mlx.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <X11/Xlib.h>
+
+# include "colors.h"
+# include "errors.h"
+# include "keys.h"
+# include "settings.h"
+
+// structs
+
+typedef struct s_coor
+{
+	int		x;
+	int		y;
+} t_coor;
+
+typedef struct s_map
+{
+	char ***map;
+	size_t	map_size_w;
+	size_t	map_size_h;
+}	t_map;
+
+typedef struct s_player
+{
+	size_t	player_pos_x;
+	size_t	player_pos_y;
+	size_t	orientation;
+}	t_player;
+
+typedef struct s_mouse
+{
+	char	lmb_is_pressed;
+	char	rmb_is_pressed;
+	int		x;
+	int		y;
+	int		previous_x;
+	int		previous_y;
+}	t_mouse;
+
+typedef struct s_view
+{
+	int		show_admin;
+}	t_view;
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+typedef struct s_data
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		*img;
+	t_map		*map;
+	t_player	*player;
+	t_view		*view;
+	t_mouse		*mouse;
+	void		*welcome_img;
+
+}	t_data;
+
+// prototypes
+int		setup_mlx_and_win(t_data *dt);
+void	setup_hooks(t_data *data);
+void	setup_mouse(t_mouse *mouse);
+int		setup_img(t_data *dt);
+
+void	img_pix_put(t_img *img, int x, int y, int clr);
+void	draw_square(t_data *data, int x, int y, int size, int clr);
+void	draw_background(t_img *img, int clr);
+void	draw_sloped_line(t_data *dt, t_coor pt_1, t_coor pt_2);
+
+int		draw_player(t_data *dt);
+int		draw_map(t_data *dt);
+
+void	*protected_malloc(size_t size, t_data *dt);
+
+void	swap(void *a, void *b, size_t size);
+int		pixel_is_in_window(int x, int y);
+
+
+
+#endif

@@ -1,0 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
+/*   Updated: 2025/06/04 18:47:16 by dmlasko          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+static int	keypress_exit(int key, t_data *dt)
+{
+	if (key == ESC_BUTTON)
+	{
+		printf("ESC button pressed, closing the window...\n");
+		mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
+		dt->win_ptr = NULL;
+	}
+	return (0);
+}
+
+int	close_window(void)
+{
+	exit(0);
+}
+
+int	handle_keypress(int key, t_data *dt)
+{
+	if (key == ESC_BUTTON)
+	{
+		keypress_exit(key, dt);
+		close_window();
+	}
+	if (key == XK_Up)
+		dt->player->player_pos_y -= PLAYER_STEP;
+	if (key == XK_Down)
+		dt->player->player_pos_y += PLAYER_STEP;
+	if (key == XK_Left)
+		dt->player->player_pos_x -= PLAYER_STEP;
+	if (key == XK_Right)
+		dt->player->player_pos_x += PLAYER_STEP;
+	return (0);
+}
+
+void	setup_hooks(t_data *data)
+{
+	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, handle_keypress, data);
+	mlx_hook(data->win_ptr, 17, 0, close_window, data);
+	//mlx_hook(data->win_ptr, 4, 1L << 2, mouse_press, data);
+	//mlx_hook(data->win_ptr, 5, 1L << 3, mouse_release, data);
+	//mlx_hook(data->win_ptr, 6, 1L << 6, mouse_move, data);
+}
+
+//int	show_welcome_img(t_data *dt)
+//{
+//	if (dt->win_ptr == NULL)
+//		return (1);
+//	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->welcome_img, 0, 0);
+//	return (0);
+//}
+
+void	setup_mouse(t_mouse *mouse)
+{
+	mouse->lmb_is_pressed = 0;
+	mouse->rmb_is_pressed = 0;
+}

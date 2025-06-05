@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/04 18:47:16 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/05 16:36:12 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,24 @@ int	handle_keypress(int key, t_data *dt)
 		keypress_exit(key, dt);
 		close_window();
 	}
-	if (key == XK_Up)
+	if (key == XK_w)
 		dt->player->player_pos_y -= PLAYER_STEP;
-	if (key == XK_Down)
+	if (key == XK_s)
 		dt->player->player_pos_y += PLAYER_STEP;
-	if (key == XK_Left)
+	if (key == XK_a)
 		dt->player->player_pos_x -= PLAYER_STEP;
-	if (key == XK_Right)
+	if (key == XK_d)
 		dt->player->player_pos_x += PLAYER_STEP;
+	if (key == XK_Left)
+	{
+		dt->player->direction_vector_deg -= PLAYER_ROTATION_STEP;
+		dt->player->direction_vector_deg = dt->player->direction_vector_deg % 360;
+	}
+	if (key == XK_Right)
+	{
+		dt->player->direction_vector_deg += PLAYER_ROTATION_STEP;
+		dt->player->direction_vector_deg = dt->player->direction_vector_deg % 360;
+	}
 	return (0);
 }
 

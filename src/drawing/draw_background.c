@@ -16,5 +16,4 @@ void	draw_background(t_img *img, int clr)
 		}
 		++current_y;
 	}
-	//printf("Background rendered...\n");
 }

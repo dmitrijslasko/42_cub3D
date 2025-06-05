@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/04 18:54:26 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/05 16:39:42 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ typedef struct s_coor
 
 typedef struct s_map
 {
-	char ***map;
-	size_t	map_size_w;
-	size_t	map_size_h;
+	char 	**map;
+	size_t	map_size_rows;
+	size_t	map_size_cols;
 }	t_map;
 
 typedef struct s_player
 {
 	size_t	player_pos_x;
 	size_t	player_pos_y;
-	size_t	orientation;
+	size_t	direction_vector_deg;
 }	t_player;
 
 typedef struct s_mouse
@@ -82,6 +82,7 @@ typedef struct s_data
 	t_player	*player;
 	t_view		*view;
 	t_mouse		*mouse;
+	//int		needs_update;
 	void		*welcome_img;
 
 }	t_data;
@@ -105,6 +106,6 @@ void	*protected_malloc(size_t size, t_data *dt);
 void	swap(void *a, void *b, size_t size);
 int		pixel_is_in_window(int x, int y);
 
-
+void	draw_grid(t_img *img, int grid_size, int grid_color);
 
 #endif

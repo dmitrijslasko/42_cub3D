@@ -1,9 +1,12 @@
+# PROJECT NAME
+NAME = cub3D
+
 AUTHORS = "fvargas & dmlasko"
 INFO1 = $(B_CYAN)42 Berlin Core Curriculum – $(AUTHOR)$(RST)
 INFO_M = "$(B_CYAN)42 Berlin Core Curriculum – Mandatory part$(RST)"
-INFO2_M = "$(YELLOW)Run ./cub3d with a map file to launch$(RST)"
+INFO2_M = "$(YELLOW)Run ./$(NAME) with a map file to launch$(RST)"
 INFO_B = "$(B_MAGENTA)42 Berlin Core Curriculum – Bonus part$(RST)"
-INFO2_B = "$(YELLOW)Run ./cub3d with a map file to launch$(RST)"
+INFO2_B = "$(YELLOW)Run ./$(NAME) with a map file to launch$(RST)"
 INFO_D = "$(B_MAGENTA)42 Berlin Core Curriculum – DEVMODE$(RST)"
 VER = 1.0
 
@@ -104,8 +107,7 @@ RST = \033[0m
 # ------------------------------------------------------------------------------
 
 # PROJECT NAME
-NAME = cub3d
-NAME_BONUS = cub3d_bonus
+NAME = cub3D
 
 # COMPILER
 CC = cc

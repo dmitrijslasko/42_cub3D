@@ -1,0 +1,12 @@
+obj/utils/swap.o: src/utils/swap.c inc/cub3d.h inc/colors.h inc/errors.h \
+  inc/keys.h inc/settings.h
+
+inc/cub3d.h:
+
+inc/colors.h:
+
+inc/errors.h:
+
+inc/keys.h:
+
+inc/settings.h:

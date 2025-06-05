@@ -13,7 +13,7 @@ int	draw_map(t_data *dt)
 		curr_col = 0;
 		while (curr_col < map->map_size_cols)
 		{
-			printf("Cell value: %c\n", map->map[curr_row][curr_col]);
+			printf("Cell value: %c\n", map->map_data[curr_row][curr_col]);
 			curr_col++;
 		}
 		curr_row++;

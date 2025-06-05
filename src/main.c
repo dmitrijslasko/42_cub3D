@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:24:06 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/05 19:22:04 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/05 22:22:25 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ t_map	*load_dummy_map(void)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	
+
 	map->map_size_rows = 8;
 	map->map_size_cols = 8;
-	
+
 	map->map_data = malloc((map->map_size_rows + 1) * sizeof(char *));
 	if (!map->map_data)
 		return (NULL);
 	map->map_data[map->map_size_rows] = NULL;  // null-terminate row array
-	
+
 	for (size_t i = 0; i < map->map_size_rows; i++)
 	{
 		map->map_data[i] = malloc((map->map_size_cols + 1) * sizeof(char));  // +1 for '\0'
@@ -92,27 +92,30 @@ void	print_map(t_map *map)
 	}
 }
 
-t_pos	*get_player_position(t_map *map)
+void	initialize_player_position(t_player *player,t_map *map)
 {
-	t_pos	*pos;
-	
-	pos = malloc(sizeof(t_pos));
-	if (pos == NULL)
-		return (NULL);
-
 	for (size_t curr_row = 0; curr_row < map->map_size_rows; curr_row++)
 	{
 		for(size_t curr_col = 0; curr_col < map->map_size_cols; curr_col++)
 		{
 			if (map->map_data[curr_row][curr_col] == 'N')
 			{
-				pos->x = curr_col + 0.5;
-				pos->y = curr_row + 0.5;
-				return (pos);
+				player->pos.x = curr_col + 0.5;
+				player->pos.y = curr_row + 0.5;
+				player->direction_vet.x = -1;
+				player->direction_vet.y = 0;
 			}
 		}
 	}
-	return (NULL);
+}
+
+t_player *get_player(t_data dt)
+{
+	t_player	*player;
+
+	player = protected_malloc(sizeof(t_player), dt);
+	initialize_player_position(player, dt.map);
+	return (player);
 }
 
 int	main(int argc, char **argv)
@@ -122,10 +125,10 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	dt.map = load_dummy_map();
-	dt.player = protected_malloc(sizeof(t_player), &dt);
-	dt.player->pos = get_player_position(dt.map);
 	print_map(dt.map);
-	printf("Player position: %f %f\n", dt.player->pos->x, dt.player->pos->y);
+	dt.player = get_player(dt);
+	// initialize_player_position(dt.player, dt.map); // talk about this option!
+	printf("Player position: %f %f\n", dt.player->pos.x, dt.player->pos.y);
 	// VISUAL PART
 	// setup_mlx_and_win(&dt);
 	// dt.img = protected_malloc(sizeof(t_img), &dt);

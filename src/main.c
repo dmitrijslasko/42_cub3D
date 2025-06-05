@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:24:06 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/05 16:46:40 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/05 18:16:33 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int render(void *param)
 	return (0);
 }
 
-t_map *load_dummy_map(void)
+t_map	*load_dummy_map(void)
 {
-	t_map *map;
+	t_map	*map;
 
 	map = malloc(sizeof(t_map));
 	if (!map)
@@ -58,22 +58,43 @@ t_map *load_dummy_map(void)
 	map->map_size_rows = 8;
 	map->map_size_cols = 8;
 
-	map->map = malloc(map->map_size_rows * sizeof(char *));
+	map->map = malloc((map->map_size_rows + 1) * sizeof(char *));
 	if (!map->map)
 		return (NULL);
+	map->map[map->map_size_rows] = NULL;
 
-	for (size_t i = 0; i < map->map_size_cols; i++)
+	char top[8] = "11111111";
+	char middle[8] = "10000001";
+	char position[8] = "100000N1";
+
+	for (size_t i = 0; i< map->map_size_rows; i++)
 	{
-		map->map[i] = malloc(map->map_size_cols * sizeof(char));
+		map->map[i] = malloc((map->map_size_cols + 1) * sizeof(char));
 		if (!map->map[i])
 			return (NULL);
-		// Fill each row with 1s or 0s as needed
-		memset(map->map[i], 0, map->map_size_cols);
+		if (i == 0 || i == map->map_size_cols -1)
+			strcpy(map->map[i], top);
+		else if (i == 4)
+			strcpy(map->map[i], position);
+		else
+			strcpy(map->map[i], middle);
 	}
-
 	return (map);
 }
 
+void	print_map(t_map *map)
+{
+	if (!map || !map->map[0] || !map->map[0][0])
+		return ;
+	for (size_t i = 0; i < map->map_size_rows; i++)
+	{
+		for(size_t j = 0; j < map->map_size_cols; j++)
+		{
+			printf("%c ", map->map[i][j]);
+		}
+		printf("\n");
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -84,18 +105,18 @@ int	main(int argc, char **argv)
 	printf("Hello cub3d!\n");
 	setup_mlx_and_win(&dt);
 	dt.map = load_dummy_map();
-	printf("Map value: %d\n", dt.map->map[0][0]);
-	//dt.needs_update = 1;
-	dt.img = protected_malloc(sizeof(t_img), &dt);
-	dt.player = protected_malloc(sizeof(t_player), &dt);
-	dt.player->player_pos_x = WINDOW_W / 2;
-	dt.player->player_pos_y = WINDOW_H / 2;
-	dt.player->direction_vector_deg = 0;
-	//setup_view(&dt);
-	setup_img(&dt);
-	setup_hooks(&dt);
-	//setup_mouse(&dt.mouse);
-	mlx_loop_hook(dt.mlx_ptr, &render, &dt);
-	mlx_loop(dt.mlx_ptr);
+	print_map(dt.map);
+	// //dt.needs_update = 1;
+	// dt.img = protected_malloc(sizeof(t_img), &dt);
+	// dt.player = protected_malloc(sizeof(t_player), &dt);
+	// dt.player->player_pos_x = WINDOW_W / 2;
+	// dt.player->player_pos_y = WINDOW_H / 2;
+	// dt.player->direction_vector_deg = 0;
+	// //setup_view(&dt);
+	// setup_img(&dt);
+	// setup_hooks(&dt);
+	// //setup_mouse(&dt.mouse);
+	// mlx_loop_hook(dt.mlx_ptr, &render, &dt);
+	// mlx_loop(dt.mlx_ptr);
 	return (0);
 }

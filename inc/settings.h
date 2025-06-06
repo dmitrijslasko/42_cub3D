@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/05 16:07:21 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:52:14 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,24 @@
 // window size
 # define WINDOW_W 	1200
 # define WINDOW_H 	900
-# define DEF_GRID_SIZE	20
+# define DEF_GRID_SIZE	40
 # define DEF_GRID_COLOR	GREY
+
+// dummy map
+# define DUMMY_MAP_TOP		"111111111111"
+# define DUMMY_MAP_MID		"100000000001"
+# define DUMMY_MAP_PLAYER	"1000000N0001"
 
 // default scale
 # define X_CENTER 	600
 # define Y_CENTER 	450
 # define XY_DIST    100
 # define Z_DIST 	1
-
-# define PLAYER_STEP	5
+# define PLAYER_STEP	0.5f
 # define PLAYER_ROTATION_STEP 1
 # define PLAYER_SIZE_PX 20
 # define PLAYER_COLOR 	WHITE
+#define MIN_DISTANCE_TO_WALL 0.1f
 
 // offsets
 # define DEF_OFFSET_X       	0
@@ -41,11 +46,6 @@
 // colors
 # define DEF_BG_COLOR		BLACK
 
-// lines and nodes
-# define DRAW_LINES			TRUE
-# define DEF_LINE_COLOR     WHITE
-# define draw_squareS      	FALSE
-# define NODE_SIZE			6
 
 // default rotation (degrees)
 # define DEF_ISO_ROT_X		0

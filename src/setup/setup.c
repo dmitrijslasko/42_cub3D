@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/05 16:36:12 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:50:50 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,31 @@ int	close_window(void)
 	exit(0);
 }
 
+int	map_position_is_walkable(t_map *map, size_t row, size_t col)
+{
+	if (map->map_data[row][col] != '1')
+		return (1);
+	return (0);
+}
+
+int set_player_position(t_data *dt, double dx, double dy)
+{
+	t_x_y *player_pos;
+	double new_x;
+	double new_y;
+
+	player_pos = &dt->player->pos;
+	new_x = player_pos->x + dx;
+	new_y = player_pos->y + dy;
+	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
+		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))
+	{
+		player_pos->x = new_x;
+		player_pos->y = new_y;
+	}
+	return (0);
+}
+
 int	handle_keypress(int key, t_data *dt)
 {
 	if (key == ESC_BUTTON)
@@ -36,13 +61,13 @@ int	handle_keypress(int key, t_data *dt)
 		close_window();
 	}
 	if (key == XK_w)
-		dt->player->player_pos_y -= PLAYER_STEP;
-	if (key == XK_s)
-		dt->player->player_pos_y += PLAYER_STEP;
+		set_player_position(dt, 0, -PLAYER_STEP);
 	if (key == XK_a)
-		dt->player->player_pos_x -= PLAYER_STEP;
+		set_player_position(dt, -PLAYER_STEP, 0);
+	if (key == XK_s)
+		set_player_position(dt, 0, PLAYER_STEP);
 	if (key == XK_d)
-		dt->player->player_pos_x += PLAYER_STEP;
+		set_player_position(dt, PLAYER_STEP, 0);
 	if (key == XK_Left)
 	{
 		dt->player->direction_vector_deg -= PLAYER_ROTATION_STEP;

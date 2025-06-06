@@ -129,7 +129,7 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 CFLAGS += -I$(INC_DIR)
 
 # LINKER FLAGS
-LDFLAGS += -L$(LIBFT_DIR) -lft
+LDFLAGS = -L$(LIBFT_DIR) -lft
 LDFLAGS += -lmlx -lm -lXext -lX11
 
 # EXTRA FLAGS
@@ -170,19 +170,12 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(CYAN)Compiling $<$(RST)"
 
+-include $(DEPS)
+
 # ------------------------------------------------------------------------------
 
-bonus: libft $(NAME_BONUS) $(HEADER_FILE_B)
-
-$(NAME_BONUS): $(OBJ_BONUS)
-	@$(CC) $(CFLAGS) $(BONUSFLAGS) $(OBJ_BONUS) $(LDFLAGS) -o $@
-	@echo "$(B_MAGENTA)✅ $@ successfully compiled.$(RST)"
-	@echo "🚩 $(MAGENTA)Bonus Flags:\n$(CFLAGS)\n$(LDFLAGS)\n$(BONUSFLAGS)$(RST)"
-
-$(OBJ_DIR_BONUS)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(BONUSFLAGS) -c $< -o $@
-	@echo "$(MAGENTA)Compiling $< (BONUS)$(RST)"
+libft:
+	@$(MAKE) -s -C $(LIBFT_DIR)
 
 clean:
 	@rm -rf $(OBJ_DIR) $(OBJ_DIR_BONUS) $(OBJ_DIR_DEV)
@@ -194,11 +187,6 @@ fclean: clean
 	@rm -f $(LIBFT)
 
 re: fclean all
-
-# ------------------------------------------------------------------------------
-
-libft:
-	@$(MAKE) -s -C $(LIBFT_DIR)
 
 # ------------------------------------------------------------------------------
 

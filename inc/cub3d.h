@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 13:41:40 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:51:27 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
+
+# include "../lib/libft/inc/libft.h"
 
 # include <mlx.h>
 # include <X11/X.h>

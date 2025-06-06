@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:32:35 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/06 18:17:47 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:44:26 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, \
 	double	x;
 	double	y;
 
-	// coor = get_updated_coor_player(pos_player, dir_vec, 1);
 	coor = get_updated_coor_player(pos_player, dir_vec, 1);
 	x = fabs(coor.x - pos_player.x) * delta_dist.x;
 	y = fabs(coor.y - pos_player.y) * delta_dist.y;

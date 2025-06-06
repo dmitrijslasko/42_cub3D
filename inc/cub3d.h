@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 18:35:18 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:44:52 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, \
 void	set_step(t_x_y *step, t_x_y dir_vec);
 
 //update_coor_player.c
-// t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir);
 t_coor	get_updated_coor_player_(t_coor coor, t_x_y dir, int signal);
 t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
 

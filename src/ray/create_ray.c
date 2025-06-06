@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/06 18:34:32 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:46:08 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ t_ray	*create_ray(t_data dt, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_
 	c = initialize_wall_hit(side_dist);
 	coor_map = get_updated_coor_player(dt.player->pos, direction, 1);
 	coor_map = get_updated_coor_player_(coor_map, direction, -1);
-	// coor_map = get_updated_coor_player(dt.player->pos, direction);
-	// if (direction.x < 0 && coor_map.x != 0)
-	// 	coor_map.x -= 1;
-	// if (direction.y < 0 && coor_map.y != 0)
-	// 	coor_map.y -= 1;
 	while (!check_hit_wall(coor_map, *dt.map) && i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
 		printf(" coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);

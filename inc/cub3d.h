@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/05 16:39:42 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/05 22:18:25 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
+# include <stdbool.h>
+# include <math.h>
 
 # include <mlx.h>
 # include <X11/X.h>
@@ -29,15 +31,36 @@
 
 // structs
 
+typedef enum e_type_wall
+{
+	NORTH = 1,
+	WEST,
+	SOUTH,
+	EAST
+}	t_type_wall;
+
 typedef struct s_coor
 {
 	int		x;
 	int		y;
-} t_coor;
+}	t_coor;
+
+typedef struct s_x_y
+{
+	float	x;
+	float	y;
+}	t_x_y;
+
+typedef struct s_ray
+{
+	double		dist;
+	t_type_wall	type_wall;
+	double		perc_img;
+}	t_ray;
 
 typedef struct s_map
 {
-	char 	**map;
+	char 	**map_data;
 	size_t	map_size_rows;
 	size_t	map_size_cols;
 }	t_map;
@@ -46,6 +69,8 @@ typedef struct s_player
 {
 	size_t	player_pos_x;
 	size_t	player_pos_y;
+	t_x_y	pos;
+	t_x_y	direction_vet;
 	size_t	direction_vector_deg;
 }	t_player;
 
@@ -101,11 +126,15 @@ void	draw_sloped_line(t_data *dt, t_coor pt_1, t_coor pt_2);
 int		draw_player(t_data *dt);
 int		draw_map(t_data *dt);
 
-void	*protected_malloc(size_t size, t_data *dt);
+void	*protected_malloc(size_t size, t_data dt);
 
 void	swap(void *a, void *b, size_t size);
 int		pixel_is_in_window(int x, int y);
 
 void	draw_grid(t_img *img, int grid_size, int grid_color);
+
+//ray
+
+bool	create_array_ray(t_data *dt);
 
 #endif

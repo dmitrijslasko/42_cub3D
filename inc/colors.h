@@ -2,6 +2,7 @@
 # define COLORS_H
 
 # define TXT_GREEN		"\033[32m"
+# define TXT_YELLOW		"\033[33m"
 # define TXT_RESET		"\033[0m"
 
 // colors

@@ -6,12 +6,16 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 18:52:14 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/06 20:26:14 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SETTINGS_H
 # define SETTINGS_H
+
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 
 // window name
 # define WINDOW_NAME         "cub3d - fvargas & dmlasko @ 42Berlin"
@@ -53,11 +57,6 @@
 # define DEF_ISO_ROT_Z       0
 # define DEF_ISO_ANGLE   	30
 
-# define DEF_PROJECTION  	ISO
-# define DEF_ROTATE_STEP 	1
-# define DEF_KEY_OFFSET 		10
-# define DEF_Z_STEP 			0.5
-# define DEF_DRAG_LIM 		400
 
 // zoom settings
 # define MAX_ZOOM			5

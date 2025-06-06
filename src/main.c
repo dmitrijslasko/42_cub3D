@@ -23,6 +23,7 @@ void	add_ui(t_data *dt)
 int render(void *param)
 {
 	t_data *dt = (t_data *)param;
+	t_ray	*rays;
 
 	if (dt->win_ptr == NULL)
 		return (1);
@@ -30,6 +31,13 @@ int render(void *param)
 	draw_map(dt);
 	draw_grid(dt->img, DEF_GRID_SIZE, DEF_GRID_COLOR);
 	draw_player(dt);
+	printf(TXT_GREEN "← 1-Direction (-1, 0)\n" TXT_RESET);
+	//dt->player->direction_vet = get_values_x_y(-1, 0);
+	printf("Player position (X, Y): %f %f\n", dt->player->pos.x, dt->player->pos.y);
+	printf("Player orientation (deg): %f\n", dt->player->direction_vector_deg);
+	printf("Player direction vector X Y: %f %f\n", dt->player->direction_vet.x, dt->player->direction_vet.y);
+	rays = calculate_ray(*dt, dt->player->direction_vet);
+	free(rays);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);
 	return (0);
@@ -119,14 +127,14 @@ int	main(int argc, char **argv)
 	create_array_ray(dt);
 
 	// VISUAL PART
-	 setup_mlx_and_win(&dt);
-	 dt.img = protected_malloc(sizeof(t_img), dt);
-	 dt.player->direction_vector_deg = 0;
-	 //setup_view(&dt);
-	 setup_img(&dt);
-	 setup_hooks(&dt);
-	 //setup_mouse(&dt.mouse);
-	 mlx_loop_hook(dt.mlx_ptr, &render, &dt);
-	 mlx_loop(dt.mlx_ptr);
+	setup_mlx_and_win(&dt);
+	dt.img = protected_malloc(sizeof(t_img), dt);
+	dt.player->direction_vector_deg = 0;
+	//setup_view(&dt);
+	setup_img(&dt);
+	setup_hooks(&dt);
+	//setup_mouse(&dt.mouse);
+	mlx_loop_hook(dt.mlx_ptr, &render, &dt);
+	mlx_loop(dt.mlx_ptr);
 	return (0);
 }

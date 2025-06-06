@@ -61,7 +61,7 @@ typedef struct s_player
 	size_t	player_pos_y;
 	t_x_y	pos;
 	t_x_y	direction_vet;
-	size_t	direction_vector_deg;
+	double	direction_vector_deg;
 }	t_player;
 
 typedef struct s_mouse
@@ -127,6 +127,7 @@ void	draw_grid(t_img *img, int grid_size, int grid_color);
 
 //constructor_ray.c
 t_ray	*constructor_ray(double dist, t_type_wall wall);
+t_ray	*calculate_ray(t_data dt, t_x_y direction);
 
 void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool	create_array_ray(t_data dt);
@@ -150,5 +151,7 @@ t_x_y	get_values_x_y(double x, double y);
 void	set_values_x_y(t_x_y *new, double x, double y);
 t_coor	get_values_coor(int x, int y);
 void	set_value_coor(t_coor *new, int x, int y);
+
+void	draw_vert_line(t_data *data, t_coor pt_1, t_coor pt_2);
 
 #endif

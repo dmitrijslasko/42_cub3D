@@ -35,6 +35,7 @@ int render(void *param)
 	return (0);
 }
 
+// TODO: DL: rename curr_col to curr_row BECAUSE IT IS A ROW!
 t_map	*load_dummy_map(void)
 {
 	t_map	*map;
@@ -56,13 +57,12 @@ t_map	*load_dummy_map(void)
 		map->map_data[curr_col] = malloc((map->map_size_rows + 1) * sizeof(char));  // +1 for '\0'
 		if (!map->map_data[curr_col])
 			return (NULL); // ideally free previously malloc'd rows
-
-		if (i == 0 || i == map->map_size_rows - 1)
-			strcpy(map->map_data[i], DUMMY_MAP_TOP);
-		else if (i == 4)
-			strcpy(map->map_data[i], DUMMY_MAP_PLAYER);
+		if (curr_col == 0 || curr_col == map->map_size_rows - 1)
+			strcpy(map->map_data[curr_col], DUMMY_MAP_TOP);
+		else if (curr_col == 4)
+			strcpy(map->map_data[curr_col], DUMMY_MAP_PLAYER);
 		else
-			strcpy(map->map_data[i], DUMMY_MAP_MID);
+			strcpy(map->map_data[curr_col], DUMMY_MAP_MID);
 	}
 	return (map);
 }

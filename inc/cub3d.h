@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/05 22:18:25 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:51:27 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
+
+# include "../lib/libft/inc/libft.h"
 
 # include <mlx.h>
 # include <X11/X.h>
@@ -47,15 +49,15 @@ typedef struct s_coor
 
 typedef struct s_x_y
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }	t_x_y;
 
 typedef struct s_ray
 {
 	double		dist;
-	t_type_wall	type_wall;
 	double		perc_img;
+	t_type_wall	type_wall;
 }	t_ray;
 
 typedef struct s_map
@@ -135,6 +137,25 @@ void	draw_grid(t_img *img, int grid_size, int grid_color);
 
 //ray
 
-bool	create_array_ray(t_data *dt);
+//constructor_ray.c
+t_ray	*constructor_ray(double dist, t_type_wall wall, double perc_img);
+
+void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
+bool	create_array_ray(t_data dt);
+void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, \
+					t_x_y pos_player, t_x_y delta_dist);
+
+//calculate_var.c
+void	set_step(t_x_y *step, t_x_y dir_vec);
+
+//update_coor_player.c
+t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir);
+
+//x_y.c
+double	max_double(double a, double b);
+t_x_y	get_values_x_y(double x, double y);
+void	set_values_x_y(t_x_y *new, double x, double y);
+t_coor	get_values_coor(int x, int y);
+void	set_value_coor(t_coor *new, int x, int y);
 
 #endif

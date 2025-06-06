@@ -6,42 +6,17 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/05 22:12:24 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 13:41:23 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	check_hit_wall(t_coor pos, t_map map)
+bool	check_hit_wall(t_coor coord, t_map map)
 {
-	if (map.map_data[pos.x][pos.y] == '1')
+	if (map.map_data[coord.x][coord.y] == '1')
 		return (1);
 	return (0);
-}
-
-void	get_step_side(t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist, t_x_y *step, t_x_y *side_dist)
-{
-	if (dir_vec.x < 0)
-	{
-		step->x = -1;
-		side_dist->x = (pos_player.x - (int)pos_player.x) * delta_dist.x;
-	}
-	else
-	{
-		step->x = 1;
-		side_dist->x = ((int)pos_player.x + 1.0 - pos_player.x) * delta_dist.x;
-	}
-
-	if (dir_vec.y < 0)
-	{
-		step->y = -1;
-		side_dist->y = (pos_player.y - (int)pos_player.y) * delta_dist.y;
-	}
-	else
-	{
-		step->y = 1;
-		side_dist->y = ((int)pos_player.y + 1.0 - pos_player.y) * delta_dist.y;
-	}
 }
 
 t_type_wall	get_type_wall(char c, t_x_y direction)
@@ -55,27 +30,23 @@ t_type_wall	get_type_wall(char c, t_x_y direction)
 	return (WEST);
 }
 
-double	max_double(double a, double b)
+double	get_dist_wall(char c, t_x_y side_dist)
 {
-	if (a > b)
-		return (a);
-	return (b);
+	if (c == 'y')
+		return (side_dist.y);
+	return (side_dist.x);
 }
 
-void	hit_wall(t_data dt, t_x_y direction, t_x_y delta_dist, t_type_wall *type_wall, double *dist)
+t_ray	*create_ray(t_data dt, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_y	side_dist)
 {
-	t_x_y	step;
-	t_x_y	side_dist;
 	t_coor	coor;
 	char	c;
+	int		i;
 
+	i = 0;
 	c = 0;
-	coor.x = dt.player->pos.x;
-	coor.y = dt.player->pos.y;
-	get_step_side(direction, dt.player->pos, delta_dist, &step, &side_dist);
-	while (!check_hit_wall(coor, *dt.map) && \
-			(size_t)side_dist.x < dt.map->map_size_cols && \
-			(size_t)side_dist.y < dt.map->map_size_rows)
+	coor = get_updated_coor_player(dt.player->pos, direction);
+	while (!check_hit_wall(coor, *dt.map) && i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
 		if (side_dist.x < side_dist.y)
 		{
@@ -89,39 +60,57 @@ void	hit_wall(t_data dt, t_x_y direction, t_x_y delta_dist, t_type_wall *type_wa
 			coor.y += step.y;
 			c = 'y';
 		}
+		printf("        loop %d side_dist_x = %f and side_dist_y = %f in %c\n", ++i, side_dist.x, side_dist.y, c);
 	}
-	*dist = max_double(side_dist.x, side_dist.y);
-	*type_wall = get_type_wall(c, direction);
+	printf("        !HIT A WALL!\n");
+	return (constructor_ray(get_dist_wall(c, side_dist), get_type_wall(c, direction), 0));
 }
 
-t_x_y	get_delta_dist(t_x_y direction)
+void	print_ray(t_ray ray)
 {
+	printf("ray distance is %f \n", ray.dist);
+	printf("Wall type ");
+	if (ray.type_wall == NORTH)
+		printf("NORTH\n");
+	if (ray.type_wall == WEST)
+		printf("WEST\n");
+	if (ray.type_wall == EAST)
+		printf("EAST\n");
+	if (ray.type_wall == SOUTH)
+		printf("SOUTH\n");
+}
+
+t_ray	*calculate_ray(t_data dt, t_x_y direction)
+{
+	t_x_y	step;
+	t_x_y	side_dist;
 	t_x_y	delta_dist;
+	t_ray	*ray;
 
-	delta_dist.x = 0;
-	if (direction.x != 0)
-		delta_dist.x = fabs(1 / direction.x);
-	delta_dist.y = 0;
-	if (direction.y != 0)
-		delta_dist.y = fabs(1 / direction.y);
-	return (delta_dist);
-}
-
-t_ray	*create_ray(t_data *dt, t_x_y direction)
-{
-	t_x_y		delta_dist;
-	t_ray		*ray;
-
-	ray = malloc(sizeof(t_ray));
-	if (!ray)
-		return (NULL);
-	delta_dist = get_delta_dist(direction);
-	hit_wall(*dt, direction, delta_dist, &ray->type_wall, &ray->dist);
+	set_delta_dist(&delta_dist, direction);
+	printf("delta_x = %f and delta_y = %f\n", delta_dist.x, delta_dist.y);
+	set_step(&step, direction);
+	printf("step_x = %f and step_y = %f\n", step.x, step.y);
+	set_side_dist(&side_dist, direction, dt.player->pos, delta_dist);
+	printf("side_dist_x = %f and side_dist_y = %f\n", side_dist.x, side_dist.y);
+	ray = create_ray(dt, direction, delta_dist, step, side_dist);
+	print_ray(*ray);
 	return (ray);
 }
 
-bool	create_array_ray(t_data *dt)
+bool	create_array_ray(t_data dt)
 {
-	(void)dt;
+	printf("\nRAAAAAYS:\n");
+	printf("1-Direction (-1, 0)\n");
+	calculate_ray(dt, dt.player->direction_vet);
+	printf("\n\n");
+	printf("2-Direction (0, -1)\n");
+	calculate_ray(dt, get_values_x_y(0, -1));
+	printf("\n\n");
+	printf("3-Direction (-0.707, 0.707)\n");
+	calculate_ray(dt, get_values_x_y(-0.707, -0.707));
+	printf("\n\n");
+	printf("4-Direction (1, 0)\n");
+	calculate_ray(dt, get_values_x_y(1, 0));
 	return (0);
 }

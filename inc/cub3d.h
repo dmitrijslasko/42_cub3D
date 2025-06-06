@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 18:51:27 by dmlasko          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -62,7 +50,7 @@ typedef struct s_ray
 
 typedef struct s_map
 {
-	char 	**map_data;
+	char	**map_data;
 	size_t	map_size_rows;
 	size_t	map_size_cols;
 }	t_map;
@@ -138,7 +126,7 @@ void	draw_grid(t_img *img, int grid_size, int grid_color);
 //ray
 
 //constructor_ray.c
-t_ray	*constructor_ray(double dist, t_type_wall wall, double perc_img);
+t_ray	*constructor_ray(double dist, t_type_wall wall);
 
 void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool	create_array_ray(t_data dt);
@@ -149,7 +137,12 @@ void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, \
 void	set_step(t_x_y *step, t_x_y dir_vec);
 
 //update_coor_player.c
-t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir);
+t_coor	get_updated_coor_player_(t_coor coor, t_x_y dir, int signal);
+t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
+
+//percentage
+double	get_perc_wall(t_x_y pos_player, t_x_y direction, double dist_ray, \
+							t_type_wall type_wall);
 
 //x_y.c
 double	max_double(double a, double b);

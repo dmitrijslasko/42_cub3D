@@ -6,25 +6,43 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:38:17 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/06 13:38:54 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:44:43 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	update_coor_pos(int pos, double dir)
+int	update_coor_pos(int pos, double dir, int signal)
 {
-	if (dir > 0)
-		return (pos + 1);
+	if (signal > 0)
+	{
+		if (dir > 0)
+			return (pos + 1);
+	}
+	if (signal < 0)
+	{
+		if (dir < 0)
+			return (pos - 1);
+	}
 	return (pos);
 }
 
-t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir)
+t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir, int signal)
 {
 	int	x;
 	int	y;
 
-	x = update_coor_pos((int)pos.x, dir.x);
-	y = update_coor_pos((int)pos.y, dir.y);
+	x = update_coor_pos((int)pos.x, dir.x, signal);
+	y = update_coor_pos((int)pos.y, dir.y, signal);
+	return (get_values_coor(x, y));
+}
+
+t_coor	get_updated_coor_player_(t_coor coor, t_x_y dir, int signal)
+{
+	int	x;
+	int	y;
+
+	x = update_coor_pos(coor.x, dir.x, signal);
+	y = update_coor_pos(coor.y, dir.y, signal);
 	return (get_values_coor(x, y));
 }

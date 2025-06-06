@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 14:24:06 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 18:51:49 by dmlasko          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
 void	add_coor_info(t_data *dt)
@@ -58,15 +46,15 @@ t_map	*load_dummy_map(void)
 	map->map_size_rows = strlen(DUMMY_MAP_TOP);
 	map->map_size_cols = strlen(DUMMY_MAP_TOP);
 
-	map->map_data = malloc((map->map_size_rows + 1) * sizeof(char *));
+	map->map_data = malloc((map->map_size_cols + 1) * sizeof(char *));
 	if (!map->map_data)
 		return (NULL);
-	map->map_data[map->map_size_rows] = NULL;  // null-terminate row array
+	map->map_data[map->map_size_cols] = NULL;  // null-terminate row array
 
-	for (size_t i = 0; i < map->map_size_rows; i++)
+	for (size_t curr_col = 0; curr_col < map->map_size_cols; curr_col++)
 	{
-		map->map_data[i] = malloc((map->map_size_cols + 1) * sizeof(char));  // +1 for '\0'
-		if (!map->map_data[i])
+		map->map_data[curr_col] = malloc((map->map_size_rows + 1) * sizeof(char));  // +1 for '\0'
+		if (!map->map_data[curr_col])
 			return (NULL); // ideally free previously malloc'd rows
 
 		if (i == 0 || i == map->map_size_rows - 1)
@@ -84,24 +72,24 @@ void	print_map(t_map *map)
 {
 	if (!map || !map->map_data[0] || !map->map_data[0][0])
 		return ;
-	for (size_t i = 0; i < map->map_size_rows; i++)
+	for(size_t y = 0; y < map->map_size_cols; y++)
 	{
-		for(size_t j = 0; j < map->map_size_cols; j++)
-			printf("%c ", map->map_data[i][j]);
+		for (size_t x = 0; x < map->map_size_rows; x++)
+			printf("%c ", map->map_data[y][x]);
 		printf("\n");
 	}
 }
 
 void	initialize_player_position(t_player *player,t_map *map)
 {
-	for (size_t curr_row = 0; curr_row < map->map_size_rows; curr_row++)
+	for (size_t x = 0; x < map->map_size_rows; x++)
 	{
-		for(size_t curr_col = 0; curr_col < map->map_size_cols; curr_col++)
+		for(size_t y = 0; y < map->map_size_cols; y++)
 		{
-			if (map->map_data[curr_row][curr_col] == 'N')
+			if (map->map_data[y][x] == 'N')
 			{
-				player->pos.x = curr_col + 0.5;
-				player->pos.y = curr_row + 0.5;
+				player->pos.x = x + 0.5;
+				player->pos.y = y + 0.5;
 				player->direction_vet.x = -1;
 				player->direction_vet.y = 0;
 			}

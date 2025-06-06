@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 10:29:34 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/04 16:39:01 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/06 17:18:36 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLORS_H
 # define COLORS_H
+
+# define TXT_GREEN		"\033[32m"
+# define TXT_RESET		"\033[0m"
 
 // colors
 # define BLACK		0x000000

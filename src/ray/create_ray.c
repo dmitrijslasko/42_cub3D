@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/05 22:12:24 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 10:31:28 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	check_hit_wall(t_coor pos, t_map map)
 	return (0);
 }
 
-void	get_step_side(t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist, t_x_y *step, t_x_y *side_dist)
+void	set_step_side(t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist, t_x_y *step, t_x_y *side_dist)
 {
 	if (dir_vec.x < 0)
 	{
@@ -55,13 +55,6 @@ t_type_wall	get_type_wall(char c, t_x_y direction)
 	return (WEST);
 }
 
-double	max_double(double a, double b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
 void	hit_wall(t_data dt, t_x_y direction, t_x_y delta_dist, t_type_wall *type_wall, double *dist)
 {
 	t_x_y	step;
@@ -70,9 +63,8 @@ void	hit_wall(t_data dt, t_x_y direction, t_x_y delta_dist, t_type_wall *type_wa
 	char	c;
 
 	c = 0;
-	coor.x = dt.player->pos.x;
-	coor.y = dt.player->pos.y;
-	get_step_side(direction, dt.player->pos, delta_dist, &step, &side_dist);
+	set_value_coor(&coor, dt.player->pos.x, dt.player->pos.y);
+	set_step_side(direction, dt.player->pos, delta_dist, &step, &side_dist);
 	while (!check_hit_wall(coor, *dt.map) && \
 			(size_t)side_dist.x < dt.map->map_size_cols && \
 			(size_t)side_dist.y < dt.map->map_size_rows)

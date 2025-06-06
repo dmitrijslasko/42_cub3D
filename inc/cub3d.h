@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:25:10 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/05 22:18:25 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 10:25:56 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_coor
 
 typedef struct s_x_y
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }	t_x_y;
 
 typedef struct s_ray
@@ -136,5 +136,10 @@ void	draw_grid(t_img *img, int grid_size, int grid_color);
 //ray
 
 bool	create_array_ray(t_data *dt);
+
+//x_y.c
+double	max_double(double a, double b);
+void	set_values_x_y(t_x_y *new, double x, double y);
+void	set_value_coor(t_coor *new, double x, double y);
 
 #endif

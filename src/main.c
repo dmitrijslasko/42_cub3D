@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:24:06 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/05 22:22:25 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 11:41:25 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int	main(int argc, char **argv)
 	dt.player = get_player(dt);
 	// initialize_player_position(dt.player, dt.map); // talk about this option!
 	printf("Player position: %f %f\n", dt.player->pos.x, dt.player->pos.y);
+	create_array_ray(dt);
 	// VISUAL PART
 	// setup_mlx_and_win(&dt);
 	// dt.img = protected_malloc(sizeof(t_img), &dt);

@@ -142,9 +142,12 @@ void	set_step(t_x_y *step, t_x_y dir_vec);
 t_coor	get_updated_coor_player_(t_coor coor, t_x_y dir, int signal);
 t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
 
-//percentage
+//percentage_wall.c
 double	get_perc_wall(t_x_y pos_player, t_x_y direction, double dist_ray, \
 							t_type_wall type_wall);
+
+//type_wall.c
+t_type_wall	get_type_wall(char c, t_x_y direction);
 
 //x_y.c
 double	max_double(double a, double b);

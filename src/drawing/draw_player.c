@@ -6,7 +6,7 @@ void draw_vector_line(t_data *dt, t_coor origin, t_x_y dir)
 
 	end.x = origin.x + dir.x * DEF_GRID_SIZE * 5;
 	end.y = origin.y + dir.y * DEF_GRID_SIZE * 5;
-	draw_line(dt, origin, end, RED);
+	draw_line(dt, origin, end, YELLOW);
 }
 
 int set_coor_values(t_coor *coor, int x, int y)

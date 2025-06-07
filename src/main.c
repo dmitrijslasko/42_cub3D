@@ -23,6 +23,7 @@ void	add_ui(t_data *dt)
 int render(void *param)
 {
 	t_data *dt = (t_data *)param;
+	t_ray	*rays;
 
 	if (dt->win_ptr == NULL)
 		return (1);
@@ -30,6 +31,13 @@ int render(void *param)
 	draw_map(dt);
 	draw_grid(dt->img, DEF_GRID_SIZE, DEF_GRID_COLOR);
 	draw_player(dt);
+	printf("\n--------------------------------\n");
+	printf(TXT_GREEN "← 1-Direction (-1, 0)\n" TXT_RESET);
+	printf("Player position (X, Y): %f %f\n", dt->player->pos.x, dt->player->pos.y);
+	printf("Player orientation (deg): %f\n", dt->player->direction_vet_deg);
+	printf("Player direction vector X Y: %f %f\n", dt->player->direction_vet.x, dt->player->direction_vet.y);
+	rays = calculate_ray(*dt, dt->player->direction_vet);
+	free(rays);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);
 	return (0);
@@ -47,14 +55,14 @@ t_map	*load_dummy_map(void)
 	map->map_size_rows = strlen(DUMMY_MAP_TOP);
 	map->map_size_cols = strlen(DUMMY_MAP_TOP);
 
-	map->map_data = malloc((map->map_size_cols + 1) * sizeof(char *));
+	map->map_data = malloc((map->map_size_cols) * sizeof(char *));
 	if (!map->map_data)
 		return (NULL);
 	map->map_data[map->map_size_cols] = NULL;  // null-terminate row array
 
 	for (size_t curr_col = 0; curr_col < map->map_size_cols; curr_col++)
 	{
-		map->map_data[curr_col] = malloc((map->map_size_rows + 1) * sizeof(char));  // +1 for '\0'
+		map->map_data[curr_col] = malloc((map->map_size_rows) * sizeof(char));  // +1 for '\0'
 		if (!map->map_data[curr_col])
 			return (NULL); // ideally free previously malloc'd rows
 		if (curr_col == 0 || curr_col == map->map_size_rows - 1)
@@ -63,7 +71,8 @@ t_map	*load_dummy_map(void)
 			strcpy(map->map_data[curr_col], DUMMY_MAP_PLAYER);
 		else
 			strcpy(map->map_data[curr_col], DUMMY_MAP_MID);
-	}
+		}
+	map->map_data[5][3] = '1';
 	return (map);
 }
 
@@ -90,8 +99,8 @@ void	initialize_player_position(t_player *player,t_map *map)
 			{
 				player->pos.x = x + 0.5;
 				player->pos.y = y + 0.5;
-				player->direction_vet.x = -1;
-				player->direction_vet.y = 0;
+				player->direction_vet.x = 0;
+				player->direction_vet.y = -1;
 			}
 		}
 	}
@@ -119,14 +128,14 @@ int	main(int argc, char **argv)
 	create_array_ray(dt);
 
 	// VISUAL PART
-	 setup_mlx_and_win(&dt);
-	 dt.img = protected_malloc(sizeof(t_img), dt);
-	 dt.player->direction_vector_deg = 0;
-	 //setup_view(&dt);
-	 setup_img(&dt);
-	 setup_hooks(&dt);
-	 //setup_mouse(&dt.mouse);
-	 mlx_loop_hook(dt.mlx_ptr, &render, &dt);
-	 mlx_loop(dt.mlx_ptr);
+	setup_mlx_and_win(&dt);
+	dt.img = protected_malloc(sizeof(t_img), dt);
+	dt.player->direction_vet_deg = 0;
+	//setup_view(&dt);
+	setup_img(&dt);
+	setup_hooks(&dt);
+	//setup_mouse(&dt.mouse);
+	mlx_loop_hook(dt.mlx_ptr, &render, &dt);
+	mlx_loop(dt.mlx_ptr);
 	return (0);
 }

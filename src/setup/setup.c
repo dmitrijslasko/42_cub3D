@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/06 18:50:50 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/06 23:52:08 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	close_window(void)
 
 int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 {
-	if (map->map_data[row][col] != '1')
+	// printf("Checking r_c: %ld %ld = %c\n", row, col, map->map_data[row][col]);
+	if (map->map_data[col][row] != '1')
 		return (1);
 	return (0);
 }
@@ -41,9 +42,10 @@ int set_player_position(t_data *dt, double dx, double dy)
 	double new_x;
 	double new_y;
 
-	player_pos = &dt->player->pos;
+	player_pos = &(dt->player->pos);
 	new_x = player_pos->x + dx;
 	new_y = player_pos->y + dy;
+	// puts("Setting player position...");
 	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
 		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))
 	{
@@ -51,6 +53,32 @@ int set_player_position(t_data *dt, double dx, double dy)
 		player_pos->y = new_y;
 	}
 	return (0);
+}
+
+// Rotate both direction and camera plane
+double	deg_to_rad(double angle)
+{
+	return (angle * M_PI / 180.0);
+}
+void rotate_player(t_data *dt, double d_angle)
+{
+    double angle_rad = deg_to_rad(d_angle);
+    double old_dir_x = dt->player->direction_vet.x;
+    double old_dir_y = dt->player->direction_vet.y;
+
+    // Rotate direction vector using rotation matrix
+    dt->player->direction_vet.x = old_dir_x * cos(angle_rad) - old_dir_y * sin(angle_rad);
+    dt->player->direction_vet.y = old_dir_x * sin(angle_rad) + old_dir_y * cos(angle_rad);
+
+	// Optional: also rotate camera plane vector if you're using raycasting
+    // (same matrix applied to plane_x, plane_y if they exist)
+
+    // Update stored angle, keeping it between 0 and 359
+    dt->player->direction_vet_deg += d_angle;
+    if (dt->player->direction_vet_deg >= 360.0)
+        dt->player->direction_vet_deg -= 360.0;
+    else if (dt->player->direction_vet_deg < 0.0)
+        dt->player->direction_vet_deg += 360.0;
 }
 
 int	handle_keypress(int key, t_data *dt)
@@ -69,15 +97,9 @@ int	handle_keypress(int key, t_data *dt)
 	if (key == XK_d)
 		set_player_position(dt, PLAYER_STEP, 0);
 	if (key == XK_Left)
-	{
-		dt->player->direction_vector_deg -= PLAYER_ROTATION_STEP;
-		dt->player->direction_vector_deg = dt->player->direction_vector_deg % 360;
-	}
+		rotate_player(dt, -PLAYER_ROTATION_STEP);
 	if (key == XK_Right)
-	{
-		dt->player->direction_vector_deg += PLAYER_ROTATION_STEP;
-		dt->player->direction_vector_deg = dt->player->direction_vector_deg % 360;
-	}
+		rotate_player(dt, PLAYER_ROTATION_STEP);
 	return (0);
 }
 

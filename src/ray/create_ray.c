@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/06 18:46:08 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/06 23:54:08 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_ray	*create_ray(t_data dt, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_
 	coor_map = get_updated_coor_player_(coor_map, direction, -1);
 	while (!check_hit_wall(coor_map, *dt.map) && i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
-		printf(" coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
+		//printf(" coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
 		if (side_dist.x < side_dist.y)
 		{
 			side_dist.x += delta_dist.x;
@@ -70,10 +70,10 @@ t_ray	*create_ray(t_data dt, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_
 			coor_map.y += step.y;
 			c = 'y';
 		}
-		printf("        loop %d side_dist_x = %f and side_dist_y = %f in %c\n", ++i, side_dist.x, side_dist.y, c);
-		printf("        coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
+		//printf("        loop %d side_dist_x = %f and side_dist_y = %f in %c\n", ++i, side_dist.x, side_dist.y, c);
+		//printf("        coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
 	}
-	printf("        !HIT A WALL!\n");
+	printf(TXT_YELLOW ">>>>>>>>>>> HIT A WALL!\n" TXT_RESET);
 	ray = constructor_ray(get_dist_wall(c, side_dist), get_type_wall(c, direction));
 	ray->perc_img = get_perc_wall(dt.player->pos, direction, ray->dist, ray->type_wall);
 	return (ray);

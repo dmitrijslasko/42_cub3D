@@ -61,7 +61,7 @@ typedef struct s_player
 	size_t	player_pos_y;
 	t_x_y	pos;
 	t_x_y	direction_vet;
-	double	direction_vector_deg;
+	double	direction_vet_deg;
 }	t_player;
 
 typedef struct s_mouse
@@ -110,8 +110,9 @@ int		setup_img(t_data *dt);
 
 void	img_pix_put(t_img *img, int x, int y, int clr);
 void	draw_square(t_data *data, int x, int y, int size, int clr);
+void	draw_circle(t_data *data, int x, int y, int radius, int clr);
 void	draw_background(t_img *img, int clr);
-void	draw_sloped_line(t_data *dt, t_coor pt_1, t_coor pt_2);
+void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
 
 int		draw_player(t_data *dt);
 int		draw_map(t_data *dt);
@@ -152,6 +153,6 @@ void	set_values_x_y(t_x_y *new, double x, double y);
 t_coor	get_values_coor(int x, int y);
 void	set_value_coor(t_coor *new, int x, int y);
 
-void	draw_vert_line(t_data *data, t_coor pt_1, t_coor pt_2);
+void	draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
 
 #endif

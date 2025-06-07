@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/06 20:11:18 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/06 23:54:08 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ t_ray	*calculate_ray(t_data dt, t_x_y direction)
 	t_ray	*ray;
 
 	set_delta_dist(&delta_dist, direction);
-	//printf("delta_x = %f and delta_y = %f\n", delta_dist.x, delta_dist.y);
+	printf("delta_x = %f and delta_y = %f\n", delta_dist.x, delta_dist.y);
 	set_step(&step, direction);
-	//printf("step_x = %f and step_y = %f\n", step.x, step.y);
+	printf("step_x = %f and step_y = %f\n", step.x, step.y);
 	set_side_dist(&side_dist, direction, dt.player->pos, delta_dist);
-	//printf("side_dist_x = %f and side_dist_y = %f\n", side_dist.x, side_dist.y);
+	printf("side_dist_x = %f and side_dist_y = %f\n", side_dist.x, side_dist.y);
 	ray = create_ray(dt, direction, delta_dist, step, side_dist);
 	print_ray(*ray);
 	return (ray);

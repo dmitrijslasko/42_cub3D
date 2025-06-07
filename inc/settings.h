@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 20:26:14 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/06 23:52:06 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 # define XY_DIST    100
 # define Z_DIST 	1
 # define PLAYER_STEP	0.5f
-# define PLAYER_ROTATION_STEP 1
-# define PLAYER_SIZE_PX 20
+# define PLAYER_ROTATION_STEP 5
+# define PLAYER_SIZE_PX 10
 # define PLAYER_COLOR 	WHITE
 #define MIN_DISTANCE_TO_WALL 0.1f
 

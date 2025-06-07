@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/07 16:01:37 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/07 16:19:58 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // window size
 # define WINDOW_W 	1200
 # define WINDOW_H 	900
-# define DEF_GRID_SIZE	40
+# define DEF_GRID_SIZE	30
 # define DEF_GRID_COLOR	GREY
 
 # define CASTED_RAYS_COUNT	WINDOW_W

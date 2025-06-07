@@ -154,5 +154,6 @@ t_coor	get_values_coor(int x, int y);
 void	set_value_coor(t_coor *new, int x, int y);
 
 void	draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
+void	draw_vector(t_data *dt, t_coor origin, t_x_y dir, int stop_at_wall);
 
 #endif

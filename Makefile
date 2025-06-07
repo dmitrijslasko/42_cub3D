@@ -127,7 +127,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 # COMPILATION FLAGS
 CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 CFLAGS += -I$(INC_DIR)
-CFLAGS += -Wno-unused-but-set-variable
+#CFLAGS += -Wno-unused-but-set-variable
 
 # LINKER FLAGS
 LDFLAGS = -L$(LIBFT_DIR) -lft

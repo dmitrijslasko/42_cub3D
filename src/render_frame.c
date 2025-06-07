@@ -8,14 +8,15 @@ void render_3d(t_data *dt)
 	t_coor	start;
 	t_coor	end;
 	int		center_y = WINDOW_H / 2;
+	int color;
 
 	draw_background(dt->img, C_COLOR);
 	draw_square(dt, WINDOW_W/2, WINDOW_H + 200, WINDOW_W, F_COLOR);
 	i = 0;
 	while (i < WINDOW_W)
 	{
-		height = dt->rays[i].distance_to_wall;
-		int wall_height = height * 10; // Tune this value as needed
+		height = 1 / dt->rays[i].distance_to_wall;
+		int wall_height = height * 400; // Tune this value as needed
 
 		int top_y = center_y - wall_height;
 		int bottom_y = center_y + wall_height;
@@ -23,7 +24,15 @@ void render_3d(t_data *dt)
 		// Draw the wall segment (centered vertically)
 		set_coor_values(&start, i, top_y);
 		set_coor_values(&end, i, bottom_y);
-		draw_vertical_line(dt, start, end, W_COLOR);
+		if (dt->rays[i].wall_type == NORTH)
+			color = NAVY;
+		else if (dt->rays[i].wall_type == SOUTH)
+			color = PURPLE;
+		else if (dt->rays[i].wall_type == EAST)
+			color = GOLD;
+		else
+			color = BROWN;
+		draw_vertical_line(dt, start, end, color);
 
 		i++;
 	}

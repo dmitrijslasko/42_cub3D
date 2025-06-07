@@ -21,7 +21,7 @@ void	draw_vector(t_data *dt, t_coor origin, t_x_y dir, int stop_at_wall)
 		curr.x = (int)pos.x;
 		curr.y = (int)pos.y;
 
-		if (length > 0) // skip first point
+		if (length > 0)
 			draw_line(dt, prev, curr, YELLOW);
 
 		pos.x += dir.x * step_size;

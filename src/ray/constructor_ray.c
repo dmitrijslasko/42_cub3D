@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constructor_ray.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:40:17 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/06 15:44:13 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/06/07 14:32:25 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_ray	*constructor_ray(double dist, t_type_wall wall)
 	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		return (NULL);
-	ray->dist = dist;
-	ray->type_wall = wall;
-	ray->perc_img = 0;
+	ray->distance_to_wall = dist;
+	ray->wall_type = wall;
+	ray->percentage_of_image = 0;
 	return (ray);
 }

@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/06 23:52:08 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/07 13:20:25 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	close_window(void)
 	exit(0);
 }
 
+// TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
 int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 {
 	// printf("Checking r_c: %ld %ld = %c\n", row, col, map->map_data[row][col]);

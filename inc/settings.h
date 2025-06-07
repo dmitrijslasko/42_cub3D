@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 23:52:06 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/07 16:01:37 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+
+# define SHOW_RAY_CALCULATION_LOG	1
 
 // window name
 # define WINDOW_NAME         "cub3d - fvargas & dmlasko @ 42Berlin"
@@ -27,19 +29,27 @@
 # define DEF_GRID_SIZE	40
 # define DEF_GRID_COLOR	GREY
 
+# define CASTED_RAYS_COUNT	WINDOW_W
 // dummy map
 # define DUMMY_MAP_TOP		"111111111111"
 # define DUMMY_MAP_MID		"100000000001"
 # define DUMMY_MAP_PLAYER	"1000000N0001"
+
+# define FIELD_OF_VIEW_DEG		120.0f
+
+// colors
+# define C_COLOR	BLUE
+# define F_COLOR	GREEN
+# define W_COLOR	PINK
 
 // default scale
 # define X_CENTER 	600
 # define Y_CENTER 	450
 # define XY_DIST    100
 # define Z_DIST 	1
-# define PLAYER_STEP	0.5f
-# define PLAYER_ROTATION_STEP 5
-# define PLAYER_SIZE_PX 10
+# define PLAYER_STEP	0.2f
+# define PLAYER_ROTATION_STEP 1
+# define PLAYER_SIZE_PX 8
 # define PLAYER_COLOR 	WHITE
 #define MIN_DISTANCE_TO_WALL 0.1f
 
@@ -50,13 +60,9 @@
 // colors
 # define DEF_BG_COLOR		BLACK
 
-
-// default rotation (degrees)
-# define DEF_ISO_ROT_X		0
-# define DEF_ISO_ROT_Y		0
-# define DEF_ISO_ROT_Z       0
-# define DEF_ISO_ANGLE   	30
-
+// separator
+# define DEF_SEPARATOR_CHAR		"-"
+# define DEF_SEPARATOR_WIDTH	80
 
 // zoom settings
 # define MAX_ZOOM			5

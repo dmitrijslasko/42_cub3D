@@ -6,18 +6,11 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/06 23:54:08 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/07 15:58:39 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	check_hit_wall(t_coor coord, t_map map)
-{
-	if (map.map_data[coord.y][coord.x] == '1')
-		return (1);
-	return (0);
-}
 
 t_type_wall	get_type_wall(char c, t_x_y direction)
 {
@@ -44,9 +37,9 @@ char	initialize_wall_hit(t_x_y side_dist)
 	return ('y');
 }
 
-t_ray	*create_ray(t_data dt, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_y	side_dist)
+void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_y	side_dist)
 {
-	t_ray	*ray;
+	//t_ray	*ray;
 	t_coor	coor_map;
 	char	c;
 	int		i;
@@ -57,7 +50,6 @@ t_ray	*create_ray(t_data dt, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_
 	coor_map = get_updated_coor_player_(coor_map, direction, -1);
 	while (!check_hit_wall(coor_map, *dt.map) && i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
-		//printf(" coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
 		if (side_dist.x < side_dist.y)
 		{
 			side_dist.x += delta_dist.x;
@@ -70,67 +62,66 @@ t_ray	*create_ray(t_data dt, t_x_y direction, t_x_y delta_dist, t_x_y	step, t_x_
 			coor_map.y += step.y;
 			c = 'y';
 		}
-		//printf("        loop %d side_dist_x = %f and side_dist_y = %f in %c\n", ++i, side_dist.x, side_dist.y, c);
-		//printf("        coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
 	}
-	printf(TXT_YELLOW ">>>>>>>>>>> HIT A WALL!\n" TXT_RESET);
-	ray = constructor_ray(get_dist_wall(c, side_dist), get_type_wall(c, direction));
-	ray->perc_img = get_perc_wall(dt.player->pos, direction, ray->dist, ray->type_wall);
-	return (ray);
+	ray->distance_to_wall = get_dist_wall(c, side_dist);
+	ray->wall_type = get_type_wall(c, direction);
+	ray->percentage_of_image = get_perc_wall(dt.player->pos, direction, ray->distance_to_wall, ray->wall_type);
 }
 
-void	print_ray(t_ray ray)
-{
-	printf("ray distance is %f \n", ray.dist);
-	printf("Wall type ");
-	if (ray.type_wall == NORTH)
-		printf("NORTH\n");
-	if (ray.type_wall == WEST)
-		printf("WEST\n");
-	if (ray.type_wall == EAST)
-		printf("EAST\n");
-	if (ray.type_wall == SOUTH)
-		printf("SOUTH\n");
-	printf("ray has %f percentage \n", ray.perc_img);
-}
-
-t_ray	*calculate_ray(t_data dt, t_x_y direction)
+void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)
 {
 	t_x_y	step;
 	t_x_y	side_dist;
 	t_x_y	delta_dist;
-	t_ray	*ray;
 
+	// Delta distance
 	set_delta_dist(&delta_dist, direction);
-	printf("delta_x = %f and delta_y = %f\n", delta_dist.x, delta_dist.y);
+	//printf("delta_x = %f and delta_y = %f\n", delta_dist.x, delta_dist.y);
+
+	// Step
 	set_step(&step, direction);
-	printf("step_x = %f and step_y = %f\n", step.x, step.y);
-	set_side_dist(&side_dist, direction, dt.player->pos, delta_dist);
-	printf("side_dist_x = %f and side_dist_y = %f\n", side_dist.x, side_dist.y);
-	ray = create_ray(dt, direction, delta_dist, step, side_dist);
-	print_ray(*ray);
-	return (ray);
+	//printf("step_x = %f and step_y = %f\n", step.x, step.y);
+
+	// Step distance
+	set_side_dist(&side_dist, direction, dt->player->pos, delta_dist);
+	//printf("side_dist_x = %f and side_dist_y = %f\n", side_dist.x, side_dist.y);
+
+	// Create ray & print out its information
+	update_ray(*dt, ray, direction, delta_dist, step, side_dist);
+	//print_single_ray_info(*ray);
 }
 
-bool	create_array_ray(t_data dt)
+t_ray	*calculate_all_rays(t_data *dt)
 {
-	printf("map[%d][%d] = %c\n", 1, 4,  dt.map->map_data[1][4]);
-	printf("map[%d][%d] = %c\n", 4, 1,  dt.map->map_data[4][1]);
-	printf("\nRAAAAAYS: \n");
-	printf(TXT_GREEN "← 1-Direction (-1, 0)\n" TXT_RESET);
-	calculate_ray(dt, dt.player->direction_vet);
-	printf("\n\n");
-	printf(TXT_GREEN"→ 2-Direction (1, 0)\n"TXT_RESET);
-	calculate_ray(dt, get_values_x_y(1, 0));
-	printf("\n\n");
-	printf(TXT_GREEN"↑ 3-Direction (0, -1)\n"TXT_RESET);
-	calculate_ray(dt, get_values_x_y(0, -1));
-	printf("\n\n");
-	printf(TXT_GREEN"↓ 4-Direction (0, 1)\n"TXT_RESET);
-	calculate_ray(dt, get_values_x_y(0, 1));
-	printf("\n\n");
-	printf(TXT_GREEN"↙ 5-Direction (-0.707, 0.707)\n"TXT_RESET);
-	calculate_ray(dt, get_values_x_y(-0.707, -0.707));
-	printf("\n\n");
-	return (0);
+	size_t	i;
+	t_x_y 	vet;
+	double	angle;
+	t_coor pt1;
+
+	printf(TXT_GREEN "Calculating all rays...\n" TXT_RESET);
+
+	set_coor_values(&pt1, dt->player->pos.x * DEF_GRID_SIZE, dt->player->pos.y * DEF_GRID_SIZE);
+
+	i = 0;
+
+	angle = -FIELD_OF_VIEW_DEG / 2;
+	while (i < CASTED_RAYS_COUNT)
+	{
+		vet = rotate_vector(dt->player->direction_vet, angle);
+		//printf("Ray #%zu: angle = %f, X Y = %f %f\n", i, angle, vet.x, vet.y);
+		update_single_ray(dt, &dt->rays[i], vet);
+		if (i == CASTED_RAYS_COUNT / 2)
+			printf("Ray distance: %f\n", dt->rays[i].distance_to_wall);
+		draw_vector(dt, pt1, vet, 1);
+		angle += FIELD_OF_VIEW_DEG / (CASTED_RAYS_COUNT);
+		i++;
+	}
+
+	// direction vector
+	t_x_y vet2 = rotate_vector(dt->player->direction_vet, 0);
+	t_coor origin = get_values_coor(dt->player->pos.x * DEF_GRID_SIZE, dt->player->pos.y * DEF_GRID_SIZE);
+	draw_vector(dt, origin, vet2, 0);
+
+	return (dt->rays);
 }
+

@@ -43,9 +43,9 @@ typedef struct s_x_y
 
 typedef struct s_ray
 {
-	double		dist;
-	double		perc_img;
-	t_type_wall	type_wall;
+	double		distance_to_wall;
+	double		percentage_of_image;
+	t_type_wall	wall_type;
 }	t_ray;
 
 typedef struct s_map
@@ -94,12 +94,11 @@ typedef struct s_data
 	void		*win_ptr;
 	t_img		*img;
 	t_map		*map;
+	t_ray		*rays;
 	t_player	*player;
 	t_view		*view;
 	t_mouse		*mouse;
-	//int		needs_update;
 	void		*welcome_img;
-
 }	t_data;
 
 // prototypes
@@ -128,12 +127,11 @@ void	draw_grid(t_img *img, int grid_size, int grid_color);
 
 //constructor_ray.c
 t_ray	*constructor_ray(double dist, t_type_wall wall);
-t_ray	*calculate_ray(t_data dt, t_x_y direction);
+t_ray	*calculate_single_ray(t_data dt, t_x_y direction);
 
 void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
-bool	create_array_ray(t_data dt);
-void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, \
-					t_x_y pos_player, t_x_y delta_dist);
+bool	initialize_rays(t_data *dt);
+void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist);
 
 //calculate_var.c
 void	set_step(t_x_y *step, t_x_y dir_vec);
@@ -155,5 +153,30 @@ void	set_value_coor(t_coor *new, int x, int y);
 
 void	draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
 void	draw_vector(t_data *dt, t_coor origin, t_x_y dir, int stop_at_wall);
+
+// utils
+void	print_separator(size_t count, char *c);
+
+t_map	*load_dummy_map(void);
+
+void	print_map(t_map *map);
+
+int		render_frame(void *param);
+
+void	add_ui(t_data *dt);
+
+t_player *get_player(t_data dt);
+
+t_ray	*calculate_all_rays(t_data *dt);
+
+bool	check_hit_wall(t_coor coord, t_map map);
+
+void	print_single_ray_info(t_ray ray);
+
+double	deg_to_rad(double angle);
+
+int set_coor_values(t_coor *coor, int x, int y);
+
+t_x_y rotate_vector(t_x_y vet, float angle_degrees);
 
 #endif

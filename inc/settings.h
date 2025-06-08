@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/08 19:44:58 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/08 20:25:58 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # define VERSION_INFO        "cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
-# define WINDOW_W 	1000
+# define WINDOW_W 	600
 # define WINDOW_H 	WINDOW_W / 4 * 3
+
+# define TRACKED_KEYS 70000
 
 // fps and casted rays count
 #define FPS					24
@@ -58,7 +60,7 @@
 # define DEF_WALL_COLOR			PINK
 
 // default scale
-# define PLAYER_STEP			0.25f
+# define PLAYER_STEP			0.05f
 # define PLAYER_ROTATION_STEP 	2.0f
 # define MIN_DISTANCE_TO_WALL	0.0f
 

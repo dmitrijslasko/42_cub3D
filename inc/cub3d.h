@@ -102,6 +102,7 @@ typedef struct s_data
 	t_player	*player;
 	t_view		*view;
 	t_mouse		*mouse;
+	int 		keys[TRACKED_KEYS];
 	void		*welcome_img;
 }	t_data;
 
@@ -129,6 +130,10 @@ void	swap(void *a, void *b, size_t size);
 int		pixel_is_in_window(int x, int y);
 
 void	draw_minimap_grid(t_data *dt);
+
+int 	move_sideways(t_data *dt, int direction);
+int 	move_forward_backward(t_data *dt, int direction);
+void 	rotate_player(t_data *dt, double d_angle);
 
 //ray
 

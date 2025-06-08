@@ -11,6 +11,12 @@ int	main(int argc, char **argv)
 	dt.map = load_dummy_map();
 	print_map(dt.map);
 
+	size_t i = 0;
+	while (i < TRACKED_KEYS)
+	{
+		dt.keys[i] = 0;
+		i++;
+	}
 	dt.player = get_player(dt);
 
 	// Initialize ray array. Later the rays get updated in render function.

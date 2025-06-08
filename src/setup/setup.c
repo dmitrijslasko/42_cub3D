@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/08 18:30:49 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/08 20:26:24 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ double	deg_to_rad(double angle)
 }
 void rotate_player(t_data *dt, double d_angle)
 {
-    double angle_rad = deg_to_rad(d_angle);
+    double angle_rad = deg_to_rad(d_angle * PLAYER_ROTATION_STEP);
     double old_dir_x = dt->player->direction_vector.x;
     double old_dir_y = dt->player->direction_vector.y;
 
@@ -84,31 +84,88 @@ void rotate_player(t_data *dt, double d_angle)
         dt->player->direction_vector_deg += 360.0;
 }
 
-int	handle_keypress(int key, t_data *dt)
+int move_forward_backward(t_data *dt, int direction)
 {
-	if (key == ESC_BUTTON)
+	t_x_y *player_pos;
+	double new_x;
+	double new_y;
+
+	player_pos = &(dt->player->pos);
+
+	printf("Setting player position...\n");
+	printf("Player orientation vector: %f %f\n",
+		dt->player->direction_vector.x,
+		dt->player->direction_vector.y);
+
+	// Calculate new position
+	new_x = player_pos->x + dt->player->direction_vector.x * PLAYER_STEP * direction;
+	new_y = player_pos->y + dt->player->direction_vector.y * PLAYER_STEP * direction;
+
+	if (map_position_is_walkable(dt->map, new_x, new_y))
 	{
-		keypress_exit(key, dt);
+		player_pos->x = new_x;
+		player_pos->y = new_y;
+	}
+
+	printf("New player position: %f %f\n", player_pos->x, player_pos->y);
+
+	return (EXIT_SUCCESS);
+}
+
+int move_sideways(t_data *dt, int direction)
+{
+	t_x_y *player_pos;
+	double new_x;
+	double new_y;
+	t_x_y	rotated_vector;
+
+	player_pos = &(dt->player->pos);
+
+	printf("Setting player position...\n");
+	printf("Player orientation vector: %f %f\n",
+		dt->player->direction_vector.x,
+		dt->player->direction_vector.y);
+
+	rotated_vector = rotate_vector(dt->player->direction_vector, 90.0f * direction);
+	// Calculate new position
+	new_x = player_pos->x + rotated_vector.x * PLAYER_STEP;
+	new_y = player_pos->y + rotated_vector.y * PLAYER_STEP;
+
+	if (map_position_is_walkable(dt->map, new_x, new_y))
+	{
+		player_pos->x = new_x;
+		player_pos->y = new_y;
+	}
+
+	printf("New player position: %f %f\n", player_pos->x, player_pos->y);
+
+	return (EXIT_SUCCESS);
+}
+
+int	handle_keypress(int keycode, t_data *dt)
+{
+	if (keycode == ESC_BUTTON)
+	{
+		keypress_exit(keycode, dt);
 		close_window();
 	}
-	if (key == XK_w)
-		set_player_position(dt, 0, -PLAYER_STEP);
-	if (key == XK_a)
-		set_player_position(dt, -PLAYER_STEP, 0);
-	if (key == XK_s)
-		set_player_position(dt, 0, PLAYER_STEP);
-	if (key == XK_d)
-		set_player_position(dt, PLAYER_STEP, 0);
-	if (key == XK_Left)
-		rotate_player(dt, -PLAYER_ROTATION_STEP);
-	if (key == XK_Right)
-		rotate_player(dt, PLAYER_ROTATION_STEP);
+	printf("Pressed keycode: %d\n", keycode);
+	if (keycode >= 0 && keycode < TRACKED_KEYS)
+		dt->keys[keycode] = 1;
+	return (0);
+}
+
+int	handle_keyrelease(int keycode, t_data *dt)
+{
+	if (keycode >= 0 && keycode < TRACKED_KEYS)
+		dt->keys[keycode] = 0;
 	return (0);
 }
 
 void	setup_hooks(t_data *data)
 {
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, handle_keypress, data);
+	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, data);
 	mlx_hook(data->win_ptr, 17, 0, close_window, data);
 	//mlx_hook(data->win_ptr, 4, 1L << 2, mouse_press, data);
 	//mlx_hook(data->win_ptr, 5, 1L << 3, mouse_release, data);

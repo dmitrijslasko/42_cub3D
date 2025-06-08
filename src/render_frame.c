@@ -102,6 +102,19 @@ int	render_frame(void *param)
 	if (dt->win_ptr == NULL)
 		return (1);
 
+	if (dt->keys[119])  // W
+		move_forward_backward(dt, 1);
+	if (dt->keys[115])  // S
+		move_forward_backward(dt, -1);
+	if (dt->keys[97])   // A
+		move_sideways(dt, -1);
+	if (dt->keys[100])  // D
+		move_sideways(dt, 1);
+	if (dt->keys[65361]) // Left arrow
+		rotate_player(dt, -1);
+	if (dt->keys[65363]) // Right arrow
+		rotate_player(dt, 1);
+
 	if (SHOW_RAY_CALCULATION_LOG)
 		print_player_logs(dt);
 

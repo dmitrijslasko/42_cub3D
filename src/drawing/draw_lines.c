@@ -6,6 +6,7 @@ void	draw_vertical_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)
 
 	if (pt_1.y > pt_2.y)
 		swap(&pt_1, &pt_2, sizeof(t_coor));
+	//printf("Drawing vertical line... (%d %d) to (%d %d)\n", pt_1.x, pt_1.y, pt_2.x, pt_2.y);
 	curr_y = pt_1.y;
 	while (curr_y < pt_2.y)
 	{

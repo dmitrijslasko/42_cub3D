@@ -1,9 +1,34 @@
 #include "cub3d.h"
 
-int	draw_ceiling(dt)
+int	draw_ceiling(t_data *dt)
 {
-	(void)dt;
+	t_coor	top_left;
+	t_coor	bottom_right;
+
+	set_coor_values(&top_left, 0, 0);
+	set_coor_values(&bottom_right, WINDOW_W, WINDOW_H / 2);
+
+	draw_rectangle(dt, top_left, bottom_right, DEF_CEILING_COLOR);
 	return (EXIT_SUCCESS);
+}
+
+int	draw_floor(t_data *dt)
+{
+	t_coor	top_left;
+	t_coor	bottom_right;
+
+	set_coor_values(&top_left, 0, WINDOW_H / 2);
+	set_coor_values(&bottom_right, WINDOW_W, WINDOW_H);
+
+	draw_rectangle(dt, top_left, bottom_right, DEF_FLOOR_COLOR);
+	return (EXIT_SUCCESS);
+}
+
+long	get_time_in_ms(void)
+{
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
 void render_3d(t_data *dt)
@@ -14,23 +39,23 @@ void render_3d(t_data *dt)
 	t_coor	start;
 	t_coor	end;
 	int		center_y = WINDOW_H / 2;
-	int color;
+	int		color;
+	int		screen_x;
 
-	draw_background(dt->img, C_COLOR);
-	draw_square(dt, WINDOW_W/2, WINDOW_H + 200, WINDOW_W, F_COLOR);
+	draw_ceiling(dt);
+	draw_floor(dt);
 
 	i = 0;
-	while (i < WINDOW_W)
+	while (i < CASTED_RAYS_COUNT)
 	{
 		height = 1 / dt->rays[i].distance_to_wall;
-		int wall_height = height * 400; // Tune this value as needed
+		int wall_height = height * 400; // Adjust scaling as needed
 
 		int top_y = center_y - wall_height;
 		int bottom_y = center_y + wall_height;
 
-		// Draw the wall segment (centered vertically)
-		set_coor_values(&start, i, top_y);
-		set_coor_values(&end, i, bottom_y);
+		screen_x = i * 2;
+
 		if (dt->rays[i].wall_type == NORTH)
 			color = NAVY;
 		else if (dt->rays[i].wall_type == SOUTH)
@@ -39,35 +64,52 @@ void render_3d(t_data *dt)
 			color = GOLD;
 		else
 			color = BROWN;
-		draw_vertical_line(dt, start, end, color);
 
+		// Draw a 2-pixel wide wall slice (as vertical bars)
+		for (int w = 0; w < 2; w++)
+		{
+			set_coor_values(&start, screen_x + w, top_y);
+			set_coor_values(&end, screen_x + w, bottom_y);
+			draw_vertical_line(dt, start, end, color);
+		}
 		i++;
 	}
 }
 
-int render_frame(void *param)
+
+void	print_player_logs(t_data *dt)
 {
-	t_data *dt = (t_data *)param;
+	print_separator(3, "-");
+	printf("👤 Player position (X, Y): %f %f\n", dt->player->pos.x, dt->player->pos.y);
+	printf("Player orientation (deg): %f\n", dt->player->direction_vector_deg);
+	printf("Player direction vector X Y: %f %f\n", dt->player->direction_vector.x, dt->player->direction_vector.y);
+	printf("Player FOV (left) X Y: %f %f\n", 0.0, 0.0);
+	printf("Player FOV (right) X Y: %f %f\n", 0.0, 0.0);
+	print_separator(1, DEF_SEPARATOR_CHAR);
+}
+
+int	render_frame(void *param)
+{
+	static long	last_time = 0;
+	long		current_time;
+	t_data		*dt = (t_data *)param;
+
+	current_time = get_time_in_ms();
+	if (current_time - last_time < 1000 / FPS)
+		return (0);
+	last_time = current_time;
 
 	if (dt->win_ptr == NULL)
 		return (1);
-	draw_background(dt->img, BLACK);
-	draw_grid(dt->img, DEF_GRID_SIZE, DEF_GRID_COLOR);
+
 	if (SHOW_RAY_CALCULATION_LOG)
-	{
-		print_separator(3, "-");
-		printf("👤 Player position (X, Y): %f %f\n", dt->player->pos.x, dt->player->pos.y);
-		printf("Player orientation (deg): %f\n", dt->player->direction_vector_deg);
-		printf("Player direction vector X Y: %f %f\n", dt->player->direction_vector.x, dt->player->direction_vector.y);
-		printf("Player FOV (left) X Y: %f %f\n", 0.0, 0.0);
-		printf("Player FOV (right) X Y: %f %f\n", 0.0, 0.0);
-		print_separator(1, DEF_SEPARATOR_CHAR);
-		// Calculate all rays
-		calculate_all_rays(dt);
-	}
+		print_player_logs(dt);
+
+	calculate_all_rays(dt);
 	render_3d(dt);
 	draw_minimap(dt);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);
 	return (EXIT_SUCCESS);
 }
+

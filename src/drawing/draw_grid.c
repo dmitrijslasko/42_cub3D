@@ -1,18 +1,18 @@
 #include "cub3d.h"
 
-void	draw_grid(t_img *img, int grid_size, int grid_color)
+void	draw_minimap_grid(t_data *dt)
 {
-	int	current_x;
-	int	current_y;
+	size_t	current_x;
+	size_t	current_y;
 
 	current_y = 0;
-	while (current_y < WINDOW_H)
+	while (current_y <= dt->map->map_size_rows * MINIMAP_GRID_SIZE)
 	{
 		current_x = 0;
-		while (current_x < WINDOW_W)
+		while (current_x <= dt->map->map_size_cols * MINIMAP_GRID_SIZE)
 		{
-			if (current_x % grid_size == 0 || current_y % grid_size == 0)
-				img_pix_put(img, current_x, current_y, grid_color);
+			if (current_x % MINIMAP_GRID_SIZE == 0 || current_y % MINIMAP_GRID_SIZE == 0)
+				img_pix_put(dt->img, MINIMAP_OFFSET_X + current_x, MINIMAP_OFFSET_Y + current_y, MINIMAP_GRID_COLOR);
 			++current_x;
 		}
 		++current_y;

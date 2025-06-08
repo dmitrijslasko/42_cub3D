@@ -9,17 +9,18 @@ t_map	*load_dummy_map(void)
 	if (!map)
 		return (NULL);
 
-	map->map_size_rows = strlen(DUMMY_MAP_TOP);
-	map->map_size_cols = strlen(DUMMY_MAP_TOP);
+	map->map_size_rows = ft_strlen(DUMMY_MAP_TOP);
+	map->map_size_cols = ft_strlen(DUMMY_MAP_TOP);
+	printf("Dummy map loaded!\n");
 
-	map->map_data = malloc((map->map_size_cols) * sizeof(char *));
+	map->map_data = malloc((map->map_size_cols + 1) * sizeof(char *));
 	if (!map->map_data)
 		return (NULL);
 	map->map_data[map->map_size_cols] = NULL;  // null-terminate row array
 
 	for (size_t curr_col = 0; curr_col < map->map_size_cols; curr_col++)
 	{
-		map->map_data[curr_col] = malloc((map->map_size_rows) * sizeof(char));  // +1 for '\0'
+		map->map_data[curr_col] = malloc((map->map_size_rows + 1) * sizeof(char));  // +1 for '\0'
 		if (!map->map_data[curr_col])
 			return (NULL); // ideally free previously malloc'd rows
 		if (curr_col == 0 || curr_col == map->map_size_rows - 1)

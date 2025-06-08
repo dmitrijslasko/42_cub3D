@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/08 17:17:05 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/08 18:30:49 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static int	keypress_exit(int key, t_data *dt)
 		printf("ESC button pressed, closing the window...\n");
 		mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
 		dt->win_ptr = NULL;
+		free(dt->rays);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	close_window(void)
@@ -43,10 +44,11 @@ int set_player_position(t_data *dt, double dx, double dy)
 	double new_x;
 	double new_y;
 
+	//printf("Setting player position...\n");
 	player_pos = &(dt->player->pos);
 	new_x = player_pos->x + dx;
 	new_y = player_pos->y + dy;
-	// puts("Setting player position...");
+
 	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
 		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))
 	{

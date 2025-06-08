@@ -1,11 +1,11 @@
 #include "cub3d.h"
 
-void	draw_square(t_data *data, int x, int y, int size, int clr)
+// TODO DL: turn x, y into t_coor
+void	draw_square_from_center(t_data *dt, int x, int y, int size, int clr)
 {
 	int	curr_x;
 	int	curr_y;
 
-	img_pix_put(data->img, x, y, clr);
 	curr_x = x - size / 2;
 	while (curr_x <= x + size / 2)
 	{
@@ -13,10 +13,29 @@ void	draw_square(t_data *data, int x, int y, int size, int clr)
 		while (curr_y <= y + size / 2)
 		{
 			if (pixel_is_in_window(curr_x, curr_y))
-				img_pix_put(data->img, curr_x, curr_y, clr);
+				img_pix_put(dt->img, curr_x, curr_y, clr);
 			++curr_y;
 		}
 		++curr_x;
+	}
+}
+
+void	draw_square_from_top_left(t_data *dt, int x, int y, int size, int clr)
+{
+	int	curr_x;
+	int	curr_y;
+
+	curr_x = x;
+	while (curr_x <= x + size)
+	{
+		curr_y = y;
+		while (curr_y <= y + size)
+		{
+			if (pixel_is_in_window(curr_x, curr_y))
+				img_pix_put(dt->img, curr_x, curr_y, clr);
+			curr_y++;
+		}
+		curr_x++;
 	}
 }
 
@@ -46,30 +65,6 @@ int	get_pixel_color(t_img *img, int x, int y)
 }
 
 
-void	draw_circle(t_data *data, int x, int y, int radius, int clr)
-{
-	int	curr_x;
-	int	curr_y;
-	int	dx;
-	int	dy;
 
-	curr_x = x - radius;
-	while (curr_x <= x + radius)
-	{
-		curr_y = y - radius;
-		while (curr_y <= y + radius)
-		{
-			dx = curr_x - x;
-			dy = curr_y - y;
-			if (dx * dx + dy * dy <= radius * radius)
-			{
-				if (pixel_is_in_window(curr_x, curr_y))
-					img_pix_put(data->img, curr_x, curr_y, clr);
-			}
-			++curr_y;
-		}
-		++curr_x;
-	}
-}
 
 

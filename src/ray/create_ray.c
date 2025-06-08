@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/08 17:11:04 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/08 18:45:12 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,31 +92,22 @@ void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)
 	//print_single_ray_info(*ray);
 }
 
-t_ray	*calculate_all_rays(t_data *dt)
+int calculate_all_rays(t_data *dt)
 {
 	size_t	i;
 	t_x_y 	vector;
 	double	angle;
-	t_coor	player_coor;
 
 	printf(TXT_GREEN "Calculating all rays...\n" TXT_RESET);
 
-	set_coor_values(&player_coor, dt->player->pos.x * DEF_GRID_SIZE, dt->player->pos.y * DEF_GRID_SIZE);
-
-	i = 0;
-
 	angle = -FIELD_OF_VIEW_DEG / 2;
+	i = 0;
 	while (i < CASTED_RAYS_COUNT)
 	{
 		vector = rotate_vector(dt->player->direction_vector, angle);
-		//printf("Ray #%zu: angle = %f, X Y = %f %f\n", i, angle, vector.x, vector.y);
 		update_single_ray(dt, &dt->rays[i], vector);
-		//if (i == CASTED_RAYS_COUNT / 2)
-		//	printf("Ray distance: %f\n", dt->rays[i].distance_to_wall);
-		//draw_vector(dt, player_coor, vector, 1);
 		angle += FIELD_OF_VIEW_DEG / (CASTED_RAYS_COUNT);
 		i++;
 	}
-
-	return (dt->rays);
+	return (EXIT_SUCCESS);
 }

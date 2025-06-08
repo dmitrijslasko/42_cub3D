@@ -19,6 +19,9 @@
 # include "keys.h"
 # include "settings.h"
 
+#include <sys/time.h>
+#include <unistd.h>
+
 // structs
 
 typedef enum e_type_wall
@@ -109,20 +112,23 @@ void	setup_mouse(t_mouse *mouse);
 int		setup_img(t_data *dt);
 
 void	img_pix_put(t_img *img, int x, int y, int clr);
-void	draw_square(t_data *data, int x, int y, int size, int clr);
+
+void	draw_square_from_center(t_data *data, int x, int y, int size, int clr);
+void	draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
+
 void	draw_circle(t_data *data, int x, int y, int radius, int clr);
 void	draw_background(t_img *img, int clr);
 void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
 
-int		draw_player(t_data *dt);
-int		draw_map(t_data *dt);
+int		draw_minimap_player(t_data *dt);
+int		draw_minimap_map(t_data *dt);
 
 void	*protected_malloc(size_t size, t_data dt);
 
 void	swap(void *a, void *b, size_t size);
 int		pixel_is_in_window(int x, int y);
 
-void	draw_grid(t_img *img, int grid_size, int grid_color);
+void	draw_minimap_grid(t_data *dt);
 
 //ray
 
@@ -168,7 +174,7 @@ void	add_ui(t_data *dt);
 
 t_player *get_player(t_data dt);
 
-t_ray	*calculate_all_rays(t_data *dt);
+int		calculate_all_rays(t_data *dt);
 
 bool	check_hit_wall(t_coor coord, t_map map);
 
@@ -181,5 +187,10 @@ int set_coor_values(t_coor *coor, int x, int y);
 t_x_y rotate_vector(t_x_y vet, float angle_degrees);
 
 int draw_minimap(t_data *dt);
+
+void	draw_circle(t_data *dt, int x, int y, int radius, int clr);
+void	draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
+
+int	draw_minimap_rays(t_data *dt, int draw_direction_vector);
 
 #endif

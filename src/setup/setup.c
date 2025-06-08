@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/07 13:20:25 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/08 17:17:05 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,22 @@ double	deg_to_rad(double angle)
 void rotate_player(t_data *dt, double d_angle)
 {
     double angle_rad = deg_to_rad(d_angle);
-    double old_dir_x = dt->player->direction_vet.x;
-    double old_dir_y = dt->player->direction_vet.y;
+    double old_dir_x = dt->player->direction_vector.x;
+    double old_dir_y = dt->player->direction_vector.y;
 
     // Rotate direction vector using rotation matrix
-    dt->player->direction_vet.x = old_dir_x * cos(angle_rad) - old_dir_y * sin(angle_rad);
-    dt->player->direction_vet.y = old_dir_x * sin(angle_rad) + old_dir_y * cos(angle_rad);
+    dt->player->direction_vector.x = old_dir_x * cos(angle_rad) - old_dir_y * sin(angle_rad);
+    dt->player->direction_vector.y = old_dir_x * sin(angle_rad) + old_dir_y * cos(angle_rad);
 
 	// Optional: also rotate camera plane vector if you're using raycasting
     // (same matrix applied to plane_x, plane_y if they exist)
 
     // Update stored angle, keeping it between 0 and 359
-    dt->player->direction_vet_deg += d_angle;
-    if (dt->player->direction_vet_deg >= 360.0)
-        dt->player->direction_vet_deg -= 360.0;
-    else if (dt->player->direction_vet_deg < 0.0)
-        dt->player->direction_vet_deg += 360.0;
+    dt->player->direction_vector_deg += d_angle;
+    if (dt->player->direction_vector_deg >= 360.0)
+        dt->player->direction_vector_deg -= 360.0;
+    else if (dt->player->direction_vector_deg < 0.0)
+        dt->player->direction_vector_deg += 360.0;
 }
 
 int	handle_keypress(int key, t_data *dt)

@@ -34,3 +34,10 @@ int	draw_map(t_data *dt)
 	}
 	return (0);
 }
+
+int draw_minimap(t_data *dt)
+{
+	draw_map(dt);
+	draw_player(dt);
+	return (EXIT_SUCCESS);
+}

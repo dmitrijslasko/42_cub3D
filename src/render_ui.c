@@ -15,7 +15,16 @@ void	add_coor_info(t_data *dt)
 	mlx_string_put(mlx, win, 150, y, UI_CLR_1, "deg");
 }
 
+void	add_crosshair(t_data *dt, int color)
+{
+	t_coor	xy;
+
+	set_coor_values(&xy, WINDOW_W / 2, WINDOW_H / 2);
+	draw_square(dt, WINDOW_W / 2, WINDOW_H / 2, 5, color);
+}
+
 void	add_ui(t_data *dt)
 {
 	add_coor_info(dt);
+	add_crosshair(dt, WHITE);
 }

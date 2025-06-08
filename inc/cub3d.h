@@ -46,6 +46,7 @@ typedef struct s_ray
 	double		distance_to_wall;
 	double		percentage_of_image;
 	t_type_wall	wall_type;
+	t_x_y		vector;
 }	t_ray;
 
 typedef struct s_map
@@ -60,8 +61,8 @@ typedef struct s_player
 	size_t	player_pos_x;
 	size_t	player_pos_y;
 	t_x_y	pos;
-	t_x_y	direction_vet;
-	double	direction_vet_deg;
+	t_x_y	direction_vector;
+	double	direction_vector_deg;
 }	t_player;
 
 typedef struct s_mouse
@@ -178,5 +179,7 @@ double	deg_to_rad(double angle);
 int set_coor_values(t_coor *coor, int x, int y);
 
 t_x_y rotate_vector(t_x_y vet, float angle_degrees);
+
+int draw_minimap(t_data *dt);
 
 #endif

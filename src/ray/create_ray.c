@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/07 16:25:09 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/08 17:11:04 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,40 +88,35 @@ void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)
 
 	// Create ray & print out its information
 	update_ray(*dt, ray, direction, delta_dist, step, side_dist);
+	ray->vector = direction;
 	//print_single_ray_info(*ray);
 }
 
 t_ray	*calculate_all_rays(t_data *dt)
 {
 	size_t	i;
-	t_x_y 	vet;
+	t_x_y 	vector;
 	double	angle;
-	t_coor pt1;
+	t_coor	player_coor;
 
 	printf(TXT_GREEN "Calculating all rays...\n" TXT_RESET);
 
-	set_coor_values(&pt1, dt->player->pos.x * DEF_GRID_SIZE, dt->player->pos.y * DEF_GRID_SIZE);
+	set_coor_values(&player_coor, dt->player->pos.x * DEF_GRID_SIZE, dt->player->pos.y * DEF_GRID_SIZE);
 
 	i = 0;
 
 	angle = -FIELD_OF_VIEW_DEG / 2;
 	while (i < CASTED_RAYS_COUNT)
 	{
-		vet = rotate_vector(dt->player->direction_vet, angle);
-		//printf("Ray #%zu: angle = %f, X Y = %f %f\n", i, angle, vet.x, vet.y);
-		update_single_ray(dt, &dt->rays[i], vet);
-		if (i == CASTED_RAYS_COUNT / 2)
-			printf("Ray distance: %f\n", dt->rays[i].distance_to_wall);
-		draw_vector(dt, pt1, vet, 1);
+		vector = rotate_vector(dt->player->direction_vector, angle);
+		//printf("Ray #%zu: angle = %f, X Y = %f %f\n", i, angle, vector.x, vector.y);
+		update_single_ray(dt, &dt->rays[i], vector);
+		//if (i == CASTED_RAYS_COUNT / 2)
+		//	printf("Ray distance: %f\n", dt->rays[i].distance_to_wall);
+		//draw_vector(dt, player_coor, vector, 1);
 		angle += FIELD_OF_VIEW_DEG / (CASTED_RAYS_COUNT);
 		i++;
 	}
 
-	// direction vector
-	t_x_y vet2 = rotate_vector(dt->player->direction_vet, 0);
-	t_coor origin = get_values_coor(dt->player->pos.x * DEF_GRID_SIZE, dt->player->pos.y * DEF_GRID_SIZE);
-	draw_vector(dt, origin, vet2, 0);
-
 	return (dt->rays);
 }
-

@@ -11,8 +11,8 @@ void	initialize_player_position(t_player *player,t_map *map)
 			{
 				player->pos.x = x + 0.5;
 				player->pos.y = y + 0.5;
-				player->direction_vet.x = 0;
-				player->direction_vet.y = -1;
+				player->direction_vector.x = 0;
+				player->direction_vector.y = -1;
 			}
 		}
 	}

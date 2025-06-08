@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/07 16:19:58 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/08 17:18:07 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // window size
 # define WINDOW_W 	1200
 # define WINDOW_H 	900
-# define DEF_GRID_SIZE	30
+# define DEF_GRID_SIZE	40
 # define DEF_GRID_COLOR	GREY
 
 # define CASTED_RAYS_COUNT	WINDOW_W
@@ -35,7 +35,7 @@
 # define DUMMY_MAP_MID		"100000000001"
 # define DUMMY_MAP_PLAYER	"1000000N0001"
 
-# define FIELD_OF_VIEW_DEG		120.0f
+# define FIELD_OF_VIEW_DEG		20.0f
 
 // colors
 # define C_COLOR	BLUE
@@ -43,15 +43,17 @@
 # define W_COLOR	PINK
 
 // default scale
-# define X_CENTER 	600
-# define Y_CENTER 	450
-# define XY_DIST    100
-# define Z_DIST 	1
-# define PLAYER_STEP	0.2f
-# define PLAYER_ROTATION_STEP 1
+//# define X_CENTER 	600
+//# define Y_CENTER 	450
+//# define XY_DIST    100
+//# define Z_DIST 	1
+# define PLAYER_STEP			0.1f
+# define PLAYER_ROTATION_STEP 	1.0f
+
+#define MIN_DISTANCE_TO_WALL	0.1f
+
 # define PLAYER_SIZE_PX 8
 # define PLAYER_COLOR 	WHITE
-#define MIN_DISTANCE_TO_WALL 0.1f
 
 // offsets
 # define DEF_OFFSET_X       	0

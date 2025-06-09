@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	print_map(t_map *map)
+void	print_level_map(t_map *map)
 {
 	printf(TXT_YELLOW "Printing out the level map...\n" TXT_RESET);
 	print_separator(1, DEF_SEPARATOR_CHAR);

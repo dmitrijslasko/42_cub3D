@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
-// TODO: DL: rename curr_col to curr_row BECAUSE IT IS A ROW!
+// TODO DL: rename curr_col to curr_row BECAUSE IT IS A ROW!
+// TODO DL: replace strcpy with ft_strcpy
 t_map	*load_dummy_map(void)
 {
 	t_map	*map;

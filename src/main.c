@@ -1,30 +1,16 @@
 #include "cub3d.h"
 
-int	precalculate_sin_table(t_data *dt)
+int	precalculate_trig_tables(t_data *dt)
 {
-	size_t	angle;
+	size_t	angle_index;
 
-	printf("Precalculating sin table...");
-	angle = 0;
-	while (angle < 360)
+	printf("Precalculating sin and cos tables...");
+	angle_index = 0;
+	while (angle_index < PRECALCULATED_TRIG)
 	{
-    	dt->sin_table[angle] = sinf(angle * M_PI / 180);
-		angle++;
-	}
-	printf(" Done!\n");
-	return (EXIT_SUCCESS);
-}
-
-int	precalculate_cos_table(t_data *dt)
-{
-	size_t	angle;
-
-	printf("Precalculating cos table...");
-	angle = 0;
-	while (angle < 360)
-	{
-    	dt->cos_table[angle] = cosf(angle * M_PI / 180);
-		angle++;
+    	dt->sin_table[angle_index] = sinf(angle_index * M_PI / 180);
+		dt->cos_table[angle_index] = cosf(angle_index * M_PI / 180);
+		angle_index++;
 	}
 	printf(" Done!\n");
 	return (EXIT_SUCCESS);
@@ -39,7 +25,7 @@ int	main(int argc, char **argv)
 
 	// Load dummy map
 	dt.map = load_dummy_map();
-	print_map(dt.map);
+	print_level_map(dt.map);
 
 	size_t i = 0;
 	while (i < TRACKED_KEYS)
@@ -54,18 +40,20 @@ int	main(int argc, char **argv)
 
 	// VISUAL PART
 
-	precalculate_sin_table(&dt);
-	precalculate_cos_table(&dt);
+	precalculate_trig_tables(&dt);
 	// -------------------------------------------------------------------------
 	setup_mlx_and_win(&dt);
+
 	dt.img = protected_malloc(sizeof(t_img), dt);
 
 	//setup_view(&dt);
 	setup_img(&dt);
 	setup_hooks(&dt);
-	//setup_mouse(&dt.mouse);
+	
 
+	print_separator(1, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
+
 	return (0);
 }

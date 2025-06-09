@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/09 13:37:42 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/09 17:57:52 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 	return (0);
 }
 
-int set_player_position(t_data *dt, float dx, float dy)
+int set_player_position(t_data *dt, double dx, double dy)
 {
 	t_x_y *player_pos;
-	float new_x;
-	float new_y;
+	double new_x;
+	double new_y;
 
 	//printf("Setting player position...\n");
 	player_pos = &(dt->player->pos);
@@ -58,75 +58,50 @@ int set_player_position(t_data *dt, float dx, float dy)
 	return (0);
 }
 
-// Rotate both direction and camera plane
-float	deg_to_rad(float angle)
-{
-	return (angle * M_PI / 180.0);
-}
-void rotate_player(t_data *dt, float d_angle)
-{
-    float angle_rad = deg_to_rad(d_angle * PLAYER_ROTATION_STEP);
-    float old_dir_x = dt->player->direction_vector.x;
-    float old_dir_y = dt->player->direction_vector.y;
-
-    // Rotate direction vector using rotation matrix
-    dt->player->direction_vector.x = old_dir_x * cosf(angle_rad) - old_dir_y * sinf(angle_rad);
-    dt->player->direction_vector.y = old_dir_x * sinf(angle_rad) + old_dir_y * cosf(angle_rad);
-
-	// Optional: also rotate camera plane vector if you're using raycasting
-    // (same matrix applied to plane_x, plane_y if they exist)
-
-    // Update stored angle, keeping it between 0 and 359
-    dt->player->direction_vector_deg += d_angle;
-    if (dt->player->direction_vector_deg >= 360.0)
-        dt->player->direction_vector_deg -= 360.0;
-    else if (dt->player->direction_vector_deg < 0.0)
-        dt->player->direction_vector_deg += 360.0;
-}
-
 int move_forward_backward(t_data *dt, int direction)
 {
 	t_x_y *player_pos;
-	float new_x;
-	float new_y;
+	double new_x;
+	double new_y;
 
 	player_pos = &(dt->player->pos);
 
-	printf("Setting player position...\n");
-	printf("Player orientation vector: %f %f\n",
-		dt->player->direction_vector.x,
-		dt->player->direction_vector.y);
+	//printf("Setting player position...\n");
+	//printf("Player orientation vector: %f %f\n",
+	//	dt->player->direction_vector.x,
+	//	dt->player->direction_vector.y);
 
 	// Calculate new position
 	new_x = player_pos->x + dt->player->direction_vector.x * PLAYER_STEP * direction;
 	new_y = player_pos->y + dt->player->direction_vector.y * PLAYER_STEP * direction;
 
+	// TODO DL: allow wall sliding
 	if (map_position_is_walkable(dt->map, new_x, new_y))
 	{
 		player_pos->x = new_x;
 		player_pos->y = new_y;
 	}
 
-	printf("New player position: %f %f\n", player_pos->x, player_pos->y);
-
+	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
 	return (EXIT_SUCCESS);
 }
 
 int move_sideways(t_data *dt, int direction)
 {
 	t_x_y *player_pos;
-	float new_x;
-	float new_y;
+	double new_x;
+	double new_y;
 	t_x_y	rotated_vector;
 
 	player_pos = &(dt->player->pos);
 
-	printf("Setting player position...\n");
-	printf("Player orientation vector: %f %f\n",
-		dt->player->direction_vector.x,
-		dt->player->direction_vector.y);
+	//printf("Setting player position...\n");
+	//printf("Player orientation vector: %f %f\n",
+	//	dt->player->direction_vector.x,
+	//	dt->player->direction_vector.y);
 
-	rotated_vector = rotate_vector(dt->player->direction_vector, 90.0f * direction);
+	rotated_vector = rotate_vector(*dt, dt->player->direction_vector, 90.0f * direction);
+
 	// Calculate new position
 	new_x = player_pos->x + rotated_vector.x * PLAYER_STEP;
 	new_y = player_pos->y + rotated_vector.y * PLAYER_STEP;
@@ -137,7 +112,7 @@ int move_sideways(t_data *dt, int direction)
 		player_pos->y = new_y;
 	}
 
-	printf("New player position: %f %f\n", player_pos->x, player_pos->y);
+	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
 
 	return (EXIT_SUCCESS);
 }
@@ -149,8 +124,7 @@ int	handle_keypress(int keycode, t_data *dt)
 		keypress_exit(keycode, dt);
 		close_window();
 	}
-	printf("Pressed keycode: %d\n", keycode);
-	if (keycode >= 0 && keycode < TRACKED_KEYS)
+	else if (keycode >= 0 && keycode < TRACKED_KEYS)
 		dt->keys[keycode] = 1;
 	return (0);
 }
@@ -159,17 +133,77 @@ int	handle_keyrelease(int keycode, t_data *dt)
 {
 	if (keycode >= 0 && keycode < TRACKED_KEYS)
 		dt->keys[keycode] = 0;
+	return (EXIT_SUCCESS);
+}
+
+// Handle mouse press
+int	mouse_press(int button, int x, int y, t_data *dt)
+{
+	(void)x;
+	(void)y;
+	//if (dt->view->show_welcome)
+	//	return (1);
+	//if (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
+	//	mouse_zoom(button, dt);
+	if (button == MOUSE_LEFT_BUTTON)
+	{
+		dt->mouse.lmb_is_pressed = 1;
+		dt->mouse.lmb_press_count++;
+		printf("🖱️  LMB is pressed! Total press count: %zu\n", dt->mouse.lmb_press_count);
+	}
+	return (EXIT_SUCCESS);
+}
+
+// Handle mouse release
+int	mouse_release(int button, int x, int y, t_data *dt)
+{
+	(void)x;
+	(void)y;
+	//(void)button;
+	//if (dt->view->show_welcome)
+	//	return (1);
+	if (button == MOUSE_LEFT_BUTTON)
+	{
+		dt->mouse.lmb_is_pressed = 0;
+		//printf("LMB released!\n");
+	}
+	//if (button == MOUSE_THIRD_BUTTON)
+	//	dt->mouse->rmb_is_pressed = FALSE;
 	return (0);
 }
 
-void	setup_hooks(t_data *data)
+// Handle mouse move
+int	mouse_move(int x, int y, t_data *dt)
 {
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, handle_keypress, data);
-	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, data);
-	mlx_hook(data->win_ptr, 17, 0, close_window, data);
-	//mlx_hook(data->win_ptr, 4, 1L << 2, mouse_press, data);
-	//mlx_hook(data->win_ptr, 5, 1L << 3, mouse_release, data);
-	//mlx_hook(data->win_ptr, 6, 1L << 6, mouse_move, data);
+	dt->mouse.prev_x = dt->mouse.x;
+	dt->mouse.prev_y = dt->mouse.y;
+	dt->mouse.x = x;
+	dt->mouse.y = y;
+
+	if (x > dt->mouse.prev_x)
+	{
+		rotate_player(dt, MOUSE_SENS_ROTATE, -1);
+	}
+	else if (x < dt->mouse.prev_x)
+	{
+		rotate_player(dt, MOUSE_SENS_ROTATE, 1);
+	}
+	return (0);
+}
+
+
+void	setup_hooks(t_data *dt)
+{
+	printf("Setting up keyboard and mouse hooks...");
+	mlx_hook(dt->win_ptr, KeyPress, KeyPressMask, handle_keypress, dt);
+	mlx_hook(dt->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, dt);
+	mlx_hook(dt->win_ptr, 17, 0, close_window, dt);
+	setup_mouse(&dt->mouse);
+	mlx_hook(dt->win_ptr, 4, 1L << 2, mouse_press, dt);
+	mlx_hook(dt->win_ptr, 5, 1L << 3, mouse_release, dt);
+	mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
+	mlx_hook(dt->win_ptr, 6, 1L << 6, mouse_move, dt);
+	printf(" Done!\n");
 }
 
 //int	show_welcome_img(t_data *dt)

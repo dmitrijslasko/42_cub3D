@@ -69,7 +69,7 @@ It fails to draw continous line at specific diagonal slopes.
 */
 //void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)
 //{
-//	double	slope;
+//	float	slope;
 //	t_coor	curr;
 //	t_coor	next;
 
@@ -81,7 +81,7 @@ It fails to draw continous line at specific diagonal slopes.
 //	next = curr;
 //	while (curr.x < pt_2.x)
 //	{
-//		slope = (double)(pt_2.y - pt_1.y) / (pt_2.x - pt_1.x);
+//		slope = (float)(pt_2.y - pt_1.y) / (pt_2.x - pt_1.x);
 //		curr.y = pt_1.y + (curr.x - pt_1.x) * slope;
 //		next.x = curr.x + 1;
 //		next.y = pt_1.y + (next.x - pt_1.x) * slope;

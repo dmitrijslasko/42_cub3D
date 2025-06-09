@@ -33,9 +33,9 @@ long	get_time_in_ms(void)
 
 void render_3d(t_data *dt)
 {
-	printf("Rendering 3D scene...\n");
+	printf("Rendering 3D scene at %d FPS...\n", FPS);
 	size_t	i;
-	double	height;
+	float	height;
 	t_coor	start;
 	t_coor	end;
 	int		center_y = WINDOW_H / 2;
@@ -54,7 +54,7 @@ void render_3d(t_data *dt)
 		int top_y = center_y - wall_height;
 		int bottom_y = center_y + wall_height;
 
-		screen_x = i * 2;
+		screen_x = i * (WINDOW_W / CASTED_RAYS_COUNT);
 
 		if (dt->rays[i].wall_type == NORTH)
 			color = NAVY;
@@ -66,7 +66,7 @@ void render_3d(t_data *dt)
 			color = BROWN;
 
 		// Draw a 2-pixel wide wall slice (as vertical bars)
-		for (int w = 0; w < 2; w++)
+		for (int w = 0; w < (WINDOW_W / CASTED_RAYS_COUNT); w++)
 		{
 			set_coor_values(&start, screen_x + w, top_y);
 			set_coor_values(&end, screen_x + w, bottom_y);

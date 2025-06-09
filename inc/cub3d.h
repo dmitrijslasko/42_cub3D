@@ -40,14 +40,14 @@ typedef struct s_coor
 
 typedef struct s_x_y
 {
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 }	t_x_y;
 
 typedef struct s_ray
 {
-	double		distance_to_wall;
-	double		percentage_of_image;
+	float		distance_to_wall;
+	float		percentage_of_image;
 	t_type_wall	wall_type;
 	t_x_y		vector;
 }	t_ray;
@@ -65,7 +65,7 @@ typedef struct s_player
 	size_t	player_pos_y;
 	t_x_y	pos;
 	t_x_y	direction_vector;
-	double	direction_vector_deg;
+	float	direction_vector_deg;
 }	t_player;
 
 typedef struct s_mouse
@@ -102,6 +102,8 @@ typedef struct s_data
 	t_player	*player;
 	t_view		*view;
 	t_mouse		*mouse;
+	float		sin_table[360];
+	float		cos_table[360];
 	int 		keys[TRACKED_KEYS];
 	void		*welcome_img;
 }	t_data;
@@ -133,12 +135,12 @@ void	draw_minimap_grid(t_data *dt);
 
 int 	move_sideways(t_data *dt, int direction);
 int 	move_forward_backward(t_data *dt, int direction);
-void 	rotate_player(t_data *dt, double d_angle);
+void 	rotate_player(t_data *dt, float d_angle);
 
 //ray
 
 //constructor_ray.c
-t_ray	*constructor_ray(double dist, t_type_wall wall);
+t_ray	*constructor_ray(float dist, t_type_wall wall);
 t_ray	*calculate_single_ray(t_data dt, t_x_y direction);
 
 void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
@@ -153,13 +155,13 @@ t_coor	get_updated_coor_player_(t_coor coor, t_x_y dir, int signal);
 t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
 
 //percentage
-double	get_perc_wall(t_x_y pos_player, t_x_y direction, double dist_ray, \
+float	get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
 							t_type_wall type_wall);
 
 //x_y.c
-double	max_double(double a, double b);
-t_x_y	get_values_x_y(double x, double y);
-void	set_values_x_y(t_x_y *new, double x, double y);
+float	max_float(float a, float b);
+t_x_y	get_values_x_y(float x, float y);
+void	set_values_x_y(t_x_y *new, float x, float y);
 t_coor	get_values_coor(int x, int y);
 void	set_value_coor(t_coor *new, int x, int y);
 
@@ -185,7 +187,7 @@ bool	check_hit_wall(t_coor coord, t_map map);
 
 void	print_single_ray_info(t_ray ray);
 
-double	deg_to_rad(double angle);
+float	deg_to_rad(float angle);
 
 int set_coor_values(t_coor *coor, int x, int y);
 

@@ -6,13 +6,13 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:40:17 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/07 14:32:25 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/09 13:25:12 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_ray	*constructor_ray(double dist, t_type_wall wall)
+t_ray	*constructor_ray(float dist, t_type_wall wall)
 {
 	t_ray	*ray;
 

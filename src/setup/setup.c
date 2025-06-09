@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/08 20:26:24 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/09 13:37:42 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 	return (0);
 }
 
-int set_player_position(t_data *dt, double dx, double dy)
+int set_player_position(t_data *dt, float dx, float dy)
 {
 	t_x_y *player_pos;
-	double new_x;
-	double new_y;
+	float new_x;
+	float new_y;
 
 	//printf("Setting player position...\n");
 	player_pos = &(dt->player->pos);
@@ -59,19 +59,19 @@ int set_player_position(t_data *dt, double dx, double dy)
 }
 
 // Rotate both direction and camera plane
-double	deg_to_rad(double angle)
+float	deg_to_rad(float angle)
 {
 	return (angle * M_PI / 180.0);
 }
-void rotate_player(t_data *dt, double d_angle)
+void rotate_player(t_data *dt, float d_angle)
 {
-    double angle_rad = deg_to_rad(d_angle * PLAYER_ROTATION_STEP);
-    double old_dir_x = dt->player->direction_vector.x;
-    double old_dir_y = dt->player->direction_vector.y;
+    float angle_rad = deg_to_rad(d_angle * PLAYER_ROTATION_STEP);
+    float old_dir_x = dt->player->direction_vector.x;
+    float old_dir_y = dt->player->direction_vector.y;
 
     // Rotate direction vector using rotation matrix
-    dt->player->direction_vector.x = old_dir_x * cos(angle_rad) - old_dir_y * sin(angle_rad);
-    dt->player->direction_vector.y = old_dir_x * sin(angle_rad) + old_dir_y * cos(angle_rad);
+    dt->player->direction_vector.x = old_dir_x * cosf(angle_rad) - old_dir_y * sinf(angle_rad);
+    dt->player->direction_vector.y = old_dir_x * sinf(angle_rad) + old_dir_y * cosf(angle_rad);
 
 	// Optional: also rotate camera plane vector if you're using raycasting
     // (same matrix applied to plane_x, plane_y if they exist)
@@ -87,8 +87,8 @@ void rotate_player(t_data *dt, double d_angle)
 int move_forward_backward(t_data *dt, int direction)
 {
 	t_x_y *player_pos;
-	double new_x;
-	double new_y;
+	float new_x;
+	float new_y;
 
 	player_pos = &(dt->player->pos);
 
@@ -115,8 +115,8 @@ int move_forward_backward(t_data *dt, int direction)
 int move_sideways(t_data *dt, int direction)
 {
 	t_x_y *player_pos;
-	double new_x;
-	double new_y;
+	float new_x;
+	float new_y;
 	t_x_y	rotated_vector;
 
 	player_pos = &(dt->player->pos);

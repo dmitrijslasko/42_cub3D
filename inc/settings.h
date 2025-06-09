@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/08 20:25:58 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/09 13:26:00 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@
 # define VERSION_INFO        "cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
-# define WINDOW_W 	600
-# define WINDOW_H 	WINDOW_W / 4 * 3
+# define WINDOW_W		900
+# define WINDOW_H		WINDOW_W / 4 * 3
 
-# define TRACKED_KEYS 70000
+# define TRACKED_KEYS	70000
 
 // fps and casted rays count
 #define FPS					24
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT	WINDOW_W / 2
+# define CASTED_RAYS_COUNT	WINDOW_W
 
 // dummy map
-# define DUMMY_MAP_TOP		"111111111111"
-# define DUMMY_MAP_MID		"100000000001"
-# define DUMMY_MAP_PLAYER	"1000000N0001"
+# define DUMMY_MAP_TOP		"111111111111111"
+# define DUMMY_MAP_MID		"100000000000001"
+# define DUMMY_MAP_PLAYER	"1000000N0000001"
 
 // minimap
 # define MINIMAP_OFFSET_X					0
@@ -52,7 +52,7 @@
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define FIELD_OF_VIEW_DEG		120.0f
+# define FIELD_OF_VIEW_DEG		90.0f
 
 // colors
 # define DEF_CEILING_COLOR		BLUE

@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/08 18:45:12 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/09 13:25:12 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_type_wall	get_type_wall(char c, t_x_y direction)
 	return (WEST);
 }
 
-double	get_dist_wall(char c, t_x_y side_dist)
+float	get_dist_wall(char c, t_x_y side_dist)
 {
 	if (c == 'y')
 		return (side_dist.y);
@@ -48,7 +48,7 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
 	c = initialize_wall_hit(side_dist);
 	coor_map = get_updated_coor_player(dt.player->pos, direction, 1);
 	coor_map = get_updated_coor_player_(coor_map, direction, -1);
-	while (!check_hit_wall(coor_map, *dt.map) && i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
+	while (!check_hit_wall(coor_map, *dt.map) && i < 2 * max_float(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
 		if (side_dist.x < side_dist.y)
 		{
@@ -96,7 +96,7 @@ int calculate_all_rays(t_data *dt)
 {
 	size_t	i;
 	t_x_y 	vector;
-	double	angle;
+	float	angle;
 
 	printf(TXT_GREEN "Calculating all rays...\n" TXT_RESET);
 

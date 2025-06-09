@@ -1,5 +1,35 @@
 #include "cub3d.h"
 
+int	precalculate_sin_table(t_data *dt)
+{
+	size_t	angle;
+
+	printf("Precalculating sin table...");
+	angle = 0;
+	while (angle < 360)
+	{
+    	dt->sin_table[angle] = sinf(angle * M_PI / 180);
+		angle++;
+	}
+	printf(" Done!\n");
+	return (EXIT_SUCCESS);
+}
+
+int	precalculate_cos_table(t_data *dt)
+{
+	size_t	angle;
+
+	printf("Precalculating cos table...");
+	angle = 0;
+	while (angle < 360)
+	{
+    	dt->cos_table[angle] = cosf(angle * M_PI / 180);
+		angle++;
+	}
+	printf(" Done!\n");
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	dt;
@@ -23,6 +53,9 @@ int	main(int argc, char **argv)
 	initialize_rays(&dt);
 
 	// VISUAL PART
+
+	precalculate_sin_table(&dt);
+	precalculate_cos_table(&dt);
 	// -------------------------------------------------------------------------
 	setup_mlx_and_win(&dt);
 	dt.img = protected_malloc(sizeof(t_img), dt);

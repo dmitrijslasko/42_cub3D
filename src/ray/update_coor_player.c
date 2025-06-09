@@ -6,13 +6,13 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:38:17 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/07 14:12:35 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/09 13:25:12 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	update_coor_pos(int pos, double dir, int signal)
+int	update_coor_pos(int pos, float dir, int signal)
 {
 	if (signal > 0)
 	{

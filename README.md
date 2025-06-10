@@ -8,6 +8,7 @@
 - Remove the usleep function from frame rendering
 - FV: Map parsing
 - Test for different player initialisation directions (N, S, E, W) - works, but add this into parsing
+- DL: thinks about the ways to hadle keypresses more accurately
 
 # Crazy stuff
 - Fix jerky mouse movements

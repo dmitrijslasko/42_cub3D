@@ -57,6 +57,9 @@ int	main(int argc, char **argv)
 	// -------------------------------------------------------------------------
 	setup_mlx_and_win(&dt);
 
+	dt.view = protected_malloc(sizeof(t_view), dt);
+	dt.view->show_minimap = 1;
+
 	dt.img = protected_malloc(sizeof(t_img), dt);
 
 	//setup_view(&dt);

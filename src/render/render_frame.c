@@ -67,6 +67,10 @@ void	print_player_logs(t_data *dt)
 		print_separator(1, DEF_SEPARATOR_CHAR);
 	}
 }
+void	toggle(char *setting)
+{
+	*setting ^= 1;
+}
 
 void	process_keypresses(t_data dt)
 {
@@ -116,7 +120,8 @@ int	render_frame(void *param)
 
 	calculate_all_rays(dt);
 	render_3d(dt);
-	draw_minimap(dt);
+	if (dt->view->show_minimap)
+		draw_minimap(dt);
 
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);

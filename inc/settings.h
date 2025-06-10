@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/10 15:49:40 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:56:45 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define FIELD_OF_VIEW_DEG		70.0f
-# define SCALING	400
+# define FIELD_OF_VIEW_DEG		75.0f
+# define SCALING	200
 
 // colors
 # define DEF_CEILING_COLOR		BLUE

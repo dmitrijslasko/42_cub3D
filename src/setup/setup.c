@@ -6,21 +6,19 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/10 12:34:17 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:15:18 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	keypress_exit(int key, t_data *dt)
+static int	keypress_exit(t_data *dt)
 {
-	if (key == ESC_BUTTON)
-	{
-		printf("ESC button pressed, closing the window...\n");
-		mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
-		dt->win_ptr = NULL;
-		free(dt->rays);
-	}
+	printf("ESC button pressed, closing the window...");
+	mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
+	dt->win_ptr = NULL;
+	free(dt->rays);
+	printf(" Done!\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -121,8 +119,12 @@ int	handle_keypress(int keycode, t_data *dt)
 {
 	if (keycode == ESC_BUTTON)
 	{
-		keypress_exit(keycode, dt);
+		keypress_exit(dt);
 		close_window();
+	}
+	else if (keycode == XK_Tab)
+	{
+		toggle(&dt->view->show_minimap);
 	}
 	else if (keycode >= 0 && keycode < TRACKED_KEYS)
 		dt->keys[keycode] = 1;

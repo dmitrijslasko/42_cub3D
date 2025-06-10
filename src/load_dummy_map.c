@@ -6,14 +6,13 @@ t_map	*load_dummy_map(void)
 {
 	t_map	*map;
 
+	printf("Loading dummy map...");
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
 
 	map->map_size_rows = ft_strlen(DUMMY_MAP_TOP);
 	map->map_size_cols = ft_strlen(DUMMY_MAP_TOP);
-	printf("Dummy map loaded!\n");
-
 	map->map_data = malloc((map->map_size_cols + 1) * sizeof(char *));
 	if (!map->map_data)
 		return (NULL);
@@ -36,5 +35,6 @@ t_map	*load_dummy_map(void)
 	// NOTE DL: extra cells on the map to make our lives more difficult
 	//map->map_data[5][3] = '1';
 	//map->map_data[7][7] = '1';
+	printf(" Done!\n");
 	return (map);
 }

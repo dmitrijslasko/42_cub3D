@@ -81,7 +81,7 @@ typedef struct s_mouse
 
 typedef struct s_view
 {
-	int		show_admin;
+	char	show_minimap;
 }	t_view;
 
 typedef struct s_img
@@ -233,5 +233,7 @@ int	draw_floor(t_data *dt);
 
 int	ft_min(int	num1, int num2);
 int	ft_max(int	num1, int num2);
+
+void	toggle(char *setting);
 
 #endif

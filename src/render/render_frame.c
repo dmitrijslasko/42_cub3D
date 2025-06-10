@@ -98,7 +98,7 @@ int	render_frame(void *param)
 	if (current_time - last_time < (1000 / FPS))
 	{
 		//printf(" >>> skipping frame...\n");
-		usleep(5000);
+		//usleep(5000);
 		return (0);
 	}
 	//printf("\n");

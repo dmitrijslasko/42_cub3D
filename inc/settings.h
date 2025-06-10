@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/10 16:41:05 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 17:01:03 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define VERSION_INFO        "cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
-# define WINDOW_W		1020
+# define WINDOW_W		640
 # define WINDOW_H		WINDOW_W / 4 * 3
 
 # define TRACKED_KEYS	70000
@@ -38,7 +38,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT	1020
+# define CASTED_RAYS_COUNT	WINDOW_W
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111"
@@ -66,13 +66,13 @@
 # define DEF_FLOOR_COLOR		GREEN
 # define DEF_WALL_COLOR			PINK
 
-# define MIN_DISTANCE_TO_WALL	1.0f
+# define MIN_DISTANCE_TO_WALL	0.2f
 
 // default scale
-# define KEYBOARD_PLAYER_STEP			0.05f
-# define KEYBOARD_PLAYER_STEP_FORWARD	0.05f
-# define KEYBOARD_PLAYER_STEP_BACKWARD	0.025f
-# define KEYBOARD_PLAYER_STEP_SIDE 		0.025f
+//# define KEYBOARD_PLAYER_STEP			0.05f
+# define KEYBOARD_PLAYER_STEP_FORWARD	0.03f
+# define KEYBOARD_PLAYER_STEP_BACKWARD	0.015f
+# define KEYBOARD_PLAYER_STEP_SIDE 		0.015f
 # define KEYBOARD_PLAYER_ROTATION_STEP 	2.5f
 
 

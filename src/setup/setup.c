@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/10 16:48:25 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:59:57 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int set_player_position(t_data *dt, double dx, double dy)
 	double new_x;
 	double new_y;
 
-	//printf("Setting player position...\n");
 	player_pos = &(dt->player->pos);
+
 	new_x = player_pos->x + dx;
 	new_y = player_pos->y + dy;
 
@@ -53,7 +53,7 @@ int set_player_position(t_data *dt, double dx, double dy)
 		player_pos->x = new_x;
 		player_pos->y = new_y;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int move_forward_backward(t_data *dt, int direction)
@@ -64,11 +64,6 @@ int move_forward_backward(t_data *dt, int direction)
 	double speed;
 
 	player_pos = &(dt->player->pos);
-
-	//printf("Setting player position...\n");
-	//printf("Player orientation vector: %f %f\n",
-	//	dt->player->direction_vector.x,
-	//	dt->player->direction_vector.y);
 
 	// Calculate new position
 	speed = KEYBOARD_PLAYER_STEP_FORWARD;

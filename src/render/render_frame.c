@@ -83,9 +83,9 @@ void	process_keypresses(t_data dt)
 	if (dt.keys[100])  // D
 		move_sideways(&dt, 1);
 	if (dt.keys[65361]) // Left arrow
-		rotate_player(&dt, PLAYER_ROTATION_STEP, 1);
+		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, 1);
 	if (dt.keys[65363]) // Right arrow
-		rotate_player(&dt, PLAYER_ROTATION_STEP, -1);
+		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, -1);
 }
 
 int	render_frame(void *param)

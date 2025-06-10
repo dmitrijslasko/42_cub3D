@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/10 15:56:45 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:20:43 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,15 @@
 # define DEF_FLOOR_COLOR		GREEN
 # define DEF_WALL_COLOR			PINK
 
-// default scale
-# define PLAYER_STEP			0.05f
-# define PLAYER_ROTATION_STEP 	2.5f
 # define MIN_DISTANCE_TO_WALL	1.0f
+
+// default scale
+# define KEYBOARD_PLAYER_STEP			0.05f
+# define KEYBOARD_PLAYER_STEP_FORWARD	0.05f
+# define KEYBOARD_PLAYER_STEP_BACKWARD	0.025f
+# define KEYBOARD_PLAYER_STEP_SIDE 		0.025f
+# define KEYBOARD_PLAYER_ROTATION_STEP 	2.5f
+
 
 // colors
 # define DEF_BG_COLOR		BLACK

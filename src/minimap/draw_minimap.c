@@ -34,7 +34,7 @@ int	draw_minimap_map(t_data *dt)
 		}
 		curr_row++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int draw_minimap(t_data *dt)

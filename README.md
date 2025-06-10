@@ -12,6 +12,7 @@
 
 # Crazy stuff
 - Fix jerky mouse movements
+- See how track
 - Make forward moving faster than moving backwards and sideways
 - Loading screen )game menu)
 - Add wall shadows

@@ -111,8 +111,7 @@ typedef struct s_data
 
 // prototypes
 int			setup_mlx_and_win(t_data *dt);
-void		setup_hooks(t_data *data);
-void		setup_mouse(t_mouse *mouse);
+void		setup_keyboard_and_mouse_hooks(t_data *data);
 int			setup_img(t_data *dt);
 
 void	img_pix_put(t_img *img, int x, int y, int clr);

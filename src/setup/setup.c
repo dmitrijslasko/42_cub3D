@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/10 16:21:54 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:48:25 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,6 @@ int	handle_keypress(int keycode, t_data *dt)
 		keypress_exit(dt);
 		close_window();
 	}
-	else if (keycode == XK_Tab)
-	{
-		toggle(&dt->view->show_minimap);
-	}
 	else if (keycode >= 0 && keycode < TRACKED_KEYS)
 		dt->keys[keycode] = 1;
 	return (0);
@@ -137,7 +133,10 @@ int	handle_keypress(int keycode, t_data *dt)
 
 int	handle_keyrelease(int keycode, t_data *dt)
 {
-	if (keycode >= 0 && keycode < TRACKED_KEYS)
+	//printf("Key %d released\n", keycode);
+	if (keycode == XK_Tab)
+		toggle(&dt->view->show_minimap);
+	else if (keycode >= 0 && keycode < TRACKED_KEYS)
 		dt->keys[keycode] = 0;
 	return (EXIT_SUCCESS);
 }
@@ -155,6 +154,7 @@ int	mouse_press(int button, int x, int y, t_data *dt)
 	{
 		dt->mouse.lmb_is_pressed = 1;
 		dt->mouse.lmb_press_count++;
+		system("aplay sounds/shot.wav &");
 		printf("🖱️  LMB is pressed! Total press count: %zu\n", dt->mouse.lmb_press_count);
 	}
 	return (EXIT_SUCCESS);
@@ -171,7 +171,6 @@ int	mouse_release(int button, int x, int y, t_data *dt)
 	if (button == MOUSE_LEFT_BUTTON)
 	{
 		dt->mouse.lmb_is_pressed = 0;
-		system("aplay sounds/shot.wav &");
 
 		//printf("LMB released!\n");
 	}
@@ -200,17 +199,20 @@ int	mouse_move(int x, int y, t_data *dt)
 }
 
 
-void	setup_hooks(t_data *dt)
+void	setup_keyboard_and_mouse_hooks(t_data *dt)
 {
 	printf("Setting up keyboard and mouse hooks...");
 	mlx_hook(dt->win_ptr, KeyPress, KeyPressMask, handle_keypress, dt);
 	mlx_hook(dt->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, dt);
 	mlx_hook(dt->win_ptr, 17, 0, close_window, dt);
-	setup_mouse(&dt->mouse);
+	mlx_do_key_autorepeatoff(dt->mlx_ptr);
+
 	mlx_hook(dt->win_ptr, 4, 1L << 2, mouse_press, dt);
 	mlx_hook(dt->win_ptr, 5, 1L << 3, mouse_release, dt);
 	mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
 	mlx_hook(dt->win_ptr, 6, 1L << 6, mouse_move, dt);
+	dt->mouse.lmb_is_pressed = 0;
+	dt->mouse.rmb_is_pressed = 0;
 	printf(" Done!\n");
 }
 
@@ -221,9 +223,3 @@ void	setup_hooks(t_data *dt)
 //	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->welcome_img, 0, 0);
 //	return (0);
 //}
-
-void	setup_mouse(t_mouse *mouse)
-{
-	mouse->lmb_is_pressed = 0;
-	mouse->rmb_is_pressed = 0;
-}

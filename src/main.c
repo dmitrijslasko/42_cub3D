@@ -29,6 +29,11 @@ void stop_music(void)
     // or killall ffplay
 }
 
+void	setup_view(t_data *dt)
+{
+	dt->view->show_minimap = 0;
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	dt;
@@ -57,18 +62,16 @@ int	main(int argc, char **argv)
 	// -------------------------------------------------------------------------
 	setup_mlx_and_win(&dt);
 
-	dt.view = protected_malloc(sizeof(t_view), dt);
-	dt.view->show_minimap = 1;
-
 	dt.img = protected_malloc(sizeof(t_img), dt);
 
-	//setup_view(&dt);
+	dt.view = protected_malloc(sizeof(t_view), dt);
+	setup_view(&dt);
 	setup_img(&dt);
-	setup_hooks(&dt);
+	setup_keyboard_and_mouse_hooks(&dt);
 
 	print_separator(1, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 
-	return (0);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/10 16:20:43 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:41:05 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 // minimap
 # define MINIMAP_OFFSET_X					0
 # define MINIMAP_OFFSET_Y					0
-# define MINIMAP_GRID_SIZE					(WINDOW_W / 120)
+# define MINIMAP_GRID_SIZE					(WINDOW_W / 40)
 # define MINIMAP_GRID_COLOR					GREY
 # define MINIMAP_BACKGROUND_COLOR			DARKGREY
 # define MINIMAP_WALL_CELL_COLOR			ORANGE

@@ -103,9 +103,8 @@ int	render_frame(void *param)
 	{
 		//printf(" >>> skipping frame...\n");
 		//usleep(5000);
-		return (0);
+		return (EXIT_SUCCESS);
 	}
-	//printf("\n");
 
 	last_time = current_time;
 

@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/06 23:52:08 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 12:34:17 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static int	keypress_exit(int key, t_data *dt)
 		printf("ESC button pressed, closing the window...\n");
 		mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
 		dt->win_ptr = NULL;
+		free(dt->rays);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	close_window(void)
@@ -28,6 +29,7 @@ int	close_window(void)
 	exit(0);
 }
 
+// TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
 int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 {
 	// printf("Checking r_c: %ld %ld = %c\n", row, col, map->map_data[row][col]);
@@ -42,10 +44,11 @@ int set_player_position(t_data *dt, double dx, double dy)
 	double new_x;
 	double new_y;
 
+	//printf("Setting player position...\n");
 	player_pos = &(dt->player->pos);
 	new_x = player_pos->x + dx;
 	new_y = player_pos->y + dy;
-	// puts("Setting player position...");
+
 	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
 		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))
 	{
@@ -55,61 +58,154 @@ int set_player_position(t_data *dt, double dx, double dy)
 	return (0);
 }
 
-// Rotate both direction and camera plane
-double	deg_to_rad(double angle)
+int move_forward_backward(t_data *dt, int direction)
 {
-	return (angle * M_PI / 180.0);
-}
-void rotate_player(t_data *dt, double d_angle)
-{
-    double angle_rad = deg_to_rad(d_angle);
-    double old_dir_x = dt->player->direction_vet.x;
-    double old_dir_y = dt->player->direction_vet.y;
+	t_x_y *player_pos;
+	double new_x;
+	double new_y;
 
-    // Rotate direction vector using rotation matrix
-    dt->player->direction_vet.x = old_dir_x * cos(angle_rad) - old_dir_y * sin(angle_rad);
-    dt->player->direction_vet.y = old_dir_x * sin(angle_rad) + old_dir_y * cos(angle_rad);
+	player_pos = &(dt->player->pos);
 
-	// Optional: also rotate camera plane vector if you're using raycasting
-    // (same matrix applied to plane_x, plane_y if they exist)
+	//printf("Setting player position...\n");
+	//printf("Player orientation vector: %f %f\n",
+	//	dt->player->direction_vector.x,
+	//	dt->player->direction_vector.y);
 
-    // Update stored angle, keeping it between 0 and 359
-    dt->player->direction_vet_deg += d_angle;
-    if (dt->player->direction_vet_deg >= 360.0)
-        dt->player->direction_vet_deg -= 360.0;
-    else if (dt->player->direction_vet_deg < 0.0)
-        dt->player->direction_vet_deg += 360.0;
-}
+	// Calculate new position
+	new_x = player_pos->x + dt->player->direction_vector.x * PLAYER_STEP * direction;
+	new_y = player_pos->y + dt->player->direction_vector.y * PLAYER_STEP * direction;
 
-int	handle_keypress(int key, t_data *dt)
-{
-	if (key == ESC_BUTTON)
+	// TODO DL: allow wall sliding
+	if (map_position_is_walkable(dt->map, new_x, new_y))
 	{
-		keypress_exit(key, dt);
+		player_pos->x = new_x;
+		player_pos->y = new_y;
+	}
+
+	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
+	return (EXIT_SUCCESS);
+}
+
+int move_sideways(t_data *dt, int direction)
+{
+	t_x_y *player_pos;
+	double new_x;
+	double new_y;
+	t_x_y	rotated_vector;
+
+	player_pos = &(dt->player->pos);
+
+	//printf("Setting player position...\n");
+	//printf("Player orientation vector: %f %f\n",
+	//	dt->player->direction_vector.x,
+	//	dt->player->direction_vector.y);
+
+	rotated_vector = rotate_vector(*dt, dt->player->direction_vector, 90.0f * direction);
+
+	// Calculate new position
+	new_x = player_pos->x + rotated_vector.x * PLAYER_STEP;
+	new_y = player_pos->y + rotated_vector.y * PLAYER_STEP;
+
+	if (map_position_is_walkable(dt->map, new_x, new_y))
+	{
+		player_pos->x = new_x;
+		player_pos->y = new_y;
+	}
+
+	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
+
+	return (EXIT_SUCCESS);
+}
+
+int	handle_keypress(int keycode, t_data *dt)
+{
+	if (keycode == ESC_BUTTON)
+	{
+		keypress_exit(keycode, dt);
 		close_window();
 	}
-	if (key == XK_w)
-		set_player_position(dt, 0, -PLAYER_STEP);
-	if (key == XK_a)
-		set_player_position(dt, -PLAYER_STEP, 0);
-	if (key == XK_s)
-		set_player_position(dt, 0, PLAYER_STEP);
-	if (key == XK_d)
-		set_player_position(dt, PLAYER_STEP, 0);
-	if (key == XK_Left)
-		rotate_player(dt, -PLAYER_ROTATION_STEP);
-	if (key == XK_Right)
-		rotate_player(dt, PLAYER_ROTATION_STEP);
+	else if (keycode >= 0 && keycode < TRACKED_KEYS)
+		dt->keys[keycode] = 1;
 	return (0);
 }
 
-void	setup_hooks(t_data *data)
+int	handle_keyrelease(int keycode, t_data *dt)
 {
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, handle_keypress, data);
-	mlx_hook(data->win_ptr, 17, 0, close_window, data);
-	//mlx_hook(data->win_ptr, 4, 1L << 2, mouse_press, data);
-	//mlx_hook(data->win_ptr, 5, 1L << 3, mouse_release, data);
-	//mlx_hook(data->win_ptr, 6, 1L << 6, mouse_move, data);
+	if (keycode >= 0 && keycode < TRACKED_KEYS)
+		dt->keys[keycode] = 0;
+	return (EXIT_SUCCESS);
+}
+
+// Handle mouse press
+int	mouse_press(int button, int x, int y, t_data *dt)
+{
+	(void)x;
+	(void)y;
+	//if (dt->view->show_welcome)
+	//	return (1);
+	//if (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
+	//	mouse_zoom(button, dt);
+	if (button == MOUSE_LEFT_BUTTON)
+	{
+		dt->mouse.lmb_is_pressed = 1;
+		dt->mouse.lmb_press_count++;
+		printf("🖱️  LMB is pressed! Total press count: %zu\n", dt->mouse.lmb_press_count);
+	}
+	return (EXIT_SUCCESS);
+}
+
+// Handle mouse release
+int	mouse_release(int button, int x, int y, t_data *dt)
+{
+	(void)x;
+	(void)y;
+	//(void)button;
+	//if (dt->view->show_welcome)
+	//	return (1);
+	if (button == MOUSE_LEFT_BUTTON)
+	{
+		dt->mouse.lmb_is_pressed = 0;
+		system("aplay sounds/shot.wav &");
+
+		//printf("LMB released!\n");
+	}
+	//if (button == MOUSE_THIRD_BUTTON)
+	//	dt->mouse->rmb_is_pressed = FALSE;
+	return (0);
+}
+
+// Handle mouse move
+int	mouse_move(int x, int y, t_data *dt)
+{
+	dt->mouse.prev_x = dt->mouse.x;
+	dt->mouse.prev_y = dt->mouse.y;
+	dt->mouse.x = x;
+	dt->mouse.y = y;
+
+	if (x > dt->mouse.prev_x)
+	{
+		rotate_player(dt, MOUSE_SENS_ROTATE, -1);
+	}
+	else if (x < dt->mouse.prev_x)
+	{
+		rotate_player(dt, MOUSE_SENS_ROTATE, 1);
+	}
+	return (0);
+}
+
+
+void	setup_hooks(t_data *dt)
+{
+	printf("Setting up keyboard and mouse hooks...");
+	mlx_hook(dt->win_ptr, KeyPress, KeyPressMask, handle_keypress, dt);
+	mlx_hook(dt->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, dt);
+	mlx_hook(dt->win_ptr, 17, 0, close_window, dt);
+	setup_mouse(&dt->mouse);
+	mlx_hook(dt->win_ptr, 4, 1L << 2, mouse_press, dt);
+	mlx_hook(dt->win_ptr, 5, 1L << 3, mouse_release, dt);
+	mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
+	mlx_hook(dt->win_ptr, 6, 1L << 6, mouse_move, dt);
+	printf(" Done!\n");
 }
 
 //int	show_welcome_img(t_data *dt)

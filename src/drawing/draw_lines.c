@@ -6,6 +6,7 @@ void	draw_vertical_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)
 
 	if (pt_1.y > pt_2.y)
 		swap(&pt_1, &pt_2, sizeof(t_coor));
+	//printf("Drawing vertical line... (%d %d) to (%d %d)\n", pt_1.x, pt_1.y, pt_2.x, pt_2.y);
 	curr_y = pt_1.y;
 	while (curr_y < pt_2.y)
 	{
@@ -13,18 +14,6 @@ void	draw_vertical_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)
 		++curr_y;
 	}
 }
-
-//static void	draw_line_segment(t_data *dt, t_coor curr, t_coor next, int color)
-//{
-//	if (abs(curr.y - next.y) >= 1)
-//	{
-//		draw_vertical_line(dt, curr, next, color);
-//	}
-//	else
-//	{
-//		img_pix_put(dt->img, curr.x, curr.y, color);
-//	}
-//}
 
 /**
  * @brief Draw a line using the Bresenhamn algorithm.
@@ -64,6 +53,20 @@ void draw_line(t_data *dt, t_coor pt1, t_coor pt2, int color)
 }
 
 /* DEPRECATED: old implementation of the draw_line function without Bresenham.
+
+//static void	draw_line_segment(t_data *dt, t_coor curr, t_coor next, int color)
+//{
+//	if (abs(curr.y - next.y) >= 1)
+//	{
+//		draw_vertical_line(dt, curr, next, color);
+//	}
+//	else
+//	{
+//		img_pix_put(dt->img, curr.x, curr.y, color);
+//	}
+//}
+
+
 It fails to draw continous line at specific diagonal slopes.
 */
 //void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)

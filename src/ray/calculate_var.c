@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 void	set_step(t_x_y *step, t_x_y dir_vec)

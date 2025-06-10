@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/06 23:52:06 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/09 18:03:09 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,67 @@
 # define SETTINGS_H
 
 #ifndef M_PI
-# define M_PI 3.14159265358979323846
+# define M_PI 3
 #endif
+
+# define SHOW_CALCULATION_LOGS	1
+
+# define SHOW_DEBUG_INFO 	0
 
 // window name
 # define WINDOW_NAME         "cub3d - fvargas & dmlasko @ 42Berlin"
 # define VERSION_INFO        "cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
-# define WINDOW_W 	1200
-# define WINDOW_H 	900
-# define DEF_GRID_SIZE	40
-# define DEF_GRID_COLOR	GREY
+# define WINDOW_W		1020
+# define WINDOW_H		WINDOW_W / 4 * 3
+
+# define TRACKED_KEYS	70000
+
+// fps and casted rays count
+# define FPS					24
+
+# define PRECALCULATED_TRIG		3600
+
+
+// TODO DL: add the ability to limit the number of rays (essentially resolution)
+# define CASTED_RAYS_COUNT	1020
 
 // dummy map
-# define DUMMY_MAP_TOP		"111111111111"
-# define DUMMY_MAP_MID		"100000000001"
-# define DUMMY_MAP_PLAYER	"1000000N0001"
+# define DUMMY_MAP_TOP		"11111111111111111111"
+# define DUMMY_MAP_MID		"10000000000000000001"
+# define DUMMY_MAP_PLAYER	"1000N000000000000001"
+
+// minimap
+# define MINIMAP_OFFSET_X					0
+# define MINIMAP_OFFSET_Y					0
+# define MINIMAP_GRID_SIZE					(WINDOW_W / 120)
+# define MINIMAP_GRID_COLOR					GREY
+# define MINIMAP_BACKGROUND_COLOR			DARKGREY
+# define MINIMAP_WALL_CELL_COLOR			ORANGE
+# define MINIMAP_PLAYER_SPAWN_CELL_COLOR	LIME
+# define MINIMAP_PLAYER_SIZE_PX 			4
+# define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
+# define MINIMAP_PLAYER_COLOR 				WHITE
+
+# define FIELD_OF_VIEW_DEG		70.0f
+
+// colors
+# define DEF_CEILING_COLOR		BLUE
+# define DEF_FLOOR_COLOR		GREEN
+# define DEF_WALL_COLOR			PINK
 
 // default scale
-# define X_CENTER 	600
-# define Y_CENTER 	450
-# define XY_DIST    100
-# define Z_DIST 	1
-# define PLAYER_STEP	0.5f
-# define PLAYER_ROTATION_STEP 5
-# define PLAYER_SIZE_PX 10
-# define PLAYER_COLOR 	WHITE
-#define MIN_DISTANCE_TO_WALL 0.1f
-
-// offsets
-# define DEF_OFFSET_X       	0
-# define DEF_OFFSET_Y       	0
+# define PLAYER_STEP			0.05f
+# define PLAYER_ROTATION_STEP 	2.5f
+# define MIN_DISTANCE_TO_WALL	1.0f
 
 // colors
 # define DEF_BG_COLOR		BLACK
 
-
-// default rotation (degrees)
-# define DEF_ISO_ROT_X		0
-# define DEF_ISO_ROT_Y		0
-# define DEF_ISO_ROT_Z       0
-# define DEF_ISO_ANGLE   	30
-
+// separator
+# define DEF_SEPARATOR_CHAR		"-"
+# define DEF_SEPARATOR_WIDTH	80
 
 // zoom settings
 # define MAX_ZOOM			5
@@ -65,7 +83,7 @@
 # define DEF_STARTING_ZOOM   0.5f
 
 // mouse sensitivity
-# define MOUSE_SENS_ROTATE 	0.2f
+# define MOUSE_SENS_ROTATE  2.5f
 # define MOUSE_SENS_DRAG	0.7f
 # define MOUSE_SENS_SCROLL 	0.1f
 
@@ -74,11 +92,6 @@
 # define MENU_WIDTH_PX      200
 # define UI_CLR_1    	    WHITE
 # define UI_CLR_2    	    GOLD
-
-// bounding box
-# define BBOX_COLOR			GREEN
-# define CENTER_LINE_PX     50
-# define CL_MARGIN          20
 
 // map parsing
 # define PARSE_MAP			TRUE

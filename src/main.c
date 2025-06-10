@@ -16,6 +16,19 @@ int	precalculate_trig_tables(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
+void start_music(void)
+{
+    system("(while true; do aplay sounds/shot.wav; done) &");
+    // or use ffplay if available
+    // system("ffplay -nodisp -autoexit -loglevel quiet -loop 0 sounds/music.wav &");
+}
+
+void stop_music(void)
+{
+    system("killall aplay");
+    // or killall ffplay
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	dt;
@@ -49,7 +62,6 @@ int	main(int argc, char **argv)
 	//setup_view(&dt);
 	setup_img(&dt);
 	setup_hooks(&dt);
-	
 
 	print_separator(1, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);

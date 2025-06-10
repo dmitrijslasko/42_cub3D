@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/09 17:57:52 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 12:34:17 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ int	mouse_release(int button, int x, int y, t_data *dt)
 	if (button == MOUSE_LEFT_BUTTON)
 	{
 		dt->mouse.lmb_is_pressed = 0;
+		system("aplay sounds/shot.wav &");
+
 		//printf("LMB released!\n");
 	}
 	//if (button == MOUSE_THIRD_BUTTON)

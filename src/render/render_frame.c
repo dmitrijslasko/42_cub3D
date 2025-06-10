@@ -26,7 +26,8 @@ void render_3d(t_data *dt)
 	while (i < CASTED_RAYS_COUNT)
 	{
 		height = 1 / dt->rays[i].distance_to_wall;
-		int wall_height = height * 400; // Adjust scaling as needed
+
+		int wall_height = height * SCALING; // Adjust scaling as needed
 
 		int top_y = WINDOW_H / 2 - wall_height;
 		int bottom_y = WINDOW_H / 2 + wall_height;

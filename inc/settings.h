@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/09 18:03:09 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:31:59 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define TRACKED_KEYS	70000
 
 // fps and casted rays count
-# define FPS					24
+# define FPS					60
 
 # define PRECALCULATED_TRIG		3600
 
@@ -41,9 +41,10 @@
 # define CASTED_RAYS_COUNT	1020
 
 // dummy map
-# define DUMMY_MAP_TOP		"11111111111111111111"
-# define DUMMY_MAP_MID		"10000000000000000001"
-# define DUMMY_MAP_PLAYER	"1000N000000000000001"
+# define DUMMY_MAP_TOP		"1111111111111"
+# define DUMMY_MAP_MID		"1010101010101"
+# define DUMMY_MAP_MID_2	"1000000000001"
+# define DUMMY_MAP_PLAYER	"1000N00000001"
 
 // minimap
 # define MINIMAP_OFFSET_X					0
@@ -58,6 +59,7 @@
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
 # define FIELD_OF_VIEW_DEG		70.0f
+# define SCALING	400
 
 // colors
 # define DEF_CEILING_COLOR		BLUE

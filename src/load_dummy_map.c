@@ -28,11 +28,13 @@ t_map	*load_dummy_map(void)
 			strcpy(map->map_data[curr_col], DUMMY_MAP_TOP);
 		else if (curr_col == 4)
 			strcpy(map->map_data[curr_col], DUMMY_MAP_PLAYER);
-		else
+		else if (curr_col % 2)
 			strcpy(map->map_data[curr_col], DUMMY_MAP_MID);
+		else
+			strcpy(map->map_data[curr_col], DUMMY_MAP_MID_2);
 		}
 	// NOTE DL: extra cells on the map to make our lives more difficult
-	map->map_data[5][3] = '1';
-	map->map_data[7][7] = '1';
+	//map->map_data[5][3] = '1';
+	//map->map_data[7][7] = '1';
 	return (map);
 }

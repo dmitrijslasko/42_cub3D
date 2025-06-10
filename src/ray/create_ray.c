@@ -1,12 +1,5 @@
 #include "cub3d.h"
 
-bool	check_hit_wall(t_coor coord, t_map map)
-{
-	if (map.map_data[coord.y][coord.x] == '1')
-		return (1);
-	return (0);
-}
-
 double	get_dist_wall(char c, t_x_y direction, t_coor map_coor, t_x_y player_pos, t_x_y step)
 {
 	if (c == 'x')
@@ -48,25 +41,18 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
     	if (check_hit_wall(coor_map, *dt.map))
 			break;
 	}
-	ray->distance_to_wall = get_dist_wall(c, side_dist);
+	ray->distance_to_wall = get_dist_wall(c, direction, coor_map, dt.player->pos, step);
+
+	// fish-eye correction
+	double angle_cos = direction.x * dt.player->direction_vector.x + direction.y * dt.player->direction_vector.y;
+	ray->distance_to_wall *= angle_cos;
+	//dt.player->direction_vector
+
 	ray->wall_type = get_type_wall(c, direction);
 	ray->percentage_of_image = get_perc_wall(dt.player->pos, direction, ray->distance_to_wall, ray->wall_type);
 }
 
-// void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)
-  
-	
-// 		// printf("        loop %d side_dist_x = %f and side_dist_y = %f in %c\n", ++i, side_dist.x, side_dist.y, c);
-// 		// printf("        coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
-// 	}
-// 	printf(TXT_YELLOW ">>>>>>>>>>> HIT A WALL!\n" TXT_RESET);
-// 	ray = constructor_ray(get_dist_wall(c, direction, coor_map, dt.player->pos, step), get_type_wall(c, direction));
-// 	ray->perc_img = get_perc_wall(dt.player->pos, direction, ray->dist, ray->type_wall);
-// 	return (ray);
-// }
-
-t_ray	*calculate_ray(t_data dt, t_x_y direction)
-
+void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)
 {
 	t_x_y	step;
 	t_x_y	side_dist;
@@ -86,9 +72,35 @@ t_ray	*calculate_ray(t_data dt, t_x_y direction)
 
 	// Create ray & print out its information
 	update_ray(*dt, ray, direction, delta_dist, step, side_dist);
+
 	ray->vector = direction;
 	//print_single_ray_info(*ray);
 }
+
+//t_ray	*calculate_ray(t_data dt, t_x_y direction, )
+
+//{
+//	t_x_y	step;
+//	t_x_y	side_dist;
+//	t_x_y	delta_dist;
+
+//	// Delta distance
+//	set_delta_dist(&delta_dist, direction);
+//	//printf("delta_x = %f and delta_y = %f\n", delta_dist.x, delta_dist.y);
+
+//	// Step
+//	set_step(&step, direction);
+//	//printf("step_x = %f and step_y = %f\n", step.x, step.y);
+
+//	// Step distance
+//	set_side_dist(&side_dist, direction, dt.player->pos, delta_dist);
+//	//printf("side_dist_x = %f and side_dist_y = %f\n", side_dist.x, side_dist.y);
+
+//	// Create ray & print out its information
+//	update_ray(*dt, &ray, direction, delta_dist, step, side_dist);
+//	ray->vector = direction;
+//	//print_single_ray_info(*ray);
+//}
 
 int calculate_all_rays(t_data *dt)
 {

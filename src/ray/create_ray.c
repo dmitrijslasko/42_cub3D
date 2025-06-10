@@ -1,33 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   create_ray.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 20:04:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/09 14:44:57 by dmlasko          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
-t_type_wall	get_type_wall(char c, t_x_y direction)
+bool	check_hit_wall(t_coor coord, t_map map)
 {
-	if (c == 'y' && direction.y < 0)
-		return (NORTH);
-	if (c == 'y')
-		return (SOUTH);
-	if (c == 'x' && direction.x < 0)
-		return (EAST);
-	return (WEST);
+	if (map.map_data[coord.y][coord.x] == '1')
+		return (1);
+	return (0);
 }
 
-double	get_dist_wall(char c, t_x_y side_dist)
+double	get_dist_wall(char c, t_x_y direction, t_coor map_coor, t_x_y player_pos, t_x_y step)
 {
-	if (c == 'y')
-		return (side_dist.y);
-	return (side_dist.x);
+	if (c == 'x')
+		return ((map_coor.x - player_pos.x + (1 - step.x) / 2) / direction.x) ;
+	return ((map_coor.y - player_pos.y + (1 - step.y) / 2) / direction.y);
 }
 
 char	initialize_wall_hit(t_x_y side_dist)
@@ -45,10 +29,9 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
 	int		i;
 
 	i = 0;
-	c = initialize_wall_hit(side_dist);
-	coor_map = get_updated_coor_player(dt.player->pos, direction, 1);
-	coor_map = get_updated_coor_player_(coor_map, direction, -1);
-	while (!check_hit_wall(coor_map, *dt.map) && i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
+	coor_map = get_values_coor(dt.player->pos.x, dt.player->pos.y);
+	// printf("INIT: coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
+	while (i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
 		if (side_dist.x < side_dist.y)
 		{
@@ -62,13 +45,28 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
 			coor_map.y += step.y;
 			c = 'y';
 		}
+    	if (check_hit_wall(coor_map, *dt.map))
+			break;
 	}
 	ray->distance_to_wall = get_dist_wall(c, side_dist);
 	ray->wall_type = get_type_wall(c, direction);
 	ray->percentage_of_image = get_perc_wall(dt.player->pos, direction, ray->distance_to_wall, ray->wall_type);
 }
 
-void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)
+// void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)
+  
+	
+// 		// printf("        loop %d side_dist_x = %f and side_dist_y = %f in %c\n", ++i, side_dist.x, side_dist.y, c);
+// 		// printf("        coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
+// 	}
+// 	printf(TXT_YELLOW ">>>>>>>>>>> HIT A WALL!\n" TXT_RESET);
+// 	ray = constructor_ray(get_dist_wall(c, direction, coor_map, dt.player->pos, step), get_type_wall(c, direction));
+// 	ray->perc_img = get_perc_wall(dt.player->pos, direction, ray->dist, ray->type_wall);
+// 	return (ray);
+// }
+
+t_ray	*calculate_ray(t_data dt, t_x_y direction)
+
 {
 	t_x_y	step;
 	t_x_y	side_dist;

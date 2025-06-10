@@ -110,10 +110,10 @@ typedef struct s_data
 }	t_data;
 
 // prototypes
-int		setup_mlx_and_win(t_data *dt);
-void	setup_hooks(t_data *data);
-void	setup_mouse(t_mouse *mouse);
-int		setup_img(t_data *dt);
+int			setup_mlx_and_win(t_data *dt);
+void		setup_hooks(t_data *data);
+void		setup_mouse(t_mouse *mouse);
+int			setup_img(t_data *dt);
 
 void	img_pix_put(t_img *img, int x, int y, int clr);
 
@@ -127,16 +127,29 @@ void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
 int		draw_minimap_player(t_data *dt);
 int		draw_minimap_map(t_data *dt);
 
-void	*protected_malloc(size_t size, t_data dt);
 
-void	swap(void *a, void *b, size_t size);
-int		pixel_is_in_window(int x, int y);
+// void		img_pix_put(t_img *img, int x, int y, int clr);
+// void		draw_square(t_data *data, int x, int y, int size, int clr);
+// void		draw_circle(t_data *data, int x, int y, int radius, int clr);
+// void		draw_background(t_img *img, int clr);
+// void		draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
+
+// int			draw_player(t_data *dt);
+// int			draw_map(t_data *dt);
+
+
+void		*protected_malloc(size_t size, t_data dt);
+
+void		swap(void *a, void *b, size_t size);
+int			pixel_is_in_window(int x, int y);
 
 void	draw_minimap_grid(t_data *dt);
 
 int 	move_sideways(t_data *dt, int direction);
 int 	move_forward_backward(t_data *dt, int direction);
 void 	rotate_player(t_data *dt, double d_angle, int direction);
+
+// void		draw_grid(t_img *img, int grid_size, int grid_color);
 
 //ray
 
@@ -147,27 +160,39 @@ t_ray	*calculate_single_ray(t_data dt, t_x_y direction);
 void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool	initialize_rays(t_data *dt);
 void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist);
+// t_ray		*constructor_ray(double dist, t_type_wall wall);
+// t_ray		*calculate_ray(t_data dt, t_x_y direction);
+
+// void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
+// bool		create_array_ray(t_data dt);
+// void		set_side_dist(t_x_y *side_dist, t_x_y dir_vec, \
+// 					t_x_y pos_player, t_x_y delta_dist);
+
 
 //calculate_var.c
-void	set_step(t_x_y *step, t_x_y dir_vec);
+void		set_step(t_x_y *step, t_x_y dir_vec);
 
 //update_coor_player.c
-t_coor	get_updated_coor_player_(t_coor coor, t_x_y dir, int signal);
-t_coor	get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
+t_coor		get_updated_coor_player_(t_coor coor, t_x_y dir, int signal);
+t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
 
-//percentage
-double	get_perc_wall(t_x_y pos_player, t_x_y direction, double dist_ray, \
+//percentage_wall.c
+double		get_perc_wall(t_x_y pos_player, t_x_y direction, double dist_ray, \
 							t_type_wall type_wall);
 
-//x_y.c
-double	max_double(double a, double b);
-t_x_y	get_values_x_y(double x, double y);
-void	set_values_x_y(t_x_y *new, double x, double y);
-t_coor	get_values_coor(int x, int y);
-void	set_value_coor(t_coor *new, int x, int y);
+//type_wall.c
+t_type_wall	get_type_wall(char c, t_x_y direction);
+void		print_ray(t_ray ray);
 
-void	draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
-void	draw_vector(t_data *dt, t_coor origin, t_x_y dir, int stop_at_wall);
+//x_y.c
+double		max_double(double a, double b);
+t_x_y		get_values_x_y(double x, double y);
+void		set_values_x_y(t_x_y *new, double x, double y);
+t_coor		get_values_coor(int x, int y);
+void		set_value_coor(t_coor *new, int x, int y);
+
+void		draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
+void		draw_vector(t_data *dt, t_coor origin, t_x_y dir, int stop_at_wall);
 
 // utils
 void	print_separator(size_t count, char *c);

@@ -81,6 +81,7 @@ typedef struct s_mouse
 
 typedef struct s_view
 {
+	size_t	screen_center;
 	char	show_minimap;
 }	t_view;
 
@@ -93,6 +94,14 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_texture
+{
+	void    *texture_img;
+	int     *texture_data; // Or char* depending on format
+	int     width, height;
+	int     bpp, size_line, endian;
+}	t_texture;
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -101,6 +110,7 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*rays;
 	t_player	*player;
+	t_texture	*textures;
 	t_view		*view;
 	t_mouse		mouse;
 	double		sin_table[PRECALCULATED_TRIG];
@@ -164,7 +174,7 @@ void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y delt
 
 // void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 // bool		create_array_ray(t_data dt);
-// void		set_side_dist(t_x_y *side_dist, t_x_y dir_vec, \
+// void		set_side_dist(t_x_y *side_dist, t_x_y dir_vec,
 // 					t_x_y pos_player, t_x_y delta_dist);
 
 
@@ -227,11 +237,11 @@ int	draw_minimap_rays(t_data *dt, int draw_direction_vector);
 
 double	deg_to_rad(double angle);
 
-int	draw_ceiling(t_data *dt);
-int	draw_floor(t_data *dt);
+int		draw_ceiling(t_data *dt);
+int		draw_floor(t_data *dt);
 
-int	ft_min(int	num1, int num2);
-int	ft_max(int	num1, int num2);
+int		ft_min(int	num1, int num2);
+int		ft_max(int	num1, int num2);
 
 void	toggle(char *setting);
 

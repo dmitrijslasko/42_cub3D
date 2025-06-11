@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/10 16:59:57 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 23:05:42 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,14 @@ int	mouse_move(int x, int y, t_data *dt)
 	else if (x < dt->mouse.prev_x)
 	{
 		rotate_player(dt, MOUSE_SENS_ROTATE, 1);
+	}
+	if (y > dt->mouse.prev_y)
+	{
+		dt->view->screen_center -= 10;
+	}
+	if (y < dt->mouse.prev_y)
+	{
+		dt->view->screen_center += 10;
 	}
 	return (0);
 }

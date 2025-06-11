@@ -29,10 +29,15 @@ void render_3d(t_data *dt)
 
 		int wall_height = height * SCALING; // Adjust scaling as needed
 
-		int top_y = WINDOW_H / 2 - wall_height;
-		int bottom_y = WINDOW_H / 2 + wall_height;
+		int top_y = dt->view->screen_center - wall_height;
+		int bottom_y = dt->view->screen_center + wall_height;
 
 		screen_x = i * (WINDOW_W / CASTED_RAYS_COUNT);
+
+		size_t texture_x = (size_t)(dt->rays[i].percentage_of_image * (float)dt->textures->width);
+
+		// if (i == CASTED_RAYS_COUNT / 2)
+		// 	printf("Texture: %zu\n", texture_x);
 
 		if (dt->rays[i].wall_type == NORTH)
 			color = DARKGREY;
@@ -42,6 +47,20 @@ void render_3d(t_data *dt)
 			color = GOLD;
 		else
 			color = BROWN;
+		color = dt->textures->texture_data[texture_x];
+
+		// int color = dt->textures->texture_data[dt->textures->height * dt->textures->width + texture_x];
+
+		float distance = dt->rays[i].distance_to_wall;
+		float shade = 1.0f / (1.0f + distance * 0.2f); // adjust 0.1 for strength
+		// if (shade < 0.2f) shade = 0.1f; // prevent too dark
+
+		int r = ((color >> 16) & 0xFF) * shade;
+		int g = ((color >> 8) & 0xFF) * shade;
+		int b = (color & 0xFF) * shade;
+
+		color = (r << 16) | (g << 8) | b;
+
 
 		// Draw a 2-pixel wide wall slice (as vertical bars)
 		for (int w = 0; w < (WINDOW_W / CASTED_RAYS_COUNT); w++)
@@ -86,6 +105,10 @@ void	process_keypresses(t_data dt)
 		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, 1);
 	if (dt.keys[65363]) // Right arrow
 		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, -1);
+	if (dt.keys[65362]) // Up
+		dt.view->screen_center += 10;
+	if (dt.keys[65364]) // Down
+		dt.view->screen_center -= 10;
 }
 
 int	render_frame(void *param)

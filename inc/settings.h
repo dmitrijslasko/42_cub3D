@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/10 17:01:03 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/10 23:37:33 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define VERSION_INFO        "cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
-# define WINDOW_W		640
+# define WINDOW_W		1200
 # define WINDOW_H		WINDOW_W / 4 * 3
 
 # define TRACKED_KEYS	70000
@@ -41,10 +41,10 @@
 # define CASTED_RAYS_COUNT	WINDOW_W
 
 // dummy map
-# define DUMMY_MAP_TOP		"1111111111111"
-# define DUMMY_MAP_MID		"1010101010101"
-# define DUMMY_MAP_MID_2	"1000000000001"
-# define DUMMY_MAP_PLAYER	"1000N00000001"
+# define DUMMY_MAP_TOP		"1111111111111111111111111111111"
+# define DUMMY_MAP_MID		"1010101010101010101010101010101"
+# define DUMMY_MAP_MID_2	"1000000000000000000000000000001"
+# define DUMMY_MAP_PLAYER	"1000N00000000000000000000000001"
 
 // minimap
 # define MINIMAP_OFFSET_X					0
@@ -63,7 +63,7 @@
 
 // colors
 # define DEF_CEILING_COLOR		BLUE
-# define DEF_FLOOR_COLOR		GREEN
+# define DEF_FLOOR_COLOR		NAVY
 # define DEF_WALL_COLOR			PINK
 
 # define MIN_DISTANCE_TO_WALL	0.2f

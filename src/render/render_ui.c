@@ -56,5 +56,5 @@ void	add_crosshair(t_data *dt, int color)
 void	add_ui(t_data *dt)
 {
 	add_coor_info(dt);
-	add_crosshair(dt, MAGENTA);
+	add_crosshair(dt, WHITE);
 }

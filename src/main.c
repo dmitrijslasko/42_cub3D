@@ -31,7 +31,19 @@ void stop_music(void)
 
 void	setup_view(t_data *dt)
 {
+	dt->view->screen_center = WINDOW_H / 2;
 	dt->view->show_minimap = 0;
+}
+
+int load_textures(t_data *dt)
+{
+	t_texture *texture;
+
+	texture = dt->textures;
+
+	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/bricks.xpm", &texture->width, &texture->height);
+	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
+	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv)
@@ -65,6 +77,9 @@ int	main(int argc, char **argv)
 	dt.img = protected_malloc(sizeof(t_img), dt);
 
 	dt.view = protected_malloc(sizeof(t_view), dt);
+	dt.textures = protected_malloc(sizeof(t_texture), dt);
+
+	load_textures(&dt);
 	setup_view(&dt);
 	setup_img(&dt);
 	setup_keyboard_and_mouse_hooks(&dt);

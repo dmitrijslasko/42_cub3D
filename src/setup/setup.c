@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/10 23:05:42 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:22:22 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int move_forward_backward(t_data *dt, int direction)
 
 	// Calculate new position
 	speed = KEYBOARD_PLAYER_STEP_FORWARD;
+	speed *= dt->player->move_speed_multiplier;
 	if (direction == -1)
 		speed = KEYBOARD_PLAYER_STEP_BACKWARD;
 	new_x = player_pos->x + dt->player->direction_vector.x * speed * direction;
@@ -92,16 +93,11 @@ int move_sideways(t_data *dt, int direction)
 
 	player_pos = &(dt->player->pos);
 
-	//printf("Setting player position...\n");
-	//printf("Player orientation vector: %f %f\n",
-	//	dt->player->direction_vector.x,
-	//	dt->player->direction_vector.y);
-
 	rotated_vector = rotate_vector(*dt, dt->player->direction_vector, 90.0f * direction);
 
 	// Calculate new position
-	new_x = player_pos->x + rotated_vector.x * KEYBOARD_PLAYER_STEP_SIDE;
-	new_y = player_pos->y + rotated_vector.y * KEYBOARD_PLAYER_STEP_SIDE;
+	new_x = player_pos->x + rotated_vector.x * KEYBOARD_PLAYER_STEP_SIDE * dt->player->move_speed_multiplier;
+	new_y = player_pos->y + rotated_vector.y * KEYBOARD_PLAYER_STEP_SIDE * dt->player->move_speed_multiplier;
 
 	if (map_position_is_walkable(dt->map, new_x, new_y))
 	{

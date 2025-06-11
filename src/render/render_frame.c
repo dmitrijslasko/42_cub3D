@@ -109,6 +109,10 @@ void	process_keypresses(t_data dt)
 		dt.view->screen_center += 10;
 	if (dt.keys[65364]) // Down
 		dt.view->screen_center -= 10;
+	if (dt.keys[65505])
+		dt.player->move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
+	else
+		dt.player->move_speed_multiplier = 1;
 }
 
 int	render_frame(void *param)
@@ -124,7 +128,6 @@ int	render_frame(void *param)
 	//printf("ms: %ld", current_time);
 	if (current_time - last_time < (1000 / FPS))
 	{
-		//printf(" >>> skipping frame...\n");
 		//usleep(5000);
 		return (EXIT_SUCCESS);
 	}

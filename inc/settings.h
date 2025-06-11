@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/10 23:37:33 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:26:59 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 # define SCALING	200
 
 // colors
-# define DEF_CEILING_COLOR		BLUE
+# define DEF_CEILING_COLOR		ORANGE
 # define DEF_FLOOR_COLOR		NAVY
 # define DEF_WALL_COLOR			PINK
 
@@ -74,6 +74,8 @@
 # define KEYBOARD_PLAYER_STEP_BACKWARD	0.015f
 # define KEYBOARD_PLAYER_STEP_SIDE 		0.015f
 # define KEYBOARD_PLAYER_ROTATION_STEP 	2.5f
+# define MOVE_SPEED_MULTIPLIER_SLOW 	0.2f
+# define MOVE_SPEED_MULTIPLIER_FAST		1.5f
 
 
 // colors

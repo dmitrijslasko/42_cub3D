@@ -1,16 +1,10 @@
 #include "cub3d.h"
 
-long	get_time_in_ms(void)
-{
-	struct timeval	tv;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
 void render_3d(t_data *dt)
 {
 	size_t	i;
-	double	height;
+	float	height;
 	t_coor	start;
 	t_coor	end;
 	int		color;
@@ -39,14 +33,14 @@ void render_3d(t_data *dt)
 		// if (i == CASTED_RAYS_COUNT / 2)
 		// 	printf("Texture: %zu\n", texture_x);
 
-		if (dt->rays[i].wall_type == NORTH)
-			color = DARKGREY;
-		else if (dt->rays[i].wall_type == SOUTH)
-			color = PURPLE;
-		else if (dt->rays[i].wall_type == EAST)
-			color = GOLD;
-		else
-			color = BROWN;
+		//if (dt->rays[i].wall_type == NORTH)
+		//	color = DARKGREY;
+		//else if (dt->rays[i].wall_type == SOUTH)
+		//	color = PURPLE;
+		//else if (dt->rays[i].wall_type == EAST)
+		//	color = GOLD;
+		//else
+		//	color = BROWN;
 		color = dt->textures->texture_data[texture_x];
 
 		// int color = dt->textures->texture_data[dt->textures->height * dt->textures->width + texture_x];
@@ -86,7 +80,7 @@ void	print_player_logs(t_data *dt)
 		print_separator(1, DEF_SEPARATOR_CHAR);
 	}
 }
-void	toggle(char *setting)
+void	toggle_setting(char *setting)
 {
 	*setting ^= 1;
 }
@@ -115,6 +109,47 @@ void	process_keypresses(t_data dt)
 		dt.player->move_speed_multiplier = 1;
 }
 
+
+
+int sign(int x)
+{
+	return (x > 0) - (x < 0);
+}
+
+//Make sure you're not rotating the player based on movement during suppression (i.e., ignore dx/dy for input when suppress_mouse_frames > 0 too).
+
+# define CENTER_TOLERANCE	25
+
+int	reset_mouse_position(t_data *dt)
+{
+	int dx = dt->mouse.x - WINDOW_W / 2;
+	int dy = dt->mouse.y - WINDOW_H / 2;
+
+	if (dt->mouse.suppress_mouse_frames > 0)
+	{
+		dt->mouse.suppress_mouse_frames--;
+		return (EXIT_SUCCESS);
+	}
+
+	if (abs(dx) > CENTER_TOLERANCE || abs(dy) > CENTER_TOLERANCE)
+	{
+		int new_x = dt->mouse.x;
+		int new_y = dt->mouse.y;
+
+		if (abs(dx) > CENTER_TOLERANCE)
+				new_x = WINDOW_W / 2 + sign(dx) * CENTER_TOLERANCE;
+		if (abs(dy) > CENTER_TOLERANCE)
+				new_y = WINDOW_H / 2 + sign(dy) * CENTER_TOLERANCE;
+
+		dt->mouse.suppress_mouse_frames = 2;
+		mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, new_x, new_y);
+	}
+	//mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W / 2, dt->mouse.y);
+
+	return (EXIT_SUCCESS);
+}
+
+
 int	render_frame(void *param)
 {
 	static long	last_time = 0;
@@ -124,7 +159,7 @@ int	render_frame(void *param)
 	dt = (t_data *)param;
 
 	// render FPS at the predefined FPS
-	current_time = get_time_in_ms();
+	current_time = get_current_time_in_ms();
 	//printf("ms: %ld", current_time);
 	if (current_time - last_time < (1000 / FPS))
 	{
@@ -138,7 +173,8 @@ int	render_frame(void *param)
 		return (EXIT_FAILURE);
 
 	process_keypresses(*dt);
-	mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W / 2, WINDOW_H / 2);
+
+	reset_mouse_position(dt);
 
 	if (SHOW_CALCULATION_LOGS)
 		print_player_logs(dt);

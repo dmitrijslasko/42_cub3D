@@ -1,11 +1,11 @@
 #include "cub3d.h"
 
 // TODO: DL replace with cos/sin lookup tables
-t_x_y rotate_vector(t_data dt, t_x_y vet, double angle_degrees)
+t_x_y rotate_vector(t_data dt, t_x_y vet, float angle_degrees)
 {
-	double radians;
-    double cos_theta;
-    double sin_theta;
+	float radians;
+    float cos_theta;
+    float sin_theta;
 
 	t_x_y result;
 
@@ -19,7 +19,7 @@ t_x_y rotate_vector(t_data dt, t_x_y vet, double angle_degrees)
     result.y = vet.x * sin_theta + vet.y * cos_theta;
     return (result);
 }
-//t_x_y rotate_vector(t_data dt, t_x_y vet, double angle_degrees)
+//t_x_y rotate_vector(t_data dt, t_x_y vet, float angle_degrees)
 //{
 //	int index;
 //	t_x_y result;

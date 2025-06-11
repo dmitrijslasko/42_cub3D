@@ -11,18 +11,20 @@ void	initialize_player_position(t_player *player,t_map *map)
 			{
 				player->pos.x = x + 0.5;
 				player->pos.y = y + 0.5;
-				player->direction_vector.x = 1;
-				player->direction_vector.y = 0;
+				player->direction_vector.x = 0;
+				player->direction_vector.y = -1;
 			}
 		}
 	}
 }
 
-t_player *get_player(t_data dt)
+int	init_player(t_data *dt)
 {
 	t_player	*player;
 
-	player = protected_malloc(sizeof(t_player), dt);
-	initialize_player_position(player, dt.map);
-	return (player);
+	player = protected_malloc(sizeof(t_player), *dt);
+	initialize_player_position(player, dt->map);
+	dt->player = player;
+
+	return (EXIT_SUCCESS);
 }

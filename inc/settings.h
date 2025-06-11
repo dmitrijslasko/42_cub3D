@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/11 16:26:59 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/11 20:31:05 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,24 @@
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
 # define DUMMY_MAP_MID		"1010101010101010101010101010101"
 # define DUMMY_MAP_MID_2	"1000000000000000000000000000001"
-# define DUMMY_MAP_PLAYER	"1000N00000000000000000000000001"
+# define DUMMY_MAP_PLAYER	"10000N0000000000000000000000001"
 
 // minimap
 # define MINIMAP_OFFSET_X					0
 # define MINIMAP_OFFSET_Y					0
-# define MINIMAP_GRID_SIZE					(WINDOW_W / 40)
-# define MINIMAP_GRID_COLOR					GREY
-# define MINIMAP_BACKGROUND_COLOR			DARKGREY
-# define MINIMAP_WALL_CELL_COLOR			ORANGE
+# define MINIMAP_GRID_SIZE					(WINDOW_W / 60)
+# define MINIMAP_GRID_COLOR					NAVY
+# define MINIMAP_DRAW_GRID					0
+# define MINIMAP_BACKGROUND_COLOR			GREY
+# define MINIMAP_WALL_CELL_COLOR			NAVY
 # define MINIMAP_PLAYER_SPAWN_CELL_COLOR	LIME
 # define MINIMAP_PLAYER_SIZE_PX 			4
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
+# define MINIMAP_DIRECTION_RAY_LENGTH		10
 
-# define FIELD_OF_VIEW_DEG		75.0f
-# define SCALING	200
+# define FIELD_OF_VIEW_DEG					75.0f
+# define SCALING				400
 
 // colors
 # define DEF_CEILING_COLOR		ORANGE
@@ -73,7 +75,7 @@
 # define KEYBOARD_PLAYER_STEP_FORWARD	0.03f
 # define KEYBOARD_PLAYER_STEP_BACKWARD	0.015f
 # define KEYBOARD_PLAYER_STEP_SIDE 		0.015f
-# define KEYBOARD_PLAYER_ROTATION_STEP 	2.5f
+# define KEYBOARD_PLAYER_ROTATION_STEP 	2.0f
 # define MOVE_SPEED_MULTIPLIER_SLOW 	0.2f
 # define MOVE_SPEED_MULTIPLIER_FAST		1.5f
 
@@ -92,8 +94,8 @@
 # define DEF_STARTING_ZOOM   0.5f
 
 // mouse sensitivity
-# define MOUSE_SENS_ROTATE  2.5f
-# define MOUSE_SENS_DRAG	0.7f
+# define MOUSE_SENS_ROTATE 	2.0f
+//# define MOUSE_SENS_DRAG	0.05f
 # define MOUSE_SENS_SCROLL 	0.1f
 
 // menu & UI

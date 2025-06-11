@@ -40,9 +40,10 @@ int	draw_minimap_map(t_data *dt)
 int draw_minimap(t_data *dt)
 {
 	draw_minimap_map(dt);
-	draw_minimap_grid(dt);
+	if (MINIMAP_DRAW_GRID)
+		draw_minimap_grid(dt);
 	draw_minimap_player(dt);
-	draw_minimap_rays(dt, 0);
+	//draw_minimap_rays(dt, 0);
 	draw_minimap_rays(dt, 1);
 
 	return (EXIT_SUCCESS);

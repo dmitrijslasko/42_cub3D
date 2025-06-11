@@ -39,7 +39,7 @@ void	draw_square_from_top_left(t_data *dt, int x, int y, int size, int clr)
 	}
 }
 
-int blend_colors(int fg, int bg, double alpha)
+int blend_colors(int fg, int bg, float alpha)
 {
 	int r = (int)(((fg >> 16) & 0xFF) * alpha + ((bg >> 16) & 0xFF) * (1 - alpha));
 	int g = (int)(((fg >> 8) & 0xFF) * alpha + ((bg >> 8) & 0xFF) * (1 - alpha));

@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/11 16:22:22 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/11 20:17:32 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 	return (0);
 }
 
-int set_player_position(t_data *dt, double dx, double dy)
+int set_player_position(t_data *dt, float dx, float dy)
 {
 	t_x_y *player_pos;
-	double new_x;
-	double new_y;
+	float new_x;
+	float new_y;
 
 	player_pos = &(dt->player->pos);
 
@@ -59,9 +59,9 @@ int set_player_position(t_data *dt, double dx, double dy)
 int move_forward_backward(t_data *dt, int direction)
 {
 	t_x_y *player_pos;
-	double new_x;
-	double new_y;
-	double speed;
+	float new_x;
+	float new_y;
+	float speed;
 
 	player_pos = &(dt->player->pos);
 
@@ -87,8 +87,8 @@ int move_forward_backward(t_data *dt, int direction)
 int move_sideways(t_data *dt, int direction)
 {
 	t_x_y *player_pos;
-	double new_x;
-	double new_y;
+	float new_x;
+	float new_y;
 	t_x_y	rotated_vector;
 
 	player_pos = &(dt->player->pos);
@@ -126,7 +126,7 @@ int	handle_keyrelease(int keycode, t_data *dt)
 {
 	//printf("Key %d released\n", keycode);
 	if (keycode == XK_Tab)
-		toggle(&dt->view->show_minimap);
+		toggle_setting(&dt->view->show_minimap);
 	else if (keycode >= 0 && keycode < TRACKED_KEYS)
 		dt->keys[keycode] = 0;
 	return (EXIT_SUCCESS);
@@ -173,27 +173,25 @@ int	mouse_release(int button, int x, int y, t_data *dt)
 // Handle mouse move
 int	mouse_move(int x, int y, t_data *dt)
 {
+	//if (dt->mouse.suppress_mouse_frames > 0)
+	//{
+	//	dt->mouse.suppress_mouse_frames--;
+	//	return (EXIT_SUCCESS);
+	//}
+
 	dt->mouse.prev_x = dt->mouse.x;
 	dt->mouse.prev_y = dt->mouse.y;
 	dt->mouse.x = x;
 	dt->mouse.y = y;
 
 	if (x > dt->mouse.prev_x)
-	{
 		rotate_player(dt, MOUSE_SENS_ROTATE, -1);
-	}
 	else if (x < dt->mouse.prev_x)
-	{
 		rotate_player(dt, MOUSE_SENS_ROTATE, 1);
-	}
 	if (y > dt->mouse.prev_y)
-	{
-		dt->view->screen_center -= 10;
-	}
+		dt->view->screen_center -= (int)(MOUSE_SENS_ROTATE * 10);
 	if (y < dt->mouse.prev_y)
-	{
-		dt->view->screen_center += 10;
-	}
+		dt->view->screen_center += (int)(MOUSE_SENS_ROTATE * 10);
 	return (0);
 }
 
@@ -204,6 +202,7 @@ void	setup_keyboard_and_mouse_hooks(t_data *dt)
 	mlx_hook(dt->win_ptr, KeyPress, KeyPressMask, handle_keypress, dt);
 	mlx_hook(dt->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, dt);
 	mlx_hook(dt->win_ptr, 17, 0, close_window, dt);
+
 	mlx_do_key_autorepeatoff(dt->mlx_ptr);
 
 	mlx_hook(dt->win_ptr, 4, 1L << 2, mouse_press, dt);
@@ -212,6 +211,7 @@ void	setup_keyboard_and_mouse_hooks(t_data *dt)
 	mlx_hook(dt->win_ptr, 6, 1L << 6, mouse_move, dt);
 	dt->mouse.lmb_is_pressed = 0;
 	dt->mouse.rmb_is_pressed = 0;
+
 	printf(" Done!\n");
 }
 

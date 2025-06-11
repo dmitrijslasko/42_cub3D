@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-double	get_dist_wall(char c, t_x_y direction, t_coor map_coor, t_x_y player_pos, t_x_y step)
+float	get_dist_wall(char c, t_x_y direction, t_coor map_coor, t_x_y player_pos, t_x_y step)
 {
 	if (c == 'x')
 		return ((map_coor.x - player_pos.x + (1 - step.x) / 2) / direction.x) ;
@@ -24,7 +24,7 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
 	i = 0;
 	coor_map = get_values_coor(dt.player->pos.x, dt.player->pos.y);
 	// printf("INIT: coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
-	while (i < 2 * max_double(dt.map->map_size_cols, dt.map->map_size_rows))
+	while (i < 2 * max_float(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
 		if (side_dist.x < side_dist.y)
 		{
@@ -44,7 +44,7 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
 	ray->distance_to_wall = get_dist_wall(c, direction, coor_map, dt.player->pos, step);
 
 	// fish-eye correction
-	double angle_cos = direction.x * dt.player->direction_vector.x + direction.y * dt.player->direction_vector.y;
+	float angle_cos = direction.x * dt.player->direction_vector.x + direction.y * dt.player->direction_vector.y;
 	ray->distance_to_wall *= angle_cos;
 	//dt.player->direction_vector
 
@@ -106,7 +106,7 @@ int calculate_all_rays(t_data *dt)
 {
 	size_t	i;
 	t_x_y 	vector;
-	double	angle;
+	float	angle;
 
 	angle = -FIELD_OF_VIEW_DEG / 2;
 	i = 0;

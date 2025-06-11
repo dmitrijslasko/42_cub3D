@@ -6,13 +6,13 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 10:18:05 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/09 14:17:11 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/11 20:17:32 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	max_double(double a, double b)
+float	max_float(float a, float b)
 {
 	if (a > b)
 		return (a);
@@ -20,7 +20,7 @@ double	max_double(double a, double b)
 }
 
 // TODO FV: rename this function in the future
-t_x_y	get_values_x_y(double x, double y)
+t_x_y	get_values_x_y(float x, float y)
 {
 	t_x_y	new;
 
@@ -29,7 +29,7 @@ t_x_y	get_values_x_y(double x, double y)
 	return (new);
 }
 
-void	set_values_x_y(t_x_y *new, double x, double y)
+void	set_values_x_y(t_x_y *new, float x, float y)
 {
 	new->x = x;
 	new->y = y;

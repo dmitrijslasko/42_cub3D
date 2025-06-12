@@ -1,13 +1,24 @@
 #include "cub3d.h"
 
+int	apply_shading(t_data *dt, size_t i, int *color)
+{
+	// Apply shading
+	float distance = dt->rays[i].distance_to_wall;
+	float shade = 1.0f / (1.0f + distance * 0.2f);
+	if (shade < 0.1f) shade = 0.1f;
+
+	int r = ((*color >> 16) & 0xFF) * shade;
+	int g = ((*color >> 8) & 0xFF) * shade;
+	int b = (*color & 0xFF) * shade;
+	*color = (r << 16) | (g << 8) | b;
+	return (EXIT_SUCCESS);
+}
+
 
 void render_3d(t_data *dt)
 {
 	size_t	i;
 	float	height;
-	t_coor	start;
-	t_coor	end;
-	int		color;
 	int		screen_x;
 
 	if (SHOW_DEBUG_INFO)
@@ -16,70 +27,55 @@ void render_3d(t_data *dt)
 	draw_ceiling(dt);
 	draw_floor(dt);
 
-	i = 0;
-	while (i < CASTED_RAYS_COUNT)
+	for (i = 0; i < CASTED_RAYS_COUNT; i++)
 	{
-		height = 1 / dt->rays[i].distance_to_wall;
-
-		int wall_height = height * SCALING; // Adjust scaling as needed
+		// Distance-based projection
+		height = 1.0f / dt->rays[i].distance_to_wall;
+		int wall_height = height * SCALING;
+		// if (wall_height <= 0) wall_height = 1;
 
 		int top_y = dt->view->screen_center - wall_height;
-		int bottom_y = dt->view->screen_center + wall_height;
+		// if (dt->rays[i].wall_type == 2)
+			// top_y = dt->view->screen_center - wall_height * 2;
+		int bottom_y = dt->view->screen_center + wall_height * 2;
 
-		screen_x = i * (WINDOW_W / CASTED_RAYS_COUNT);
+		int texture_width = dt->textures->width;
+		int texture_height = dt->textures->height;
 
-		size_t texture_x = (size_t)(dt->rays[i].percentage_of_image * (float)dt->textures->width);
+		size_t texture_x = (size_t)(dt->rays[i].percentage_of_image * texture_width);
 
-		// if (i == CASTED_RAYS_COUNT / 2)
-		// 	printf("Texture: %zu\n", texture_x);
+		if (texture_x >= (size_t)texture_width)
+			texture_x = texture_width - 1;
 
-		//if (dt->rays[i].wall_type == NORTH)
-		//	color = DARKGREY;
-		//else if (dt->rays[i].wall_type == SOUTH)
-		//	color = PURPLE;
-		//else if (dt->rays[i].wall_type == EAST)
-		//	color = GOLD;
-		//else
-		//	color = BROWN;
-		color = dt->textures->texture_data[texture_x];
+		// Horizontal screen position
+		int screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
+		screen_x = i * screen_slice_width;
 
-		// int color = dt->textures->texture_data[dt->textures->height * dt->textures->width + texture_x];
-
-		float distance = dt->rays[i].distance_to_wall;
-		float shade = 1.0f / (1.0f + distance * 0.2f); // adjust 0.1 for strength
-		// if (shade < 0.2f) shade = 0.1f; // prevent too dark
-
-		int r = ((color >> 16) & 0xFF) * shade;
-		int g = ((color >> 8) & 0xFF) * shade;
-		int b = (color & 0xFF) * shade;
-
-		color = (r << 16) | (g << 8) | b;
-
-
-		// Draw a 2-pixel wide wall slice (as vertical bars)
-		for (int w = 0; w < (WINDOW_W / CASTED_RAYS_COUNT); w++)
+		// Vertical wall slice drawing
+		for (int y = ft_max(0, top_y); y < ft_min(WINDOW_H, bottom_y); y++)
 		{
-			set_coor_values(&start, screen_x + w, ft_max(0, top_y));
-			set_coor_values(&end, screen_x + w, ft_min(WINDOW_W, bottom_y));
-			draw_vertical_line(dt, start, end, color);
+			// Relative position on the wall
+			int d = y - top_y;
+			int texture_y = (d * texture_height) / (2 * wall_height);
+			if (texture_y < 0) texture_y = 0;
+			if (texture_y >= texture_height) texture_y = texture_height - 1;
+
+			// Sample color from texture
+			int tex_index = texture_y * texture_width + texture_x;
+			int color = dt->textures->texture_data[tex_index];
+
+			apply_shading(dt, i, &color);
+
+			// Draw vertical slice width
+			for (int w = 0; w < screen_slice_width; w++)
+			{
+				if (screen_x + w < WINDOW_W) // safety
+					img_pix_put(dt->img, screen_x + w, y, color);
+			}
 		}
-		i++;
 	}
 }
 
-void	print_player_logs(t_data *dt)
-{
-	if (SHOW_DEBUG_INFO)
-	{
-		print_separator(3, "-");
-		printf("👤 Player position (X, Y): %f %f\n", dt->player->pos.x, dt->player->pos.y);
-		printf("Player orientation (deg): %f\n", dt->player->direction_vector_deg);
-		printf("Player direction vector X Y: %f %f\n", dt->player->direction_vector.x, dt->player->direction_vector.y);
-		printf("Player FOV (left) X Y: %f %f\n", 0.0, 0.0);
-		printf("Player FOV (right) X Y: %f %f\n", 0.0, 0.0);
-		print_separator(1, DEF_SEPARATOR_CHAR);
-	}
-}
 void	toggle_setting(char *setting)
 {
 	*setting ^= 1;
@@ -176,8 +172,8 @@ int	render_frame(void *param)
 
 	reset_mouse_position(dt);
 
-	if (SHOW_CALCULATION_LOGS)
-		print_player_logs(dt);
+	// if (SHOW_CALCULATION_LOGS)
+	// 	print_player_logs(dt);
 
 	calculate_all_rays(dt);
 	render_3d(dt);

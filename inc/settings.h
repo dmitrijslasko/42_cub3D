@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/11 20:31:05 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:40:18 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
-# define DUMMY_MAP_MID		"1010101010101010101010101010101"
+# define DUMMY_MAP_MID		"1001001001001001001001001001001"
 # define DUMMY_MAP_MID_2	"1000000000000000000000000000001"
 # define DUMMY_MAP_PLAYER	"10000N0000000000000000000000001"
 
@@ -61,18 +61,17 @@
 # define MINIMAP_DIRECTION_RAY_LENGTH		10
 
 # define FIELD_OF_VIEW_DEG					75.0f
-# define SCALING				400
+# define SCALING				            400
 
 // colors
-# define DEF_CEILING_COLOR		ORANGE
+# define DEF_CEILING_COLOR		PINK
 # define DEF_FLOOR_COLOR		NAVY
 # define DEF_WALL_COLOR			PINK
 
 # define MIN_DISTANCE_TO_WALL	0.2f
 
 // default scale
-//# define KEYBOARD_PLAYER_STEP			0.05f
-# define KEYBOARD_PLAYER_STEP_FORWARD	0.03f
+# define KEYBOARD_PLAYER_STEP_FORWARD	0.05f
 # define KEYBOARD_PLAYER_STEP_BACKWARD	0.015f
 # define KEYBOARD_PLAYER_STEP_SIDE 		0.015f
 # define KEYBOARD_PLAYER_ROTATION_STEP 	2.0f

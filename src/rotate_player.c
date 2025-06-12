@@ -16,7 +16,7 @@ void rotate_player(t_data *dt, float d_angle, int direction)
     dt->player->direction_vector.y = old_dir_x * sinf(angle_rad) + old_dir_y * cosf(angle_rad);
 
     // Update stored angle, keeping it between 0 and 359
-    dt->player->direction_vector_deg += d_angle;
+    dt->player->direction_vector_deg += d_angle * -direction;
     if (dt->player->direction_vector_deg >= 360.0f)
         dt->player->direction_vector_deg -= 360.0f;
     else if (dt->player->direction_vector_deg < 0.0f)

@@ -67,6 +67,7 @@ typedef struct s_player
 	t_x_y	direction_vector;
 	float	direction_vector_deg;
 	float	move_speed_multiplier;
+	bool	can_move;
 }	t_player;
 
 typedef struct s_mouse

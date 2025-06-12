@@ -173,7 +173,7 @@ float		get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
 							t_type_wall type_wall);
 
 //type_wall.c
-t_type_wall	get_type_wall(char c, t_x_y direction);
+t_type_wall	get_type_wall(t_data dt, char c, t_x_y direction);
 void		print_ray(t_ray ray);
 
 //x_y.c

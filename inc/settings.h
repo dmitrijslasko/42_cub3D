@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/12 11:40:18 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/12 20:27:04 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
-# define DUMMY_MAP_MID		"1001001001001001001001001001001"
+# define DUMMY_MAP_MID		"1001001001001001001002001001001"
 # define DUMMY_MAP_MID_2	"1000000000000000000000000000001"
-# define DUMMY_MAP_PLAYER	"10000N0000000000000000000000001"
+# define DUMMY_MAP_PLAYER	"10ND000000000000000000000000001"
 
 // minimap
 # define MINIMAP_OFFSET_X					0
@@ -55,6 +55,7 @@
 # define MINIMAP_BACKGROUND_COLOR			GREY
 # define MINIMAP_WALL_CELL_COLOR			NAVY
 # define MINIMAP_PLAYER_SPAWN_CELL_COLOR	LIME
+# define MINIMAP_DOOR_COLOR					BLUE
 # define MINIMAP_PLAYER_SIZE_PX 			4
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE

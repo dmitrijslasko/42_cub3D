@@ -34,10 +34,11 @@ void render_3d(t_data *dt)
 		int wall_height = height * SCALING;
 		// if (wall_height <= 0) wall_height = 1;
 
-		int top_y = dt->view->screen_center - wall_height;
-		// if (dt->rays[i].wall_type == 2)
-			// top_y = dt->view->screen_center - wall_height * 2;
-		int bottom_y = dt->view->screen_center + wall_height * 2;
+		int top_y = dt->view->screen_center - wall_height * 1;
+		// optional: way to scale specific wall type
+		//if (dt->rays[i].wall_type == SOUTH)
+		//	top_y = dt->view->screen_center - wall_height * 2;
+		int bottom_y = dt->view->screen_center + wall_height * 1;
 
 		int texture_width = dt->textures->width;
 		int texture_height = dt->textures->height;

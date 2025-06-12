@@ -22,6 +22,8 @@ int	draw_minimap_map(t_data *dt)
 			}
 			if (map->map_data[curr_row][curr_col] == 'N')
 				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
+			else if (map->map_data[curr_row][curr_col] == 'D')
+				color = MINIMAP_DOOR_COLOR;
 			else if (map->map_data[curr_row][curr_col] == '1')
 				color = MINIMAP_WALL_CELL_COLOR;
 

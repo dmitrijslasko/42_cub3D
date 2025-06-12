@@ -22,8 +22,9 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
 	int		i;
 
 	i = 0;
+
 	coor_map = get_values_coor(dt.player->pos.x, dt.player->pos.y);
-	// printf("INIT: coord. x = %d  coord. y = %d\n", coor_map.x, coor_map.y);
+
 	while (i < 2 * max_float(dt.map->map_size_cols, dt.map->map_size_rows))
 	{
 		if (side_dist.x < side_dist.y)
@@ -46,9 +47,8 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
 	// fish-eye correction
 	float angle_cos = direction.x * dt.player->direction_vector.x + direction.y * dt.player->direction_vector.y;
 	ray->distance_to_wall *= angle_cos;
-	//dt.player->direction_vector
 
-	ray->wall_type = get_type_wall(c, direction);
+	ray->wall_type = get_type_wall(dt, c, direction);
 	ray->percentage_of_image = get_perc_wall(dt.player->pos, direction, ray->distance_to_wall, ray->wall_type);
 }
 

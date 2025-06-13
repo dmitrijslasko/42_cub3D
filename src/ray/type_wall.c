@@ -14,7 +14,7 @@ t_type_wall	get_type_wall(char c, t_x_y direction)
 
 void	print_ray(t_ray ray)
 {
-	printf("ray distance is %f \n", ray.distance_to_wall);
+	printf("Ray distance is %f \n", ray.distance_to_wall);
 	printf("Wall type ");
 	if (ray.wall_type == NORTH)
 		printf("NORTH\n");
@@ -24,5 +24,5 @@ void	print_ray(t_ray ray)
 		printf("EAST\n");
 	if (ray.wall_type == SOUTH)
 		printf("SOUTH\n");
-	printf("ray has %f percentage \n", ray.percentage_of_image);
+	printf("Ray has %f percentage \n", ray.percentage_of_image);
 }

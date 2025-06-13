@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_wall_percentage.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 15:22:10 by fvargas           #+#    #+#             */
-/*   Updated: 2025/06/11 20:17:32 by dmlasko          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
 float	get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
@@ -21,6 +9,11 @@ float	get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
 		wall_perc = pos_player.y + dist_ray * direction.y;
 	else
 		wall_perc = pos_player.x + dist_ray * direction.x;
+
 	wall_perc -= (int) wall_perc;
+
+	if (type_wall == NORTH || type_wall == EAST)
+		wall_perc = 1.0f - wall_perc;
+
 	return (wall_perc);
 }

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	apply_shading(t_data *dt, size_t i, int *color)
+int	apply_wall_shading_1(t_data *dt, size_t i, int *color)
 {
 	// Apply shading
 	float distance = dt->rays[i].distance_to_wall;
@@ -15,7 +15,7 @@ int	apply_shading(t_data *dt, size_t i, int *color)
 }
 
 
-void render_3d(t_data *dt)
+void render_3d_scene(t_data *dt)
 {
 	size_t	i;
 	float	height;
@@ -30,20 +30,15 @@ void render_3d(t_data *dt)
 	for (i = 0; i < CASTED_RAYS_COUNT; i++)
 	{
 		// Distance-based projection
-		height = 1.0f / dt->rays[i].distance_to_wall;
-		int wall_height = height * SCALING;
-		// if (wall_height <= 0) wall_height = 1;
+		height = 1.0f / dt->rays[i].distance_to_wall * SCALING;
 
-		int top_y = dt->view->screen_center - wall_height * 1;
-		// optional: way to scale specific wall type
-		//if (dt->rays[i].wall_type == SOUTH)
-		//	top_y = dt->view->screen_center - wall_height * 2;
-		int bottom_y = dt->view->screen_center + wall_height * 1;
+		int top_y = dt->view->screen_center - height * 1;
+		int bottom_y = dt->view->screen_center + height;
 
 		int texture_width = dt->textures->width;
 		int texture_height = dt->textures->height;
 
-		size_t texture_x = (size_t)(dt->rays[i].percentage_of_image * texture_width);
+		size_t texture_x = (dt->rays[i].percentage_of_image * texture_width);
 
 		if (texture_x >= (size_t)texture_width)
 			texture_x = texture_width - 1;
@@ -53,28 +48,28 @@ void render_3d(t_data *dt)
 		screen_x = i * screen_slice_width;
 
 		// Vertical wall slice drawing
-		for (int y = ft_max(0, top_y); y < ft_min(WINDOW_H, bottom_y); y++)
+		int y;
+
+		y = ft_max(0, top_y);
+		while (y < ft_min(WINDOW_H, bottom_y))
 		{
 			// Relative position on the wall
 			int d = y - top_y;
-			int texture_y = (d * texture_height) / (2 * wall_height);
-			if (texture_y < 0) texture_y = 0;
-			if (texture_y >= texture_height) texture_y = texture_height - 1;
+			int texture_y = (d * texture_height) / (2 * height);
+			if (texture_y < 0)
+				texture_y = 0;
+			if (texture_y >= texture_height)
+				texture_y = texture_height - 1;
 
 			// Sample color from texture
 			int tex_index = texture_y * texture_width + texture_x;
-
 			int color = dt->textures[dt->rays[i].wall_type - 1].texture_data[tex_index];
-			// int color = BLUE;
 
-			apply_shading(dt, i, &color);
+			apply_wall_shading_1(dt, i, &color);
 
-			// Draw vertical slice width
 			for (int w = 0; w < screen_slice_width; w++)
-			{
-				if (screen_x + w < WINDOW_W) // safety
-					img_pix_put(dt->img, screen_x + w, y, color);
-			}
+				img_pix_put(dt->img, screen_x + w, y, color);
+			y++;
 		}
 	}
 }
@@ -179,7 +174,7 @@ int	render_frame(void *param)
 	// 	print_player_logs(dt);
 
 	calculate_all_rays(dt);
-	render_3d(dt);
+	render_3d_scene(dt);
 	if (dt->view->show_minimap)
 		draw_minimap(dt);
 

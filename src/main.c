@@ -42,13 +42,12 @@ int	main(int argc, char **argv)
 	initialize_rays(&dt);
 
 	// VISUAL PART
-
-	precalculate_trig_tables(&dt);
 	// -------------------------------------------------------------------------
+	precalculate_trig_tables(&dt);
+
 	setup_mlx_and_win(&dt);
 
 	dt.img = protected_malloc(sizeof(t_img), dt);
-
 	dt.view = protected_malloc(sizeof(t_view), dt);
 	//dt.textures = protected_malloc(sizeof(t_texture) * 4, dt);
 
@@ -57,7 +56,7 @@ int	main(int argc, char **argv)
 	setup_view(&dt);
 	setup_img(&dt);
 	setup_keyboard_hooks(&dt);
-	//setup_mouse_hooks(&dt);
+	setup_mouse_hooks(&dt);
 
 	print_separator(1, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);

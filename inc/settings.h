@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/13 15:20:03 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/13 19:20:33 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define DUMMY_MAP_MID_2	"1000000000000000000000000000001"
 # define DUMMY_MAP_PLAYER	"10N0000000000000000000000000001"
 
-// minimap
+// Minimap settings
 # define MINIMAP_OFFSET_X					20
 # define MINIMAP_OFFSET_Y					50
 
@@ -75,23 +75,23 @@
 # define SCALING				            400
 
 // colors
-# define DEF_CEILING_COLOR		GREY
-# define DEF_FLOOR_COLOR		NAVY
-# define DEF_WALL_COLOR			PINK
+# define DEF_CEILING_COLOR			GREY
+# define DEF_FLOOR_COLOR			NAVY
+# define DEF_WALL_COLOR				PINK
 
-# define MIN_DISTANCE_TO_WALL	0.2f
+# define MIN_DISTANCE_TO_WALL			0.2f
 
 // default scale
-# define KEYBOARD_PLAYER_STEP_FORWARD	0.05f
-# define KEYBOARD_PLAYER_STEP_BACKWARD	0.015f
-# define KEYBOARD_PLAYER_STEP_SIDE 		0.015f
+# define KEYBOARD_PLAYER_STEP_FORWARD	0.04f
+# define KEYBOARD_PLAYER_STEP_BACKWARD	0.02f
+# define KEYBOARD_PLAYER_STEP_SIDE 		0.02f
 # define KEYBOARD_PLAYER_ROTATION_STEP 	2.0f
-# define MOVE_SPEED_MULTIPLIER_SLOW 	0.2f
+# define MOVE_SPEED_MULTIPLIER_SLOW 	0.4f
 # define MOVE_SPEED_MULTIPLIER_FAST		1.5f
 
 
 // colors
-# define DEF_BG_COLOR		BLACK
+# define DEF_BG_COLOR			BLACK
 
 // separator
 # define DEF_SEPARATOR_CHAR		"-"

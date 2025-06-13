@@ -29,7 +29,8 @@ typedef enum e_type_wall
 	NORTH = 1,
 	WEST,
 	SOUTH,
-	EAST
+	EAST,
+	DOOR
 }	t_type_wall;
 
 typedef struct s_coor
@@ -173,7 +174,7 @@ float		get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
 							t_type_wall type_wall);
 
 //type_wall.c
-t_type_wall	get_type_wall(t_data dt, char c, t_x_y direction);
+t_type_wall	get_type_wall(char c, t_x_y direction);
 void		print_ray(t_ray ray);
 
 //x_y.c
@@ -208,7 +209,7 @@ int		init_player(t_data *dt);
 
 int		calculate_all_rays(t_data *dt);
 
-bool	check_hit_wall(t_coor coord, t_map map);
+bool	check_hit_wall(t_coor coord, t_map map, t_ray *ray);
 
 void	print_single_ray_info(t_ray ray);
 
@@ -232,7 +233,7 @@ int		draw_minimap_map(t_data *dt);
 void	draw_minimap_grid(t_data *dt);
 int		draw_minimap_player(t_data *dt);
 
-void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int stop_at_wall);
+void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
 int		draw_minimap_rays(t_data *dt, int is_direction_vector);
 
 
@@ -244,6 +245,8 @@ int		draw_floor(t_data *dt);
 
 void	toggle_setting(char *setting);
 
+// int	get_pixel_color(t_img *img, int x, int y);
+// int blend_colors(int fg, int bg, float alpha);
 
 
 #endif

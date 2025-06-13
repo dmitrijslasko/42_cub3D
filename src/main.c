@@ -41,8 +41,21 @@ int load_textures(t_data *dt)
 
 	texture = dt->textures;
 
-	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/bricks.xpm", &texture->width, &texture->height);
+	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-1.xpm", &texture->width, &texture->height);
 	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
+
+	texture++;
+	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-2.xpm", &texture->width, &texture->height);
+	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
+
+	texture++;
+	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-3.xpm", &texture->width, &texture->height);
+	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
+
+	texture++;
+	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-4.xpm", &texture->width, &texture->height);
+	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
+
 	return (EXIT_SUCCESS);
 }
 
@@ -77,7 +90,7 @@ int	main(int argc, char **argv)
 	dt.img = protected_malloc(sizeof(t_img), dt);
 
 	dt.view = protected_malloc(sizeof(t_view), dt);
-	dt.textures = protected_malloc(sizeof(t_texture), dt);
+	dt.textures = protected_malloc(sizeof(t_texture) * 4, dt);
 
 	load_textures(&dt);
 	setup_view(&dt);

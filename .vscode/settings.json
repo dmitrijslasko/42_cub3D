@@ -4,6 +4,7 @@
 		"stdio.h": "c",
 		"cstdlib": "c",
 		"stdbool.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"stdlib.h": "c"
 	}
 }

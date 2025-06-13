@@ -1,9 +1,8 @@
 
 #include "cub3d.h"
 
-t_type_wall	get_type_wall(t_data dt, char c, t_x_y direction)
+t_type_wall	get_type_wall(char c, t_x_y direction)
 {
-	printf("X Y: %f %f\n", dt.player->pos.x, dt.player->pos.y);
 	if (c == 'y' && direction.y < 0)
 		return (SOUTH);
 	if (c == 'y')

@@ -63,7 +63,9 @@ void render_3d(t_data *dt)
 
 			// Sample color from texture
 			int tex_index = texture_y * texture_width + texture_x;
-			int color = dt->textures->texture_data[tex_index];
+
+			int color = dt->textures[dt->rays[i].wall_type - 1].texture_data[tex_index];
+			// int color = BLUE;
 
 			apply_shading(dt, i, &color);
 

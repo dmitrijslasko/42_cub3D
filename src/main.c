@@ -1,21 +1,5 @@
 #include "cub3d.h"
 
-int	precalculate_trig_tables(t_data *dt)
-{
-	size_t	angle_index;
-
-	printf("Precalculating sin and cos tables...");
-	angle_index = 0;
-	while (angle_index < PRECALCULATED_TRIG)
-	{
-    	dt->sin_table[angle_index] = sinf(angle_index * M_PI / 180);
-		dt->cos_table[angle_index] = cosf(angle_index * M_PI / 180);
-		angle_index++;
-	}
-	printf(" Done!\n");
-	return (EXIT_SUCCESS);
-}
-
 void start_music(void)
 {
     system("(while true; do aplay sounds/shot.wav; done) &");
@@ -33,30 +17,6 @@ void	setup_view(t_data *dt)
 {
 	dt->view->screen_center = WINDOW_H / 2;
 	dt->view->show_minimap = 0;
-}
-
-int load_textures(t_data *dt)
-{
-	t_texture *texture;
-
-	texture = dt->textures;
-
-	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-1.xpm", &texture->width, &texture->height);
-	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
-
-	texture++;
-	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-2.xpm", &texture->width, &texture->height);
-	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
-
-	texture++;
-	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-3.xpm", &texture->width, &texture->height);
-	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
-
-	texture++;
-	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/wall-4.xpm", &texture->width, &texture->height);
-	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
-
-	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv)
@@ -90,12 +50,14 @@ int	main(int argc, char **argv)
 	dt.img = protected_malloc(sizeof(t_img), dt);
 
 	dt.view = protected_malloc(sizeof(t_view), dt);
-	dt.textures = protected_malloc(sizeof(t_texture) * 4, dt);
+	//dt.textures = protected_malloc(sizeof(t_texture) * 4, dt);
 
 	load_textures(&dt);
+	load_sprites(&dt);
 	setup_view(&dt);
 	setup_img(&dt);
-	setup_keyboard_and_mouse_hooks(&dt);
+	setup_keyboard_hooks(&dt);
+	//setup_mouse_hooks(&dt);
 
 	print_separator(1, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);

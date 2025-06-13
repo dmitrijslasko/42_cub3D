@@ -114,7 +114,7 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*rays;
 	t_player	*player;
-	t_texture	*textures;
+	t_texture	textures[4];
 	t_view		*view;
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
@@ -129,9 +129,10 @@ int			setup_mlx_and_win(t_data *dt);
 void		setup_keyboard_and_mouse_hooks(t_data *data);
 int			setup_img(t_data *dt);
 
-void	img_pix_put(t_img *img, int x, int y, int clr);
+void		img_pix_put(t_img *img, int x, int y, int clr);
 
-
+void		setup_keyboard_hooks(t_data *dt);
+void		setup_mouse_hooks(t_data *dt);
 
 
 
@@ -151,9 +152,9 @@ void		*protected_malloc(size_t size, t_data dt);
 int			pixel_is_in_window(int x, int y);
 
 // player movements
-int 	move_forward_backward(t_data *dt, int direction);
-int 	move_sideways(t_data *dt, int direction);
-void 	rotate_player(t_data *dt, float d_angle, int direction);
+int 		move_forward_backward(t_data *dt, int direction);
+int 		move_sideways(t_data *dt, int direction);
+void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 
@@ -185,7 +186,7 @@ t_coor		get_values_coor(int x, int y);
 void		set_value_coor(t_coor *new, int x, int y);
 
 // basic drawing
-void	draw_background(t_img *img, int clr);
+void	draw_background(t_img *img, int color);
 void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
 void	draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
 
@@ -247,6 +248,10 @@ void	toggle_setting(char *setting);
 
 // int	get_pixel_color(t_img *img, int x, int y);
 // int blend_colors(int fg, int bg, float alpha);
+
+int		load_textures(t_data *dt);
+int		load_sprites(t_data *dt);
+int		precalculate_trig_tables(t_data *dt);
 
 
 #endif

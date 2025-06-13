@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/11 20:17:32 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/13 18:54:26 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,23 +195,26 @@ int	mouse_move(int x, int y, t_data *dt)
 	return (0);
 }
 
-
-void	setup_keyboard_and_mouse_hooks(t_data *dt)
+void	setup_keyboard_hooks(t_data *dt)
 {
-	printf("Setting up keyboard and mouse hooks...");
+	printf("Setting up keyboard hooks...");
 	mlx_hook(dt->win_ptr, KeyPress, KeyPressMask, handle_keypress, dt);
 	mlx_hook(dt->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, dt);
 	mlx_hook(dt->win_ptr, 17, 0, close_window, dt);
-
 	mlx_do_key_autorepeatoff(dt->mlx_ptr);
+	mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
+	printf(" Done!\n");
+}
 
+
+void	setup_mouse_hooks(t_data *dt)
+{
+	printf("Setting up mouse hooks...");
 	mlx_hook(dt->win_ptr, 4, 1L << 2, mouse_press, dt);
 	mlx_hook(dt->win_ptr, 5, 1L << 3, mouse_release, dt);
-	mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
 	mlx_hook(dt->win_ptr, 6, 1L << 6, mouse_move, dt);
 	dt->mouse.lmb_is_pressed = 0;
 	dt->mouse.rmb_is_pressed = 0;
-
 	printf(" Done!\n");
 }
 

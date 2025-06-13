@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_background(t_img *img, int clr)
+void	draw_background(t_img *img, int color)
 {
 	int	current_x;
 	int	current_y;
@@ -11,7 +11,7 @@ void	draw_background(t_img *img, int clr)
 		current_x = 0;
 		while (current_x < WINDOW_W)
 		{
-			img_pix_put(img, current_x, current_y, clr);
+			img_pix_put(img, current_x, current_y, color);
 			++current_x;
 		}
 		++current_y;

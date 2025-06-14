@@ -34,7 +34,7 @@ t_map	*load_dummy_map(void)
 		}
 	// NOTE DL: extra cells on the map to make our lives more difficult
 	//map->map_data[5][3] = '1';
-	//map->map_data[7][7] = '1';
+	map->map_data[1][1] = 'S';
 	printf(" Done!\n");
 	return (map);
 }

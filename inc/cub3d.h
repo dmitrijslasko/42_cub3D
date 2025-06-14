@@ -102,9 +102,25 @@ typedef struct s_texture
 {
 	void    *texture_img;
 	int     *texture_data; // Or char* depending on format
-	int     width, height;
+	int     width;
+	int		height;
 	int     bpp, size_line, endian;
 }	t_texture;
+
+typedef struct s_sprite
+{
+	void    *sprite_img;
+	int     *sprite_data; // Or char* depending on format
+	int     width;
+	int		height;
+	int     bpp, size_line, endian;
+	float 	x;
+	float 	y;
+	float 	distance_to_player;
+	int 	texture_id;
+	char	*filepath;
+} t_sprite;
+
 
 typedef struct s_data
 {
@@ -115,6 +131,7 @@ typedef struct s_data
 	t_ray		*rays;
 	t_player	*player;
 	t_texture	textures[4];
+	t_sprite	*sprites;
 	t_view		*view;
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
@@ -122,6 +139,8 @@ typedef struct s_data
 	char 		keys[TRACKED_KEYS];
 	void		*welcome_img;
 }	t_data;
+
+
 
 
 // function prototypes

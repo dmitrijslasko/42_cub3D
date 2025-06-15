@@ -3,7 +3,7 @@
 void render_3d_scene(t_data *dt)
 {
 	size_t	i;
-	float	height;
+	float	wall_height;
 	int		screen_x;
 
 	if (SHOW_DEBUG_INFO)
@@ -15,10 +15,11 @@ void render_3d_scene(t_data *dt)
 	for (i = 0; i < CASTED_RAYS_COUNT; i++)
 	{
 		// Distance-based projection
-		height = 1.0f / dt->rays[i].distance_to_wall * SCALING;
+		wall_height = 1.0f / dt->rays[i].distance_to_wall * SCALING;
 
-		int top_y = dt->view->screen_center - height * 1;
-		int bottom_y = dt->view->screen_center + height * 1;
+		int top_y = dt->view->screen_center - wall_height * 1;
+		int bottom_y = dt->view->screen_center + wall_height * 1;
+		//printf("top bottom %d %d\n", top_y, bottom_y);
 
 		int texture_width = dt->textures->width;
 		int texture_height = dt->textures->height;
@@ -33,14 +34,12 @@ void render_3d_scene(t_data *dt)
 		screen_x = i * screen_slice_width;
 
 		// Vertical wall slice drawing
-		int y;
-
-		y = ft_max(0, top_y);
+		int y = top_y;
 		while (y < ft_min(WINDOW_H, bottom_y))
 		{
 			// Relative position on the wall
 			int d = y - top_y;
-			int texture_y = (d * texture_height) / (2 * height);
+			int texture_y = (d * texture_height) / (2 * wall_height);
 			if (texture_y < 0)
 				texture_y = 0;
 			if (texture_y >= texture_height)
@@ -57,7 +56,8 @@ void render_3d_scene(t_data *dt)
 			y++;
 		}
 	}
-	render_sprites(dt);
+	//print_separator(1, DEF_SEPARATOR_CHAR);
+	//render_sprites(dt);
 }
 
 int	render_frame(void *param)

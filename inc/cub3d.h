@@ -86,7 +86,7 @@ typedef struct s_mouse
 
 typedef struct s_view
 {
-	size_t	screen_center;
+	int	screen_center;
 	char	show_minimap;
 }	t_view;
 

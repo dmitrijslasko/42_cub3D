@@ -16,88 +16,91 @@ int	close_window(void)
 }
 
 // TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
-int	map_position_is_walkable(t_map *map, size_t row, size_t col)
+int	map_position_is_walkable(t_map *map, float row, float col)
 {
-	// printf("Checking r_c: %ld %ld = %c\n", row, col, map->map_data[row][col]);
-	if (map->map_data[col][row] != '1')
+	if (map->map_data[(size_t)col][(size_t)row] != '1')
 		return (1);
 	return (0);
 }
 
+#define COLLISION_SAMPLES 64 // Increase to 32 or 64 for more accuracy
+
+int is_position_walkable_with_radius(t_map *map, float x, float y)
+{
+	float radius = MIN_DISTANCE_TO_WALL;
+	for (int i = 0; i < COLLISION_SAMPLES; i++)
+	{
+		float angle = 2 * M_PI * i / COLLISION_SAMPLES;
+		float check_x = x + cosf(angle) * radius;
+		float check_y = y + sinf(angle) * radius;
+
+		if (!map_position_is_walkable(map, check_x, check_y))
+			return 0; // Not walkable at this point
+	}
+	return 1; // All points are walkable
+}
+
+
 int set_player_position(t_data *dt, float dx, float dy)
 {
-	t_x_y *player_pos;
-	float new_x;
-	float new_y;
+	t_x_y *player_pos = &(dt->player->pos);
+	float new_x = player_pos->x + dx;
+	float new_y = player_pos->y + dy;
 
-	player_pos = &(dt->player->pos);
+	int moved = 0;
 
-	new_x = player_pos->x + dx;
-	new_y = player_pos->y + dy;
-
-	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
-		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))
+	// Try full move
+	if (is_position_walkable_with_radius(dt->map, new_x, new_y))
 	{
 		player_pos->x = new_x;
 		player_pos->y = new_y;
+		moved = 1;
 	}
-	return (EXIT_SUCCESS);
+	else
+	{
+		// Try sliding on X only
+		if (is_position_walkable_with_radius(dt->map, new_x, player_pos->y))
+		{
+			player_pos->x = new_x;
+			moved = 1;
+		}
+		// Try sliding on Y only
+		if (is_position_walkable_with_radius(dt->map, player_pos->x, new_y))
+		{
+			player_pos->y = new_y;
+			moved = 1;
+		}
+	}
+	return (moved);
 }
 
 int move_forward_backward(t_data *dt, int direction)
 {
-	t_x_y *player_pos;
-	float new_x;
-	float new_y;
 	float speed;
 
-	player_pos = &(dt->player->pos);
-
-	// Calculate new position
 	speed = KEYBOARD_PLAYER_STEP_FORWARD;
-	if (direction == -1)
+	if (sign(direction))
 		speed = KEYBOARD_PLAYER_STEP_BACKWARD;
 	speed *= dt->player->move_speed_multiplier;
 
-	new_x = player_pos->x + dt->player->direction_vector.x * speed * direction;
-	new_y = player_pos->y + dt->player->direction_vector.y * speed * direction;
+	float dx = dt->player->direction_vector.x * speed * direction;
+	float dy = dt->player->direction_vector.y * speed * direction;
 
-	// TODO DL: enable wall sliding
-	if (map_position_is_walkable(dt->map, new_x, new_y))
-	{
-		player_pos->x = new_x;
-		player_pos->y = new_y;
-	}
-
-	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
-	return (EXIT_SUCCESS);
+	return set_player_position(dt, dx, dy);
 }
+
 
 int move_sideways(t_data *dt, int direction)
 {
-	t_x_y *player_pos;
-	float new_x;
-	float new_y;
-	t_x_y	rotated_vector;
+	t_x_y rotated_vector = rotate_vector(*dt, dt->player->direction_vector, 90.0f * direction);
+	float speed = KEYBOARD_PLAYER_STEP_SIDE * dt->player->move_speed_multiplier;
 
-	player_pos = &(dt->player->pos);
+	float dx = rotated_vector.x * speed;
+	float dy = rotated_vector.y * speed;
 
-	rotated_vector = rotate_vector(*dt, dt->player->direction_vector, 90.0f * direction);
-
-	// Calculate new position
-	new_x = player_pos->x + rotated_vector.x * KEYBOARD_PLAYER_STEP_SIDE * dt->player->move_speed_multiplier;
-	new_y = player_pos->y + rotated_vector.y * KEYBOARD_PLAYER_STEP_SIDE * dt->player->move_speed_multiplier;
-
-	if (map_position_is_walkable(dt->map, new_x, new_y))
-	{
-		player_pos->x = new_x;
-		player_pos->y = new_y;
-	}
-
-	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
-
-	return (EXIT_SUCCESS);
+	return set_player_position(dt, dx, dy);
 }
+
 
 int	handle_keypress(int keycode, t_data *dt)
 {
@@ -163,11 +166,8 @@ int	mouse_release(int button, int x, int y, t_data *dt)
 // Handle mouse move
 int	mouse_move(int x, int y, t_data *dt)
 {
-	//if (dt->mouse.suppress_mouse_frames > 0)
-	//{
-	//	dt->mouse.suppress_mouse_frames--;
-	//	return (EXIT_SUCCESS);
-	//}
+	//int	dx;
+	//int dy;
 
 	dt->mouse.prev_x = dt->mouse.x;
 	dt->mouse.prev_y = dt->mouse.y;
@@ -178,10 +178,13 @@ int	mouse_move(int x, int y, t_data *dt)
 		rotate_player(dt, MOUSE_SENS_ROTATE, -1);
 	else if (x < dt->mouse.prev_x)
 		rotate_player(dt, MOUSE_SENS_ROTATE, 1);
-	if (y > dt->mouse.prev_y)
-		dt->view->screen_center -= (int)(MOUSE_SENS_ROTATE * 10);
-	if (y < dt->mouse.prev_y)
-		dt->view->screen_center += (int)(MOUSE_SENS_ROTATE * 10);
+	if (ENABLE_VERTICAL_LOOK)
+	{
+		if (y > dt->mouse.prev_y)
+			dt->view->screen_center -= (int)(MOUSE_SENS_ROTATE * 10);
+		if (y < dt->mouse.prev_y)
+			dt->view->screen_center += (int)(MOUSE_SENS_ROTATE * 10);
+	}
 	return (0);
 }
 
@@ -205,6 +208,8 @@ void	setup_mouse_hooks(t_data *dt)
 	mlx_hook(dt->win_ptr, 6, 1L << 6, mouse_move, dt);
 	dt->mouse.lmb_is_pressed = 0;
 	dt->mouse.rmb_is_pressed = 0;
+	dt->mouse.prev_x = 0;
+	dt->mouse.prev_y = 0;
 	printf(" Done!\n");
 }
 

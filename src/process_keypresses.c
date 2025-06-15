@@ -15,9 +15,15 @@ void	process_keypresses(t_data dt)
 	if (dt.keys[65363]) // Right arrow
 		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, -1);
 	if (dt.keys[65362]) // Up
-		dt.view->screen_center += 10;
+	{
+		if (dt.view->screen_center + 10 < (WINDOW_H / 2 + LOCK_VERTICAL_LOOK_UP))
+			dt.view->screen_center += 10;
+	}
 	if (dt.keys[65364]) // Down
-		dt.view->screen_center -= 10;
+	{
+		if (dt.view->screen_center - 10 > (WINDOW_H / 2 - LOCK_VERTICAL_LOOK_DOWN))
+			dt.view->screen_center -= 10;
+	}
 	if (dt.keys[65505])
 		dt.player->move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
 	else

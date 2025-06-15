@@ -279,4 +279,5 @@ void	process_keypresses(t_data dt);
 
 int test_render_sprite(t_data *dt);
 
+int	set_mouse_to_screen_center(t_data *dt);
 #endif

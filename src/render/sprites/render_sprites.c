@@ -12,7 +12,8 @@ int render_sprites(t_data *dt)
 		dy = fabs(dt->sprites[i].y - dt->player->pos.y);
 
 		distance = sqrtf(dx * dx + dy * dy);
-		//printf("Distance to sprite[%d]: %.2f\n", i, distance);
+		(void)distance;
+		// printf("Distance to sprite[%d]: %.2f\n", i, distance);
 	}
 	test_render_sprite(dt);
 

@@ -68,7 +68,7 @@
 # define DEF_FLOOR_COLOR			GREEN
 # define DEF_WALL_COLOR				PINK
 
-# define MIN_DISTANCE_TO_WALL			0.35f
+# define MIN_DISTANCE_TO_WALL			0.0f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD	0.04f

@@ -1,4 +1,3 @@
-
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
@@ -65,8 +64,8 @@
 
 // colors
 # define DEF_CEILING_COLOR			GREY
-# define DEF_FLOOR_COLOR			GREY
-# define DEF_WALL_COLOR				GREY
+# define DEF_FLOOR_COLOR				GREY
+# define DEF_WALL_COLOR				PINK
 
 # define MIN_DISTANCE_TO_WALL			0.2f
 

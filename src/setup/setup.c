@@ -55,13 +55,14 @@ int move_forward_backward(t_data *dt, int direction)
 
 	// Calculate new position
 	speed = KEYBOARD_PLAYER_STEP_FORWARD;
-	speed *= dt->player->move_speed_multiplier;
 	if (direction == -1)
 		speed = KEYBOARD_PLAYER_STEP_BACKWARD;
+	speed *= dt->player->move_speed_multiplier;
+
 	new_x = player_pos->x + dt->player->direction_vector.x * speed * direction;
 	new_y = player_pos->y + dt->player->direction_vector.y * speed * direction;
 
-	// TODO DL: allow wall sliding
+	// TODO DL: enable wall sliding
 	if (map_position_is_walkable(dt->map, new_x, new_y))
 	{
 		player_pos->x = new_x;

@@ -42,15 +42,17 @@ void	update_ray(t_data dt, t_ray *ray, t_x_y direction, t_x_y delta_dist, t_x_y	
     	if (check_hit_wall(coor_map, *dt.map, ray))
 			break;
 	}
+
 	ray->distance_to_wall = get_dist_wall(c, direction, coor_map, dt.player->pos, step);
+	ray->percentage_of_image = get_perc_wall(dt.player->pos, direction, ray->distance_to_wall, ray->wall_type);
 
 	// fish-eye correction
 	float angle_cos = direction.x * dt.player->direction_vector.x + direction.y * dt.player->direction_vector.y;
 	ray->distance_to_wall *= angle_cos;
 
-	if ((int) ray->wall_type == -1)
-		ray->wall_type = get_type_wall(c, direction);
-	ray->percentage_of_image = get_perc_wall(dt.player->pos, direction, ray->distance_to_wall, ray->wall_type);
+	ray->wall_type = get_type_wall(c, direction);
+
+
 }
 
 void	update_single_ray(t_data *dt, t_ray *ray, t_x_y direction)

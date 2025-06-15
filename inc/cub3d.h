@@ -22,6 +22,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+
 // structs
 
 typedef enum e_type_wall
@@ -102,9 +103,25 @@ typedef struct s_texture
 {
 	void    *texture_img;
 	int     *texture_data; // Or char* depending on format
-	int     width, height;
+	int     width;
+	int		height;
 	int     bpp, size_line, endian;
 }	t_texture;
+
+typedef struct s_sprite
+{
+	void    *sprite_img;
+	int     *sprite_data; // Or char* depending on format
+	int     width;
+	int		height;
+	int     bpp, size_line, endian;
+	float 	x;
+	float 	y;
+	float 	distance_to_player;
+	int 	texture_id;
+	char	*filepath;
+} t_sprite;
+
 
 typedef struct s_data
 {
@@ -115,6 +132,7 @@ typedef struct s_data
 	t_ray		*rays;
 	t_player	*player;
 	t_texture	textures[4];
+	t_sprite	*sprites;
 	t_view		*view;
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
@@ -122,6 +140,8 @@ typedef struct s_data
 	char 		keys[TRACKED_KEYS];
 	void		*welcome_img;
 }	t_data;
+
+
 
 
 // function prototypes
@@ -196,10 +216,7 @@ void	draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
 void	draw_square_from_center(t_data *data, int x, int y, int size, int clr);
 void	draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
 
-
-
-// utils
-
+//
 t_map	*load_dummy_map(void);
 void	print_level_map(t_map *map);
 
@@ -216,10 +233,13 @@ void	print_single_ray_info(t_ray ray);
 
 // utils
 float	deg_to_rad(float angle);
+float	rad_to_deg(float radians);
 int		ft_min(int	num1, int num2);
 int		ft_max(int	num1, int num2);
 long	get_current_time_in_ms(void);
 void	swap(void *a, void *b, size_t size);
+void	toggle_setting(char *setting);
+int		sign(int x);
 
 // useful functions
 void	print_separator(size_t count, char *c);
@@ -242,9 +262,6 @@ int		draw_minimap_rays(t_data *dt, int is_direction_vector);
 int		draw_ceiling(t_data *dt);
 int		draw_floor(t_data *dt);
 
-// utils
-
-void	toggle_setting(char *setting);
 
 // int	get_pixel_color(t_img *img, int x, int y);
 // int blend_colors(int fg, int bg, float alpha);
@@ -253,5 +270,13 @@ int		load_textures(t_data *dt);
 int		load_sprites(t_data *dt);
 int		precalculate_trig_tables(t_data *dt);
 
+int render_sprites(t_data *dt);
+
+int	apply_wall_shading_1(t_data *dt, size_t i, int *color);
+
+int		reset_mouse_position(t_data *dt);
+void	process_keypresses(t_data dt);
+
+int test_render_sprite(t_data *dt);
 
 #endif

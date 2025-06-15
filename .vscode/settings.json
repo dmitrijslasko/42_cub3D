@@ -7,6 +7,14 @@
 		"libft.h": "c",
 		"stdlib.h": "c",
 		"x.h": "c",
-		"keysym.h": "c"
+		"keysym.h": "c",
+		"bit": "c",
+		"functional": "c",
+		"string_view": "c",
+		"random": "c",
+		"limits": "c",
+		"numeric": "c",
+		"algorithm": "c",
+		"string.h": "c"
 	}
 }

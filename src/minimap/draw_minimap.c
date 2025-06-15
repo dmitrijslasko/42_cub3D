@@ -26,6 +26,8 @@ int	draw_minimap_map(t_data *dt)
 				color = MINIMAP_DOOR_COLOR;
 			else if (map->map_data[curr_row][curr_col] == '1')
 				color = MINIMAP_WALL_CELL_COLOR;
+			else if (map->map_data[curr_row][curr_col] == 'S')
+				color = BLUE;
 
 			draw_square_from_top_left(dt,
 						MINIMAP_OFFSET_X + curr_col * MINIMAP_GRID_SIZE,
@@ -46,9 +48,9 @@ int draw_minimap(t_data *dt)
 		draw_minimap_grid(dt);
 	draw_minimap_player(dt);
 	if (MINIMAP_DIRECTION_RAY_ENABLE)
-		draw_minimap_rays(dt, 0);
+		draw_minimap_rays(dt, 1);
 	if (MINIMAP_RENDER_RAYS_ENABLE)
-	draw_minimap_rays(dt, 1);
+		draw_minimap_rays(dt, 0);
 
 	return (EXIT_SUCCESS);
 }

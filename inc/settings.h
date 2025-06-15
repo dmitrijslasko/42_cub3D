@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/13 23:06:05 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/14 22:58:14 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@
 # define MINIMAP_DIRECTION_RAY_ENABLE       1
 # define MINIMAP_DIRECTION_RAY_COLOR		MAGENTA
 
-# define MINIMAP_RENDER_RAYS_ENABLE         1
+# define MINIMAP_RENDER_RAYS_ENABLE         0
 # define MINIMAP_RENDER_RAY_COLOR		    YELLOW
 
 # define FIELD_OF_VIEW_DEG					66.0f

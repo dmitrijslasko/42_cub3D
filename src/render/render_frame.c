@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+#define TRANSPARENT_COLOR 0xFF000000 // or whatever the correct value is
+
 int	apply_wall_shading_1(t_data *dt, size_t i, int *color)
 {
 	// Apply shading
@@ -14,6 +16,10 @@ int	apply_wall_shading_1(t_data *dt, size_t i, int *color)
 	return (EXIT_SUCCESS);
 }
 
+float rad_to_deg(float radians)
+{
+	return radians * (180.0f / M_PI);
+}
 
 void render_3d_scene(t_data *dt)
 {
@@ -71,6 +77,17 @@ void render_3d_scene(t_data *dt)
 				img_pix_put(dt->img, screen_x + w, y, color);
 			y++;
 		}
+	}
+	for (int i = 0; i < 1; i++)
+	{
+		float dx = fabs(dt->sprites[i].x - dt->player->pos.x);
+		float dy = fabs(dt->sprites[i].y - dt->player->pos.y);
+
+		printf("%.2f %.2f\n", dx, dy);
+
+		float distance = sqrtf(dx * dx + dy * dy);
+
+		printf("Distance to sprite: %.2f\n", distance);
 	}
 }
 
@@ -143,6 +160,55 @@ int	reset_mouse_position(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
+int	render_sprites(t_data *dt)
+{
+	size_t	row;
+	size_t	col;
+	int color;
+
+	row = 0;
+	while (row < 64)
+	{
+		col = 0;
+		while (col < 64)
+		{
+			color = dt->sprites[0].sprite_data[row * 64 + col];
+			img_pix_put(dt->img, 100 + col, 100 + row, color);
+			col++;
+		}
+		row++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+
+
+
+int test_render_sprite(t_data *dt)
+{
+	if (!dt->sprites || !dt->sprites[0].sprite_data)
+	{
+		printf("Sprite data not loaded!\n");
+		return (EXIT_FAILURE);
+	}
+
+	int offset_x = WINDOW_W / 2;
+	int offset_y = WINDOW_H / 2;
+
+	for (int row = 0; row < dt->sprites[0].height; row++)
+	{
+		for (int col = 0; col < dt->sprites[0].width; col++)
+		{
+			unsigned int color = dt->sprites[0].sprite_data[row * dt->sprites[0].width + col];
+
+			// Skip transparent pixels (commonly 0)
+			if (color != TRANSPARENT_COLOR)
+				img_pix_put(dt->img, offset_x + col, offset_y + row, color);
+		}
+	}
+
+	return (EXIT_SUCCESS);
+}
 
 int	render_frame(void *param)
 {
@@ -177,7 +243,7 @@ int	render_frame(void *param)
 	render_3d_scene(dt);
 	if (dt->view->show_minimap)
 		draw_minimap(dt);
-
+	// test_render_sprite(dt);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);
 	return (EXIT_SUCCESS);

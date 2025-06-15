@@ -18,7 +18,7 @@ void render_3d_scene(t_data *dt)
 		height = 1.0f / dt->rays[i].distance_to_wall * SCALING;
 
 		int top_y = dt->view->screen_center - height * 1;
-		int bottom_y = dt->view->screen_center + height;
+		int bottom_y = dt->view->screen_center + height * 1;
 
 		int texture_width = dt->textures->width;
 		int texture_height = dt->textures->height;

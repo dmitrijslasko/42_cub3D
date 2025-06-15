@@ -59,6 +59,7 @@
 # define MINIMAP_RENDER_RAYS_ENABLE         1
 # define MINIMAP_RENDER_RAY_COLOR		    YELLOW
 
+// gameplay
 # define FIELD_OF_VIEW_DEG					60.0f
 # define SCALING				            500
 

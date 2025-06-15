@@ -101,6 +101,7 @@ int move_sideways(t_data *dt, int direction)
 
 int	handle_keypress(int keycode, t_data *dt)
 {
+	//printf("Key %d pressed\n", keycode);
 	if (keycode == ESC_BUTTON)
 	{
 		keypress_exit(dt);

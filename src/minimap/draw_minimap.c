@@ -47,10 +47,9 @@ int draw_minimap(t_data *dt)
 	if (MINIMAP_GRID_ENABLE)
 		draw_minimap_grid(dt);
 	draw_minimap_player(dt);
-	if (MINIMAP_DIRECTION_RAY_ENABLE)
-		draw_minimap_rays(dt, 1);
 	if (MINIMAP_RENDER_RAYS_ENABLE)
 		draw_minimap_rays(dt, 0);
-
+	if (MINIMAP_DIRECTION_RAY_ENABLE)
+		draw_minimap_rays(dt, 1);
 	return (EXIT_SUCCESS);
 }

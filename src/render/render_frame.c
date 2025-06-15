@@ -1,26 +1,5 @@
 #include "cub3d.h"
 
-#define TRANSPARENT_COLOR 0xFF000000 // or whatever the correct value is
-
-int	apply_wall_shading_1(t_data *dt, size_t i, int *color)
-{
-	// Apply shading
-	float distance = dt->rays[i].distance_to_wall;
-	float shade = 1.0f / (1.0f + distance * 0.2f);
-	if (shade < 0.1f) shade = 0.1f;
-
-	int r = ((*color >> 16) & 0xFF) * shade;
-	int g = ((*color >> 8) & 0xFF) * shade;
-	int b = (*color & 0xFF) * shade;
-	*color = (r << 16) | (g << 8) | b;
-	return (EXIT_SUCCESS);
-}
-
-float rad_to_deg(float radians)
-{
-	return radians * (180.0f / M_PI);
-}
-
 void render_3d_scene(t_data *dt)
 {
 	size_t	i;
@@ -78,136 +57,7 @@ void render_3d_scene(t_data *dt)
 			y++;
 		}
 	}
-	for (int i = 0; i < 1; i++)
-	{
-		float dx = fabs(dt->sprites[i].x - dt->player->pos.x);
-		float dy = fabs(dt->sprites[i].y - dt->player->pos.y);
-
-		printf("%.2f %.2f\n", dx, dy);
-
-		float distance = sqrtf(dx * dx + dy * dy);
-
-		printf("Distance to sprite: %.2f\n", distance);
-	}
-}
-
-void	toggle_setting(char *setting)
-{
-	*setting ^= 1;
-}
-
-void	process_keypresses(t_data dt)
-{
-	if (dt.keys[119])  // W
-		move_forward_backward(&dt, 1);
-	if (dt.keys[115])  // S
-		move_forward_backward(&dt, -1);
-	if (dt.keys[97])   // A
-		move_sideways(&dt, -1);
-	if (dt.keys[100])  // D
-		move_sideways(&dt, 1);
-	if (dt.keys[65361]) // Left arrow
-		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, 1);
-	if (dt.keys[65363]) // Right arrow
-		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, -1);
-	if (dt.keys[65362]) // Up
-		dt.view->screen_center += 10;
-	if (dt.keys[65364]) // Down
-		dt.view->screen_center -= 10;
-	if (dt.keys[65505])
-		dt.player->move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
-	else
-		dt.player->move_speed_multiplier = 1;
-}
-
-
-
-int sign(int x)
-{
-	return (x > 0) - (x < 0);
-}
-
-//Make sure you're not rotating the player based on movement during suppression (i.e., ignore dx/dy for input when suppress_mouse_frames > 0 too).
-
-# define CENTER_TOLERANCE	25
-
-int	reset_mouse_position(t_data *dt)
-{
-	int dx = dt->mouse.x - WINDOW_W / 2;
-	int dy = dt->mouse.y - WINDOW_H / 2;
-
-	if (dt->mouse.suppress_mouse_frames > 0)
-	{
-		dt->mouse.suppress_mouse_frames--;
-		return (EXIT_SUCCESS);
-	}
-
-	if (abs(dx) > CENTER_TOLERANCE || abs(dy) > CENTER_TOLERANCE)
-	{
-		int new_x = dt->mouse.x;
-		int new_y = dt->mouse.y;
-
-		if (abs(dx) > CENTER_TOLERANCE)
-				new_x = WINDOW_W / 2 + sign(dx) * CENTER_TOLERANCE;
-		if (abs(dy) > CENTER_TOLERANCE)
-				new_y = WINDOW_H / 2 + sign(dy) * CENTER_TOLERANCE;
-
-		dt->mouse.suppress_mouse_frames = 2;
-		mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, new_x, new_y);
-	}
-	//mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W / 2, dt->mouse.y);
-
-	return (EXIT_SUCCESS);
-}
-
-int	render_sprites(t_data *dt)
-{
-	size_t	row;
-	size_t	col;
-	int color;
-
-	row = 0;
-	while (row < 64)
-	{
-		col = 0;
-		while (col < 64)
-		{
-			color = dt->sprites[0].sprite_data[row * 64 + col];
-			img_pix_put(dt->img, 100 + col, 100 + row, color);
-			col++;
-		}
-		row++;
-	}
-	return (EXIT_SUCCESS);
-}
-
-
-
-
-int test_render_sprite(t_data *dt)
-{
-	if (!dt->sprites || !dt->sprites[0].sprite_data)
-	{
-		printf("Sprite data not loaded!\n");
-		return (EXIT_FAILURE);
-	}
-
-	int offset_x = WINDOW_W / 2;
-	int offset_y = WINDOW_H / 2;
-
-	for (int row = 0; row < dt->sprites[0].height; row++)
-	{
-		for (int col = 0; col < dt->sprites[0].width; col++)
-		{
-			unsigned int color = dt->sprites[0].sprite_data[row * dt->sprites[0].width + col];
-
-			// Skip transparent pixels (commonly 0)
-			if (color != TRANSPARENT_COLOR)
-				img_pix_put(dt->img, offset_x + col, offset_y + row, color);
-		}
-	}
-
-	return (EXIT_SUCCESS);
+	render_sprites(dt);
 }
 
 int	render_frame(void *param)
@@ -243,7 +93,6 @@ int	render_frame(void *param)
 	render_3d_scene(dt);
 	if (dt->view->show_minimap)
 		draw_minimap(dt);
-	// test_render_sprite(dt);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);
 	return (EXIT_SUCCESS);

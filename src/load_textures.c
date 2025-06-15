@@ -19,8 +19,14 @@ int load_textures(t_data *dt)
 	i = 0;
 	while (i < 4)
 	{
-		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr, texture_list[i], &texture->width, &texture->height);
-		texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img, &texture->bpp, &texture->size_line, &texture->endian);
+		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
+													texture_list[i],
+													&texture->width,
+													&texture->height);
+		texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img,
+													&texture->bpp,
+													&texture->size_line,
+													&texture->endian);
 		i++;
 		texture++;
 	}

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/13 19:20:33 by dmlasko          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
@@ -76,7 +64,7 @@
 
 // colors
 # define DEF_CEILING_COLOR			GREY
-# define DEF_FLOOR_COLOR			NAVY
+# define DEF_FLOOR_COLOR			GREEN
 # define DEF_WALL_COLOR				PINK
 
 # define MIN_DISTANCE_TO_WALL			0.2f

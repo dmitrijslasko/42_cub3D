@@ -277,6 +277,6 @@ int	apply_wall_shading_1(t_data *dt, size_t i, int *color);
 int		reset_mouse_position(t_data *dt);
 void	process_keypresses(t_data dt);
 
-
+int test_render_sprite(t_data *dt);
 
 #endif

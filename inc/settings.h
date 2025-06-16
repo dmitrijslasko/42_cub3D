@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/13 23:06:05 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/15 23:50:15 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define SETTINGS_H
 
 #ifndef M_PI
-# define M_PI 3
+# define M_PI 3.14
 #endif
+
+# define GRID_SIZE  64
 
 # define SHOW_CALCULATION_LOGS	1
 

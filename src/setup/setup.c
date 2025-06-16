@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:36:44 by abrabant          #+#    #+#             */
-/*   Updated: 2025/06/13 22:50:59 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/16 00:10:51 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int set_player_position(t_data *dt, float dx, float dy)
 
 	player_pos = &(dt->player->pos);
 
-	new_x = player_pos->x + dx;
-	new_y = player_pos->y + dy;
+	new_x = dt->player->player_pos_x + dx * GRID_SIZE;
+	new_y = dt->player->player_pos_y + dy * GRID_SIZE;
 
 	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
 		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))
@@ -67,9 +67,9 @@ int move_forward_backward(t_data *dt, int direction)
 
 	// Calculate new position
 	speed = KEYBOARD_PLAYER_STEP_FORWARD;
-	speed *= dt->player->move_speed_multiplier;
 	if (direction == -1)
 		speed = KEYBOARD_PLAYER_STEP_BACKWARD;
+	speed *= dt->player->move_speed_multiplier;
 	new_x = player_pos->x + dt->player->direction_vector.x * speed * direction;
 	new_y = player_pos->y + dt->player->direction_vector.y * speed * direction;
 
@@ -79,7 +79,6 @@ int move_forward_backward(t_data *dt, int direction)
 		player_pos->x = new_x;
 		player_pos->y = new_y;
 	}
-
 	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
 	return (EXIT_SUCCESS);
 }

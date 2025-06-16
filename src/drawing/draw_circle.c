@@ -25,3 +25,4 @@ void	draw_circle(t_data *dt, int x, int y, int radius, int clr)
 		++curr_x;
 	}
 }
+

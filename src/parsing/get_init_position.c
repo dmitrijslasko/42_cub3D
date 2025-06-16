@@ -2,30 +2,33 @@
 
 bool	find_position(t_data *dt, size_t x, size_t y)
 {
-	if (dt->map->map_data[x][y] == 'N')
+	if (dt->map->map_data[y][x] == 'N')
 	{
-		dt->player->direction_vector.x = 
-		dt->player->direction_vector.y = 
+		dt->player->direction_vector.x = 0;
+		dt->player->direction_vector.y = -1;
 	}
-	else if (dt->map->map_data[x][y] == 'S')
+	else if (dt->map->map_data[y][x] == 'S')
 	{
-			dt->player->direction_vector.x = 
-			dt->player->direction_vector.y = 
+		dt->player->direction_vector.x = 1;
+		dt->player->direction_vector.y = 0;
 	}
-	else if (dt->map->map_data[x][y] == 'E')
+	else if (dt->map->map_data[y][x] == 'E')
 	{
-			dt->player->direction_vector.x = 
-			dt->player->direction_vector.y = 
+		dt->player->direction_vector.x = 0;
+		dt->player->direction_vector.y = -1;
 	}
-	else if (dt->map->map_data[x][y] == 'W')
+	else if (dt->map->map_data[y][x] == 'W')
 	{
-			dt->player->direction_vector.x = 
-			dt->player->direction_vector.y = 
+		dt->player->direction_vector.x = 0;
+		dt->player->direction_vector.y = 1;
 	}
-	return (0);
+	else
+		return (0);
+	set_values_x_y(&dt->player->pos, x + 0.5, y + 0.5);
+	return (1);
 }
 
-int	get_init_position(t_data *dt)
+void	get_init_position(t_data *dt)
 {
 	size_t	x;
 	size_t	y;
@@ -36,9 +39,10 @@ int	get_init_position(t_data *dt)
 	{
 		while (y < dt->map->map_size_rows)
 		{
-			find_position(dt->map->map_data, x, y);
+			if (find_position(dt->map->map_data, x, y))
+				return ;
+			y++;
 		}
 		x++;
 	}
-
 }

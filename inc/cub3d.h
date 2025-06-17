@@ -35,6 +35,14 @@ typedef enum e_type_wall
 	DOOR
 }	t_type_wall;
 
+typedef struct s_color
+{
+	int		r;
+	int		g;
+	int		b;
+}	t_color;
+
+
 typedef struct s_coor
 {
 	int		x;
@@ -65,6 +73,7 @@ typedef struct s_texture
 	int			bpp;
 	int			size_line;
 	int			endian;
+	char		*file;
 }	t_texture;
 
 typedef struct s_map
@@ -73,6 +82,8 @@ typedef struct s_map
 	size_t		map_size_rows;
 	size_t		map_size_cols;
 	t_texture	textures[4];
+	t_color		ceiling_color;
+	t_color		floor_color;
 }	t_map;
 
 typedef struct s_player
@@ -134,7 +145,6 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*rays;
 	t_player	*player;
-
 	t_sprite	*sprites;
 	t_view		*view;
 	t_mouse		mouse;
@@ -175,6 +185,8 @@ void		*protected_malloc(size_t size, t_data dt);
 int			pixel_is_in_window(int x, int y);
 
 //parsing
+char		*free_line_get_next(char *line, int fd);
+bool		parsing(t_data *dt, char *file);
 bool		check_valid_identifier_texture(char *identifier);
 bool		check_only_number(char *str);
 bool		check_valid_player(t_data *dt);
@@ -185,6 +197,12 @@ bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
 bool		check_valid_texture_file(int fd);
 bool		create_map_data(t_map *map);
+bool		check_type_file(char *file, char *type);
+void		remove_new_line(char *str);
+bool		init_value_map_data(char *file, t_data *dt);
+int			ft_open(char *file);
+t_type_wall	check_valid_identifier_texture_wall(char *identifier);
+bool		get_value_file(t_map *map, char *file);
 
 // player movements
 int 		move_forward_backward(t_data *dt, int direction);
@@ -215,6 +233,7 @@ void		print_ray(t_ray ray);
 
 //x_y.c
 float		max_float(float a, float b);
+void		set_values_size_t(size_t *new_x, size_t *new_y, size_t x, size_t y);
 t_x_y		get_values_x_y(float x, float y);
 void		set_values_x_y(t_x_y *new, float x, float y);
 t_coor		get_values_coor(int x, int y);

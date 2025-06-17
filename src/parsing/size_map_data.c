@@ -1,17 +1,8 @@
 #include "cub3d.h"
 
-char	*free_line_get_next(char *line, int fd)
-{
-	char	*str_new;
-
-	if (line)
-		free(line);
-	str_new = get_next_line(fd);
-	return (str_new);
-}
-
 bool	set_size_map_data(t_map *map, char *file)
 {
+	int		flag_map;
 	int		fd;
 	char	*line;
 	size_t	count_row;
@@ -19,24 +10,28 @@ bool	set_size_map_data(t_map *map, char *file)
 
 	count_col = 0;
 	count_row = 0;
-	fd = open(file, O_RDONLY);
+	flag_map = 0;
+	fd = ft_open(file);
 	if (fd < 0)
-		return (error_message_close_fd("Error opening file.", fd, 1));
+		return (1);
 	line = free_line_get_next(NULL, fd);
 	while (line)
 	{
 		if (is_empty_line(line) || is_valid_line_texture(line))
 		{
 			line = free_line_get_next(line, fd);
+			if (flag_map && !is_empty_line(line))
+				return (error_message_close_fd("Error map", fd, 1));
 			continue ;
 		}
+		flag_map = 1;
 		count_row++;
 		if (count_col < ft_strlen(line))
 			count_col = ft_strlen(line);
 		line = free_line_get_next(line, fd);
 	}
-	map->map_size_cols = count_col;
-	map->map_size_rows = count_row;
+	free_line_get_next(line, -1);
 	close(fd);
+	set_values_size_t(&map->map_size_cols, &map->map_size_rows, count_col, count_row);
 	return (0);
 }

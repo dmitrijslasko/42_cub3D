@@ -5,15 +5,13 @@ bool	check_valid_texture_file(int fd)
 	char	**array;
 	char	*line;
 
-	if (fd < 0)
-		return (0);
-	line = get_next_line(fd);
+
+	line = free_line_get_next(NULL, fd);
 	while (line)
 	{
 		if (is_empty_line(line))
 		{
-			free(line);
-			line = get_next_line(fd);
+			line = free_line_get_next(line, fd);
 			continue ;
 		}
 		if (!is_valid_line_texture(line))
@@ -23,8 +21,9 @@ bool	check_valid_texture_file(int fd)
 			return (error_message_free("Not valid input!", array, 1));
 		if (!check_valid_texture(array))
 			return (free_array_return(array, 1));
-		free(line);
-		line = get_next_line(fd);
+		line = free_line_get_next(line, fd);
 	}
+	free_line_get_next(line, -1);
+	close(fd);
 	return (free_array_return(array, 0));
 }

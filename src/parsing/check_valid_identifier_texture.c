@@ -33,3 +33,17 @@ bool	check_valid_identifier_texture(char *identifier)
 		return (1);
 	return (0);
 }
+
+t_type_wall	check_valid_identifier_texture_wall(char *identifier)
+{
+	if (!ft_strncmp(identifier, "SO", ft_strlen(identifier)))
+		return (SOUTH);
+	else if (!ft_strncmp(identifier, "NO", ft_strlen(identifier)))
+		return (NORTH);
+	else if (!ft_strncmp(identifier, "WE", ft_strlen(identifier)))
+		return (WEST);
+	else if (!ft_strncmp(identifier, "EA", ft_strlen(identifier)))
+		return (EAST);
+	else
+		return (DOOR);
+}

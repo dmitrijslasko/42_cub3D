@@ -6,7 +6,11 @@ bool	is_empty_line(char *line)
 
 	i = 0;
 	while (line && line[i])
-		if (line[i++] != ' ')
+	{
+		if (line[i] == ' ' || line[i] == '\n')
+			i++;
+		else
 			return (0);
+	}
 	return (1);
 }

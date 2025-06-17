@@ -1,5 +1,21 @@
 #include "cub3d.h"
 
+bool	get_color(char *color)
+{
+	char	**array;
+	int		r;
+	int		g;
+	int		b;
+
+	array = ft_split(color, ',');
+	if (!array)
+		return (error_message("Error: Malloc.", 0));
+	r = ft_atoi(array[0]);
+	g = ft_atoi(array[1]);
+	b = ft_atoi(array[2]);
+	return (free_array_return(array, 1));
+}
+
 bool	check_valid_color(char *color)
 {
 	char	**array;
@@ -27,7 +43,8 @@ bool	check_valid_texture(char **info)
 
 	if (!check_valid_identifier_texture(info[0]))
 		return (error_message("Error on identifier", 0));
-	if (!ft_strncmp(info[0], "C", 1) || !ft_strncmp(info[0], "F", 0))
+	remove_new_line(info[1]);
+	if (info[0][0] == 'C' || info[0][0] == 'F')
 	{
 		if (!check_valid_color(info[1]))
 			return (error_message("Error: invalid color", 0));

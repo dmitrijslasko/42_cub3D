@@ -1,24 +1,9 @@
 #include "cub3d.h"
 
-int	apply_shading(t_data *dt, size_t i, int *color)
-{
-	// Apply shading
-	float distance = dt->rays[i].distance_to_wall;
-	float shade = 1.0f / (1.0f + distance * 0.2f);
-	if (shade < 0.1f) shade = 0.1f;
-
-	int r = ((*color >> 16) & 0xFF) * shade;
-	int g = ((*color >> 8) & 0xFF) * shade;
-	int b = (*color & 0xFF) * shade;
-	*color = (r << 16) | (g << 8) | b;
-	return (EXIT_SUCCESS);
-}
-
-
-void render_3d(t_data *dt)
+void render_3d_scene(t_data *dt)
 {
 	size_t	i;
-	float	height;
+	float	wall_height;
 	int		screen_x;
 
 	if (SHOW_DEBUG_INFO)
@@ -30,20 +15,16 @@ void render_3d(t_data *dt)
 	for (i = 0; i < CASTED_RAYS_COUNT; i++)
 	{
 		// Distance-based projection
-		height = 1.0f / dt->rays[i].distance_to_wall;
-		int wall_height = height * SCALING;
-		// if (wall_height <= 0) wall_height = 1;
+		wall_height = 1.0f / dt->rays[i].distance_to_wall * SCALING;
 
 		int top_y = dt->view->screen_center - wall_height * 1;
-		// optional: way to scale specific wall type
-		//if (dt->rays[i].wall_type == SOUTH)
-		//	top_y = dt->view->screen_center - wall_height * 2;
 		int bottom_y = dt->view->screen_center + wall_height * 1;
+		//printf("top bottom %d %d\n", top_y, bottom_y);
 
 		int texture_width = dt->map->textures->width;
 		int texture_height = dt->map->textures->height;
 
-		size_t texture_x = (size_t)(dt->rays[i].percentage_of_image * texture_width);
+		size_t texture_x = (dt->rays[i].percentage_of_image * texture_width);
 
 		if (texture_x >= (size_t)texture_width)
 			texture_x = texture_width - 1;
@@ -53,101 +34,31 @@ void render_3d(t_data *dt)
 		screen_x = i * screen_slice_width;
 
 		// Vertical wall slice drawing
-		for (int y = ft_max(0, top_y); y < ft_min(WINDOW_H, bottom_y); y++)
+		int y = top_y;
+		while (y < ft_min(WINDOW_H, bottom_y))
 		{
 			// Relative position on the wall
 			int d = y - top_y;
 			int texture_y = (d * texture_height) / (2 * wall_height);
-			if (texture_y < 0) texture_y = 0;
-			if (texture_y >= texture_height) texture_y = texture_height - 1;
+			if (texture_y < 0)
+				texture_y = 0;
+			if (texture_y >= texture_height)
+				texture_y = texture_height - 1;
 
 			// Sample color from texture
 			int tex_index = texture_y * texture_width + texture_x;
-
 			int color = dt->map->textures[dt->rays[i].wall_type - 1].texture_data[tex_index];
-			// int color = BLUE;
 
-			apply_shading(dt, i, &color);
+			apply_wall_shading_1(dt, i, &color);
 
-			// Draw vertical slice width
 			for (int w = 0; w < screen_slice_width; w++)
-			{
-				if (screen_x + w < WINDOW_W) // safety
-					img_pix_put(dt->img, screen_x + w, y, color);
-			}
+				img_pix_put(dt->img, screen_x + w, y, color);
+			y++;
 		}
 	}
+	//print_separator_default();
+	//render_sprites(dt);
 }
-
-void	toggle_setting(char *setting)
-{
-	*setting ^= 1;
-}
-
-void	process_keypresses(t_data dt)
-{
-	if (dt.keys[119])  // W
-		move_forward_backward(&dt, 1);
-	if (dt.keys[115])  // S
-		move_forward_backward(&dt, -1);
-	if (dt.keys[97])   // A
-		move_sideways(&dt, -1);
-	if (dt.keys[100])  // D
-		move_sideways(&dt, 1);
-	if (dt.keys[65361]) // Left arrow
-		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, 1);
-	if (dt.keys[65363]) // Right arrow
-		rotate_player(&dt, KEYBOARD_PLAYER_ROTATION_STEP, -1);
-	if (dt.keys[65362]) // Up
-		dt.view->screen_center += 10;
-	if (dt.keys[65364]) // Down
-		dt.view->screen_center -= 10;
-	if (dt.keys[65505])
-		dt.player->move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
-	else
-		dt.player->move_speed_multiplier = 1;
-}
-
-
-
-int sign(int x)
-{
-	return (x > 0) - (x < 0);
-}
-
-//Make sure you're not rotating the player based on movement during suppression (i.e., ignore dx/dy for input when suppress_mouse_frames > 0 too).
-
-# define CENTER_TOLERANCE	25
-
-int	reset_mouse_position(t_data *dt)
-{
-	int dx = dt->mouse.x - WINDOW_W / 2;
-	int dy = dt->mouse.y - WINDOW_H / 2;
-
-	if (dt->mouse.suppress_mouse_frames > 0)
-	{
-		dt->mouse.suppress_mouse_frames--;
-		return (EXIT_SUCCESS);
-	}
-
-	if (abs(dx) > CENTER_TOLERANCE || abs(dy) > CENTER_TOLERANCE)
-	{
-		int new_x = dt->mouse.x;
-		int new_y = dt->mouse.y;
-
-		if (abs(dx) > CENTER_TOLERANCE)
-				new_x = WINDOW_W / 2 + sign(dx) * CENTER_TOLERANCE;
-		if (abs(dy) > CENTER_TOLERANCE)
-				new_y = WINDOW_H / 2 + sign(dy) * CENTER_TOLERANCE;
-
-		dt->mouse.suppress_mouse_frames = 2;
-		mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, new_x, new_y);
-	}
-	//mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W / 2, dt->mouse.y);
-
-	return (EXIT_SUCCESS);
-}
-
 
 int	render_frame(void *param)
 {
@@ -179,7 +90,7 @@ int	render_frame(void *param)
 	// 	print_player_logs(dt);
 
 	calculate_all_rays(dt);
-	render_3d(dt);
+	render_3d_scene(dt);
 	if (dt->view->show_minimap)
 		draw_minimap(dt);
 

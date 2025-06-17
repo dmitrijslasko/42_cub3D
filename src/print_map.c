@@ -12,5 +12,5 @@ void	print_level_map(t_map *map)
 			printf("%c ", map->map_data[y][x]);
 		printf("\n");
 	}
-	print_separator(1, DEF_SEPARATOR_CHAR);
+	print_separator_default();
 }

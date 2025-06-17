@@ -23,6 +23,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+
 // structs
 
 typedef enum e_type_wall
@@ -97,7 +98,7 @@ typedef struct s_mouse
 
 typedef struct s_view
 {
-	size_t	screen_center;
+	int	screen_center;
 	char	show_minimap;
 }	t_view;
 
@@ -110,6 +111,30 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_texture
+{
+	void    *texture_img;
+	int     *texture_data; // Or char* depending on format
+	int     width;
+	int		height;
+	int     bpp, size_line, endian;
+}	t_texture;
+
+typedef struct s_sprite
+{
+	void    *sprite_img;
+	int     *sprite_data; // Or char* depending on format
+	int     width;
+	int		height;
+	int     bpp, size_line, endian;
+	float 	x;
+	float 	y;
+	float 	distance_to_player;
+	int 	texture_id;
+	char	*filepath;
+} t_sprite;
+
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -118,6 +143,8 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*rays;
 	t_player	*player;
+
+	t_sprite	*sprites;
 	t_view		*view;
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
@@ -125,6 +152,8 @@ typedef struct s_data
 	char		keys[TRACKED_KEYS];
 	void		*welcome_img;
 }	t_data;
+
+
 
 
 // function prototypes
@@ -211,68 +240,75 @@ void		draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
 void		draw_square_from_center(t_data *data, int x, int y, int size, int clr);
 void		draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
 
+//
+t_map		*load_dummy_map(void);
+void		print_level_map(t_map *map);
 
+int			render_frame(void *param);
+void		add_ui(t_data *dt);
 
-// utils
+int			init_player(t_data *dt);
 
-t_map	*load_dummy_map(void);
-void	print_level_map(t_map *map);
+int			calculate_all_rays(t_data *dt);
 
-int		render_frame(void *param);
-void	add_ui(t_data *dt);
+bool		check_hit_wall(t_coor coord, t_map map, t_ray *ray);
 
-int		init_player(t_data *dt);
+void		print_single_ray_info(t_ray ray);
 
-int		calculate_all_rays(t_data *dt);
-
-bool	check_hit_wall(t_coor coord, t_map map, t_ray *ray);
-
-void	print_single_ray_info(t_ray ray);
-
-int		error_message(char *msg, int ret);
-int		error_message_close_fd(char *msg, int fd, int ret);
-int		error_message2(char *msg, char*msg2, int ret);
-int		error_message_free(char *msg, char **array, int ret);
-int		free_array_return(char **array, int ret);
+int			error_message(char *msg, int ret);
+int			error_message_close_fd(char *msg, int fd, int ret);
+int			error_message2(char *msg, char*msg2, int ret);
+int			error_message_free(char *msg, char **array, int ret);
+int			free_array_return(char **array, int ret);
 
 // utils
-float	deg_to_rad(float angle);
-int		ft_min(int	num1, int num2);
-int		ft_max(int	num1, int num2);
-long	get_current_time_in_ms(void);
-void	swap(void *a, void *b, size_t size);
+float		deg_to_rad(float angle);
+float		rad_to_deg(float radians);
+int			ft_min(int	num1, int num2);
+int			ft_max(int	num1, int num2);
+long		get_current_time_in_ms(void);
+void		swap(void *a, void *b, size_t size);
+void		toggle_setting(char *setting);
+int			sign(int x);
 
 // useful functions
-void	print_separator(size_t count, char *c);
+void		print_separator(size_t count, char *c);
+void		print_separator_default(void);
 
-int	set_coor_values(t_coor *coor, int x, int y);
+int			set_coor_values(t_coor *coor, int x, int y);
 
-t_x_y rotate_vector(t_data data, t_x_y vet, float angle_degrees);
+t_x_y 		rotate_vector(t_data data, t_x_y vet, float angle_degrees);
 
 // minimap
-int		draw_minimap(t_data *dt);
-int		draw_minimap_map(t_data *dt);
-void	draw_minimap_grid(t_data *dt);
-int		draw_minimap_player(t_data *dt);
+int			draw_minimap(t_data *dt);
+int			draw_minimap_map(t_data *dt);
+void		draw_minimap_grid(t_data *dt);
+int			draw_minimap_player(t_data *dt);
 
-void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
-int		draw_minimap_rays(t_data *dt, int is_direction_vector);
+void		draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
+int			draw_minimap_rays(t_data *dt, int is_direction_vector);
 
 
 // 3d render
-int		draw_ceiling(t_data *dt);
-int		draw_floor(t_data *dt);
+int			draw_ceiling(t_data *dt);
+int			draw_floor(t_data *dt);
 
-// utils
-
-void	toggle_setting(char *setting);
 
 // int	get_pixel_color(t_img *img, int x, int y);
 // int blend_colors(int fg, int bg, float alpha);
 
-int		load_textures(t_data *dt);
-int		load_sprites(t_data *dt);
-int		precalculate_trig_tables(t_data *dt);
+int			load_textures(t_data *dt);
+int			load_sprites(t_data *dt);
+int			precalculate_trig_tables(t_data *dt);
 
+int			render_sprites(t_data *dt);
 
+int			apply_wall_shading_1(t_data *dt, size_t i, int *color);
+
+int			reset_mouse_position(t_data *dt);
+void		process_keypresses(t_data dt);
+
+int 		test_render_sprite(t_data *dt);
+
+int			set_mouse_to_screen_center(t_data *dt);
 #endif

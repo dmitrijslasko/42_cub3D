@@ -2,8 +2,10 @@
 # define SETTINGS_H
 
 #ifndef M_PI
-# define M_PI 3
+# define M_PI 3.14
 #endif
+
+# define GRID_SIZE  64
 
 # define SHOW_CALCULATION_LOGS	1
 
@@ -26,11 +28,11 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT	WINDOW_W
+# define CASTED_RAYS_COUNT		1200
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
-# define DUMMY_MAP_MID		"1001001001001000001002001001001"
+# define DUMMY_MAP_MID		"1001001001001000001002001001010"
 # define DUMMY_MAP_MID_2	"1000000000000000000000000000001"
 # define DUMMY_MAP_PLAYER	"10N0000000000000000000000000001"
 
@@ -52,44 +54,43 @@
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define MINIMAP_RAY_LENGTH		            10
+# define MINIMAP_RAY_LENGTH		            2
 # define MINIMAP_DIRECTION_RAY_ENABLE       1
 # define MINIMAP_DIRECTION_RAY_COLOR		MAGENTA
 
 # define MINIMAP_RENDER_RAYS_ENABLE         1
 # define MINIMAP_RENDER_RAY_COLOR		    YELLOW
 
-# define FIELD_OF_VIEW_DEG					75.0f
-# define SCALING				            400
+// gameplay
+# define FIELD_OF_VIEW_DEG					60.0f
+# define SCALING				            500
 
 // colors
-# define DEF_CEILING_COLOR			GREY
-# define DEF_FLOOR_COLOR			GREEN
+# define DEF_BG_COLOR			BLACK
+# define DEF_CEILING_COLOR			GREEN
+# define DEF_FLOOR_COLOR			BLUE
 # define DEF_WALL_COLOR				PINK
 
 # define MIN_DISTANCE_TO_WALL			0.2f
 
 // default scale
-# define KEYBOARD_PLAYER_STEP_FORWARD	0.04f
-# define KEYBOARD_PLAYER_STEP_BACKWARD	0.02f
-# define KEYBOARD_PLAYER_STEP_SIDE 		0.02f
-# define KEYBOARD_PLAYER_ROTATION_STEP 	2.0f
-# define MOVE_SPEED_MULTIPLIER_SLOW 	0.4f
-# define MOVE_SPEED_MULTIPLIER_FAST		1.5f
+# define KEYBOARD_PLAYER_STEP_FORWARD			0.04f
+# define KEYBOARD_PLAYER_STEP_BACKWARD			0.02f
+# define KEYBOARD_PLAYER_STEP_SIDE 				0.02f
+# define KEYBOARD_PLAYER_ROTATION_STEP 			2.0f
+# define KEYBOARD_PLAYER_VERTICAL_LOOK_STEP 	10.0f
+# define MOVE_SPEED_MULTIPLIER_SLOW 			0.4f
+# define MOVE_SPEED_MULTIPLIER_FAST				1.5f
 
+# define ENABLE_VERTICAL_LOOK				1
+# define LOCK_VERTICAL_LOOK_UP				100
+# define LOCK_VERTICAL_LOOK_DOWN			100
 
-// colors
-# define DEF_BG_COLOR			BLACK
 
 // separator
 # define DEF_SEPARATOR_CHAR		"-"
 # define DEF_SEPARATOR_WIDTH	80
-
-// zoom settings
-# define MAX_ZOOM			5
-# define MIN_ZOOM			0.5f
-# define KEYBOARD_ZOOM		0.1f
-# define DEF_STARTING_ZOOM   0.5f
+# define DEF_SEPARATOR_COUNT	1
 
 // mouse sensitivity
 # define MOUSE_SENS_ROTATE 	2.0f

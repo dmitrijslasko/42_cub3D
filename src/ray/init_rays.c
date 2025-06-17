@@ -18,6 +18,6 @@ bool	initialize_rays(t_data *dt)
 		i++;
 	}
 	printf(TXT_GREEN "Done!\n" TXT_RESET);
-	print_separator(1, DEF_SEPARATOR_CHAR);
+	print_separator_default();
 	return (0);
 }

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/16 21:07:38 by dmlasko          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
@@ -66,19 +54,20 @@
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define MINIMAP_RAY_LENGTH		            10
+# define MINIMAP_RAY_LENGTH		            2
 # define MINIMAP_DIRECTION_RAY_ENABLE       1
 # define MINIMAP_DIRECTION_RAY_COLOR		MAGENTA
 
 # define MINIMAP_RENDER_RAYS_ENABLE         1
 # define MINIMAP_RENDER_RAY_COLOR		    YELLOW
 
-# define FIELD_OF_VIEW_DEG					66.0f
+// gameplay
+# define FIELD_OF_VIEW_DEG					60.0f
 # define SCALING				            500
 
 // colors
 # define DEF_CEILING_COLOR			GREY
-# define DEF_FLOOR_COLOR			NAVY
+# define DEF_FLOOR_COLOR			GREEN
 # define DEF_WALL_COLOR				PINK
 
 # define MIN_DISTANCE_TO_WALL			0.3f

@@ -86,7 +86,7 @@ typedef struct s_mouse
 
 typedef struct s_view
 {
-	size_t	screen_center;
+	int	screen_center;
 	char	show_minimap;
 }	t_view;
 
@@ -279,4 +279,5 @@ void	process_keypresses(t_data dt);
 
 int test_render_sprite(t_data *dt);
 
+int	set_mouse_to_screen_center(t_data *dt);
 #endif

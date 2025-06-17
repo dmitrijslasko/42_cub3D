@@ -1,5 +1,11 @@
 #include "cub3d.h"
 
+int	set_mouse_to_screen_center(t_data *dt)
+{
+	mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W / 2, WINDOW_H / 2);
+	return (EXIT_SUCCESS);
+}
+
 # define CENTER_TOLERANCE	25
 
 int	reset_mouse_position(t_data *dt)

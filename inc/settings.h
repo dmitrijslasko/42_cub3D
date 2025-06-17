@@ -28,7 +28,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT	WINDOW_W
+# define CASTED_RAYS_COUNT		1200
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
@@ -80,7 +80,9 @@
 # define MOVE_SPEED_MULTIPLIER_SLOW 	0.4f
 # define MOVE_SPEED_MULTIPLIER_FAST		1.5f
 
-
+# define	ENABLE_VERTICAL_LOOK		1
+# define	LOCK_VERTICAL_LOOK_UP		200
+# define	LOCK_VERTICAL_LOOK_DOWN		200
 // colors
 # define DEF_BG_COLOR			BLACK
 

@@ -1,21 +1,6 @@
 
 #include "cub3d.h"
 
-static int	keypress_exit(t_data *dt)
-{
-	printf("ESC button pressed, closing the window...");
-	mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
-	dt->win_ptr = NULL;
-	free(dt->rays);
-	printf(" Done!\n");
-	return (EXIT_SUCCESS);
-}
-
-int	close_window(void)
-{
-	exit(0);
-}
-
 // TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
 int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 {
@@ -93,119 +78,8 @@ int move_sideways(t_data *dt, int direction)
 		player_pos->x = new_x;
 		player_pos->y = new_y;
 	}
-
 	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
-
 	return (EXIT_SUCCESS);
-}
-
-int	handle_keypress(int keycode, t_data *dt)
-{
-	//printf("Key %d pressed\n", keycode);
-	if (keycode == ESC_BUTTON)
-	{
-		keypress_exit(dt);
-		close_window();
-	}
-	else if (keycode >= 0 && keycode < TRACKED_KEYS)
-		dt->keys[keycode] = 1;
-	return (0);
-}
-
-int	handle_keyrelease(int keycode, t_data *dt)
-{
-	//printf("Key %d released\n", keycode);
-	if (keycode == XK_Tab)
-		toggle_setting(&dt->view->show_minimap);
-	else if (keycode >= 0 && keycode < TRACKED_KEYS)
-		dt->keys[keycode] = 0;
-	return (EXIT_SUCCESS);
-}
-
-// Handle mouse press
-int	mouse_press(int button, int x, int y, t_data *dt)
-{
-	(void)x;
-	(void)y;
-	//if (dt->view->show_welcome)
-	//	return (1);
-	//if (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
-	//	mouse_zoom(button, dt);
-	if (button == MOUSE_LEFT_BUTTON)
-	{
-		dt->mouse.lmb_is_pressed = 1;
-		dt->mouse.lmb_press_count++;
-		system("aplay sounds/shot.wav &");
-		printf("🖱️  LMB is pressed! Total press count: %zu\n", dt->mouse.lmb_press_count);
-	}
-	return (EXIT_SUCCESS);
-}
-
-// Handle mouse release
-int	mouse_release(int button, int x, int y, t_data *dt)
-{
-	(void)x;
-	(void)y;
-	//(void)button;
-	//if (dt->view->show_welcome)
-	//	return (1);
-	if (button == MOUSE_LEFT_BUTTON)
-	{
-		dt->mouse.lmb_is_pressed = 0;
-
-		//printf("LMB released!\n");
-	}
-	//if (button == MOUSE_THIRD_BUTTON)
-	//	dt->mouse->rmb_is_pressed = FALSE;
-	return (0);
-}
-
-// Handle mouse move
-int	mouse_move(int x, int y, t_data *dt)
-{
-	//if (dt->mouse.suppress_mouse_frames > 0)
-	//{
-	//	dt->mouse.suppress_mouse_frames--;
-	//	return (EXIT_SUCCESS);
-	//}
-
-	dt->mouse.prev_x = dt->mouse.x;
-	dt->mouse.prev_y = dt->mouse.y;
-	dt->mouse.x = x;
-	dt->mouse.y = y;
-
-	if (x > dt->mouse.prev_x)
-		rotate_player(dt, MOUSE_SENS_ROTATE, -1);
-	else if (x < dt->mouse.prev_x)
-		rotate_player(dt, MOUSE_SENS_ROTATE, 1);
-	if (y > dt->mouse.prev_y)
-		dt->view->screen_center -= (int)(MOUSE_SENS_ROTATE * 10);
-	if (y < dt->mouse.prev_y)
-		dt->view->screen_center += (int)(MOUSE_SENS_ROTATE * 10);
-	return (0);
-}
-
-void	setup_keyboard_hooks(t_data *dt)
-{
-	printf("Setting up keyboard hooks...");
-	mlx_hook(dt->win_ptr, KeyPress, KeyPressMask, handle_keypress, dt);
-	mlx_hook(dt->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, dt);
-	mlx_hook(dt->win_ptr, 17, 0, close_window, dt);
-	mlx_do_key_autorepeatoff(dt->mlx_ptr);
-	mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
-	printf(" Done!\n");
-}
-
-
-void	setup_mouse_hooks(t_data *dt)
-{
-	printf("Setting up mouse hooks...");
-	mlx_hook(dt->win_ptr, 4, 1L << 2, mouse_press, dt);
-	mlx_hook(dt->win_ptr, 5, 1L << 3, mouse_release, dt);
-	mlx_hook(dt->win_ptr, 6, 1L << 6, mouse_move, dt);
-	dt->mouse.lmb_is_pressed = 0;
-	dt->mouse.rmb_is_pressed = 0;
-	printf(" Done!\n");
 }
 
 //int	show_welcome_img(t_data *dt)

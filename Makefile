@@ -125,7 +125,9 @@ LIBFT_DIR = $(LIBDIRS)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # COMPILATION FLAGS
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -g
+CFLAGS += -MMD -MP
 CFLAGS += -I$(INC_DIR)
 #CFLAGS += -Wno-unused-but-set-variable
 
@@ -139,16 +141,15 @@ BONUSFLAGS = -DBONUS=1
 # ------------------------------------------------------------------------------
 
 # SOURCE FILES
-SRC = $(shell find $(SRC_DIR) -name "*.c" -print)
+SRC := $(shell find $(SRC_DIR) -name "*.c")
+OBJ := $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC:.c=.o))
+DEPS := $(OBJ:.o=.d)
 
 # OBJECT FILES
-OBJ = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC:.c=.o))
 OBJ_BONUS = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR_BONUS)/%, $(SRC:.c=.o))
 
 # DEPENDENCIES
-DEPS = $(OBJ:.o=.d)
 DEPS_BONUS = $(OBJ_BONUS:.o=.d)
-
 
 
 # MAKE RULES

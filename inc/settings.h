@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:16:09 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/15 23:50:15 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/16 21:07:38 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@
 # define DEF_FLOOR_COLOR			NAVY
 # define DEF_WALL_COLOR				PINK
 
-# define MIN_DISTANCE_TO_WALL			0.2f
+# define MIN_DISTANCE_TO_WALL			0.3f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD	0.04f

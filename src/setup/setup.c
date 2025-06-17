@@ -10,16 +10,16 @@ int	map_position_is_walkable(t_map *map, size_t row, size_t col)
 	return (0);
 }
 
-int set_player_position(t_data *dt, float dx, float dy)
+int	set_player_position(t_data *dt, float dx, float dy)
 {
-	t_x_y *player_pos;
-	float new_x;
-	float new_y;
+	t_x_y	*player_pos;
+	float	new_x;
+	float	new_y;
 
 	player_pos = &(dt->player->pos);
 
-	new_x = dt->player->player_pos_x + dx * GRID_SIZE;
-	new_y = dt->player->player_pos_y + dy * GRID_SIZE;
+	new_x = dt->player->pos.x + dx * GRID_SIZE;
+	new_y = dt->player->pos.y + dy * GRID_SIZE;
 
 	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
 		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))

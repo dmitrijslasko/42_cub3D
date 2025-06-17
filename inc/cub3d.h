@@ -111,15 +111,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_texture
-{
-	void    *texture_img;
-	int     *texture_data; // Or char* depending on format
-	int     width;
-	int		height;
-	int     bpp, size_line, endian;
-}	t_texture;
-
 typedef struct s_sprite
 {
 	void    *sprite_img;

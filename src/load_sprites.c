@@ -59,7 +59,7 @@ int	load_sprites(t_data *dt)
 	size_t	sprite_count;
 
 	printf("Loading sprites...\n");
-	print_separator(1, DEF_SEPARATOR_CHAR);
+	print_separator_default();
 
 	sprite_count = count_elements_in_the_map(*dt->map, 'S');
 	printf("Sprites found in the map: %zu\n", sprite_count);

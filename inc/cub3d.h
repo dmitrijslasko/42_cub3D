@@ -243,6 +243,7 @@ int		sign(int x);
 
 // useful functions
 void	print_separator(size_t count, char *c);
+void	print_separator_default(void);
 
 int	set_coor_values(t_coor *coor, int x, int y);
 

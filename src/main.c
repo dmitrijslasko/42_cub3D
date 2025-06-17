@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 	setup_keyboard_hooks(&dt);
 	setup_mouse_hooks(&dt);
 
-	print_separator(1, DEF_SEPARATOR_CHAR);
+	print_separator_default();
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 

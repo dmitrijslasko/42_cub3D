@@ -90,6 +90,7 @@
 // separator
 # define DEF_SEPARATOR_CHAR		"-"
 # define DEF_SEPARATOR_WIDTH	80
+# define DEF_SEPARATOR_COUNT	1
 
 // mouse sensitivity
 # define MOUSE_SENS_ROTATE 	2.0f

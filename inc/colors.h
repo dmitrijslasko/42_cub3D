@@ -1,8 +1,15 @@
 #ifndef COLORS_H
 # define COLORS_H
 
+# define TXT_BLACK		"\033[30m"
+# define TXT_RED		"\033[31m"
 # define TXT_GREEN		"\033[32m"
 # define TXT_YELLOW		"\033[33m"
+# define TXT_BLUE		"\033[34m"
+# define TXT_MAGENTA	"\033[35m"
+# define TXT_CYAN		"\033[36m"
+# define TXT_WHITE		"\033[37m"
+
 # define TXT_RESET		"\033[0m"
 
 // colors

@@ -107,6 +107,7 @@
 # define TEST_MAP_X			10
 # define TEST_MAP_Y		    10
 # define TEST_MAP_Z         0
+# define REPLACE_SPACE_MAP  0
 
 // welcome screen
 # define WELCOME_IMAGE       "./assets/images/intro.xpm"

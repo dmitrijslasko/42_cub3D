@@ -39,7 +39,7 @@ void	get_init_position(t_data *dt)
 	{
 		while (y < dt->map->map_size_rows)
 		{
-			if (find_position(dt->map->map_data, x, y))
+			if (find_position(dt, x, y))
 				return ;
 			y++;
 		}

@@ -15,7 +15,7 @@ int load_textures(t_data *dt)
 
 	printf("Loading textures...");
 
-	texture = dt->textures;
+	texture = dt->map->textures;
 	i = 0;
 	while (i < 4)
 	{

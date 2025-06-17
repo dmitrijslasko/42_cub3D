@@ -40,8 +40,8 @@ void render_3d(t_data *dt)
 		//	top_y = dt->view->screen_center - wall_height * 2;
 		int bottom_y = dt->view->screen_center + wall_height * 1;
 
-		int texture_width = dt->textures->width;
-		int texture_height = dt->textures->height;
+		int texture_width = dt->map->textures->width;
+		int texture_height = dt->map->textures->height;
 
 		size_t texture_x = (size_t)(dt->rays[i].percentage_of_image * texture_width);
 
@@ -64,7 +64,7 @@ void render_3d(t_data *dt)
 			// Sample color from texture
 			int tex_index = texture_y * texture_width + texture_x;
 
-			int color = dt->textures[dt->rays[i].wall_type - 1].texture_data[tex_index];
+			int color = dt->map->textures[dt->rays[i].wall_type - 1].texture_data[tex_index];
 			// int color = BLUE;
 
 			apply_shading(dt, i, &color);

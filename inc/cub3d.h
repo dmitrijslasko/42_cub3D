@@ -6,6 +6,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
+# include <fcntl.h>
 
 # include "../lib/libft/inc/libft.h"
 
@@ -53,17 +54,28 @@ typedef struct s_ray
 	t_x_y		vector;
 }	t_ray;
 
+typedef struct s_texture
+{
+	t_type_wall	wall_type;
+	void		*texture_img;
+	int			*texture_data; // Or char* depending on format
+	int			width;
+	int			height;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}	t_texture;
+
 typedef struct s_map
 {
-	char	**map_data;
-	size_t	map_size_rows;
-	size_t	map_size_cols;
+	char		**map_data;
+	size_t		map_size_rows;
+	size_t		map_size_cols;
+	t_texture	textures[4];
 }	t_map;
 
 typedef struct s_player
 {
-	size_t	player_pos_x;
-	size_t	player_pos_y;
 	t_x_y	pos;
 	t_x_y	direction_vector;
 	float	direction_vector_deg;
@@ -98,14 +110,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_texture
-{
-	void    *texture_img;
-	int     *texture_data; // Or char* depending on format
-	int     width, height;
-	int     bpp, size_line, endian;
-}	t_texture;
-
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -114,12 +118,11 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*rays;
 	t_player	*player;
-	t_texture	textures[4];
 	t_view		*view;
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
 	float		cos_table[PRECALCULATED_TRIG];
-	char 		keys[TRACKED_KEYS];
+	char		keys[TRACKED_KEYS];
 	void		*welcome_img;
 }	t_data;
 
@@ -151,6 +154,18 @@ void		*protected_malloc(size_t size, t_data dt);
 
 int			pixel_is_in_window(int x, int y);
 
+//parsing
+bool		check_valid_identifier_texture(char *identifier);
+bool		check_only_number(char *str);
+bool		check_valid_player(t_data *dt);
+bool		check_valid_texture(char **info);
+bool		is_empty_line(char *line);
+bool		is_delimiter(char c, const char *delimiters);
+bool		is_valid_line_texture(char *line);
+bool		set_size_map_data(t_map *map, char *file);
+bool		check_valid_texture_file(int fd);
+bool		create_map_data(t_map *map);
+
 // player movements
 int 		move_forward_backward(t_data *dt, int direction);
 int 		move_sideways(t_data *dt, int direction);
@@ -159,13 +174,13 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 //ray
 
 //constructor_ray.c
-t_ray	*constructor_ray(float dist, t_type_wall wall);
-t_ray	*calculate_single_ray(t_data dt, t_x_y direction);
+t_ray		*constructor_ray(float dist, t_type_wall wall);
+t_ray		*calculate_single_ray(t_data dt, t_x_y direction);
 
-void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
-bool	initialize_rays(t_data *dt);
-void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist);
-void	set_step(t_x_y *step, t_x_y dir_vec);
+void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
+bool		initialize_rays(t_data *dt);
+void		set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist);
+void		set_step(t_x_y *step, t_x_y dir_vec);
 
 //update_coor_player.c
 t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
@@ -186,15 +201,15 @@ t_coor		get_values_coor(int x, int y);
 void		set_value_coor(t_coor *new, int x, int y);
 
 // basic drawing
-void	draw_background(t_img *img, int color);
-void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
-void	draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
+void		draw_background(t_img *img, int color);
+void		draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
+void		draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
 
-void	draw_circle(t_data *dt, int x, int y, int radius, int clr);
-void	draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
+void		draw_circle(t_data *dt, int x, int y, int radius, int clr);
+void		draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
 
-void	draw_square_from_center(t_data *data, int x, int y, int size, int clr);
-void	draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
+void		draw_square_from_center(t_data *data, int x, int y, int size, int clr);
+void		draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
 
 
 
@@ -213,6 +228,12 @@ int		calculate_all_rays(t_data *dt);
 bool	check_hit_wall(t_coor coord, t_map map, t_ray *ray);
 
 void	print_single_ray_info(t_ray ray);
+
+int		error_message(char *msg, int ret);
+int		error_message_close_fd(char *msg, int fd, int ret);
+int		error_message2(char *msg, char*msg2, int ret);
+int		error_message_free(char *msg, char **array, int ret);
+int		free_array_return(char **array, int ret);
 
 // utils
 float	deg_to_rad(float angle);

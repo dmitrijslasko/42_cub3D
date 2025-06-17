@@ -1,3 +1,4 @@
+
 #include "cub3d.h"
 
 // TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
@@ -17,8 +18,8 @@ int set_player_position(t_data *dt, float dx, float dy)
 
 	player_pos = &(dt->player->pos);
 
-	new_x = player_pos->x + dx;
-	new_y = player_pos->y + dy;
+	new_x = dt->player->player_pos_x + dx * GRID_SIZE;
+	new_y = dt->player->player_pos_y + dy * GRID_SIZE;
 
 	if (map_position_is_walkable(dt->map, new_x + MIN_DISTANCE_TO_WALL, new_y + MIN_DISTANCE_TO_WALL) &&
 		map_position_is_walkable(dt->map, new_x - MIN_DISTANCE_TO_WALL, new_y - MIN_DISTANCE_TO_WALL))
@@ -53,7 +54,6 @@ int move_forward_backward(t_data *dt, int direction)
 		player_pos->x = new_x;
 		player_pos->y = new_y;
 	}
-
 	//printf("New player position: %f %f\n", player_pos->x, player_pos->y);
 	return (EXIT_SUCCESS);
 }

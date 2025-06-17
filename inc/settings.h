@@ -2,8 +2,10 @@
 # define SETTINGS_H
 
 #ifndef M_PI
-# define M_PI 3
+# define M_PI 3.14
 #endif
+
+# define GRID_SIZE  64
 
 # define SHOW_CALCULATION_LOGS	1
 
@@ -68,7 +70,7 @@
 # define DEF_FLOOR_COLOR			GREEN
 # define DEF_WALL_COLOR				PINK
 
-# define MIN_DISTANCE_TO_WALL			0.0f
+# define MIN_DISTANCE_TO_WALL			0.3f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD	0.04f

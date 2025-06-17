@@ -1,10 +1,10 @@
 #include "cub3d.h"
 
 static char *texture_list[] = {
-	"./textures/wall-1.xpm",
-	"./textures/wall-2.xpm",
-	"./textures/wall-3.xpm",
-	"./textures/wall-4.xpm",
+	"./textures/wall1-1.xpm",
+	"./textures/wall1-2.xpm",
+	"./textures/wall1-3.xpm",
+	"./textures/wall1-4.xpm",
 	NULL
 };
 

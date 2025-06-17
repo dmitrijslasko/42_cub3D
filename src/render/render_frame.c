@@ -93,6 +93,11 @@ int	render_frame(void *param)
 	render_3d_scene(dt);
 	if (dt->view->show_minimap)
 		draw_minimap(dt);
+
+	dt->player->player_pos_x = GRID_SIZE * dt->player->pos.x;
+	dt->player->player_pos_y = GRID_SIZE * dt->player->pos.y;
+	// printf("Player position X Y: %zu %zu\n", dt->player->player_pos_x, dt->player->player_pos_y);
+
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);
 	return (EXIT_SUCCESS);

@@ -36,8 +36,8 @@ typedef enum e_type_wall
 
 typedef struct s_coor
 {
-	int		x;
-	int		y;
+	size_t	x;
+	size_t	y;
 }	t_coor;
 
 typedef struct s_x_y
@@ -120,7 +120,7 @@ typedef struct s_sprite
 	float 	distance_to_player;
 	int 	texture_id;
 	char	*filepath;
-} t_sprite;
+}	t_sprite;
 
 
 typedef struct s_data
@@ -137,7 +137,7 @@ typedef struct s_data
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
 	float		cos_table[PRECALCULATED_TRIG];
-	char 		keys[TRACKED_KEYS];
+	char		keys[TRACKED_KEYS];
 	void		*welcome_img;
 }	t_data;
 
@@ -177,18 +177,22 @@ int 		move_sideways(t_data *dt, int direction);
 void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
+float		get_dist_wall(char c, t_x_y direction, t_coor map_coor, t_x_y player_pos, t_x_y step);
 
 //constructor_ray.c
-t_ray	*constructor_ray(float dist, t_type_wall wall);
-t_ray	*calculate_single_ray(t_data dt, t_x_y direction);
+// t_ray	*constructor_ray(float dist, t_type_wall wall);
+t_ray		*calculate_single_ray(t_data dt, t_x_y direction);
+void		update_single_ray(t_data *dt, t_ray *ray);
+void		update_ray(t_data dt, t_ray *ray, t_x_y delta_dist, t_x_y	step, t_x_y	side_dist);
+void		fix_fish_eye(t_x_y direction, t_player player, float *dist);
 
-void	set_delta_dist(t_x_y *delta_dis, t_x_y direction);
-bool	initialize_rays(t_data *dt);
-void	set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist);
-void	set_step(t_x_y *step, t_x_y dir_vec);
+void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
+bool		initialize_rays(t_data *dt);
+void		set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y delta_dist);
+void		set_step(t_x_y *step, t_x_y dir_vec);
 
 //update_coor_player.c
-t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
+// t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
 
 //percentage_wall.c
 float		get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
@@ -206,79 +210,79 @@ t_coor		get_values_coor(int x, int y);
 void		set_value_coor(t_coor *new, int x, int y);
 
 // basic drawing
-void	draw_background(t_img *img, int color);
-void	draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
-void	draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
+void		draw_background(t_img *img, int color);
+void		draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
+void		draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
 
-void	draw_circle(t_data *dt, int x, int y, int radius, int clr);
-void	draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
+void		draw_circle(t_data *dt, int x, int y, int radius, int clr);
+void		draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
 
-void	draw_square_from_center(t_data *data, int x, int y, int size, int clr);
-void	draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
+void		draw_square_from_center(t_data *data, int x, int y, int size, int clr);
+void		draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
 
 //
-t_map	*load_dummy_map(void);
-void	print_level_map(t_map *map);
+t_map		*load_dummy_map(void);
+void		print_level_map(t_map *map);
 
-int		render_frame(void *param);
-void	add_ui(t_data *dt);
+int			render_frame(void *param);
+void		add_ui(t_data *dt);
 
-int		init_player(t_data *dt);
+int			init_player(t_data *dt);
 
-int		calculate_all_rays(t_data *dt);
+int			calculate_all_rays(t_data *dt);
 
-bool	check_hit_wall(t_coor coord, t_map map, t_ray *ray);
+bool		check_hit_wall(t_coor coord, t_map map, t_ray *ray);
 
-void	print_single_ray_info(t_ray ray);
+void		print_single_ray_info(t_ray ray);
 
 // utils
-float	deg_to_rad(float angle);
-float	rad_to_deg(float radians);
-int		ft_min(int	num1, int num2);
-int		ft_max(int	num1, int num2);
-long	get_current_time_in_ms(void);
-void	swap(void *a, void *b, size_t size);
-void	toggle_setting(char *setting);
-int		sign(int x);
+float		deg_to_rad(float angle);
+float		rad_to_deg(float radians);
+int			ft_min(int num1, int num2);
+int			ft_max(int num1, int num2);
+long		get_current_time_in_ms(void);
+void		swap(void *a, void *b, size_t size);
+void		toggle_setting(char *setting);
+int			sign(int x);
 
 // useful functions
-void	print_separator(size_t count, char *c);
-void	print_separator_default(void);
+void		print_separator(size_t count, char *c);
+void		print_separator_default(void);
 
-int	set_coor_values(t_coor *coor, int x, int y);
+int			set_coor_values(t_coor *coor, int x, int y);
 
-t_x_y rotate_vector(t_data data, t_x_y vet, float angle_degrees);
+t_x_y		rotate_vector(t_data data, t_x_y vet, float angle_degrees);
 
 // minimap
-int		draw_minimap(t_data *dt);
-int		draw_minimap_map(t_data *dt);
-void	draw_minimap_grid(t_data *dt);
-int		draw_minimap_player(t_data *dt);
+int			draw_minimap(t_data *dt);
+int			draw_minimap_map(t_data *dt);
+void		draw_minimap_grid(t_data *dt);
+int			draw_minimap_player(t_data *dt);
 
-void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
-int		draw_minimap_rays(t_data *dt, int is_direction_vector);
+void		draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
+int			draw_minimap_rays(t_data *dt, int is_direction_vector);
 
 
 // 3d render
-int		draw_ceiling(t_data *dt);
-int		draw_floor(t_data *dt);
+int			draw_ceiling(t_data *dt);
+int			draw_floor(t_data *dt);
 
 
 // int	get_pixel_color(t_img *img, int x, int y);
 // int blend_colors(int fg, int bg, float alpha);
 
-int		load_textures(t_data *dt);
-int		load_sprites(t_data *dt);
-int		precalculate_trig_tables(t_data *dt);
+int			load_textures(t_data *dt);
+int			load_sprites(t_data *dt);
+int			precalculate_trig_tables(t_data *dt);
 
-int render_sprites(t_data *dt);
+int 		render_sprites(t_data *dt);
 
-int	apply_wall_shading_1(t_data *dt, size_t i, int *color);
+int			apply_wall_shading_1(t_data *dt, size_t i, int *color);
 
-int		reset_mouse_position(t_data *dt);
-void	process_keypresses(t_data dt);
+int			reset_mouse_position(t_data *dt);
+void		process_keypresses(t_data dt);
 
-int test_render_sprite(t_data *dt);
+int			test_render_sprite(t_data *dt);
 
-int	set_mouse_to_screen_center(t_data *dt);
+int			set_mouse_to_screen_center(t_data *dt);
 #endif

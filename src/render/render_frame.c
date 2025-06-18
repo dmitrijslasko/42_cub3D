@@ -21,8 +21,8 @@ void render_3d_scene(t_data *dt)
 		int bottom_y = dt->view->screen_center + wall_height * 1;
 		//printf("top bottom %d %d\n", top_y, bottom_y);
 
-		int texture_width = dt->textures->width;
-		int texture_height = dt->textures->height;
+		int texture_width = dt->map->wall_tile->texture.width;
+		int texture_height = dt->map->wall_tile->texture.height;
 
 		size_t texture_x = (dt->rays[i].percentage_of_image * texture_width);
 
@@ -47,7 +47,11 @@ void render_3d_scene(t_data *dt)
 
 			// Sample color from texture
 			int tex_index = texture_y * texture_width + texture_x;
-			int color = dt->textures[dt->rays[i].wall_type - 1].texture_data[tex_index];
+			// int color = RED;
+			// printf("Wall type: %d\n", dt-)
+			int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			// int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			
 
 			apply_wall_shading_1(dt, i, &color);
 
@@ -88,10 +92,6 @@ int	render_frame(void *param)
 	render_3d_scene(dt);
 	if (dt->view->show_minimap)
 		draw_minimap(dt);
-
-	dt->player->player_pos_x = GRID_SIZE * dt->player->pos.x;
-	dt->player->player_pos_y = GRID_SIZE * dt->player->pos.y;
-	// printf("Player position X Y: %zu %zu\n", dt->player->player_pos_x, dt->player->player_pos_y);
 
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
 	add_ui(dt);

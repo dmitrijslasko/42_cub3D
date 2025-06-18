@@ -6,6 +6,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
+# include <fcntl.h>
+# include <stdint.h>
 
 # include "../lib/libft/inc/libft.h"
 
@@ -27,12 +29,24 @@
 
 typedef enum e_type_wall
 {
-	NORTH = 1,
+	DEFAULT = -1,
+	NORTH,
 	WEST,
 	SOUTH,
 	EAST,
+	FLOOR,
+	CEILING,
 	DOOR
 }	t_type_wall;
+
+typedef struct s_color
+{
+	int		r;
+	int		g;
+	int		b;
+	int		a;
+}	t_color;
+
 
 typedef struct s_coor
 {
@@ -54,17 +68,36 @@ typedef struct s_ray
 	t_x_y		vector;
 }	t_ray;
 
+typedef struct s_texture
+{
+	void		*texture_img;
+	int			*texture_data; // Or char* depending on format
+	int			width;
+	int			height;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	char		*file;
+}	t_texture;
+
+typedef struct	s_wall_tile
+{
+	t_type_wall	wall_type;
+	t_texture	texture;
+	t_color		color;
+	bool		is_color;
+}	t_wall_tile;
+
 typedef struct s_map
 {
-	char	**map_data;
-	size_t	map_size_rows;
-	size_t	map_size_cols;
+	char		**map_data;
+	size_t		map_size_rows;
+	size_t		map_size_cols;
+	t_wall_tile	wall_tile[6];
 }	t_map;
 
 typedef struct s_player
 {
-	size_t	player_pos_x;
-	size_t	player_pos_y;
 	t_x_y	pos;
 	t_x_y	direction_vector;
 	float	direction_vector_deg;
@@ -99,22 +132,15 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_texture
-{
-	void    *texture_img;
-	int     *texture_data; // Or char* depending on format
-	int     width;
-	int		height;
-	int     bpp, size_line, endian;
-}	t_texture;
-
 typedef struct s_sprite
 {
 	void    *sprite_img;
 	int     *sprite_data; // Or char* depending on format
 	int     width;
 	int		height;
-	int     bpp, size_line, endian;
+	int     bpp;
+	int		size_line;
+	int		endian;
 	float 	x;
 	float 	y;
 	float 	distance_to_player;
@@ -131,7 +157,6 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*rays;
 	t_player	*player;
-	t_texture	textures[4];
 	t_sprite	*sprites;
 	t_view		*view;
 	t_mouse		mouse;
@@ -171,6 +196,35 @@ void		*protected_malloc(size_t size, t_data dt);
 
 int			pixel_is_in_window(int x, int y);
 
+//parsing
+char		*free_line_get_next(char *line, int fd);
+bool		parsing(t_data *dt, char *file);
+bool		check_valid_identifier_texture(char *identifier);
+bool		check_only_number(char *str);
+bool		check_valid_player(t_map map);
+bool		check_valid_color_or_texture(char **info);
+bool		is_empty_line(char *line);
+// bool		is_delimiter(char c, const char *delimiters);
+bool		is_valid_line_texture(char *line);
+bool		set_size_map_data(t_map *map, char *file);
+bool		check_valid_wall_tile_file(int fd);
+bool		create_map_data(t_map *map);
+bool		check_type_file(char *file, char *type);
+void		remove_new_line(char *str);
+bool		init_value_map_data(char *file, t_map **map);
+bool		init_default_map(t_map **map);
+int			ft_open(char *file);
+t_type_wall	check_valid_identifier_texture_wall(char *identifier);
+bool		check_all_wall_tile(t_map map);
+bool		get_value_file(t_map *map, char *file);
+bool		get_value_file(t_map *map, char *file);
+void		get_value_map(char *line, int fd, t_map *map);
+void		get_init_position(t_map map, t_player **player);
+bool		set_color_or_texture(t_map *map, char *identifier, char *value);
+bool		set_texture(char *identifier, char *file_texture, t_map *map);
+bool		set_color(char *identifier, char *color, t_map *map);
+
+
 // player movements
 int 		move_forward_backward(t_data *dt, int direction);
 int 		move_sideways(t_data *dt, int direction);
@@ -180,11 +234,12 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 void	set_wall_dist_and_type(t_ray *ray, char c, t_coor map_coor, t_player player);
 
 //constructor_ray.c
-// t_ray	*constructor_ray(float dist, t_type_wall wall);
 t_ray		*calculate_single_ray(t_data dt, t_x_y direction);
 void		update_single_ray(t_data *dt, t_ray *ray);
 void		calc_dist_ray(t_data dt, t_ray *ray, t_x_y delta_dist, t_x_y side_dist);
 void		fix_fish_eye(t_x_y direction, t_player player, float *dist);
+
+//t_ray		*constructor_ray(float dist, t_type_wall wall);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool		initialize_rays(t_data *dt);
@@ -201,6 +256,7 @@ void		print_ray(t_ray ray);
 
 //x_y.c
 float		max_float(float a, float b);
+void		set_values_size_t(size_t *new_x, size_t *new_y, size_t x, size_t y);
 t_x_y		get_values_x_y(float x, float y);
 void		set_values_x_y(t_x_y *new, float x, float y);
 t_coor		get_values_coor(int x, int y);
@@ -231,6 +287,12 @@ int			calculate_all_rays(t_data *dt);
 bool		check_hit_wall(t_coor coord, t_map map, t_ray *ray);
 
 void		print_single_ray_info(t_ray ray);
+
+int			error_message(char *msg, int ret);
+int			error_message_close_fd(char *msg, int fd, int ret);
+int			error_message2(char *msg, char*msg2, int ret);
+int			error_message_free(char *msg, char **array, int ret);
+int			free_array_return(char **array, int ret);
 
 // utils
 float		deg_to_rad(float angle);
@@ -272,12 +334,14 @@ int			load_textures(t_data *dt);
 int			load_sprites(t_data *dt);
 int			precalculate_trig_tables(t_data *dt);
 
-int 		render_sprites(t_data *dt);
+int			render_sprites(t_data *dt);
 
 int			apply_wall_shading_1(t_data *dt, size_t i, int *color);
 
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data dt);
+
+size_t		count_elements_in_the_map(t_map map, char *element);
 
 int			test_render_sprite(t_data *dt);
 

@@ -193,13 +193,10 @@ void		set_step(t_x_y *step, t_x_y dir_vec);
 
 //update_coor_player.c
 // t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
-
-//percentage_wall.c
-float		get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
-							t_type_wall type_wall);
+void		set_perc_wall(t_x_y pos_player, t_ray *ray);
 
 //type_wall.c
-t_type_wall	get_type_wall(char c, t_x_y direction);
+void		set_wall_type(char c, t_ray *ray);
 void		print_ray(t_ray ray);
 
 //x_y.c

@@ -32,10 +32,10 @@ bool	set_texture(char *identifier, char *file_texture, t_map *map)
 	if (!check_valid_identifier_texture(identifier))
 		return (0);
 	wall_type = check_valid_identifier_texture_wall(identifier);
-	if (map->wall_tile[wall_type - 1].texture.file || map->wall_tile[wall_type - 1].is_color)
+	if (map->wall_tile[wall_type].texture.file || map->wall_tile[wall_type].is_color)
 		return (error_message("Error: duplicated wall/door/floor.", 1));
-	map->wall_tile[wall_type - 1].wall_type = wall_type;
-	map->wall_tile[wall_type - 1].texture.file = file_texture;
+	map->wall_tile[wall_type].wall_type = wall_type;
+	map->wall_tile[wall_type].texture.file = file_texture;
 	return (0);
 }
 
@@ -45,15 +45,15 @@ bool	set_color(char *identifier, char *color, t_map *map)
 	t_type_wall	wall_type;
 
 	wall_type = check_valid_identifier_texture_wall(identifier);
-	if (map->wall_tile[wall_type - 1].texture.file || map->wall_tile[wall_type - 1].is_color)
+	if (map->wall_tile[wall_type].texture.file || map->wall_tile[wall_type].is_color)
 		return (error_message("Error: duplicated wall/door/floor.", 1));
 	array = ft_split(color, ',');
 	if (!array)
 		return (error_message("Error: Malloc.", 1));
-	map->wall_tile[wall_type - 1].is_color = true;
-	map->wall_tile[wall_type - 1].color.r = ft_atoi(array[0]);
-	map->wall_tile[wall_type - 1].color.g = ft_atoi(array[1]);
-	map->wall_tile[wall_type - 1].color.b = ft_atoi(array[2]);
+	map->wall_tile[wall_type].is_color = true;
+	map->wall_tile[wall_type].color.r = ft_atoi(array[0]);
+	map->wall_tile[wall_type].color.g = ft_atoi(array[1]);
+	map->wall_tile[wall_type].color.b = ft_atoi(array[2]);
 	return (free_array_return(array, 0));
 }
 

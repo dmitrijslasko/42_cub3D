@@ -7,6 +7,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <fcntl.h>
+# include <stdint.h>
 
 # include "../lib/libft/inc/libft.h"
 
@@ -28,7 +29,7 @@
 
 typedef enum e_type_wall
 {
-	NORTH = 1,
+	NORTH = 0,
 	WEST,
 	SOUTH,
 	EAST,
@@ -42,6 +43,7 @@ typedef struct s_color
 	int		r;
 	int		g;
 	int		b;
+	int		a;
 }	t_color;
 
 
@@ -197,12 +199,12 @@ bool		parsing(t_data *dt, char *file);
 bool		check_valid_identifier_texture(char *identifier);
 bool		check_only_number(char *str);
 bool		check_valid_player(t_data *dt);
-bool		check_valid_texture(char **info);
+bool		check_valid_color_or_texture(char **info);
 bool		is_empty_line(char *line);
 bool		is_delimiter(char c, const char *delimiters);
 bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
-bool		check_valid_texture_file(int fd);
+bool		check_valid_wall_tile_file(int fd);
 bool		create_map_data(t_map *map);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);

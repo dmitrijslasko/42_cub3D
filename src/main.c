@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 	dt.img = protected_malloc(sizeof(t_img), dt);
 	dt.view = protected_malloc(sizeof(t_view), dt);
 
-	// load_textures(&dt);
+	load_textures(&dt);
 	// load_sprites(&dt);
 
 	setup_view(&dt);

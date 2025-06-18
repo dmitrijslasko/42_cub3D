@@ -1,25 +1,40 @@
 #include "cub3d.h"
 
+// Full RGBA version
+int create_color_rgba(int r, int g, int b, int a) 
+{
+    return (r << 24) | (g << 16) | (b << 8) | a;
+}
+
+// RGB version (alpha = 255)
+int create_color_rgb(int r, int g, int b) {
+    return create_color_rgba(r, g, b, 255);
+}
+
 int	draw_ceiling(t_data *dt)
 {
-	t_coor	top_left;
-	t_coor	bottom_right;
+	int	color;
+	t_coor		top_left;
+	t_coor		bottom_right;
 
 	set_coor_values(&top_left, 0, 0);
 	set_coor_values(&bottom_right, WINDOW_W, dt->view->screen_center);
-
-	draw_rectangle(dt, top_left, bottom_right, DEF_CEILING_COLOR);
+	// if (dt->map->wall_tile[CEILING].is_color)
+	color = create_color_rgb(dt->map->wall_tile[CEILING].color.r, dt->map->wall_tile[CEILING].color.g, dt->map->wall_tile[CEILING].color.b);
+	draw_rectangle(dt, top_left, bottom_right, color);
 	return (EXIT_SUCCESS);
 }
 
 int	draw_floor(t_data *dt)
 {
+	int		color;
 	t_coor	top_left;
 	t_coor	bottom_right;
 
 	set_coor_values(&top_left, 0, dt->view->screen_center);
 	set_coor_values(&bottom_right, WINDOW_W, WINDOW_H);
 
-	draw_rectangle(dt, top_left, bottom_right, DEF_FLOOR_COLOR);
+	color = create_color_rgb(dt->map->wall_tile[FLOOR].color.r, dt->map->wall_tile[FLOOR].color.g, dt->map->wall_tile[FLOOR].color.b);
+	draw_rectangle(dt, top_left, bottom_right, color);
 	return (EXIT_SUCCESS);
 }

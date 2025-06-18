@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-bool	check_valid_texture_file(int fd)
+bool	check_valid_wall_tile_file(int fd)
 {
 	char	**array;
 	char	*line;
@@ -19,7 +19,7 @@ bool	check_valid_texture_file(int fd)
 		array = ft_split(line, ' ');
 		if (!array || !array[0] || !array[1] || array[2])
 			return (error_message_free("Not valid input!", array, 1));
-		if (!check_valid_texture(array))
+		if (!check_valid_color_or_texture(array))
 			return (free_array_return(array, 1));
 		line = free_line_get_next(line, fd);
 	}

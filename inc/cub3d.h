@@ -50,8 +50,8 @@ typedef struct s_color
 
 typedef struct s_coor
 {
-	int		x;
-	int		y;
+	size_t	x;
+	size_t	y;
 }	t_coor;
 
 typedef struct s_x_y
@@ -146,7 +146,7 @@ typedef struct s_sprite
 	float 	distance_to_player;
 	int 	texture_id;
 	char	*filepath;
-} t_sprite;
+}	t_sprite;
 
 
 typedef struct s_data
@@ -231,10 +231,15 @@ int 		move_sideways(t_data *dt, int direction);
 void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
+void	set_wall_dist_and_type(t_ray *ray, char c, t_coor map_coor, t_player player);
 
 //constructor_ray.c
-t_ray		*constructor_ray(float dist, t_type_wall wall);
 t_ray		*calculate_single_ray(t_data dt, t_x_y direction);
+void		update_single_ray(t_data *dt, t_ray *ray);
+void		calc_dist_ray(t_data dt, t_ray *ray, t_x_y delta_dist, t_x_y side_dist);
+void		fix_fish_eye(t_x_y direction, t_player player, float *dist);
+
+//t_ray		*constructor_ray(float dist, t_type_wall wall);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool		initialize_rays(t_data *dt);
@@ -242,14 +247,11 @@ void		set_side_dist(t_x_y *side_dist, t_x_y dir_vec, t_x_y pos_player, t_x_y del
 void		set_step(t_x_y *step, t_x_y dir_vec);
 
 //update_coor_player.c
-t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
-
-//percentage_wall.c
-float		get_perc_wall(t_x_y pos_player, t_x_y direction, float dist_ray, \
-							t_type_wall type_wall);
+// t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
+void		set_perc_wall(t_x_y pos_player, t_ray *ray);
 
 //type_wall.c
-t_type_wall	get_type_wall(char c, t_x_y direction);
+void		set_wall_type(char c, t_ray *ray);
 void		print_ray(t_ray ray);
 
 //x_y.c

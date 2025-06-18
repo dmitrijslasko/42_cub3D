@@ -72,15 +72,10 @@ int	render_frame(void *param)
 
 	dt = (t_data *)param;
 
-	// render FPS at the predefined FPS
+	// Render FPS at the predefined FPS
 	current_time = get_current_time_in_ms();
-	//printf("ms: %ld", current_time);
 	if (current_time - last_time < (1000 / FPS))
-	{
-		//usleep(5000);
 		return (EXIT_SUCCESS);
-	}
-
 	last_time = current_time;
 
 	if (dt->win_ptr == NULL)

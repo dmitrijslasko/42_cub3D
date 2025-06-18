@@ -177,13 +177,13 @@ int 		move_sideways(t_data *dt, int direction);
 void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
-float		get_dist_wall(char c, t_x_y direction, t_coor map_coor, t_x_y player_pos, t_x_y step);
+void	set_wall_dist_and_type(t_ray *ray, char c, t_coor map_coor, t_player player);
 
 //constructor_ray.c
 // t_ray	*constructor_ray(float dist, t_type_wall wall);
 t_ray		*calculate_single_ray(t_data dt, t_x_y direction);
 void		update_single_ray(t_data *dt, t_ray *ray);
-void		update_ray(t_data dt, t_ray *ray, t_x_y delta_dist, t_x_y	step, t_x_y	side_dist);
+void		calc_dist_ray(t_data dt, t_ray *ray, t_x_y delta_dist, t_x_y side_dist);
 void		fix_fish_eye(t_x_y direction, t_player player, float *dist);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);

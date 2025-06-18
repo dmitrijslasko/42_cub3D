@@ -1,8 +1,17 @@
 #include "cub3d.h"
 
-float	get_dist_wall(char c, t_x_y direction, t_coor map_coor, t_x_y player_pos, t_x_y step)
+void	set_wall_dist_and_type(t_ray *ray, char c, t_coor map_coor, t_player player)
 {
+	t_x_y	step;
+	float	dist;
+
+	set_step(&step, ray->vector);
 	if (c == 'x')
-		return ((map_coor.x - player_pos.x + (1 - step.x) / 2) / direction.x) ;
-	return ((map_coor.y - player_pos.y + (1 - step.y) / 2) / direction.y);
+		dist = (map_coor.x - player.pos.x + (1 - step.x) / 2) / ray->vector.x;
+	else
+		dist = (map_coor.y - player.pos.y + (1 - step.y) / 2) / ray->vector.y;
+	ray->distance_to_wall = dist;
+	fix_fish_eye(ray->vector, player, &ray->distance_to_wall);
+	ray->wall_type = get_type_wall(c, ray->vector);
+	ray->percentage_of_image = get_perc_wall(player.pos, ray->vector, ray->distance_to_wall, ray->wall_type);
 }

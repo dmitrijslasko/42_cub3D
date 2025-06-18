@@ -8,5 +8,6 @@ char	*free_line_get_next(char *line, int fd)
 		free(line);
 	line = NULL;
 	str_new = get_next_line(fd);
+	remove_new_line(str_new);
 	return (str_new);
 }

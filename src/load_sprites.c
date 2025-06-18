@@ -1,34 +1,12 @@
 #include "cub3d.h"
 
-size_t	count_elements_in_the_map(t_map map, char element)
-{
-	size_t	row;
-	size_t	col;
-	size_t	element_count;
-
-	element_count = 0;
-	row = 0;
-	while (row < map.map_size_rows)
-	{
-		col = 0;
-		while (col < map.map_size_cols)
-		{
-			if (map.map_data[row][col] == element)
-				element_count++;
-			col++;
-		}
-		row++;
-	}
-	return (element_count);
-}
-
 int	load_sprite_images(t_data *dt)
 {
 	size_t	i;
 	t_sprite *sprites;
 	size_t	sprite_count;
 
-	sprite_count = count_elements_in_the_map(*dt->map, 'S');
+	sprite_count = count_elements_in_the_map(*dt->map, "S");
 	i = 0;
 	sprites = dt->sprites;
 
@@ -61,7 +39,7 @@ int	load_sprites(t_data *dt)
 	printf("Loading sprites...\n");
 	print_separator_default();
 
-	sprite_count = count_elements_in_the_map(*dt->map, 'S');
+	sprite_count = count_elements_in_the_map(*dt->map, "S");
 	printf("Sprites found in the map: %zu\n", sprite_count);
 	dt->sprites = protected_malloc(sizeof(t_sprite) * sprite_count, *dt);
 	load_sprite_images(dt);

@@ -27,7 +27,7 @@ bool	check_valid_color_or_texture(char **info)
 
 	if (!check_valid_identifier_texture(info[0]))
 		return (error_message2("Error on identifier ", info[0], 0));
-	remove_new_line(info[1]);
+	// remove_new_line(info[1]);
 	fd_texture_file = open(info[1], O_RDONLY);
 	if (fd_texture_file < 0)
 	{

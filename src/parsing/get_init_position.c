@@ -1,48 +1,52 @@
 #include "cub3d.h"
 
-bool	find_position(t_data *dt, size_t x, size_t y)
+void	find_position(t_player **player, size_t x, size_t y, char c)
 {
-	if (dt->map->map_data[y][x] == 'N')
+	float	dir_x;
+	float	dir_y;
+
+	if (c == 'N')
 	{
-		dt->player->direction_vector.x = 0;
-		dt->player->direction_vector.y = -1;
+		dir_x = 0;
+		dir_y = -1;
 	}
-	else if (dt->map->map_data[y][x] == 'S')
+	else if (c == 'S')
 	{
-		dt->player->direction_vector.x = 1;
-		dt->player->direction_vector.y = 0;
+		dir_x = 1;
+		dir_y = 0;
 	}
-	else if (dt->map->map_data[y][x] == 'E')
+	else if (c == 'E')
 	{
-		dt->player->direction_vector.x = 0;
-		dt->player->direction_vector.y = -1;
-	}
-	else if (dt->map->map_data[y][x] == 'W')
-	{
-		dt->player->direction_vector.x = 0;
-		dt->player->direction_vector.y = 1;
+		dir_x = 0;
+		dir_y = -1;
 	}
 	else
-		return (0);
-	set_values_x_y(&dt->player->pos, x + 0.5, y + 0.5);
-	return (1);
+	{
+		dir_x = 0;
+		dir_y = 1;
+	}
+	set_values_x_y(&(*player)->direction_vector, dir_x, dir_y);
+	set_values_x_y(&(*player)->pos, x + 0.5, y + 0.5);
 }
 
-void	get_init_position(t_data *dt)
+void	get_init_position(t_map map, t_player **player)
 {
-	size_t	x;
-	size_t	y;
+	size_t	row;
+	size_t	col;
 
-	x = 0;
-	y = 0;
-	while (x < dt->map->map_size_cols)
+	row = 0;
+	while (row < map.map_size_cols)
 	{
-		while (y < dt->map->map_size_rows)
+		col = 0;
+		while (col < map.map_size_rows)
 		{
-			if (find_position(dt, x, y))
+			if (ft_strchr("NSWE", map.map_data[col][row]))
+			{
+				find_position(player, row, col, map.map_data[col][row]);
 				return ;
-			y++;
+			}
+			col++;
 		}
-		x++;
+		row++;
 	}
 }

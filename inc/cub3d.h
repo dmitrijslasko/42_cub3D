@@ -29,7 +29,8 @@
 
 typedef enum e_type_wall
 {
-	NORTH = 0,
+	DEFAULT = -1,
+	NORTH,
 	WEST,
 	SOUTH,
 	EAST,
@@ -118,7 +119,7 @@ typedef struct s_mouse
 
 typedef struct s_view
 {
-	int	screen_center;
+	int		screen_center;
 	char	show_minimap;
 }	t_view;
 
@@ -137,7 +138,9 @@ typedef struct s_sprite
 	int     *sprite_data; // Or char* depending on format
 	int     width;
 	int		height;
-	int     bpp, size_line, endian;
+	int     bpp;
+	int		size_line;
+	int		endian;
 	float 	x;
 	float 	y;
 	float 	distance_to_player;
@@ -198,20 +201,29 @@ char		*free_line_get_next(char *line, int fd);
 bool		parsing(t_data *dt, char *file);
 bool		check_valid_identifier_texture(char *identifier);
 bool		check_only_number(char *str);
-bool		check_valid_player(t_data *dt);
+bool		check_valid_player(t_map map);
 bool		check_valid_color_or_texture(char **info);
 bool		is_empty_line(char *line);
-bool		is_delimiter(char c, const char *delimiters);
+// bool		is_delimiter(char c, const char *delimiters);
 bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
 bool		check_valid_wall_tile_file(int fd);
 bool		create_map_data(t_map *map);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
-bool		init_value_map_data(char *file, t_data *dt);
+bool		init_value_map_data(char *file, t_map **map);
+bool		init_default_map(t_map **map);
 int			ft_open(char *file);
 t_type_wall	check_valid_identifier_texture_wall(char *identifier);
+bool		check_all_wall_tile(t_map map);
 bool		get_value_file(t_map *map, char *file);
+bool		get_value_file(t_map *map, char *file);
+void		get_value_map(char *line, int fd, t_map *map);
+void		get_init_position(t_map map, t_player **player);
+bool		set_color_or_texture(t_map *map, char *identifier, char *value);
+bool		set_texture(char *identifier, char *file_texture, t_map *map);
+bool		set_color(char *identifier, char *color, t_map *map);
+
 
 // player movements
 int 		move_forward_backward(t_data *dt, int direction);
@@ -283,8 +295,8 @@ int			free_array_return(char **array, int ret);
 // utils
 float		deg_to_rad(float angle);
 float		rad_to_deg(float radians);
-int			ft_min(int	num1, int num2);
-int			ft_max(int	num1, int num2);
+int			ft_min(int num1, int num2);
+int			ft_max(int num1, int num2);
 long		get_current_time_in_ms(void);
 void		swap(void *a, void *b, size_t size);
 void		toggle_setting(char *setting);
@@ -296,7 +308,7 @@ void		print_separator_default(void);
 
 int			set_coor_values(t_coor *coor, int x, int y);
 
-t_x_y 		rotate_vector(t_data data, t_x_y vet, float angle_degrees);
+t_x_y		rotate_vector(t_data data, t_x_y vet, float angle_degrees);
 
 // minimap
 int			draw_minimap(t_data *dt);
@@ -327,7 +339,9 @@ int			apply_wall_shading_1(t_data *dt, size_t i, int *color);
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data dt);
 
-int 		test_render_sprite(t_data *dt);
+size_t		count_elements_in_the_map(t_map map, char *element);
+
+int			test_render_sprite(t_data *dt);
 
 int			set_mouse_to_screen_center(t_data *dt);
 #endif

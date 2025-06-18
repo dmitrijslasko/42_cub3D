@@ -11,10 +11,11 @@ int	main(int argc, char **argv)
 	t_data	dt;
 
 	if (argc != 2)
-		return (error_message("Too many arguments", 1));
+		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
 
 	// Load dummy map
-	parsing(&dt, argv[1]);
+	if (parsing(&dt, argv[1]))
+		exit(1);
 	// dt.map = load_dummy_map();
 	print_level_map(dt.map);
 

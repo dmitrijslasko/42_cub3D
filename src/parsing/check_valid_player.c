@@ -13,32 +13,16 @@ bool	is_valid_position(t_map map, size_t x, size_t y)
 	return (1);
 }
 
-bool	check_valid_player(t_data *dt)
+bool	check_valid_player(t_map map)
 {
-	size_t	x;
-	size_t	y;
-	bool	flag_find_player;
+	int		count;
 
-	x = 0;
-	flag_find_player = 0;
-	while (x < dt->map->map_size_cols)
-	{
-		y = 0;
-		while (y < dt->map->map_size_rows)
-		{
-			if (is_delimiter(dt->map->map_data[y][x], "NSWE") && flag_find_player)
-				return (error_message("Error: Multi player.", 0));
-			if (is_delimiter(dt->map->map_data[y][x], "NSWE"))
-			{
-				if (!is_valid_position(*dt->map, x, y))
-					return (error_message("Error: Not valid player position,", 0));
-				flag_find_player = 1;
-			}
-			y++;
-		}
-		x++;
-	}
-	if (!flag_find_player)
+	count = count_elements_in_the_map(map, "NSWE");
+	if (count == 0)
 		return (error_message("Error: Player not found.", 0));
+	else if (count > 1)
+		return (error_message("Error: Multi player.", 0));
+	// if (!is_valid_position(*dt->map, x, y))
+	// 	return (error_message("Error: Not valid player position,", 0));
 	return (1);
 }

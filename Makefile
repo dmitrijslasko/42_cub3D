@@ -160,6 +160,9 @@ DEPS_BONUS = $(OBJ_BONUS:.o=.d)
 
 # ------------------------------------------------------------------------------
 
+test: all
+	./${NAME} ./maps/good/cheese_maze.cub
+
 all: libft $(NAME) $(HEADER_FILE_M)
 
 $(NAME): $(OBJ)

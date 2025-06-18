@@ -1,9 +1,10 @@
 #include "cub3d.h"
 
 // Full RGBA version
-int create_color_rgba(int r, int g, int b, int a) 
-{
-    return (r << 24) | (g << 16) | (b << 8) | a;
+#include <stdint.h>
+
+int create_color_rgba(int r, int g, int b, int a) {
+    return (a << 24) | (r << 16) | (g << 8) | b;
 }
 
 // RGB version (alpha = 255)
@@ -13,7 +14,7 @@ int create_color_rgb(int r, int g, int b) {
 
 int	draw_ceiling(t_data *dt)
 {
-	int	color;
+	int			color;
 	t_coor		top_left;
 	t_coor		bottom_right;
 

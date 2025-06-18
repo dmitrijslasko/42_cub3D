@@ -7,8 +7,6 @@ bool	create_map_data(t_map *map)
 
 	curr_col = 0;
 	curr_row = 0;
-
-
 	map->map_data = malloc((map->map_size_cols + 1) * sizeof(char *));
 	if (!map->map_data)
 		return (error_message("Malloc error.", 1));

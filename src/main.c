@@ -15,7 +15,7 @@ int	main(int argc, char **argv)
 
 	// Load dummy map
 	parsing(&dt, argv[1]);
-	dt.map = load_dummy_map();
+	// dt.map = load_dummy_map();
 	print_level_map(dt.map);
 
 	size_t i = 0;
@@ -38,8 +38,8 @@ int	main(int argc, char **argv)
 	dt.img = protected_malloc(sizeof(t_img), dt);
 	dt.view = protected_malloc(sizeof(t_view), dt);
 
-	load_textures(&dt);
-	load_sprites(&dt);
+	// load_textures(&dt);
+	// load_sprites(&dt);
 
 	setup_view(&dt);
 	setup_img(&dt);

@@ -32,40 +32,43 @@ bool	set_texture(char *identifier, char *file_texture, t_map *map)
 	if (!check_valid_identifier_texture(identifier))
 		return (0);
 	wall_type = check_valid_identifier_texture_wall(identifier);
-	if (map->textures[wall_type - 1].file)
-		return (error_message("Error: duplicated wall.", 1));
-	map->textures[wall_type - 1].wall_type = wall_type;
-	map->textures[wall_type - 1].file = file_texture;
+	if (map->wall_tile[wall_type - 1].texture.file || map->wall_tile[wall_type - 1].is_color)
+		return (error_message("Error: duplicated wall/door/floor.", 1));
+	map->wall_tile[wall_type - 1].wall_type = wall_type;
+	map->wall_tile[wall_type - 1].texture.file = file_texture;
 	return (0);
 }
 
 bool	set_color(char *identifier, char *color, t_map *map)
 {
 	char	**array;
-	t_color	select;
+	t_type_wall	wall_type;
 
-	if (identifier[0] == 'C')
-	{
-		if (map->ceiling_color.b != -1)
-			return (error_message("Error: duplicated ceiling.", 1));
-		select = map->ceiling_color;
-	}
-	else if (identifier[0] == 'F')
-	{
-		if (map->floor_color.b != -1)
-			return (error_message("Error: duplicated floor.", 1));
-		select = map->floor_color;
-	}
-	else
-		return (0);
+	wall_type = check_valid_identifier_texture_wall(identifier);
+	if (map->wall_tile[wall_type - 1].texture.file || map->wall_tile[wall_type - 1].is_color)
+		return (error_message("Error: duplicated wall/door/floor.", 1));
 	array = ft_split(color, ',');
 	if (!array)
-		return (error_message("Error: Malloc.", 0));
-	select.r = ft_atoi(array[0]);
-	select.g = ft_atoi(array[1]);
-	select.b = ft_atoi(array[2]);
-	free_array_return(array, 1);
-	return (0);
+		return (error_message("Error: Malloc.", 1));
+	map->wall_tile[wall_type - 1].is_color = true;
+	map->wall_tile[wall_type - 1].color.r = ft_atoi(array[0]);
+	map->wall_tile[wall_type - 1].color.g = ft_atoi(array[1]);
+	map->wall_tile[wall_type - 1].color.b = ft_atoi(array[2]);
+	return (free_array_return(array, 0));
+}
+
+bool	set_color_or_texture(t_map *map, char *identifier, char *value)
+{
+	int	fd_tex;
+
+	if (!identifier || !value)
+		return (error_message("Error: Split.", 1));
+	remove_new_line(value);
+	fd_tex = open(value, O_RDONLY);
+	if (fd_tex < 0)
+		return (set_color(identifier, value, map));
+	close(fd_tex);
+	return (set_texture(identifier, value, map));
 }
 
 bool	get_value_file(t_map *map, char *file)
@@ -83,13 +86,13 @@ bool	get_value_file(t_map *map, char *file)
 		if (is_valid_line_texture(line))
 		{
 			array = ft_split(line, ' ');
-			if (set_color(array[0], array[1], map) || \
-				set_texture(array[0], array[1], map))
+			if (set_color_or_texture(map, array[0], array[1]))
 				return (free_array_return(array, 1));
+			free_array_return(array, 0);
 		}
 		line = free_line_get_next(line, fd);
-		free_array_return(array, 0);
 	}
 	get_value_map(line, fd, map);
+	close (fd);
 	return (0);
 }

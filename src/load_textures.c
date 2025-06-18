@@ -10,15 +10,15 @@ static char *texture_list[] = {
 
 int load_textures(t_data *dt)
 {
-	t_texture *texture;
+	t_texture texture[6];
 	size_t i;
 
 	printf("Loading textures...");
 
-	texture = dt->map->textures;
 	i = 0;
-	while (i < 4)
+	while (i < 6)
 	{
+		texture[i] = dt->map->wall_tile[i].texture;
 		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
 													texture_list[i],
 													&texture->width,
@@ -28,7 +28,6 @@ int load_textures(t_data *dt)
 													&texture->size_line,
 													&texture->endian);
 		i++;
-		texture++;
 	}
 	printf(" Done!\n");
 	return (EXIT_SUCCESS);

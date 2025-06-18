@@ -32,6 +32,8 @@ typedef enum e_type_wall
 	WEST,
 	SOUTH,
 	EAST,
+	FLOOR,
+	CEILING,
 	DOOR
 }	t_type_wall;
 
@@ -65,7 +67,6 @@ typedef struct s_ray
 
 typedef struct s_texture
 {
-	t_type_wall	wall_type;
 	void		*texture_img;
 	int			*texture_data; // Or char* depending on format
 	int			width;
@@ -76,14 +77,20 @@ typedef struct s_texture
 	char		*file;
 }	t_texture;
 
+typedef struct	s_wall_tile
+{
+	t_type_wall	wall_type;
+	t_texture	texture;
+	t_color		color;
+	bool		is_color;
+}	t_wall_tile;
+
 typedef struct s_map
 {
 	char		**map_data;
 	size_t		map_size_rows;
 	size_t		map_size_cols;
-	t_texture	textures[4];
-	t_color		ceiling_color;
-	t_color		floor_color;
+	t_wall_tile	wall_tile[6];
 }	t_map;
 
 typedef struct s_player

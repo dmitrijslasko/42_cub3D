@@ -44,6 +44,10 @@ t_type_wall	check_valid_identifier_texture_wall(char *identifier)
 		return (WEST);
 	else if (!ft_strncmp(identifier, "EA", ft_strlen(identifier)))
 		return (EAST);
+	else if (!ft_strncmp(identifier, "F", ft_strlen(identifier)))
+		return (FLOOR);
+	else if (!ft_strncmp(identifier, "C", ft_strlen(identifier)))
+		return (CEILING);
 	else
 		return (DOOR);
 }

@@ -10,11 +10,13 @@ int	main(int argc, char **argv)
 {
 	t_data	dt;
 
-	(void)argc;
-	(void)argv;
+	if (argc != 2)
+		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
 
 	// Load dummy map
-	dt.map = load_dummy_map();
+	if (parsing(&dt, argv[1]))
+		exit(1);
+	// dt.map = load_dummy_map();
 	print_level_map(dt.map);
 
 	size_t i = 0;
@@ -38,7 +40,7 @@ int	main(int argc, char **argv)
 	dt.view = protected_malloc(sizeof(t_view), dt);
 
 	load_textures(&dt);
-	load_sprites(&dt);
+	// load_sprites(&dt);
 
 	setup_view(&dt);
 	setup_img(&dt);

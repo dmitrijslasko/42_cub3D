@@ -9,6 +9,12 @@ float	max_float(float a, float b)
 	return (b);
 }
 
+void	set_values_size_t(size_t *new_x, size_t *new_y, size_t x, size_t y)
+{
+	*new_x = x;
+	*new_y = y;
+}
+
 // TODO FV: rename this function in the future
 t_x_y	get_values_x_y(float x, float y)
 {

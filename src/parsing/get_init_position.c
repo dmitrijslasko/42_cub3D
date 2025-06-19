@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	find_position(t_player **player, size_t col, size_t row, char c)
+void	find_position(t_player *player, size_t col, size_t row, char c)
 {
 	float	dir_x;
 	float	dir_y;
@@ -25,11 +25,11 @@ void	find_position(t_player **player, size_t col, size_t row, char c)
 		dir_x = 0;
 		dir_y = 1;
 	}
-	set_values_x_y(&(*player)->direction_vector, dir_x, dir_y);
-	set_values_x_y(&(*player)->pos, col + 0.5, row + 0.5);
+	set_values_x_y(&player->direction_vector, dir_x, dir_y);
+	set_values_x_y(&player->pos, col + 0.5, row + 0.5);
 }
 
-void	get_init_position(t_map map, t_player **player)
+void	get_init_position(t_map map, t_player *player)
 {
 	size_t	row;
 	size_t	col;

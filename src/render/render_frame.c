@@ -81,7 +81,7 @@ int	render_frame(void *param)
 	if (dt->win_ptr == NULL)
 		return (EXIT_FAILURE);
 
-	process_keypresses(*dt);
+	process_keypresses(dt);
 
 	reset_mouse_position(dt);
 

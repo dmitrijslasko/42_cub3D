@@ -35,13 +35,17 @@ int	main(int argc, char **argv)
 	setup_mlx_and_win(&dt);
 
 	dt.img = protected_malloc(sizeof(t_img), dt);
+	dt.minimap = protected_malloc(sizeof(t_img), dt);
 	dt.view = protected_malloc(sizeof(t_view), dt);
 
 	load_textures(&dt);
 	load_sprites(&dt);
 
 	setup_view(&dt);
-	setup_img(&dt);
+
+	setup_img(&dt, dt.img, WINDOW_W, WINDOW_H);
+	setup_img(&dt, dt.minimap, 400, 400);
+
 	setup_keyboard_hooks(&dt);
 	setup_mouse_hooks(&dt);
 

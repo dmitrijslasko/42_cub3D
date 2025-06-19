@@ -7,7 +7,7 @@ int	draw_minimap_map(t_data *dt)
 	size_t	curr_col;
 	int		color;
 
-	draw_square_from_top_left(dt, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y, (dt->map->map_size_cols) * MINIMAP_GRID_SIZE, MINIMAP_BACKGROUND_COLOR);
+	draw_square_from_top_left(dt->minimap, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y, (dt->map->map_size_cols) * MINIMAP_GRID_SIZE, MINIMAP_BACKGROUND_COLOR);
 	map = dt->map;
 	curr_row = 0;
 	while (curr_row < map->map_size_rows)
@@ -29,7 +29,7 @@ int	draw_minimap_map(t_data *dt)
 			else if (map->map_data[curr_row][curr_col] == 'S')
 				color = BLUE;
 
-			draw_square_from_top_left(dt,
+			draw_square_from_top_left(dt->minimap,
 						MINIMAP_OFFSET_X + curr_col * MINIMAP_GRID_SIZE,
 						MINIMAP_OFFSET_Y + curr_row * MINIMAP_GRID_SIZE,
 						MINIMAP_GRID_SIZE,
@@ -44,9 +44,11 @@ int	draw_minimap_map(t_data *dt)
 int draw_minimap(t_data *dt)
 {
 	draw_minimap_map(dt);
+	draw_minimap_player(dt);
 	if (MINIMAP_GRID_ENABLE)
 		draw_minimap_grid(dt);
-	draw_minimap_player(dt);
+
+
 	if (MINIMAP_RENDER_RAYS_ENABLE)
 		draw_minimap_rays(dt, 0);
 	if (MINIMAP_DIRECTION_RAY_ENABLE)

@@ -10,7 +10,7 @@ int	map_position_is_walkable(t_map *map, float new_x, float new_y)
 	size_t max_y = (size_t)(new_y + MIN_DISTANCE_TO_WALL);
 
 	// Check for out-of-bounds access
-	if (min_x < 0 || max_x >= map->map_size_cols || min_y < 0 || max_y >= map->map_size_rows)
+	if (max_x >= map->map_size_cols || max_y >= map->map_size_rows)
 		return (0);
 
 	// Check four corners of bounding box

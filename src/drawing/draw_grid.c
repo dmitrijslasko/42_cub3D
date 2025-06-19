@@ -12,7 +12,7 @@ void	draw_minimap_grid(t_data *dt)
 		while (current_x <= dt->map->map_size_cols * MINIMAP_GRID_SIZE)
 		{
 			if (current_x % MINIMAP_GRID_SIZE == 0 || current_y % MINIMAP_GRID_SIZE == 0)
-				img_pix_put(dt->img, MINIMAP_OFFSET_X + current_x, MINIMAP_OFFSET_Y + current_y, MINIMAP_GRID_COLOR);
+				img_pix_put(dt->minimap, MINIMAP_OFFSET_X + current_x, MINIMAP_OFFSET_Y + current_y, MINIMAP_GRID_COLOR);
 			++current_x;
 		}
 		++current_y;

@@ -53,7 +53,7 @@ void	add_crosshair(t_data *dt, int color)
 	set_coor_values(&xy2, WINDOW_W / 2, WINDOW_H);
 
 	set_coor_values(&xy, WINDOW_W / 2, WINDOW_H / 2);
-	draw_square_from_center(dt, WINDOW_W / 2, WINDOW_H / 2, 5, color);
+	draw_square_from_center(dt->img, WINDOW_W / 2, WINDOW_H / 2, 5, color);
 	//draw_vertical_line(dt, xy, xy2, color);
 }
 

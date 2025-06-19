@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_circle(t_data *dt, int x, int y, int radius, int clr)
+void	draw_circle(t_img *img, int x, int y, int radius, int clr)
 {
 	int	curr_x;
 	int	curr_y;
@@ -18,7 +18,7 @@ void	draw_circle(t_data *dt, int x, int y, int radius, int clr)
 			if (dx * dx + dy * dy <= radius * radius)
 			{
 				if (pixel_is_in_window(curr_x, curr_y))
-					img_pix_put(dt->img, curr_x, curr_y, clr);
+					img_pix_put(img, curr_x, curr_y, clr);
 			}
 			++curr_y;
 		}

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_vertical_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)
+void	draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color)
 {
 	int		curr_y;
 
@@ -10,7 +10,7 @@ void	draw_vertical_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)
 	curr_y = pt_1.y;
 	while (curr_y < pt_2.y)
 	{
-		img_pix_put(dt->img, pt_1.x, curr_y, color);
+		img_pix_put(img, pt_1.x, curr_y, color);
 		++curr_y;
 	}
 }
@@ -24,7 +24,7 @@ void	draw_vertical_line(t_data *dt, t_coor pt_1, t_coor pt_2, int color)
  * @param color
  */
 // TODO DL: refactor to fit the norm. The currect implementation is kindly provided by ChatGPT. :)
-void draw_line(t_data *dt, t_coor pt1, t_coor pt2, int color)
+void draw_line(t_img *img, t_coor pt1, t_coor pt2, int color)
 {
 	int dx = abs(pt2.x - pt1.x);
 	int dy = abs(pt2.y - pt1.y);
@@ -35,7 +35,7 @@ void draw_line(t_data *dt, t_coor pt1, t_coor pt2, int color)
 
 	while (1)
 	{
-		img_pix_put(dt->img, pt1.x, pt1.y, color);
+		img_pix_put(img, pt1.x, pt1.y, color);
 		if (pt1.x == pt2.x && pt1.y == pt2.y)
 			break;
 		e2 = 2 * err;

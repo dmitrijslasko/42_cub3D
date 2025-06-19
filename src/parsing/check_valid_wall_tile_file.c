@@ -6,6 +6,7 @@ bool	check_valid_wall_tile_file(int fd)
 	char	*line;
 
 
+	array = NULL;
 	line = free_line_get_next(NULL, fd);
 	while (line)
 	{
@@ -17,11 +18,12 @@ bool	check_valid_wall_tile_file(int fd)
 		if (!is_valid_line_texture(line))
 			break ;
 		array = ft_split(line, ' ');
-		if (!array || !array[0] || !array[1] || array[2])
+		if (!array || !array[0] || !array[1])
 			return (error_message_free("Not valid input!", array, 1));
 		if (!check_valid_color_or_texture(array))
 			return (free_array_return(array, 1));
 		line = free_line_get_next(line, fd);
+		// free_array(array);
 	}
 	free_line_get_next(line, -1);
 	close(fd);

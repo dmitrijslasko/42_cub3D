@@ -15,7 +15,7 @@ bool	get_value_file(t_map *map, char *file)
 		if (is_valid_line_texture(line))
 		{
 			array = ft_split(line, ' ');
-			if (set_color_or_texture(map, array[0], array[1]))
+			if (set_color_or_texture(map, array[0], &array[1]))
 				return (free_array_return(array, 1));
 			free_array_return(array, 0);
 		}

@@ -15,6 +15,7 @@
 		"limits": "c",
 		"numeric": "c",
 		"algorithm": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"array": "c"
 	}
 }

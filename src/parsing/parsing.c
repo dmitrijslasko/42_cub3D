@@ -22,7 +22,6 @@ bool	parsing(t_data *dt, char *file)
 {
 	int	fd;
 
-	(void)dt;
 	if (!check_type_file(file, "cub"))
 		return (1);
 	fd = ft_open(file);

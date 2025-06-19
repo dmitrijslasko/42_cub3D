@@ -211,6 +211,7 @@ bool		check_valid_wall_tile_file(int fd);
 bool		create_map_data(t_map *map);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
+char		*remove_space_beginner(char *str);
 bool		init_value_map_data(char *file, t_map **map);
 bool		init_default_map(t_map **map);
 int			ft_open(char *file);
@@ -220,9 +221,9 @@ bool		get_value_file(t_map *map, char *file);
 bool		get_value_file(t_map *map, char *file);
 void		get_value_map(char *line, int fd, t_map *map);
 void		get_init_position(t_map map, t_player *player);
-bool		set_color_or_texture(t_map *map, char *identifier, char *value);
+bool		set_color_or_texture(t_map *map, char *identifier, char **value);
 bool		set_texture(char *identifier, char *file_texture, t_map *map);
-bool		set_color(char *identifier, char *color, t_map *map);
+bool		set_color(char *identifier, char **color, t_map *map);
 
 
 // player movements
@@ -293,6 +294,7 @@ int			error_message_close_fd(char *msg, int fd, int ret);
 int			error_message2(char *msg, char*msg2, int ret);
 int			error_message_free(char *msg, char **array, int ret);
 int			free_array_return(char **array, int ret);
+void		free_array(char **array);
 
 // utils
 float		deg_to_rad(float angle);

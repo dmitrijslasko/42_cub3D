@@ -38,7 +38,7 @@
 
 // Minimap settings
 # define MINIMAP_OFFSET_X					20
-# define MINIMAP_OFFSET_Y					50
+# define MINIMAP_OFFSET_Y					20
 
 # define MINIMAP_BACKGROUND_COLOR			ORANGE
 

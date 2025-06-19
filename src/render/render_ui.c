@@ -13,12 +13,12 @@ void	add_coor_info(t_data *dt)
 	mlx = dt->mlx_ptr;
 	win = dt->win_ptr;
 	mlx_string_put(mlx, win, log_placement_x, y, UI_CLR_1, "Player position X: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->player->pos.x));
+	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->player.pos.x));
 	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Player position Y: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1,  ft_itoa(dt->player->pos.y));
+	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1,  ft_itoa(dt->player.pos.y));
 
 	char buffer[32];
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->player->direction_vector_deg);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->player.direction_vector_deg);
 	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Player orientation (deg): ");
 	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
 

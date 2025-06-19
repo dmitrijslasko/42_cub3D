@@ -156,7 +156,7 @@ typedef struct s_data
 	t_img		*img;
 	t_map		*map;
 	t_ray		*rays;
-	t_player	*player;
+	t_player	player;
 	t_sprite	*sprites;
 	t_view		*view;
 	t_mouse		mouse;
@@ -219,7 +219,7 @@ bool		check_all_wall_tile(t_map map);
 bool		get_value_file(t_map *map, char *file);
 bool		get_value_file(t_map *map, char *file);
 void		get_value_map(char *line, int fd, t_map *map);
-void		get_init_position(t_map map, t_player **player);
+void		get_init_position(t_map map, t_player *player);
 bool		set_color_or_texture(t_map *map, char *identifier, char *value);
 bool		set_texture(char *identifier, char *file_texture, t_map *map);
 bool		set_color(char *identifier, char *color, t_map *map);
@@ -339,7 +339,7 @@ int			render_sprites(t_data *dt);
 int			apply_wall_shading_1(t_data *dt, size_t i, int *color);
 
 int			reset_mouse_position(t_data *dt);
-void		process_keypresses(t_data dt);
+void		process_keypresses(t_data *dt);
 
 size_t		count_elements_in_the_map(t_map map, char *element);
 

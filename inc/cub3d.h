@@ -36,6 +36,8 @@ typedef enum e_type_wall
 	EAST,
 	FLOOR,
 	CEILING,
+	NS_THIN_WALL,
+	WE_THIN_WALL,
 	DOOR
 }	t_type_wall;
 
@@ -237,7 +239,6 @@ void	set_wall_dist_and_type(t_ray *ray, char c, t_coor map_coor, t_player player
 t_ray		*calculate_single_ray(t_data dt, t_x_y direction);
 void		update_single_ray(t_data *dt, t_ray *ray);
 void		calc_dist_ray(t_data dt, t_ray *ray, t_x_y delta_dist, t_x_y side_dist);
-void		fix_fish_eye(t_x_y direction, t_player player, float *dist);
 
 //t_ray		*constructor_ray(float dist, t_type_wall wall);
 
@@ -346,4 +347,6 @@ size_t		count_elements_in_the_map(t_map map, char *element);
 int			test_render_sprite(t_data *dt);
 
 int			set_mouse_to_screen_center(t_data *dt);
+
+void		fix_fish_eye(t_ray *ray, t_player player);
 #endif

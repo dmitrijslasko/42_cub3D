@@ -18,7 +18,8 @@ int	draw_minimap_rays(t_data *dt, int is_direction_vector)
 		i = 0;
 		while (i < CASTED_RAYS_COUNT)
 		{
-			draw_minimap_ray(dt, player_coor, dt->rays[i].vector, MINIMAP_RENDER_RAY_COLOR);
+			if (i == 0 || i == CASTED_RAYS_COUNT - 1)
+				draw_minimap_ray(dt, player_coor, dt->rays[i].vector, MINIMAP_RENDER_RAY_COLOR);
 			i++;
 		}
 	}

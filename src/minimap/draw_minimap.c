@@ -20,14 +20,12 @@ int	draw_minimap_map(t_data *dt)
 				curr_col++;
 				continue ;
 			}
-			if (map->map_data[curr_row][curr_col] == 'N')
+			if (ft_strchr("NSWE", dt->map->map_data[curr_row][curr_col]))
 				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
-			else if (map->map_data[curr_row][curr_col] == 'D')
+			else if (ft_strchr("v", dt->map->map_data[curr_row][curr_col]))
 				color = MINIMAP_DOOR_COLOR;
-			else if (map->map_data[curr_row][curr_col] == '1')
+			else if (ft_strchr("1", dt->map->map_data[curr_row][curr_col]))
 				color = MINIMAP_WALL_CELL_COLOR;
-			else if (map->map_data[curr_row][curr_col] == 'S')
-				color = BLUE;
 
 			draw_square_from_top_left(dt,
 						MINIMAP_OFFSET_X + curr_col * MINIMAP_GRID_SIZE,

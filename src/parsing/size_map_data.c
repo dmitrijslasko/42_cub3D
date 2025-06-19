@@ -2,7 +2,7 @@
 
 bool	set_size_map_data(t_map *map, char *file)
 {
-	int		flag_map;
+	bool	flag_map;
 	int		fd;
 	char	*line;
 	size_t	count_row;
@@ -21,7 +21,7 @@ bool	set_size_map_data(t_map *map, char *file)
 		{
 			line = free_line_get_next(line, fd);
 			if (flag_map && !is_empty_line(line))
-				return (error_message_close_fd("Error map", fd, 1));
+				return (error_message_close_fd("Error map.", fd, 1));
 			continue ;
 		}
 		flag_map = 1;
@@ -30,6 +30,8 @@ bool	set_size_map_data(t_map *map, char *file)
 			count_col = ft_strlen(line);
 		line = free_line_get_next(line, fd);
 	}
+	if (!flag_map)
+		return (error_message("Error: map not found.", 1));
 	free_line_get_next(line, -1);
 	close(fd);
 	set_values_size_t(&map->map_size_cols, &map->map_size_rows, count_col, count_row);

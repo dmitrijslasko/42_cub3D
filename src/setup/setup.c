@@ -24,7 +24,6 @@ int	map_position_is_walkable(t_map *map, float new_x, float new_y)
 	return (1);
 }
 
-
 int move_forward_backward(t_data *dt, int direction)
 {
 	t_x_y *player_pos;

@@ -20,8 +20,8 @@ void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color)
 			break;
 
 		prev = curr;
-		curr.x = (int)pos.x;
-		curr.y = (int)pos.y;
+		curr.x = (size_t)pos.x;
+		curr.y = (size_t)pos.y;
 
 		if (length > 0)
 			draw_line(dt, prev, curr, color);

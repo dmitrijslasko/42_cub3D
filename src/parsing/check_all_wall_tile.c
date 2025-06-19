@@ -7,6 +7,6 @@ bool	check_all_wall_tile(t_map map)
 	i = 0;
 	while (i < 6)
 		if (map.wall_tile[i++].wall_type == DEFAULT)
-			return (error_message("Error: Wall or door no definided.", 0));
+			return (error_message("Error: Wall,floor or door not definided.", 0));
 	return (1);
 }

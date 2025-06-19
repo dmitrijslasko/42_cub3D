@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 		dt.keys[i] = 0;
 		i++;
 	}
-	init_player(&dt);
+	// init_player(&dt);
 
 	// Initialize ray array. Later the rays get updated in render function.
 	initialize_rays(&dt);

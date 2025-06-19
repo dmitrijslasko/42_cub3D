@@ -2,13 +2,13 @@
 
 void	copy_line(t_map *map, int row, char *line)
 {
-	size_t	i;
+	size_t	col;
 
-	i = 0;
-	while (line && line[i])
+	col = 0;
+	while (line && line[col])
 	{
-		map->map_data[row][i] = line[i];
-		i++;
+		map->map_data[row][col] = line[col];
+		col++;
 	}
 }
 

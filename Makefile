@@ -129,6 +129,9 @@ CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -g
 CFLAGS += -MMD -MP
 CFLAGS += -I$(INC_DIR)
+CFLAGS += -std=c99
+CFLAGS += -Wno-error=type-limits
+
 #CFLAGS += -Wno-unused-but-set-variable
 
 # LINKER FLAGS

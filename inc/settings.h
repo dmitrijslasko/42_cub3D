@@ -28,7 +28,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT		600
+# define CASTED_RAYS_COUNT		1200
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
@@ -38,7 +38,7 @@
 
 // Minimap settings
 # define MINIMAP_OFFSET_X					20
-# define MINIMAP_OFFSET_Y					50
+# define MINIMAP_OFFSET_Y					20
 
 # define MINIMAP_BACKGROUND_COLOR			ORANGE
 
@@ -54,7 +54,7 @@
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define MINIMAP_RAY_LENGTH		            2
+# define MINIMAP_RAY_LENGTH		            20
 # define MINIMAP_DIRECTION_RAY_ENABLE       1
 # define MINIMAP_DIRECTION_RAY_COLOR		MAGENTA
 

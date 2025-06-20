@@ -12,18 +12,18 @@ void	find_position(t_player *player, size_t col, size_t row, char c)
 	}
 	else if (c == 'S')
 	{
-		dir_x = 1;
-		dir_y = 0;
+		dir_x = 0;
+		dir_y = 1;
 	}
 	else if (c == 'E')
 	{
-		dir_x = 0;
-		dir_y = -1;
+		dir_x = 1;
+		dir_y = 0;
 	}
 	else
 	{
-		dir_x = 0;
-		dir_y = 1;
+		dir_x = -1;
+		dir_y = 0;
 	}
 	set_values_x_y(&player->direction_vector, dir_x, dir_y);
 	set_values_x_y(&player->pos, col + 0.5, row + 0.5);

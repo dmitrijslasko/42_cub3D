@@ -7,8 +7,16 @@ int	draw_minimap_map(t_data *dt)
 	size_t	curr_col;
 	int		color;
 
-	draw_square_from_top_left(dt, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y, (dt->map->map_size_cols) * MINIMAP_GRID_SIZE, MINIMAP_BACKGROUND_COLOR);
+	t_coor top_left;
+	t_coor bottom_right;
+
+	set_coor_values(&top_left, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+	set_coor_values(&bottom_right, 	MINIMAP_OFFSET_X + dt->map->map_size_cols * MINIMAP_GRID_SIZE,
+									MINIMAP_OFFSET_Y + dt->map->map_size_rows * MINIMAP_GRID_SIZE);
+	draw_rectangle(dt, top_left, bottom_right, MINIMAP_BACKGROUND_COLOR);
+
 	map = dt->map;
+
 	curr_row = 0;
 	while (curr_row < map->map_size_rows)
 	{
@@ -20,14 +28,12 @@ int	draw_minimap_map(t_data *dt)
 				curr_col++;
 				continue ;
 			}
-			if (map->map_data[curr_row][curr_col] == 'N')
+			if (ft_strchr("NSWE", dt->map->map_data[curr_row][curr_col]))
 				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
-			else if (map->map_data[curr_row][curr_col] == 'D')
+			else if (ft_strchr("v", dt->map->map_data[curr_row][curr_col]))
 				color = MINIMAP_DOOR_COLOR;
-			else if (map->map_data[curr_row][curr_col] == '1')
+			else if (ft_strchr("1", dt->map->map_data[curr_row][curr_col]))
 				color = MINIMAP_WALL_CELL_COLOR;
-			else if (map->map_data[curr_row][curr_col] == 'S')
-				color = BLUE;
 
 			draw_square_from_top_left(dt,
 						MINIMAP_OFFSET_X + curr_col * MINIMAP_GRID_SIZE,

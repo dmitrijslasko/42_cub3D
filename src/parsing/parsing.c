@@ -34,5 +34,6 @@ bool	parsing(t_data *dt, char *file)
 		return (1);
 	if (init_value_player(*dt->map, &dt->player))
 		return (1);
+	// dt->view->minimap_color = dt->map->wall_tile[FLOOR].color;
 	return (0);
 }

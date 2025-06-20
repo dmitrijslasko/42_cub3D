@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
 // TODO DL: turn x, y into t_coor
-void	draw_square_from_center(t_data *dt, int x, int y, int size, int clr)
+void	draw_square_from_center(t_img *img, int x, int y, int size, int clr)
 {
 	int	curr_x;
 	int	curr_y;
@@ -13,14 +13,14 @@ void	draw_square_from_center(t_data *dt, int x, int y, int size, int clr)
 		while (curr_y <= y + size / 2)
 		{
 			if (pixel_is_in_window(curr_x, curr_y))
-				img_pix_put(dt->img, curr_x, curr_y, clr);
+				img_pix_put(img, curr_x, curr_y, clr);
 			++curr_y;
 		}
 		++curr_x;
 	}
 }
 
-void	draw_square_from_top_left(t_data *dt, int x, int y, int size, int clr)
+void	draw_square_from_top_left(t_img *img, int x, int y, int size, int clr)
 {
 	int	curr_x;
 	int	curr_y;
@@ -32,7 +32,7 @@ void	draw_square_from_top_left(t_data *dt, int x, int y, int size, int clr)
 		while (curr_y <= y + size)
 		{
 			if (pixel_is_in_window(curr_x, curr_y))
-				img_pix_put(dt->img, curr_x, curr_y, clr);
+				img_pix_put(img, curr_x, curr_y, clr);
 			curr_y++;
 		}
 		curr_x++;

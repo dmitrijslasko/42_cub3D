@@ -23,20 +23,15 @@ void	init_default_wall_tile(t_wall_tile *wall_tile)
 	init_default_color(&wall_tile->color);
 }
 
-bool	init_default_map(t_map **map)
+bool	init_default_map(t_map *map)
 {
-	t_map	*new;
 	int		i;
 
-	new = malloc(sizeof(t_map));
-	if (!map)
-		return (error_message("Malloc error.", 1));
-	new->map_data = NULL;
-	new->map_size_cols = 0;
-	new->map_size_rows = 0;
+	map->map_data = NULL;
+	map->map_size_cols = 0;
+	map->map_size_rows = 0;
 	i = 0;
 	while (i < 6)
-		init_default_wall_tile(&new->wall_tile[i++]);
-	*map = new;
+		init_default_wall_tile(&map->wall_tile[i++]);
 	return (0);
 }

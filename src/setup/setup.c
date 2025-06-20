@@ -2,7 +2,7 @@
 #include "cub3d.h"
 
 // TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
-int	map_position_is_walkable(t_map *map, float new_x, float new_y)
+int	map_position_is_walkable(t_map map, float new_x, float new_y)
 {
 	size_t min_x = (size_t)(new_x - MIN_DISTANCE_TO_WALL);
 	size_t max_x = (size_t)(new_x + MIN_DISTANCE_TO_WALL);
@@ -10,14 +10,14 @@ int	map_position_is_walkable(t_map *map, float new_x, float new_y)
 	size_t max_y = (size_t)(new_y + MIN_DISTANCE_TO_WALL);
 
 	// Check for out-of-bounds access
-	if (min_x < 0 || max_x >= map->map_size_cols || min_y < 0 || max_y >= map->map_size_rows)
+	if (min_x < 0 || max_x >= map.map_size_cols || min_y < 0 || max_y >= map.map_size_rows)
 		return (0);
 
 	// Check four corners of bounding box
-	if (map->map_data[min_y][min_x] == '1' ||
-		map->map_data[min_y][max_x] == '1' ||
-		map->map_data[max_y][min_x] == '1' ||
-		map->map_data[max_y][max_x] == '1')
+	if (map.map_data[min_y][min_x] == '1' ||
+		map.map_data[min_y][max_x] == '1' ||
+		map.map_data[max_y][min_x] == '1' ||
+		map.map_data[max_y][max_x] == '1')
 	{
 		return (0);
 	}

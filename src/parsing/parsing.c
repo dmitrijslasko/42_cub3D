@@ -31,7 +31,7 @@ bool	parsing(t_data *dt, char *file)
 		return (error_message_close_fd("Error: Reading textures.", fd, 1));
 	if (init_value_map_data(file, &dt->map))
 		return (1);
-	if (init_value_player(*dt->map, &dt->player))
+	if (init_value_player(dt->map, &dt->player))
 		return (1);
 	return (0);
 }

@@ -82,7 +82,7 @@ typedef struct s_texture
 	char		*file;
 }	t_texture;
 
-typedef struct	s_wall_tile
+typedef struct s_wall_tile
 {
 	t_type_wall	wall_type;
 	t_texture	texture;
@@ -136,17 +136,17 @@ typedef struct s_img
 
 typedef struct s_sprite
 {
-	void    *sprite_img;
-	int     *sprite_data; // Or char* depending on format
-	int     width;
+	void	*sprite_img;
+	int		*sprite_data; // Or char* depending on format
+	int		width;
 	int		height;
-	int     bpp;
+	int		bpp;
 	int		size_line;
 	int		endian;
-	float 	x;
-	float 	y;
-	float 	distance_to_player;
-	int 	texture_id;
+	float	x;
+	float	y;
+	float	distance_to_player;
+	int		texture_id;
 	char	*filepath;
 }	t_sprite;
 
@@ -156,7 +156,7 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		*img;
-	t_map		*map;
+	t_map		map;
 	t_ray		*rays;
 	t_player	player;
 	t_sprite	*sprites;
@@ -214,8 +214,8 @@ bool		create_map_data(t_map *map);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
 char		*remove_space_beginner(char *str);
-bool		init_value_map_data(char *file, t_map **map);
-bool		init_default_map(t_map **map);
+bool		init_value_map_data(char *file, t_map *map);
+bool		init_default_map(t_map *map);
 int			ft_open(char *file);
 t_type_wall	check_valid_identifier_texture_wall(char *identifier);
 bool		check_all_wall_tile(t_map map);
@@ -277,7 +277,7 @@ void		draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
 
 //
 t_map		*load_dummy_map(void);
-void		print_level_map(t_map *map);
+void		print_level_map(t_map map);
 
 int			render_frame(void *param);
 void		add_ui(t_data *dt);

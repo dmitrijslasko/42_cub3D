@@ -2,11 +2,11 @@
 
 void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color)
 {
-	t_coor curr;
-	t_coor prev;
+	t_coor	curr;
+	t_coor	prev;
 
-	float step_size = 1.0f;
-	int length;
+	float	step_size = 1.0f;
+	int		length;
 
 	length = 0;
 	t_x_y pos = {origin.x, origin.y};
@@ -16,7 +16,7 @@ void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color)
 		int grid_x = (int)((pos.x - MINIMAP_OFFSET_X) / MINIMAP_GRID_SIZE);
 		int grid_y = (int)((pos.y - MINIMAP_OFFSET_Y) / MINIMAP_GRID_SIZE);
 
-		if (dt->map->map_data[grid_y][grid_x] == '1')
+		if (dt->map.map_data[grid_y][grid_x] == '1')
 			break;
 
 		prev = curr;

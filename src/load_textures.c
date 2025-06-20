@@ -18,12 +18,12 @@ int load_textures(t_data *dt)
 	i = 0;
 	while (i < 6)
 	{
-		if (dt->map->wall_tile[i].is_color)
+		if (dt->map.wall_tile[i].is_color)
 		{
 			i++;
 			continue;
 		}
-		texture = &dt->map->wall_tile[i].texture;
+		texture = &dt->map.wall_tile[i].texture;
 		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
 													texture->file,
 													&texture->width,

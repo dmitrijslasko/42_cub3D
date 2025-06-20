@@ -52,7 +52,6 @@ void render_3d_scene(t_data *dt)
 			int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 			// int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 
-
 			apply_wall_shading_1(dt, i, &color);
 
 			for (int w = 0; w < screen_slice_width; w++)

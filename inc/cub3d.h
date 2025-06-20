@@ -271,6 +271,7 @@ void		set_value_coor(t_coor *new, int x, int y);
 
 // basic drawing
 void		draw_background(t_img *img, int color);
+
 void		draw_line(t_img *img, t_coor pt_1, t_coor pt_2, int clr);
 void		draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color);
 
@@ -321,6 +322,7 @@ t_x_y		rotate_vector(t_data data, t_x_y vet, float angle_degrees);
 
 // minimap
 int			update_minimap(t_data *dt);
+
 int			draw_minimap_map(t_data *dt);
 void		draw_minimap_grid(t_data *dt);
 int			draw_minimap_player(t_data *dt);

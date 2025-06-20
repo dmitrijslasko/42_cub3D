@@ -16,5 +16,4 @@ void	draw_minimap_grid(t_data *dt)
 			col_px++;
 		}
 		row_px++;
-	}
 }

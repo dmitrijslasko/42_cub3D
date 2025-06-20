@@ -28,7 +28,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT		1
+# define CASTED_RAYS_COUNT		1200
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
@@ -42,7 +42,7 @@
 
 # define MINIMAP_BACKGROUND_COLOR			0xFFA500
 
-# define MINIMAP_SIZE                       400
+# define MINIMAP_SIZE                       300
 # define MINIMAP_GRID_SIZE					40
 # define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
@@ -51,7 +51,7 @@
 # define MINIMAP_PLAYER_SPAWN_CELL_COLOR	LIME
 # define MINIMAP_DOOR_COLOR					BLUE
 
-# define MINIMAP_PLAYER_SIZE_PX 			1
+# define MINIMAP_PLAYER_SIZE_PX 			10
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 

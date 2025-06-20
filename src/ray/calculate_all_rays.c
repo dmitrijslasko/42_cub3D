@@ -10,11 +10,11 @@ int	calculate_all_rays(t_data *dt)
 	i = 0;
 	while (i < CASTED_RAYS_COUNT)
 	{
-		dt->rays[i].wall_type = DEFAULT;
+		//dt->rays[i].wall_type = DEFAULT;
 		vector = rotate_vector(*dt, dt->player.direction_vector, angle);
 		dt->rays[i].vector = vector;
 		update_single_ray(dt, &dt->rays[i]);
-		angle += FIELD_OF_VIEW_DEG / (CASTED_RAYS_COUNT);
+		angle += FIELD_OF_VIEW_DEG / (CASTED_RAYS_COUNT - 1);
 		i++;
 	}
 	return (EXIT_SUCCESS);

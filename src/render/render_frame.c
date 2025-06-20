@@ -51,7 +51,7 @@ void render_3d_scene(t_data *dt)
 			// printf("Wall type: %d\n", dt-)
 			int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 			// int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
-			
+
 
 			apply_wall_shading_1(dt, i, &color);
 

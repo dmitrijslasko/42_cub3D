@@ -124,6 +124,7 @@ typedef struct s_view
 {
 	int		screen_center;
 	char	show_minimap;
+	int		minimap_color;
 }	t_view;
 
 typedef struct s_img
@@ -133,6 +134,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	size_t	height;
+	size_t	width;
 }	t_img;
 
 typedef struct s_sprite
@@ -156,7 +159,9 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_img		*img;
+	t_img		*scene_img;
+	t_img		*minimap_base;
+	t_img		*minimap;
 	t_map		*map;
 	t_ray		*rays;
 	t_player	player;
@@ -175,7 +180,8 @@ typedef struct s_data
 // function prototypes
 int			setup_mlx_and_win(t_data *dt);
 void		setup_keyboard_and_mouse_hooks(t_data *data);
-int			setup_img(t_data *dt);
+
+int	setup_img(t_data *dt, t_img *img, size_t width, size_t height);
 
 void		img_pix_put(t_img *img, int x, int y, int clr);
 
@@ -266,14 +272,15 @@ void		set_value_coor(t_coor *new, int x, int y);
 
 // basic drawing
 void		draw_background(t_img *img, int color);
-void		draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
-void		draw_vertical_line(t_data *data, t_coor pt_1, t_coor pt_2, int color);
 
-void		draw_circle(t_data *dt, int x, int y, int radius, int clr);
-void		draw_rectangle(t_data *dt, t_coor top_left, t_coor bottom_right, int clr);
+void		draw_line(t_img *img, t_coor pt_1, t_coor pt_2, int clr);
+void		draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color);
 
-void		draw_square_from_center(t_data *data, int x, int y, int size, int clr);
-void		draw_square_from_top_left(t_data *data, int x, int y, int size, int clr);
+void		draw_circle(t_img *img, int x, int y, int radius, int clr);
+void		draw_rectangle(t_img *img, t_coor top_left, t_coor bottom_right, int clr);
+
+void		draw_square_from_center(t_img *img, int x, int y, int size, int clr);
+void		draw_square_from_top_left(t_img *img, int x, int y, int size, int clr);
 
 //
 t_map		*load_dummy_map(void);
@@ -315,7 +322,8 @@ int			set_coor_values(t_coor *coor, int x, int y);
 t_x_y		rotate_vector(t_data data, t_x_y vet, float angle_degrees);
 
 // minimap
-int			draw_minimap(t_data *dt);
+int			update_minimap(t_data *dt);
+
 int			draw_minimap_map(t_data *dt);
 void		draw_minimap_grid(t_data *dt);
 int			draw_minimap_player(t_data *dt);

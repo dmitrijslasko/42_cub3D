@@ -52,11 +52,10 @@ void render_3d_scene(t_data *dt)
 			int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 			// int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 
-
 			apply_wall_shading_1(dt, i, &color);
 
 			for (int w = 0; w < screen_slice_width; w++)
-				img_pix_put(dt->img, screen_x + w, y, color);
+				img_pix_put(dt->scene_img, screen_x + w, y, color);
 			y++;
 		}
 	}
@@ -90,10 +89,17 @@ int	render_frame(void *param)
 
 	calculate_all_rays(dt);
 	render_3d_scene(dt);
-	if (dt->view->show_minimap)
-		draw_minimap(dt);
 
-	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
+	update_minimap(dt);
+
+	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
+
+	// minimap base image
+	// mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap_base->mlx_img, 600, 600);
+
+	// minimap (open/close with Tab)
+	if (dt->view->show_minimap)
+		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
 	add_ui(dt);
 	return (EXIT_SUCCESS);
 }

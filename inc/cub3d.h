@@ -83,7 +83,7 @@ typedef struct s_texture
 	char		*file;
 }	t_texture;
 
-typedef struct	s_wall_tile
+typedef struct s_wall_tile
 {
 	t_type_wall	wall_type;
 	t_texture	texture;
@@ -140,17 +140,17 @@ typedef struct s_img
 
 typedef struct s_sprite
 {
-	void    *sprite_img;
-	int     *sprite_data; // Or char* depending on format
-	int     width;
+	void	*sprite_img;
+	int		*sprite_data; // Or char* depending on format
+	int		width;
 	int		height;
-	int     bpp;
+	int		bpp;
 	int		size_line;
 	int		endian;
-	float 	x;
-	float 	y;
-	float 	distance_to_player;
-	int 	texture_id;
+	float	x;
+	float	y;
+	float	distance_to_player;
+	int		texture_id;
 	char	*filepath;
 }	t_sprite;
 
@@ -220,8 +220,9 @@ bool		check_valid_wall_tile_file(int fd);
 bool		create_map_data(t_map *map);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
-bool		init_value_map_data(char *file, t_map **map);
-bool		init_default_map(t_map **map);
+char		*remove_space_beginner(char *str);
+bool		init_value_map_data(char *file, t_map *map);
+bool		init_default_map(t_map *map);
 int			ft_open(char *file);
 t_type_wall	check_valid_identifier_texture_wall(char *identifier);
 bool		check_all_wall_tile(t_map map);
@@ -229,9 +230,9 @@ bool		get_value_file(t_map *map, char *file);
 bool		get_value_file(t_map *map, char *file);
 void		get_value_map(char *line, int fd, t_map *map);
 void		get_init_position(t_map map, t_player *player);
-bool		set_color_or_texture(t_map *map, char *identifier, char *value);
+bool		set_color_or_texture(t_map *map, char *identifier, char **value);
 bool		set_texture(char *identifier, char *file_texture, t_map *map);
-bool		set_color(char *identifier, char *color, t_map *map);
+bool		set_color(char *identifier, char **color, t_map *map);
 
 
 // player movements
@@ -284,7 +285,7 @@ void		draw_square_from_top_left(t_img *img, int x, int y, int size, int clr);
 
 //
 t_map		*load_dummy_map(void);
-void		print_level_map(t_map *map);
+void		print_level_map(t_map map);
 
 int			render_frame(void *param);
 void		add_ui(t_data *dt);
@@ -302,6 +303,7 @@ int			error_message_close_fd(char *msg, int fd, int ret);
 int			error_message2(char *msg, char*msg2, int ret);
 int			error_message_free(char *msg, char **array, int ret);
 int			free_array_return(char **array, int ret);
+void		free_array(char **array);
 
 // utils
 float		deg_to_rad(float angle);

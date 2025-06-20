@@ -19,22 +19,27 @@ int	error_message_close_fd(char *msg, int fd, int ret)
 int	error_message2(char *msg, char*msg2, int ret)
 {
 	ft_putstr_fd(msg, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
 	ft_putstr_fd(msg2, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	return (ret);
 }
 
-int	free_array_return(char **array, int ret)
+void	free_array(char **array)
 {
 	int	i;
 
 	i = 0;
 	if (!array)
-		return (ret);
+		return ;
 	while (!array[i])
 		free(array[i++]);
 	free(array);
+	array = NULL;
+}
+
+int	free_array_return(char **array, int ret)
+{
+	free_array(array);
 	return (ret);
 }
 

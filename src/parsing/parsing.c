@@ -22,7 +22,6 @@ bool	parsing(t_data *dt, char *file)
 {
 	int	fd;
 
-	(void)dt;
 	if (!check_type_file(file, "cub"))
 		return (1);
 	fd = ft_open(file);
@@ -32,7 +31,7 @@ bool	parsing(t_data *dt, char *file)
 		return (error_message_close_fd("Error: Reading textures.", fd, 1));
 	if (init_value_map_data(file, &dt->map))
 		return (1);
-	if (init_value_player(*dt->map, &dt->player))
+	if (init_value_player(dt->map, &dt->player))
 		return (1);
 	// dt->view->minimap_color = dt->map->wall_tile[FLOOR].color;
 	return (0);

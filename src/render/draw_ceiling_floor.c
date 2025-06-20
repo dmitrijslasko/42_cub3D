@@ -23,6 +23,7 @@ int	draw_ceiling(t_data *dt)
 	// if (dt->map->wall_tile[CEILING].is_color)
 	color = create_color_rgb(dt->map->wall_tile[CEILING].color.r, dt->map->wall_tile[CEILING].color.g, dt->map->wall_tile[CEILING].color.b);
 	draw_rectangle(dt->scene_img, top_left, bottom_right, color);
+
 	return (EXIT_SUCCESS);
 }
 

@@ -2,11 +2,11 @@
 
 void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color)
 {
-	t_coor curr;
-	t_coor prev;
+	t_coor	curr;
+	t_coor	prev;
 
-	float step_size = 1.0f;
-	int length;
+	float	step_size = 1.0f;
+	int		length;
 
 	length = 0;
 	t_x_y pos = {origin.x, origin.y};

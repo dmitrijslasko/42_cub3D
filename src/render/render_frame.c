@@ -21,8 +21,8 @@ void render_3d_scene(t_data *dt)
 		int bottom_y = dt->view->screen_center + wall_height * 1;
 		//printf("top bottom %d %d\n", top_y, bottom_y);
 
-		int texture_width = dt->map->wall_tile->texture.width;
-		int texture_height = dt->map->wall_tile->texture.height;
+		int texture_width = dt->map.wall_tile->texture.width;
+		int texture_height = dt->map.wall_tile->texture.height;
 
 		size_t texture_x = (dt->rays[i].percentage_of_image * texture_width);
 

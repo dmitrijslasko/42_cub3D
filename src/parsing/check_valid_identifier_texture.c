@@ -2,6 +2,7 @@
 
 bool	is_valid_line_texture(char *line)
 {
+	line = remove_space_beginner(line);
 	if (!ft_strncmp(line, "SO ", 3))
 		return (1);
 	else if (!ft_strncmp(line, "NO ", 3))

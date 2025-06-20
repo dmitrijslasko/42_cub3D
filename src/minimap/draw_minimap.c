@@ -2,7 +2,6 @@
 
 int	draw_minimap_map(t_data *dt)
 {
-	t_map	*map;
 	size_t	curr_row;
 	size_t	curr_col;
 	int		color;
@@ -15,24 +14,22 @@ int	draw_minimap_map(t_data *dt)
 									dt->minimap_base->height);
 	draw_rectangle(dt->minimap_base, top_left, bottom_right, MINIMAP_BACKGROUND_COLOR);
 
-	map = dt->map;
-
 	curr_row = 0;
-	while (curr_row < map->map_size_rows)
+	while (curr_row < dt->map.map_size_rows)
 	{
 		curr_col = 0;
-		while (curr_col < map->map_size_cols)
+		while (curr_col < dt->map.map_size_cols)
 		{
-			if (map->map_data[curr_row][curr_col] == '0')
+			if (dt->map.map_data[curr_row][curr_col] == '0')
 			{
 				curr_col++;
 				continue ;
 			}
-			if (ft_strchr("NSWE", dt->map->map_data[curr_row][curr_col]))
+			if (ft_strchr("NSWE", dt->map.map_data[curr_row][curr_col]))
 				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
-			else if (ft_strchr("v", dt->map->map_data[curr_row][curr_col]))
+			else if (ft_strchr("v", dt->map.map_data[curr_row][curr_col]))
 				color = MINIMAP_DOOR_COLOR;
-			else if (ft_strchr("1", dt->map->map_data[curr_row][curr_col]))
+			else if (ft_strchr("1", dt->map.map_data[curr_row][curr_col]))
 				color = MINIMAP_WALL_CELL_COLOR;
 
 			draw_square_from_top_left(dt->minimap_base,

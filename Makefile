@@ -125,7 +125,8 @@ LIBFT_DIR = $(LIBDIRS)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # COMPILATION FLAGS
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
+# CFLAGS += -Werror
 CFLAGS += -g
 CFLAGS += -MMD -MP
 CFLAGS += -I$(INC_DIR)

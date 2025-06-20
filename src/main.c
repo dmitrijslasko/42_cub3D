@@ -36,18 +36,28 @@ int	main(int argc, char **argv)
 
 	setup_mlx_and_win(&dt);
 
-	dt.img = protected_malloc(sizeof(t_img), dt);
+	dt.scene_img = protected_malloc(sizeof(t_img), dt);
+	dt.minimap = protected_malloc(sizeof(t_img), dt);
+	dt.minimap_base = protected_malloc(sizeof(t_img), dt);
 	dt.view = protected_malloc(sizeof(t_view), dt);
+
+	setup_img(&dt, dt.minimap_base, dt.map->map_size_cols * MINIMAP_GRID_SIZE, dt.map->map_size_rows * MINIMAP_GRID_SIZE);
+	draw_minimap_map(&dt);
 
 	load_textures(&dt);
 	// load_sprites(&dt);
 
 	setup_view(&dt);
-	setup_img(&dt);
+
+	setup_img(&dt, dt.scene_img, WINDOW_W, WINDOW_H);
+	setup_img(&dt, dt.minimap, MINIMAP_SIZE, MINIMAP_SIZE);
+
 	setup_keyboard_hooks(&dt);
-	setup_mouse_hooks(&dt);
+	if (ENABLE_MOUSE)
+		setup_mouse_hooks(&dt);
 
 	print_separator_default();
+
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 

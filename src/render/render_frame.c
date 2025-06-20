@@ -15,7 +15,7 @@ void render_3d_scene(t_data *dt)
 	for (i = 0; i < CASTED_RAYS_COUNT; i++)
 	{
 		// Distance-based projection
-		wall_height = 1.0f / dt->rays[i].distance_to_wall * SCALING;
+		wall_height = 1.0f / dt->rays[i].corrected_distance_to_wall * SCALING;
 
 		int top_y = dt->view->screen_center - wall_height * 1;
 		int bottom_y = dt->view->screen_center + wall_height * 1;
@@ -49,14 +49,13 @@ void render_3d_scene(t_data *dt)
 			int tex_index = texture_y * texture_width + texture_x;
 			// int color = RED;
 			// printf("Wall type: %d\n", dt-)
-			int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
-			// int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
-			
+			int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			// int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 
 			apply_wall_shading_1(dt, i, &color);
 
 			for (int w = 0; w < screen_slice_width; w++)
-				img_pix_put(dt->img, screen_x + w, y, color);
+				img_pix_put(dt->scene_img, screen_x + w, y, color);
 			y++;
 		}
 	}
@@ -90,10 +89,17 @@ int	render_frame(void *param)
 
 	calculate_all_rays(dt);
 	render_3d_scene(dt);
-	if (dt->view->show_minimap)
-		draw_minimap(dt);
 
-	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->img->mlx_img, 0, 0);
+	update_minimap(dt);
+
+	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
+
+	// minimap base image
+	// mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap_base->mlx_img, 600, 600);
+
+	// minimap (open/close with Tab)
+	if (dt->view->show_minimap)
+		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
 	add_ui(dt);
 	return (EXIT_SUCCESS);
 }

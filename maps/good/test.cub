@@ -3,10 +3,10 @@
 
 
 
-NO textures/wolfenstein/blue_stone.xpm
-EA textures/wolfenstein/color_stone.xpm
-SO textures/wolfenstein/wood.xpm
-WE textures/wolfenstein/grey_stone.xpm
+NO textures/wall-2-n.xpm
+EA textures/wall-2-e.xpm
+SO textures/wall-2-s.xpm
+WE textures/wall-2-w.xpm
 
 F 50,50,50
 C 153,204,255

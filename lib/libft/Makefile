@@ -57,7 +57,7 @@ OBJ = $(patsubst $(SRC_DIR)%, $(OBJ_DIR)%, $(SRC:.c=.o))
 #	ft_lstdelone.c \
 #	ft_lstclear.c \
 #	ft_lstiter.c \
-#	ft_lstmap.c
+#	ft_lstmap->c
 
 .DEFAULT_GOAL := all
 

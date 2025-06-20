@@ -126,11 +126,11 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 # COMPILATION FLAGS
 CFLAGS = -Wall -Wextra
-# CFLAGS += -Werror
+CFLAGS += -Werror
 CFLAGS += -g
 CFLAGS += -MMD -MP
 CFLAGS += -I$(INC_DIR)
-CFLAGS += -std=c99
+# CFLAGS += -std=c99
 CFLAGS += -Wno-error=type-limits
 
 #CFLAGS += -Wno-unused-but-set-variable

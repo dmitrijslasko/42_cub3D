@@ -29,20 +29,20 @@ void	find_position(t_player *player, size_t col, size_t row, char c)
 	set_values_x_y(&player->pos, col + 0.5, row + 0.5);
 }
 
-void	get_init_position(t_map map, t_player *player)
+void	get_init_position(t_map *map, t_player *player)
 {
 	size_t	row;
 	size_t	col;
 
 	row = 0;
-	while (row < map.map_size_rows)
+	while (row < map->map_size_rows)
 	{
 		col = 0;
-		while (col < map.map_size_cols)
+		while (col < map->map_size_cols)
 		{
-			if (ft_strchr("NSWE", map.map_data[row][col]))
+			if (ft_strchr("NSWE", map->map_data[row][col]))
 			{
-				find_position(player, col, row, map.map_data[row][col]);
+				find_position(player, col, row, map->map_data[row][col]);
 				return ;
 			}
 			col++;

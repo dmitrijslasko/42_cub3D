@@ -6,7 +6,7 @@
 // {
 // 	t_map	*map;
 
-// 	printf("Loading dummy map...");
+// 	printf("Loading dummy map->..");
 // 	map = malloc(sizeof(t_map));
 // 	if (!map)
 // 		return (NULL);

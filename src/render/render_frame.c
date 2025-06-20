@@ -15,19 +15,22 @@ void render_3d_scene(t_data *dt)
 	for (i = 0; i < CASTED_RAYS_COUNT; i++)
 	{
 		// Distance-based projection
-		wall_height = 1.0f / dt->rays[i].corrected_distance_to_wall * SCALING;
+		if (dt->rays[i].corrected_distance_to_wall < 1)
+			wall_height = WINDOW_H;
+		else
+			wall_height = 1.0f / dt->rays[i].corrected_distance_to_wall * SCALING;
 
-		int top_y = dt->view->screen_center - wall_height * 1;
-		int bottom_y = dt->view->screen_center + wall_height * 1;
+		int top_y = dt->view->screen_center - wall_height;
+		int bottom_y = dt->view->screen_center + wall_height;
 		//printf("top bottom %d %d\n", top_y, bottom_y);
 
-		int texture_width = dt->map.wall_tile->texture.width;
-		int texture_height = dt->map.wall_tile->texture.height;
+		// int texture_width = dt->map.wall_tile->texture.width;
+		// int texture_height = dt->map.wall_tile->texture.height;
 
-		size_t texture_x = (dt->rays[i].percentage_of_image * texture_width);
+		// size_t texture_x = (dt->rays[i].percentage_of_image * texture_width);
 
-		if (texture_x >= (size_t)texture_width)
-			texture_x = texture_width - 1;
+		// if (texture_x >= (size_t)texture_width)
+		// 	texture_x = texture_width - 1;
 
 		// Horizontal screen position
 		int screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
@@ -35,22 +38,23 @@ void render_3d_scene(t_data *dt)
 
 		// Vertical wall slice drawing
 		int y = top_y;
-		while (y < ft_min(WINDOW_H, bottom_y))
+		y = ft_max(0, y);
+		int y_limit = ft_min(WINDOW_H, bottom_y);
+		while (y < y_limit)
 		{
-			// Relative position on the wall
-			int d = y - top_y;
-			int texture_y = (d * texture_height) / (2 * wall_height);
-			if (texture_y < 0)
-				texture_y = 0;
-			if (texture_y >= texture_height)
-				texture_y = texture_height - 1;
+			// // Relative position on the wall
+			// int d = y - top_y;
+			// int texture_y = (d * texture_height) / (2 * wall_height);
+			// if (texture_y < 0)
+			// 	texture_y = 0;
+			// if (texture_y >= texture_height)
+			// 	texture_y = texture_height - 1;
 
-			// Sample color from texture
-			int tex_index = texture_y * texture_width + texture_x;
-			// int color = RED;
-			// printf("Wall type: %d\n", dt-)
-			int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
-			// int color = dt->map->wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			// // Sample color from texture
+			// int tex_index = texture_y * texture_width + texture_x;
+
+			// int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			int color = RED;
 
 			apply_wall_shading_1(dt, i, &color);
 
@@ -72,9 +76,13 @@ int	render_frame(void *param)
 	dt = (t_data *)param;
 
 	// Render FPS at the predefined FPS
+	// usleep(500);
 	current_time = get_current_time_in_ms();
 	if (current_time - last_time < (1000 / FPS))
+	{
+		my_sleep();
 		return (EXIT_SUCCESS);
+	}
 	last_time = current_time;
 
 	if (dt->win_ptr == NULL)
@@ -85,7 +93,7 @@ int	render_frame(void *param)
 	reset_mouse_position(dt);
 
 	// if (SHOW_CALCULATION_LOGS)
-	// 	print_player_logs(dt);
+		// print_player_logs(dt);
 
 	calculate_all_rays(dt);
 	render_3d_scene(dt);

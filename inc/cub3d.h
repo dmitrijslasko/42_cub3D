@@ -218,6 +218,7 @@ bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
 bool		check_valid_wall_tile_file(int fd);
 bool		create_map_data(t_map *map);
+bool		create_double_array(char ***array, size_t max_row, size_t max_col);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
 char		*remove_space_beginner(char *str);
@@ -233,7 +234,9 @@ void		get_init_position(t_map map, t_player *player);
 bool		set_color_or_texture(t_map *map, char *identifier, char **value);
 bool		set_texture(char *identifier, char *file_texture, t_map *map);
 bool		set_color(char *identifier, char **color, t_map *map);
+bool		check_valid_map(t_map map, t_player player);
 
+char		get_cell_type(t_map map, t_coor coord);
 
 // player movements
 int 		move_forward_backward(t_data *dt, int direction);

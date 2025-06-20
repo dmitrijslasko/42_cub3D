@@ -19,7 +19,6 @@ int	error_message_close_fd(char *msg, int fd, int ret)
 int	error_message2(char *msg, char*msg2, int ret)
 {
 	ft_putstr_fd(msg, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
 	ft_putstr_fd(msg2, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	return (ret);

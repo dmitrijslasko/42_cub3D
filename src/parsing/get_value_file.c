@@ -17,7 +17,7 @@ bool	get_value_file(t_map *map, char *file)
 			array = ft_split(line, ' ');
 			if (set_color_or_texture(map, array[0], &array[1]))
 				return (free_array_return(array, 1));
-			free_array_return(array, 0);
+			free_array(array);
 		}
 		line = free_line_get_next(line, fd);
 	}

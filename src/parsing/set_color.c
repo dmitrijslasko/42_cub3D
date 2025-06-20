@@ -10,9 +10,8 @@ void	add_color(t_color *color, int num_color, int count)
 		color->b = num_color;
 }
 
-t_color	get_color(char **color_arr)
+bool	get_color(t_color *color, char **color_arr)
 {
-	t_color	color;
 	char	**array;
 	int		count;
 	size_t	i;
@@ -25,10 +24,14 @@ t_color	get_color(char **color_arr)
 		j = 0;
 		array = ft_split(color_arr[i++], ',');
 		while (array[j])
-			add_color(&color, ft_atoi(array[j++]), count++);
+		{
+			if (!check_only_number(array[j]) || count > 3)
+				return (1);
+			add_color(color, ft_atoi(array[j++]), count++);
+		}
 		free_array(array);
 	}
-	return (color);
+	return (0);
 }
 
 bool	set_color(char *identifier, char **color, t_map *map)
@@ -40,6 +43,7 @@ bool	set_color(char *identifier, char **color, t_map *map)
 		return (error_message("Error: duplicated wall/door/floor.", 1));
 	map->wall_tile[wall_type].wall_type = wall_type;
 	map->wall_tile[wall_type].is_color = true;
-	map->wall_tile[wall_type].color = get_color(color);
+	if (get_color(&map->wall_tile[wall_type].color, color))
+		return (error_message2("Error: format/color of ", identifier, 1));
 	return (0);
 }

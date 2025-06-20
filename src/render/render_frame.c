@@ -15,7 +15,7 @@ void render_3d_scene(t_data *dt)
 	for (i = 0; i < CASTED_RAYS_COUNT; i++)
 	{
 		// Distance-based projection
-		wall_height = 1.0f / dt->rays[i].distance_to_wall * SCALING;
+		wall_height = 1.0f / dt->rays[i].corrected_distance_to_wall * SCALING;
 
 		int top_y = dt->view->screen_center - wall_height * 1;
 		int bottom_y = dt->view->screen_center + wall_height * 1;

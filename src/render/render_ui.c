@@ -13,12 +13,12 @@ void	add_coor_info(t_data *dt)
 	mlx = dt->mlx_ptr;
 	win = dt->win_ptr;
 	mlx_string_put(mlx, win, log_placement_x, y, UI_CLR_1, "Player position X: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->player->pos.x));
+	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->player.pos.x));
 	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Player position Y: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1,  ft_itoa(dt->player->pos.y));
+	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1,  ft_itoa(dt->player.pos.y));
 
 	char buffer[32];
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->player->direction_vector_deg);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->player.direction_vector_deg);
 	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Player orientation (deg): ");
 	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
 
@@ -53,7 +53,7 @@ void	add_crosshair(t_data *dt, int color)
 	set_coor_values(&xy2, WINDOW_W / 2, WINDOW_H);
 
 	set_coor_values(&xy, WINDOW_W / 2, WINDOW_H / 2);
-	draw_square_from_center(dt->img, WINDOW_W / 2, WINDOW_H / 2, 5, color);
+	draw_square_from_center(dt->scene_img, WINDOW_W / 2, WINDOW_H / 2, 5, color);
 	//draw_vertical_line(dt, xy, xy2, color);
 }
 

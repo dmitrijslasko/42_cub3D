@@ -2,7 +2,7 @@
 
 void	draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color)
 {
-	int		curr_y;
+	size_t	curr_y;
 
 	if (pt_1.y > pt_2.y)
 		swap(&pt_1, &pt_2, sizeof(t_coor));
@@ -26,8 +26,8 @@ void	draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color)
 // TODO DL: refactor to fit the norm. The currect implementation is kindly provided by ChatGPT. :)
 void draw_line(t_img *img, t_coor pt1, t_coor pt2, int color)
 {
-	int dx = abs(pt2.x - pt1.x);
-	int dy = abs(pt2.y - pt1.y);
+	int dx = abs((int)pt2.x - (int)pt1.x);
+	int dy = abs((int)pt2.y - (int)pt1.y);
 	int sx = (pt1.x < pt2.x) ? 1 : -1;
 	int sy = (pt1.y < pt2.y) ? 1 : -1;
 	int err = dx - dy;
@@ -37,7 +37,7 @@ void draw_line(t_img *img, t_coor pt1, t_coor pt2, int color)
 	{
 		img_pix_put(img, pt1.x, pt1.y, color);
 		if (pt1.x == pt2.x && pt1.y == pt2.y)
-			break;
+			break ;
 		e2 = 2 * err;
 		if (e2 > -dy)
 		{

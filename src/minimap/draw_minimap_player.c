@@ -25,8 +25,8 @@ int draw_minimap_player(t_data *dt)
 	// size_t	grid_repr;
 
 	set_coor_values(	&player_coor,
-						200,
-						200);
+						dt->minimap->width / 2,
+						dt->minimap->height / 2);
 
 	if (MINIMAP_PLAYER_DISPLAY_STYLE == CIRCLE)
 		draw_circle(dt->minimap, player_coor.x, player_coor.y, MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);

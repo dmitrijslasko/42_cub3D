@@ -24,7 +24,6 @@ int	map_position_is_walkable(t_map *map, float new_x, float new_y)
 	return (1);
 }
 
-
 int move_forward_backward(t_data *dt, int direction)
 {
 	t_x_y *player_pos;
@@ -33,17 +32,17 @@ int move_forward_backward(t_data *dt, int direction)
 	float speed;
 
 	// Get current player position
-	player_pos = &(dt->player->pos);
+	player_pos = &dt->player.pos;
 
 	// Determine movement direction and adjust speed if needed
 	speed = KEYBOARD_PLAYER_STEP_FORWARD;
 	if (direction == -1)
 		speed = KEYBOARD_PLAYER_STEP_BACKWARD;
-	speed *= dt->player->move_speed_multiplier;
+	speed *= dt->player.move_speed_multiplier;
 
 	// Calculate new player position
-	new_x = player_pos->x + dt->player->direction_vector.x * speed * direction;
-	new_y = player_pos->y + dt->player->direction_vector.y * speed * direction;
+	new_x = player_pos->x + dt->player.direction_vector.x * speed * direction;
+	new_y = player_pos->y + dt->player.direction_vector.y * speed * direction;
 
 	if (map_position_is_walkable(dt->map, new_x, new_y))
 	{
@@ -64,13 +63,13 @@ int move_sideways(t_data *dt, int direction)
 	float new_y;
 	t_x_y	rotated_vector;
 
-	player_pos = &(dt->player->pos);
+	player_pos = &(dt->player.pos);
 
-	rotated_vector = rotate_vector(*dt, dt->player->direction_vector, 90.0f * direction);
+	rotated_vector = rotate_vector(*dt, dt->player.direction_vector, 90.0f * direction);
 
 	// Calculate new position
-	new_x = player_pos->x + rotated_vector.x * KEYBOARD_PLAYER_STEP_SIDE * dt->player->move_speed_multiplier;
-	new_y = player_pos->y + rotated_vector.y * KEYBOARD_PLAYER_STEP_SIDE * dt->player->move_speed_multiplier;
+	new_x = player_pos->x + rotated_vector.x * KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
+	new_y = player_pos->y + rotated_vector.y * KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
 
 	if (map_position_is_walkable(dt->map, new_x, new_y))
 	{

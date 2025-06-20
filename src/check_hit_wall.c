@@ -1,17 +1,22 @@
 #include "cub3d.h"
 
+char	get_cell_type(t_map map, t_coor coord)
+{
+	return (map.map_data[coord.y][coord.x]);
+}
+
 // NOTE DL: should we remove the first if?
 bool	check_hit_wall(t_coor coord, t_map map, t_ray *ray)
 {
-	if (map.map_data[coord.y][coord.x] == '1')
-	{
-		//ray->wall_type = NORTH;
+	char tile;
+
+	tile = get_cell_type(map, coord);
+	if (tile == '1')
 		return (1);
-	}
-	if (map.map_data[coord.y][coord.x] == 'D')
+	if (ray->vector.x > 0)
 	{
-		ray->wall_type = 1;
-		return (1);
+		if (tile == 'v')
+			return (1);
 	}
 	return (0);
 }

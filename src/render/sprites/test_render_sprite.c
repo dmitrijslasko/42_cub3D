@@ -19,7 +19,7 @@ int test_render_sprite(t_data *dt)
 
 			// Skip transparent pixels (commonly 0)
 			if (color != TRANSPARENT_COLOR)
-				img_pix_put(dt->img, offset_x + col, offset_y + row, color);
+				img_pix_put(dt->scene_img, offset_x + col, offset_y + row, color);
 		}
 	}
 	return (EXIT_SUCCESS);

@@ -28,7 +28,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT		600
+# define CASTED_RAYS_COUNT		1200
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
@@ -37,24 +37,25 @@
 # define DUMMY_MAP_PLAYER	"10N0000000000000000000000000001"
 
 // Minimap settings
-# define MINIMAP_OFFSET_X					0
-# define MINIMAP_OFFSET_Y					0
+# define MINIMAP_OFFSET_X					20
+# define MINIMAP_OFFSET_Y					20
 
-# define MINIMAP_BACKGROUND_COLOR			ORANGE
+# define MINIMAP_BACKGROUND_COLOR			0xFFA500
 
+# define MINIMAP_SIZE                       300
 # define MINIMAP_GRID_SIZE					40
-# define MINIMAP_GRID_COLOR					NAVY
+# define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
 
-# define MINIMAP_WALL_CELL_COLOR			NAVY
+# define MINIMAP_WALL_CELL_COLOR			BLACK
 # define MINIMAP_PLAYER_SPAWN_CELL_COLOR	LIME
 # define MINIMAP_DOOR_COLOR					BLUE
 
-# define MINIMAP_PLAYER_SIZE_PX 			4
+# define MINIMAP_PLAYER_SIZE_PX 			10
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define MINIMAP_RAY_LENGTH		            2
+# define MINIMAP_RAY_LENGTH		            1
 # define MINIMAP_DIRECTION_RAY_ENABLE       1
 # define MINIMAP_DIRECTION_RAY_COLOR		MAGENTA
 
@@ -92,6 +93,7 @@
 # define DEF_SEPARATOR_COUNT	1
 
 // mouse sensitivity
+# define ENABLE_MOUSE       0
 # define MOUSE_SENS_ROTATE 	2.0f
 //# define MOUSE_SENS_DRAG	0.05f
 # define MOUSE_SENS_SCROLL 	0.1f
@@ -107,6 +109,7 @@
 # define TEST_MAP_X			10
 # define TEST_MAP_Y		    10
 # define TEST_MAP_Z         0
+# define REPLACE_SPACE_MAP  0
 
 // welcome screen
 # define WELCOME_IMAGE       "./assets/images/intro.xpm"

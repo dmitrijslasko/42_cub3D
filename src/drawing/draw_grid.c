@@ -2,20 +2,19 @@
 
 void	draw_minimap_grid(t_data *dt)
 {
-	size_t	current_x;
-	size_t	current_y;
+	size_t	col_px;
+	size_t	row_px;
 
-	current_y = 0;
-	while (current_y <= dt->map->map_size_rows * MINIMAP_GRID_SIZE)
+	row_px = 0;
+	while (row_px <= dt->map->map_size_rows * MINIMAP_GRID_SIZE + 1)
 	{
-		current_x = 0;
-		while (current_x <= dt->map->map_size_cols * MINIMAP_GRID_SIZE)
+		col_px = 0;
+		while (col_px <= dt->map->map_size_cols * MINIMAP_GRID_SIZE + 1)
 		{
-			if (current_x % MINIMAP_GRID_SIZE == 0 || current_y % MINIMAP_GRID_SIZE == 0)
-				img_pix_put(dt->minimap, MINIMAP_OFFSET_X + current_x, MINIMAP_OFFSET_Y + current_y, MINIMAP_GRID_COLOR);
-			++current_x;
+			if (col_px % MINIMAP_GRID_SIZE == 0 || row_px % MINIMAP_GRID_SIZE == 0)
+				img_pix_put(dt->minimap_base, col_px, row_px, MINIMAP_GRID_COLOR);
+			col_px++;
 		}
-		++current_y;
+		row_px++;
 	}
 }
-

@@ -65,6 +65,7 @@ typedef struct s_x_y
 typedef struct s_ray
 {
 	float		distance_to_wall;
+	float		corrected_distance_to_wall;
 	float		percentage_of_image;
 	t_type_wall	wall_type;
 	t_x_y		vector;
@@ -348,5 +349,6 @@ int			test_render_sprite(t_data *dt);
 
 int			set_mouse_to_screen_center(t_data *dt);
 
-void		fix_fish_eye(t_ray *ray, t_player player);
+float	fix_fish_eye(t_ray *ray, t_player player);
+
 #endif

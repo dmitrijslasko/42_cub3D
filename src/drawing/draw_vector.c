@@ -16,15 +16,15 @@ void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color)
 		int grid_x = (int)((pos.x - MINIMAP_OFFSET_X) / MINIMAP_GRID_SIZE);
 		int grid_y = (int)((pos.y - MINIMAP_OFFSET_Y) / MINIMAP_GRID_SIZE);
 
-		if (dt->map.map_data[grid_y][grid_x] == '1')
-			break;
+		// if (dt->map->map_data[grid_y][grid_x] == '1')
+		// 	break;
 
 		prev = curr;
 		curr.x = (size_t)pos.x;
 		curr.y = (size_t)pos.y;
 
 		if (length > 0)
-			draw_line(dt, prev, curr, color);
+			draw_line(dt->minimap, prev, curr, color);
 
 		pos.x += dir.x * step_size;
 		pos.y += dir.y * step_size;

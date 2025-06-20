@@ -1,35 +1,29 @@
-// #include "cub3d.h"
+#include "cub3d.h"
 
-// bool	check_valid_map_start_line(t_map *map, t_coor pos, int step)
-// {
-// 	while ((size_t)pos.y < map->map_size_rows && pos.y >= 0)
-// 	{
-// 		while ((size_t)pos.x < map->map_size_cols && pos.x >= 0)
-// 		{
-// 			if (map->map_data[pos.y][pos.x] == 0)
-// 				return (error_message("Error: Line is not correct", 0));
-// 			else if (map->map_data[pos.y][pos.x] == 1)
-// 				continue ;
-// 			pos.x += step;
-// 		}
-// 		pos.y += step;
-// 	}
-// 	return (1);
-// }
+bool	is_open_map(char **map, char **visited, int row, int col)
+{
+	if (row < 0 || col < 0 || map[row] == NULL || map[row][col] == '\0')
+		return (1);
+	if (map[row][col] == '1' || visited[row][col] == 'V')
+		return (0);
+	visited[row][col] = 'V';
+	if (is_open_map(map, visited, row + 1, col))
+		return (1);
+	if (is_open_map(map, visited, row - 1, col))
+		return (1);
+	if (is_open_map(map, visited, row, col + 1))
+		return (1);
+	if (is_open_map(map, visited, row, col - 1))
+		return (1);
+	return (0);
+}
 
-// bool	check_valid_map_start_col(t_map *map, t_coor pos, int step)
-// {
-// 	while ((size_t)pos.y < map->map_size_rows && pos.y >= 0)
-// 	{
-// 		while ((size_t)pos.x < map->map_size_cols && pos.x >= 0)
-// 		{
-// 			if (map->map_data[pos.y][pos.x] == 0)
-// 				return (error_message("Error: Column is not correct", 0));
-// 			else if (map->map_data[pos.y][pos.x] == 1)
-// 				continue ;
-// 			pos.x += step;
-// 		}
-// 		pos.y += step;
-// 	}
-// 	return (1);
-// }
+bool	check_valid_map(t_map map, t_player player)
+{
+	char	**visited;
+
+	create_double_array(&visited, map.map_size_rows, map.map_size_cols);
+	if (is_open_map(map.map_data, visited, (int)player.pos.y, (int)player.pos.x))
+		return (error_message_free("Error: invalid map.", visited, 1));
+	return (free_array_return(visited, 0));
+}

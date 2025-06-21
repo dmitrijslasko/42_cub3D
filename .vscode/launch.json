@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub3D",
-            "args":  ["${workspaceFolder}/maps/bad/wall_hole_west.cub"],
+            "args":  ["${workspaceFolder}/maps/good/square_map.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

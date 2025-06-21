@@ -10,7 +10,7 @@ bool	init_default_player(t_player *player)
 	return (0);
 }
 
-bool	init_value_player(t_map map, t_player *player)
+bool	init_value_player(t_map *map, t_player *player)
 {
 	if (init_default_player(player))
 		return (1);
@@ -31,9 +31,9 @@ bool	parsing(t_data *dt, char *file)
 		return (error_message_close_fd("Error: Reading textures.", fd, 1));
 	if (init_value_map_data(file, &dt->map))
 		return (1);
-	if (init_value_player(dt->map, &dt->player))
+	if (init_value_player(&dt->map, &dt->player))
 		return (1);
-	if (check_valid_map(dt->map, dt->player))
+	if (check_valid_map(&dt->map, &dt->player))
 		return (1);
 	return (0);
 }

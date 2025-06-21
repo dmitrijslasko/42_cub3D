@@ -16,6 +16,9 @@
 		"numeric": "c",
 		"algorithm": "c",
 		"string.h": "c",
-		"array": "c"
+		"array": "c",
+		"math.h": "c",
+		"time.h": "c",
+		"unistd.h": "c"
 	}
 }

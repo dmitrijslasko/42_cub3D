@@ -21,7 +21,7 @@ bool	set_size_map_data(t_map *map, char *file)
 		{
 			line = free_line_get_next(line, fd);
 			if (flag_map && !is_empty_line(line))
-				return (error_message_close_fd("Error map.", fd, 1));
+				return (error_message_close_fd("Error map->", fd, 1));
 			continue ;
 		}
 		flag_map = 1;

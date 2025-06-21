@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int set_coor_values(t_coor *coor, int x, int y)
+int	set_coor_values(t_coor *coor, int x, int y)
 {
 	coor->x = x;
 	coor->y = y;
@@ -14,7 +14,7 @@ typedef enum e_minimap_player_display_style
 }	t_minimap_player_display_style;
 
 /**
- * @brief Draws the player's representation on the 2D minimap.
+ * @brief Draws the player's representation on the 2D minimap->
  *
  * @param dt
  * @return int

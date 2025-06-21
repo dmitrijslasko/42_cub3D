@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	if (parsing(&dt, argv[1]))
 		exit(1);
 	// dt.map = load_dummy_map();
-	print_level_map(dt.map);
+	print_level_map(&dt.map);
 
 	size_t i = 0;
 	while (i < TRACKED_KEYS)
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	dt.minimap_base = protected_malloc(sizeof(t_img), dt);
 	dt.view = protected_malloc(sizeof(t_view), dt);
 
-	setup_img(&dt, dt.minimap_base, dt.map->map_size_cols * MINIMAP_GRID_SIZE, dt.map->map_size_rows * MINIMAP_GRID_SIZE);
+	setup_img(&dt, dt.minimap_base, dt.map.map_size_cols * MINIMAP_GRID_SIZE, dt.map.map_size_rows * MINIMAP_GRID_SIZE);
 	draw_minimap_map(&dt);
 
 	load_textures(&dt);

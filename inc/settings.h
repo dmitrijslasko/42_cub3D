@@ -22,13 +22,13 @@
 # define TRACKED_KEYS	70000
 
 // fps and casted rays count
-# define FPS					30
+# define FPS					40
 
 # define PRECALCULATED_TRIG		3600
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT		1200
+# define CASTED_RAYS_COUNT		400
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
@@ -42,7 +42,7 @@
 
 # define MINIMAP_BACKGROUND_COLOR			0xFFA500
 
-# define MINIMAP_SIZE                       300
+# define MINIMAP_SIZE                       400
 # define MINIMAP_GRID_SIZE					40
 # define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
@@ -51,7 +51,7 @@
 # define MINIMAP_PLAYER_SPAWN_CELL_COLOR	LIME
 # define MINIMAP_DOOR_COLOR					BLUE
 
-# define MINIMAP_PLAYER_SIZE_PX 			10
+# define MINIMAP_PLAYER_SIZE_PX 			1
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
@@ -73,7 +73,7 @@
 # define DEF_FLOOR_COLOR			BLUE
 # define DEF_WALL_COLOR				PINK
 
-# define MIN_DISTANCE_TO_WALL					0.4f
+# define MIN_DISTANCE_TO_WALL					0.40f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD			0.1f

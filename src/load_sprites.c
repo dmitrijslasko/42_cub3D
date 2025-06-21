@@ -6,7 +6,7 @@ int	load_sprite_images(t_data *dt)
 	t_sprite	*sprites;
 	size_t		sprite_count;
 
-	sprite_count = count_elements_in_the_map(dt->map, "S");
+	sprite_count = count_elements_in_the_map(&dt->map, "S");
 	i = 0;
 	sprites = dt->sprites;
 
@@ -39,7 +39,7 @@ int	load_sprites(t_data *dt)
 	printf("Loading sprites...\n");
 	print_separator_default();
 
-	sprite_count = count_elements_in_the_map(dt->map, "S");
+	sprite_count = count_elements_in_the_map(&dt->map, "S");
 	printf("Sprites found in the map: %zu\n", sprite_count);
 	dt->sprites = protected_malloc(sizeof(t_sprite) * sprite_count, *dt);
 	load_sprite_images(dt);

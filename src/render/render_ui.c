@@ -43,6 +43,14 @@ void	add_coor_info(t_data *dt)
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].percentage_of_image);
 	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Percentage of image: ");
 	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
+
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].hit_point.x);
+	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Hit point X: ");
+	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
+
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].hit_point.y);
+	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Hit point Y: ");
+	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
 }
 
 void	add_crosshair(t_data *dt, int color)

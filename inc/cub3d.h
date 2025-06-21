@@ -72,6 +72,7 @@ typedef struct s_ray
 	float		percentage_of_image;
 	t_type_wall	wall_type;
 	t_x_y		vector;
+	t_x_y		hit_point;
 }	t_ray;
 
 typedef struct s_texture
@@ -253,6 +254,7 @@ bool		set_color(char *identifier, char **color, t_map *map);
 bool		check_valid_map(t_map *map, t_player *player);
 
 char		get_cell_type(t_map *map, t_coor *coord);
+char		get_cell_type_by_coordinates(t_map *map, size_t y, size_t x);
 
 // player movements
 int 		move_sideways(t_data *dt, int is_to_the_right);
@@ -312,7 +314,7 @@ int			init_player(t_data *dt);
 
 int			calculate_all_rays(t_data *dt);
 
-bool		check_hit_wall(t_coor *coord, t_map *map, t_ray *ray);
+bool		check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side);
 
 void		print_single_ray_info(t_ray ray);
 

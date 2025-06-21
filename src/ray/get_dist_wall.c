@@ -12,7 +12,6 @@ void	set_wall_dist_and_type(t_ray *ray, char c, t_coor *map_coor, t_player *play
 		dist = (map_coor->y - player->pos.y + (1 - step.y) / 2) / ray->vector.y;
 
 	ray->distance_to_wall = dist;
-	// fix_fish_eye(ray, player);
 	ray->corrected_distance_to_wall = fix_fish_eye(ray, player);
 
 	set_wall_type(c, ray);

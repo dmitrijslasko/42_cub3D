@@ -1,22 +1,18 @@
 #include "cub3d.h"
 
-void	img_pix_put(t_img *img, int x, int y, int clr)
-{
-	char	*pixel;
-	int		i;
+//static inline int	pixel_is_in_window(int x, int y)
+//{
+//	return (x >= 0 && x < WINDOW_W && y >= 0 && y < WINDOW_H);
+//}
 
-	if (pixel_is_in_window(x, y) == 0)
+
+void img_pix_put(t_img *img, int x, int y, int clr)
+{
+	if (!pixel_is_in_window(x, y))
 		return ;
-	i = img->bpp - 8;
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	while (i >= 0)
-	{
-		if (img->endian != 0)
-			*pixel++ = (clr >> i) & 0xFF;
-		else
-			*pixel++ = (clr >> (img->bpp - 8 - i)) & 0xFF;
-		i -= 8;
-	}
+
+	uint32_t *pixel = (uint32_t *)(img->addr + (y * img->line_len + x * 4));
+	*pixel = (uint32_t)clr;
 }
 
 ///**

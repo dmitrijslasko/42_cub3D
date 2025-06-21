@@ -22,13 +22,13 @@
 # define TRACKED_KEYS	70000
 
 // fps and casted rays count
-# define FPS					30
+# define FPS					40
 
 # define PRECALCULATED_TRIG		3600
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT		1
+# define CASTED_RAYS_COUNT		400
 
 // dummy map
 # define DUMMY_MAP_TOP		"1111111111111111111111111111111"
@@ -73,7 +73,7 @@
 # define DEF_FLOOR_COLOR			BLUE
 # define DEF_WALL_COLOR				PINK
 
-# define MIN_DISTANCE_TO_WALL					0.4f
+# define MIN_DISTANCE_TO_WALL					0.40f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD			0.1f

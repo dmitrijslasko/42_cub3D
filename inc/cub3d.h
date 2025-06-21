@@ -179,6 +179,19 @@ typedef struct s_data
 
 
 
+static inline int pixel_is_in_window(int x, int y)
+{
+    return (x >= 0 && x < WINDOW_W && y >= 0 && y < WINDOW_H);
+}
+
+static inline float clampf(float value, float min, float max)
+{
+	if (value < min)
+		return min;
+	if (value > max)
+		return max;
+	return value;
+}
 
 // function prototypes
 int			setup_mlx_and_win(t_data *dt);
@@ -206,7 +219,7 @@ void		setup_mouse_hooks(t_data *dt);
 
 void		*protected_malloc(size_t size, t_data dt);
 
-int			pixel_is_in_window(int x, int y);
+static inline int	pixel_is_in_window(int x, int y);
 
 //parsing
 char		*free_line_get_next(char *line, int fd);

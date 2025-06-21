@@ -36,7 +36,7 @@ bool	get_color(t_color *color, char **color_arr)
 
 bool	set_color(char *identifier, char **color, t_map *map)
 {
-	t_type_wall	wall_type;
+	t_wall_type	wall_type;
 
 	wall_type = check_valid_identifier_texture_wall(identifier);
 	if (map->wall_tile[wall_type].wall_type != DEFAULT)

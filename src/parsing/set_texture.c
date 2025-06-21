@@ -2,7 +2,7 @@
 
 bool	set_texture(char *identifier, char *file_texture, t_map *map)
 {
-	t_type_wall	wall_type; 
+	t_wall_type	wall_type;
 
 	if (!check_valid_identifier_texture(identifier))
 		return (0);

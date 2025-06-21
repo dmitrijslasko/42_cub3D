@@ -61,7 +61,6 @@ void render_3d_scene(t_data *dt)
 			int tex_index = texture_y * texture_width + texture_x;
 
 			int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
-			//int color = RED;
 
 			apply_wall_shading_1(dt, i, &color);
 

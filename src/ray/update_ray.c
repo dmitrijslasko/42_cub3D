@@ -33,7 +33,7 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 		if (check_hit_wall(&coor_map, &dt->map, ray, c))
 			break ;
 	}
-	set_wall_dist_and_type(ray, c, &coor_map, &dt->player);
+	set_wall_dist_and_type(dt, ray, c, &coor_map);
 
 	ray->hit_point.x = player_pos.x + ray->vector.x * ray->distance_to_wall;
 	ray->hit_point.y = player_pos.y + ray->vector.y * ray->distance_to_wall;

@@ -36,8 +36,11 @@ void	add_coor_info(t_data *dt)
 	mlx_string_put(mlx, win, log_placement_x, y += 20, UI_CLR_1, "Wall type: ");
 	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->rays[CASTED_RAYS_COUNT/2].wall_type));
 
+	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Cell type: ");
+	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->rays[CASTED_RAYS_COUNT/2].cell_type));
+
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].distance_to_wall);
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Distance to wall: ");
+	mlx_string_put(mlx, win, log_placement_x, y += 20, UI_CLR_1, "Distance to wall: ");
 	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].percentage_of_image);

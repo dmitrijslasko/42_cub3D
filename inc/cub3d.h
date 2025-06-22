@@ -61,6 +61,18 @@ typedef struct s_color
 	int		a;
 }	t_color;
 
+// Door structure with animation info
+typedef struct s_door
+{
+    float base_x;      // Base x-offset in cell (0.0 to 1.0) when closed
+    float base_y;      // Base y-offset in cell (0.0 to 1.0)
+    float width;       // Width of the door (e.g., 0.2)
+    int cell_x, cell_y; // Grid cell coordinates
+    int tex_id;        // Texture ID
+    int state;         // 0: closed, 1: opening, 2: open, 3: closing
+    float progress;    // Animation progress (0.0 closed, 1.0 fully open)
+    float speed;       // Animation speed (progress per second)
+} t_door;
 
 typedef struct s_coor
 {

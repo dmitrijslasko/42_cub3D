@@ -38,6 +38,7 @@ typedef enum e_wall_type
 	EAST,
 	FLOOR,
 	CEILING,
+	DOOR,
 }	t_wall_type;
 
 typedef enum e_cell_type
@@ -64,14 +65,17 @@ typedef struct s_color
 // Door structure with animation info
 typedef struct s_door
 {
-    float base_x;      // Base x-offset in cell (0.0 to 1.0) when closed
-    float base_y;      // Base y-offset in cell (0.0 to 1.0)
-    float width;       // Width of the door (e.g., 0.2)
-    int cell_x, cell_y; // Grid cell coordinates
-    int tex_id;        // Texture ID
-    int state;         // 0: closed, 1: opening, 2: open, 3: closing
-    float progress;    // Animation progress (0.0 closed, 1.0 fully open)
-    float speed;       // Animation speed (progress per second)
+    float	pos_x;		// Base x-offset in cell (0.0 to 1.0) when closed
+    float	pos_y;		// Base y-offset in cell (0.0 to 1.0)
+    float 	width;		// Width of the door (e.g., 0.2)
+    int 	cell_x;
+	int		cell_y;		// Grid cell coordinates
+    int 	tex_id;		// Texture ID
+    int		state;		// 0: closed, 1: opening, 2: open, 3: closing
+	int		is_open;
+	int		orientation;
+    float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
+    float	speed;		// Animation speed (progress per second)
 } t_door;
 
 typedef struct s_coor
@@ -96,6 +100,8 @@ typedef struct s_ray
 	t_x_y		vector;
 	t_x_y		hit_point;
 	char		hit_side;
+	char		hit_content;
+	t_door		*door;
 }	t_ray;
 
 typedef struct s_texture
@@ -190,9 +196,12 @@ typedef struct s_data
 	t_img		*minimap_base;
 	t_img		*minimap;
 	t_map		map;
+	t_door		*doors;
+	size_t		door_count;
 	t_ray		*rays;
 	t_player	player;
 	t_sprite	*sprites;
+	size_t		sprite_count;
 	t_view		*view;
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
@@ -406,5 +415,7 @@ int			set_mouse_to_screen_center(t_data *dt);
 float		fix_fish_eye(t_ray *ray, t_player *player);
 
 int			my_sleep(void);
+
+void		init_doors(t_data *dt);
 
 #endif

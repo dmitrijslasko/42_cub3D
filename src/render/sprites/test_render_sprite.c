@@ -4,7 +4,7 @@ int test_render_sprite(t_data *dt)
 {
 	if (!dt->sprites || !dt->sprites[0].sprite_data)
 	{
-		printf("Sprite data not loaded!\n");
+		// printf("Sprite data not loaded!\n");
 		return (EXIT_FAILURE);
 	}
 

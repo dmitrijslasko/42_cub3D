@@ -237,10 +237,6 @@ void		img_pix_put(t_img *img, int x, int y, int clr);
 void		setup_keyboard_hooks(t_data *dt);
 void		setup_mouse_hooks(t_data *dt);
 
-
-
-
-// void		img_pix_put(t_img *img, int x, int y, int clr);
 // void		draw_square(t_data *data, int x, int y, int size, int clr);
 // void		draw_circle(t_data *data, int x, int y, int radius, int clr);
 // void		draw_background(t_img *img, int clr);

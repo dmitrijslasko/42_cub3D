@@ -29,8 +29,7 @@
 
 
 // structs
-
-typedef enum e_type_wall
+typedef enum e_wall_type
 {
 	DEFAULT = -1,
 	NORTH,
@@ -39,10 +38,21 @@ typedef enum e_type_wall
 	EAST,
 	FLOOR,
 	CEILING,
-	NS_THIN_WALL,
-	WE_THIN_WALL,
-	DOOR
-}	t_type_wall;
+	DOOR,
+}	t_wall_type;
+
+typedef enum e_cell_type
+{
+	EMPTY_CELL = 0,
+	SOLID_WALL,
+	THIN_WALL_VERTICAL,
+	THIN_WALL_HORIZONTAL,
+	DOOR_VERTICAL,
+	DOOR_HORIZONTAL,
+	ELEVATOR_VERTICAL,
+	ELEVATOR_HORIZONTAL,
+
+}	t_cell_type;
 
 typedef struct s_color
 {
@@ -52,6 +62,21 @@ typedef struct s_color
 	int		a;
 }	t_color;
 
+// Door structure with animation info
+typedef struct s_door
+{
+    float	pos_x;		// Base x-offset in cell (0.0 to 1.0) when closed
+    float	pos_y;		// Base y-offset in cell (0.0 to 1.0)
+    float 	width;		// Width of the door (e.g., 0.2)
+    int 	cell_x;
+	int		cell_y;		// Grid cell coordinates
+    int 	tex_id;		// Texture ID
+    int		state;		// 0: closed, 1: opening, 2: open, 3: closing
+	int		is_open;
+	int		orientation;
+    float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
+    float	speed;		// Animation speed (progress per second)
+} t_door;
 
 typedef struct s_coor
 {
@@ -70,8 +95,13 @@ typedef struct s_ray
 	float		distance_to_wall;
 	float		corrected_distance_to_wall;
 	float		percentage_of_image;
-	t_type_wall	wall_type;
+	int			cell_type;
+	int			wall_type;
 	t_x_y		vector;
+	t_x_y		hit_point;
+	char		hit_side;
+	char		hit_content;
+	t_door		*door;
 }	t_ray;
 
 typedef struct s_texture
@@ -88,7 +118,7 @@ typedef struct s_texture
 
 typedef struct s_wall_tile
 {
-	t_type_wall	wall_type;
+	int			wall_type;
 	t_texture	texture;
 	t_color		color;
 	bool		is_color;
@@ -166,9 +196,12 @@ typedef struct s_data
 	t_img		*minimap_base;
 	t_img		*minimap;
 	t_map		map;
+	t_door		*doors;
+	size_t		door_count;
 	t_ray		*rays;
 	t_player	player;
 	t_sprite	*sprites;
+	size_t		sprite_count;
 	t_view		*view;
 	t_mouse		mouse;
 	float		sin_table[PRECALCULATED_TRIG];
@@ -204,10 +237,6 @@ void		img_pix_put(t_img *img, int x, int y, int clr);
 void		setup_keyboard_hooks(t_data *dt);
 void		setup_mouse_hooks(t_data *dt);
 
-
-
-
-// void		img_pix_put(t_img *img, int x, int y, int clr);
 // void		draw_square(t_data *data, int x, int y, int size, int clr);
 // void		draw_circle(t_data *data, int x, int y, int radius, int clr);
 // void		draw_background(t_img *img, int clr);
@@ -241,7 +270,7 @@ char		*remove_space_beginner(char *str);
 bool		init_value_map_data(char *file, t_map *map);
 bool		init_default_map(t_map *map);
 int			ft_open(char *file);
-t_type_wall	check_valid_identifier_texture_wall(char *identifier);
+t_wall_type	check_valid_identifier_texture_wall(char *identifier);
 bool		check_all_wall_tile(t_map *map);
 bool		get_value_file(t_map *map, char *file);
 bool		get_value_file(t_map *map, char *file);
@@ -253,6 +282,7 @@ bool		set_color(char *identifier, char **color, t_map *map);
 bool		check_valid_map(t_map *map, t_player *player);
 
 char		get_cell_type(t_map *map, t_coor *coord);
+char		get_cell_type_by_coordinates(t_map *map, size_t y, size_t x);
 
 // player movements
 int 		move_sideways(t_data *dt, int is_to_the_right);
@@ -260,13 +290,14 @@ int			move_forward_backward(t_data *dt, int direction);
 void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
-void		set_wall_dist_and_type(t_ray *ray, char c, t_coor *map_coor, t_player *player);
+// TODO DL: remove player from parameters
+void	set_wall_dist_and_type(t_data *dt, t_ray *ray, char c, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
 void		calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y *side_dist);
 
-//t_ray		*constructor_ray(float dist, t_type_wall wall);
+//t_ray		*constructor_ray(float dist, t_wall_type wall);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool		initialize_rays(t_data *dt);
@@ -277,7 +308,7 @@ void		set_step(t_x_y *step, t_x_y *dir_vec);
 // t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
 void		set_perc_wall(t_x_y *pos_player, t_ray *ray);
 
-//type_wall.c
+//wall_type.c
 void		set_wall_type(char c, t_ray *ray);
 void		print_ray(t_ray ray);
 
@@ -312,7 +343,7 @@ int			init_player(t_data *dt);
 
 int			calculate_all_rays(t_data *dt);
 
-bool		check_hit_wall(t_coor *coord, t_map *map, t_ray *ray);
+bool		check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side);
 
 void		print_single_ray_info(t_ray ray);
 
@@ -380,5 +411,7 @@ int			set_mouse_to_screen_center(t_data *dt);
 float		fix_fish_eye(t_ray *ray, t_player *player);
 
 int			my_sleep(void);
+
+void		init_doors(t_data *dt);
 
 #endif

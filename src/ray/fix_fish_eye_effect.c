@@ -9,6 +9,5 @@ float	fix_fish_eye(t_ray *ray, t_player *player)
 
 	angle_cos = ray->vector.x * player->direction_vector.x + \
 				ray->vector.y * player->direction_vector.y;
-	//ray->distance_to_wall *= angle_cos;
 	return (ray->distance_to_wall * angle_cos);
 }

@@ -35,7 +35,7 @@ bool	check_valid_identifier_texture(char *identifier)
 	return (0);
 }
 
-t_type_wall	check_valid_identifier_texture_wall(char *identifier)
+t_wall_type	check_valid_identifier_texture_wall(char *identifier)
 {
 	if (!ft_strncmp(identifier, "SO", ft_strlen(identifier)))
 		return (SOUTH);
@@ -50,5 +50,5 @@ t_type_wall	check_valid_identifier_texture_wall(char *identifier)
 	else if (!ft_strncmp(identifier, "C", ft_strlen(identifier)))
 		return (CEILING);
 	else
-		return (DOOR);
+		return (DEFAULT);
 }

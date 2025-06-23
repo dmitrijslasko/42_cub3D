@@ -63,7 +63,10 @@ void render_3d_scene(t_data *dt)
 			apply_wall_shading_1(dt, i, &color);
 
 			for (int w = 0; w < screen_slice_width; w++)
-				img_pix_put(dt->scene_img, screen_x + w, y, color);
+			{
+				if (pixel_is_in_window(screen_x + w, y))
+					img_pix_put(dt->scene_img, screen_x + w, y, color);
+			}
 			y++;
 		}
 		i++;

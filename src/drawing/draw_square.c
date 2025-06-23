@@ -12,8 +12,7 @@ void	draw_square_from_center(t_img *img, int x, int y, int size, int clr)
 		curr_y = y - size / 2;
 		while (curr_y <= y + size / 2)
 		{
-			if (pixel_is_in_window(curr_x, curr_y))
-				img_pix_put(img, curr_x, curr_y, clr);
+			img_pix_put(img, curr_x, curr_y, clr);
 			++curr_y;
 		}
 		++curr_x;
@@ -31,8 +30,7 @@ void	draw_square_from_top_left(t_img *img, int x, int y, int size, int clr)
 		curr_y = y;
 		while (curr_y <= y + size)
 		{
-			if (pixel_is_in_window(curr_x, curr_y))
-				img_pix_put(img, curr_x, curr_y, clr);
+			img_pix_put(img, curr_x, curr_y, clr);
 			curr_y++;
 		}
 		curr_x++;

@@ -14,10 +14,10 @@ int	map_position_is_walkable(t_map *map, float *new_x, float *new_y)
 		return (0);
 
 	// Check four corners of bounding box
-	if (map->map_data[min_y][min_x] == '1' ||
-		map->map_data[min_y][max_x] == '1' ||
-		map->map_data[max_y][min_x] == '1' ||
-		map->map_data[max_y][max_x] == '1')
+	if (ft_strchr("1v", map->map_data[min_y][min_x]) ||
+		ft_strchr("1v", map->map_data[min_y][max_x]) ||
+		ft_strchr("1v", map->map_data[max_y][min_x]) ||
+		ft_strchr("1v", map->map_data[max_y][max_x]))
 	{
 		return (0);
 	}
@@ -30,7 +30,7 @@ int	move_forward_backward(t_data *dt, int direction)
 	float new_x;
 	float new_y;
 	float speed;
- 
+
 	// Get current player position
 	player_pos = &dt->player.pos;
 

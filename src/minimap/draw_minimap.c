@@ -28,6 +28,8 @@ int	draw_minimap_map(t_data *dt)
 			if (ft_strchr("NSWE", dt->map.map_data[curr_row][curr_col]))
 				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
 			else if (ft_strchr("v", dt->map.map_data[curr_row][curr_col]))
+				color = MINIMAP_THIN_WALL;
+			else if (ft_strchr("|-", dt->map.map_data[curr_row][curr_col]))
 				color = MINIMAP_DOOR_COLOR;
 			else if (ft_strchr("1", dt->map.map_data[curr_row][curr_col]))
 				color = MINIMAP_WALL_CELL_COLOR;

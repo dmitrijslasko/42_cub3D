@@ -3,7 +3,7 @@
 
 void	set_wall_type(char c, t_ray *ray)
 {
-	t_type_wall wall_type;
+	int wall_type;
 
 	if (c == 'y' && ray->vector.y < 0)
 		wall_type = SOUTH;
@@ -13,6 +13,7 @@ void	set_wall_type(char c, t_ray *ray)
 		wall_type = EAST;
 	else
 		wall_type = WEST;
+
 	ray->wall_type = wall_type;
 }
 

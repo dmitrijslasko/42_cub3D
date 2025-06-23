@@ -22,7 +22,7 @@
 # define TRACKED_KEYS	70000
 
 // fps and casted rays count
-# define FPS					30
+# define FPS					40
 
 # define PRECALCULATED_TRIG		3600
 
@@ -48,8 +48,10 @@
 # define MINIMAP_GRID_ENABLE				1
 
 # define MINIMAP_WALL_CELL_COLOR			BLACK
-# define MINIMAP_PLAYER_SPAWN_CELL_COLOR	LIME
+
+# define MINIMAP_PLAYER_SPAWN_CELL_COLOR	0xFFBB00
 # define MINIMAP_DOOR_COLOR					BLUE
+# define MINIMAP_THIN_WALL					LIME
 
 # define MINIMAP_PLAYER_SIZE_PX 			10
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
@@ -68,12 +70,12 @@
 # define SCALING				            500
 
 // colors
-# define DEF_BG_COLOR			BLACK
+# define DEF_BG_COLOR			    BLACK
 # define DEF_CEILING_COLOR			GREEN
 # define DEF_FLOOR_COLOR			BLUE
 # define DEF_WALL_COLOR				PINK
 
-# define MIN_DISTANCE_TO_WALL					0.4f
+# define MIN_DISTANCE_TO_WALL					0.40f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD			0.1f
@@ -88,16 +90,17 @@
 # define LOCK_VERTICAL_LOOK_UP					100
 # define LOCK_VERTICAL_LOOK_DOWN				100
 
-// separator
-# define DEF_SEPARATOR_CHAR		"-"
-# define DEF_SEPARATOR_WIDTH	80
-# define DEF_SEPARATOR_COUNT	1
-
 // mouse sensitivity
 # define ENABLE_MOUSE       0
 # define MOUSE_SENS_ROTATE 	2.0f
 //# define MOUSE_SENS_DRAG	0.05f
 # define MOUSE_SENS_SCROLL 	0.1f
+
+
+// separator
+# define DEF_SEPARATOR_CHAR		"-"
+# define DEF_SEPARATOR_WIDTH	80
+# define DEF_SEPARATOR_COUNT	1
 
 // menu & UI
 # define DEF_MENU_ROW_H 	15

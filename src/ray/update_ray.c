@@ -12,7 +12,8 @@ t_door *find_door_at(t_data *dt, int x, int y)
             return &dt->doors[i];
 		i++;
     }
-    return NULL;
+	//printf("Door found!");
+    return (NULL);
 }
 
 void set_door_dist_and_type(t_data *dt, t_ray *ray, char side, t_coor *map_pos)
@@ -42,7 +43,9 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 	t_coor	coor_map;
 	t_x_y	step;
 	char	hit_side;
+	t_door *door;
 
+	// This line sets the step based on the vector directions
 	set_step(&step, &ray->vector);
 
 	coor_map.x = (size_t)dt->player.pos.x;
@@ -51,6 +54,11 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 	while (coor_map.x < dt->map.map_size_cols && \
 			coor_map.y < dt->map.map_size_rows)
 	{
+		if (get_cell_type_by_coordinates(&dt->map, coor_map.y, coor_map.x) == '|')
+		{
+			door = find_door_at(dt, coor_map.y, coor_map.x);
+			printf("Ray [%zu]: I see door #%zu!\n", ray->id, door->id);
+		}
 		if (side_dist->x < side_dist->y)
 		{
 			side_dist->x += delta_dist->x;
@@ -72,5 +80,5 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 	ray->hit_point.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
 
 	//if (get_cell_type_by_coordinates(&dt->map, (size_t)ray->hit_point.y, (size_t)ray->hit_point.x) == '|')
-		printf("ray [%zu] is hitting a door...\n", ray->id);
+		//printf("ray [%zu] is hitting a door...\n", ray->id);
 }

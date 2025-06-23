@@ -65,6 +65,7 @@ typedef struct s_color
 // Door structure with animation info
 typedef struct s_door
 {
+	size_t	id;
     float	pos_x;		// Base x-offset in cell (0.0 to 1.0) when closed
     float	pos_y;		// Base y-offset in cell (0.0 to 1.0)
     float 	width;		// Width of the door (e.g., 0.2)

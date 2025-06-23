@@ -65,18 +65,18 @@ typedef struct s_color
 // Door structure with animation info
 typedef struct s_door
 {
-    float	pos_x;		// Base x-offset in cell (0.0 to 1.0) when closed
-    float	pos_y;		// Base y-offset in cell (0.0 to 1.0)
-    float 	width;		// Width of the door (e.g., 0.2)
-    int 	cell_x;
+	float	pos_x;		// Base x-offset in cell (0.0 to 1.0) when closed
+	float	pos_y;		// Base y-offset in cell (0.0 to 1.0)
+	float	width;		// Width of the door (e.g., 0.2)
+	int		cell_x;
 	int		cell_y;		// Grid cell coordinates
-    int 	tex_id;		// Texture ID
-    int		state;		// 0: closed, 1: opening, 2: open, 3: closing
+	int		tex_id;		// Texture ID
+	int		state;		// 0: closed, 1: opening, 2: open, 3: closing
 	int		is_open;
 	int		orientation;
-    float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
-    float	speed;		// Animation speed (progress per second)
-} t_door;
+	float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
+	float	speed;		// Animation speed (progress per second)
+}	t_door;
 
 typedef struct s_coor
 {
@@ -167,22 +167,19 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-	size_t	height;
-	size_t	width;
+	int		height;
+	int		width;
 }	t_img;
 
-typedef struct s_sprite
+typedef struct s_sprite_texture
 {
 	void	*sprite_img;
 	int		*sprite_data; // Or char* depending on format
-	int		width;
-	int		height;
-	int		bpp;
-	int		size_line;
-	int		endian;
-	float	x;
-	float	y;
-	float	distance_to_player;
+	t_img	img;
+	char	type;
+	float	*x;
+	float	*y;
+	float	*distance_to_player;
 	int		texture_id;
 	char	*filepath;
 }	t_sprite;

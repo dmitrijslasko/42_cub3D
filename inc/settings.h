@@ -120,5 +120,6 @@
 # define SHOW_WELCOME_IMAGE  0
 
 # define WHITE_SPACE        " \a\b\t\n\v\f\r"
+# define SPRITES_TYPES      "spq"
 
 #endif

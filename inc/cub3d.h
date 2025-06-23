@@ -92,6 +92,7 @@ typedef struct s_x_y
 
 typedef struct s_ray
 {
+	size_t		id;
 	float		distance_to_wall;
 	float		corrected_distance_to_wall;
 	float		percentage_of_image;

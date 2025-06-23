@@ -39,15 +39,11 @@ void set_door_dist_and_type(t_data *dt, t_ray *ray, char side, t_coor *map_pos)
 
 void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 {
-	t_x_y	player_pos;
 	t_coor	coor_map;
 	t_x_y	step;
 	char	hit_side;
 
 	set_step(&step, &ray->vector);
-
-	player_pos.x = dt->player.pos.x;
-	player_pos.y = dt->player.pos.y;
 
 	coor_map.x = (size_t)dt->player.pos.x;
 	coor_map.y = (size_t)dt->player.pos.y;
@@ -72,7 +68,9 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 	}
     set_wall_dist_and_type(dt, ray, hit_side, &coor_map);
 
-	ray->hit_point.x = player_pos.x + ray->vector.x * ray->distance_to_wall;
-	ray->hit_point.y = player_pos.y + ray->vector.y * ray->distance_to_wall;
+	ray->hit_point.x = dt->player.pos.x + ray->vector.x * ray->distance_to_wall;
+	ray->hit_point.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
 
+	//if (get_cell_type_by_coordinates(&dt->map, (size_t)ray->hit_point.y, (size_t)ray->hit_point.x) == '|')
+		printf("ray [%zu] is hitting a door...\n", ray->id);
 }

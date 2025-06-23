@@ -11,6 +11,7 @@ int	calculate_all_rays(t_data *dt)
 	while (i < CASTED_RAYS_COUNT)
 	{
 		vector = rotate_vector(&dt->player.direction_vector, angle);
+		dt->rays[i].id = i;
 		dt->rays[i].vector = vector;
 		update_single_ray(dt, &dt->rays[i]);
 		angle += FIELD_OF_VIEW_DEG / (CASTED_RAYS_COUNT - 1);

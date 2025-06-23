@@ -1,12 +1,12 @@
 #include "cub3d.h"
 
-bool	get_value_file(t_map *map, char *file)
+bool	get_value_file(t_map *map)
 {
 	int		fd;
 	char	*line;
 	char	**array;
 
-	fd = ft_open(file);
+	fd = ft_open(map->file);
 	if (fd < 0)
 		return (1);
 	line = free_line_get_next(NULL, fd);

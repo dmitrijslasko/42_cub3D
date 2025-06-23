@@ -1,5 +1,12 @@
 #include "cub3d.h"
 
+// const static g_cell_types =
+// {
+// 	{"NSWE", MINIMAP_PLAYER_SPAWN_CELL_COLOR},
+// 	{
+
+// }
+
 int	draw_minimap_map(t_data *dt)
 {
 	size_t	curr_row;
@@ -20,7 +27,8 @@ int	draw_minimap_map(t_data *dt)
 		curr_col = 0;
 		while (curr_col < dt->map.map_size_cols)
 		{
-			if (dt->map.map_data[curr_row][curr_col] == '0')
+			if (ft_strchr(WHITE_SPACE, dt->map.map_data[curr_row][curr_col]) || 
+					ft_strchr("0", dt->map.map_data[curr_row][curr_col]))
 			{
 				curr_col++;
 				continue ;

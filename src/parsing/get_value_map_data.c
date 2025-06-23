@@ -5,7 +5,7 @@ void	copy_line(t_map *map, int row, char *line)
 	size_t	col;
 
 	col = 0;
-	while (line && line[col])
+	while (line && line[col] && col < map->map_size_cols)
 	{
 		map->map_data[row][col] = line[col];
 		col++;

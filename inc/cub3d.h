@@ -127,6 +127,7 @@ typedef struct s_wall_tile
 typedef struct s_map
 {
 	char		**map_data;
+	char		*file;
 	size_t		map_size_rows;
 	size_t		map_size_cols;
 	t_wall_tile	wall_tile[6];
@@ -260,7 +261,7 @@ bool		check_valid_color_or_texture(char **info);
 bool		is_empty_line(char *line);
 // bool		is_delimiter(char c, const char *delimiters);
 bool		is_valid_line_texture(char *line);
-bool		set_size_map_data(t_map *map, char *file);
+bool		set_size_map_data(t_map *map);
 bool		check_valid_wall_tile_file(int fd);
 bool		create_map_data(t_map *map);
 bool		create_double_array(char ***array, size_t max_row, size_t max_col);
@@ -268,12 +269,11 @@ bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
 char		*remove_space_beginner(char *str);
 bool		init_value_map_data(char *file, t_map *map);
-bool		init_default_map(t_map *map);
+bool		init_default_map(t_map *map, char *file);
 int			ft_open(char *file);
 t_wall_type	check_valid_identifier_texture_wall(char *identifier);
 bool		check_all_wall_tile(t_map *map);
-bool		get_value_file(t_map *map, char *file);
-bool		get_value_file(t_map *map, char *file);
+bool		get_value_file(t_map *map);
 void		get_value_map(char *line, int fd, t_map *map);
 void		get_init_position(t_map *map, t_player *player);
 bool		set_color_or_texture(t_map *map, char *identifier, char **value);

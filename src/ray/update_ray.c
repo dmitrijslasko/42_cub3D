@@ -5,8 +5,7 @@ t_door *find_door_at(t_data *dt, int x, int y)
 	size_t	i;
 
 	i = 0;
-	// printf("Trying to find the wall at %d %d...\n", x, y);
-	// printf("Total doors %zu...\n",dt->door_count);
+
     while (i < dt->door_count)
     {
         if (dt->doors[i].cell_x == x && dt->doors[i].cell_y == y)
@@ -43,8 +42,7 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 	t_x_y	player_pos;
 	t_coor	coor_map;
 	t_x_y	step;
-	char	c;
-	// int		door_hit;
+	char	hit_side;
 
 	set_step(&step, &ray->vector);
 
@@ -61,18 +59,18 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 		{
 			side_dist->x += delta_dist->x;
 			coor_map.x += step.x;
-			c = 'x';
+			hit_side = 'x';
 		}
 		else
 		{
 			side_dist->y += delta_dist->y;
 			coor_map.y += step.y;
-			c = 'y';
+			hit_side = 'y';
 		}
-		if (check_hit_wall(&coor_map, &dt->map, ray, c))
+		if (check_hit_wall(&coor_map, &dt->map, ray, hit_side))
 			break ;
 	}
-    set_wall_dist_and_type(dt, ray, c, &coor_map);
+    set_wall_dist_and_type(dt, ray, hit_side, &coor_map);
 
 	ray->hit_point.x = player_pos.x + ray->vector.x * ray->distance_to_wall;
 	ray->hit_point.y = player_pos.y + ray->vector.y * ray->distance_to_wall;

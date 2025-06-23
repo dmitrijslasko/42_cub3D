@@ -17,7 +17,7 @@ bool	check_valid_wall_tile_file(int fd)
 		}
 		if (!is_valid_line_texture(line))
 			break ;
-		array = ft_split(line, ' ');
+		array = ft_split_special(line, WHITE_SPACE);
 		if (!array || !array[0] || !array[1])
 			return (error_message_free("Not valid input!", array, 1));
 		if (!check_valid_color_or_texture(array))

@@ -45,9 +45,7 @@ void render_3d_scene(t_data *dt)
 
 		// Vertical wall slice drawing
 		int y = top_y;
-		y = ft_max(0, y);
-		int y_limit = ft_min(WINDOW_H, bottom_y);
-		while (y < y_limit)
+		while (y < ft_min(WINDOW_H, bottom_y))
 		{
 			// // Relative position on the wall
 			int d = y - top_y;
@@ -65,13 +63,16 @@ void render_3d_scene(t_data *dt)
 			apply_wall_shading_1(dt, i, &color);
 
 			for (int w = 0; w < screen_slice_width; w++)
-				img_pix_put(dt->scene_img, screen_x + w, y, color);
+			{
+				if (pixel_is_in_window(screen_x + w, y))
+					img_pix_put(dt->scene_img, screen_x + w, y, color);
+			}
 			y++;
 		}
 		i++;
 	}
 	//print_separator_default();
-	render_sprites(dt);
+	// render_sprites(dt);
 }
 
 int	render_frame(void *param)

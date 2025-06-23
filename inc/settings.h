@@ -42,7 +42,7 @@
 
 # define MINIMAP_BACKGROUND_COLOR			0xFFA500
 
-# define MINIMAP_SIZE                       400
+# define MINIMAP_SIZE                       300
 # define MINIMAP_GRID_SIZE					40
 # define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
@@ -118,5 +118,7 @@
 // welcome screen
 # define WELCOME_IMAGE       "./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  0
+
+# define WHITE_SPACE        " \a\b\t\n\v\f\r"
 
 #endif

@@ -37,13 +37,37 @@ void set_door_dist_and_type(t_data *dt, t_ray *ray, char side, t_coor *map_pos)
     ray->hit_side = side;
     ray->hit_content = dt->map.map_data[map_pos->y][map_pos->x];
 }
+bool	check_hit_door(t_coor *coord, t_data *dt, t_ray *ray, char side)
+{
+	char	tile;
+	t_door	*door;
+	float	dy;
+	float	dx;
+
+	tile = get_cell_type(&dt->map, coord);
+	door = find_door_at(dt, coord->x, coord->y);
+	if (side == 'x')
+	{
+		if (tile == '|')
+		{
+			dy = ray->hit_point.y;
+			dy = dy - (int)dy;
+			dx = (dy * ray->vector.x) / ray->vector.y;
+			if (!( dx> -0.5 && dx <= 0.5f))
+			{
+				ray->door = door;
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
 
 void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 {
 	t_coor	coor_map;
 	t_x_y	step;
 	char	hit_side;
-	t_door *door;
 
 	// This line sets the step based on the vector directions
 	set_step(&step, &ray->vector);
@@ -54,11 +78,6 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 	while (coor_map.x < dt->map.map_size_cols && \
 			coor_map.y < dt->map.map_size_rows)
 	{
-		if (get_cell_type_by_coordinates(&dt->map, coor_map.y, coor_map.x) == '|')
-		{
-			door = find_door_at(dt, coor_map.y, coor_map.x);
-			printf("Ray [%zu]: I see door #%zu!\n", ray->id, door->id);
-		}
 		if (side_dist->x < side_dist->y)
 		{
 			side_dist->x += delta_dist->x;
@@ -71,14 +90,14 @@ void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 			coor_map.y += step.y;
 			hit_side = 'y';
 		}
+		ray->hit_point.x = dt->player.pos.x + ray->vector.x * ray->distance_to_wall;
+		ray->hit_point.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
+		if (check_hit_door(&coor_map, dt, ray, hit_side))
+			break ;
 		if (check_hit_wall(&coor_map, &dt->map, ray, hit_side))
 			break ;
 	}
-    set_wall_dist_and_type(dt, ray, hit_side, &coor_map);
+	ray->hit_side = hit_side;
 
-	ray->hit_point.x = dt->player.pos.x + ray->vector.x * ray->distance_to_wall;
-	ray->hit_point.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
-
-	//if (get_cell_type_by_coordinates(&dt->map, (size_t)ray->hit_point.y, (size_t)ray->hit_point.x) == '|')
-		//printf("ray [%zu] is hitting a door...\n", ray->id);
+    set_wall_dist_and_type(dt, ray, &coor_map);
 }

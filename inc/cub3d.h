@@ -293,7 +293,7 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 // TODO DL: remove player from parameters
-void	set_wall_dist_and_type(t_data *dt, t_ray *ray, char c, t_coor *map_coor);
+void	set_wall_dist_and_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
@@ -311,7 +311,7 @@ void		set_step(t_x_y *step, t_x_y *dir_vec);
 void		set_perc_wall(t_x_y *pos_player, t_ray *ray);
 
 //wall_type.c
-void		set_wall_type(char c, t_ray *ray);
+void		set_wall_type(t_ray *ray);
 void		print_ray(t_ray ray);
 
 //x_y.c

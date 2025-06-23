@@ -238,8 +238,8 @@ bool		set_color_or_texture(t_map *map, char *identifier, char **value);
 bool		set_texture(char *identifier, char *file_texture, t_map *map);
 bool		set_color(char *identifier, char **color, t_map *map);
 bool		check_valid_map(t_map *map, t_player *player);
-
 char		get_cell_type(t_map *map, t_coor *coord);
+char		**ft_split_special(const char *s, char *c);
 
 // player movements
 int 		move_sideways(t_data *dt, int is_to_the_right);

@@ -116,4 +116,6 @@
 # define WELCOME_IMAGE       "./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  0
 
+# define WHITE_SPACE        " \a\b\t\n\v\f\r"
+
 #endif

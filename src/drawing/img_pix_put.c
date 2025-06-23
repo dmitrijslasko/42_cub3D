@@ -8,8 +8,8 @@
 
 void img_pix_put(t_img *img, int x, int y, int clr)
 {
-	//if (!pixel_is_in_window(x, y))
-	//	return ;
+	if (!pixel_is_in_window(x, y))
+		return ;
 
 	uint32_t *pixel = (uint32_t *)(img->addr + (y * img->line_len + x * 4));
 	*pixel = (uint32_t)clr;

@@ -7,7 +7,7 @@ char	*remove_space_beginner(char *str)
 	i = 0;
 	if (!str)
 		return (str);
-	while (str[i] == ' ')
+	while (ft_strchr(WHITE_SPACE, str[i]))
 		i++;
 	return (&str[i]);
 }

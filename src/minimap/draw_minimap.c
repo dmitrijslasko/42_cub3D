@@ -45,7 +45,7 @@ int	draw_minimap_map(t_data *dt)
 	}
 	if (MINIMAP_GRID_ENABLE)
 		draw_minimap_grid(dt);
-	printf("Finished doing the minimap!\n");
+	printf("Finished rendering the minimap base!\n");
 	return (EXIT_SUCCESS);
 }
 

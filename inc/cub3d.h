@@ -297,7 +297,7 @@ void	set_wall_distance_and_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
-void		calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y *side_dist);
+void		calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y *side_dist);
 
 //t_ray		*constructor_ray(float dist, t_wall_type wall);
 

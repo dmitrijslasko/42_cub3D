@@ -5,55 +5,64 @@ void	add_coor_info(t_data *dt)
 	int		y;
 	void	*mlx;
 	void	*win;
-	size_t	log_placement_x;
+	size_t	field_1_x;
+	size_t	field_2_x;
 
-	log_placement_x = WINDOW_W - 200;
+	field_1_x = WINDOW_W - 250;
+	field_2_x = WINDOW_W - 50;
 
 	y = 15;
 	mlx = dt->mlx_ptr;
 	win = dt->win_ptr;
-	mlx_string_put(mlx, win, log_placement_x, y, UI_CLR_1, "Player position X: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->player.pos.x));
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Player position Y: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1,  ft_itoa(dt->player.pos.y));
+	mlx_string_put(mlx, win, field_1_x, y, UI_CLR_1, "Player position X: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->player.pos.x));
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Player position Y: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1,  ft_itoa(dt->player.pos.y));
 
 	char buffer[32];
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->player.direction_vector_deg);
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Player orientation (deg): ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Player orientation (deg): ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	mlx_string_put(mlx, win, log_placement_x, y += 20, UI_CLR_1, "Frames per second (FPS): ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(FPS));
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Window W: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(WINDOW_W));
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Window H: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(WINDOW_H));
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Casted rays: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(CASTED_RAYS_COUNT));
-	mlx_string_put(mlx, win, log_placement_x, y += 20, UI_CLR_1, "LMB presses: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->mouse.lmb_press_count));
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Frames per second (FPS): ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(FPS));
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Window W: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(WINDOW_W));
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Window H: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(WINDOW_H));
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Casted rays: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(CASTED_RAYS_COUNT));
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "LMB presses: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->mouse.lmb_press_count));
 
-	mlx_string_put(mlx, win, log_placement_x, y += 20, UI_CLR_1, "Wall type: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->rays[CASTED_RAYS_COUNT/2].wall_type));
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Wall type: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[CASTED_RAYS_COUNT/2].wall_type));
 
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Cell type: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, ft_itoa(dt->rays[CASTED_RAYS_COUNT/2].cell_type));
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Cell type: ");
+	if (dt->rays[CASTED_RAYS_COUNT/2].cell_type == 4)
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "DOOR");
+	else if (dt->rays[CASTED_RAYS_COUNT/2].cell_type == 1)
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "WALL");
+	else if (dt->rays[CASTED_RAYS_COUNT/2].cell_type == 2)
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "THIN (V)");
+	else
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "N/D");
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].distance_to_wall);
-	mlx_string_put(mlx, win, log_placement_x, y += 20, UI_CLR_1, "Distance to wall: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Distance to wall: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].percentage_of_image);
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Percentage of image: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Percentage of image: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].hit_point.x);
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Hit point X: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Hit point X: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].hit_point.y);
-	mlx_string_put(mlx, win, log_placement_x, y += 10, UI_CLR_1, "Hit point Y: ");
-	mlx_string_put(mlx, win, WINDOW_W - 40, y, UI_CLR_1, buffer);
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Hit point Y: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 }
 
 void	add_crosshair(t_data *dt, int color)

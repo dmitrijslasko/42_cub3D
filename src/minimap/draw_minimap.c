@@ -139,8 +139,8 @@ int update_minimap(t_data *dt)
 	// draw player in the ce
 	draw_minimap_player(dt);
 
-	// if (MINIMAP_RENDER_RAYS_ENABLE)
-	// 	draw_minimap_rays(dt, 0);
+	 if (MINIMAP_RENDER_RAYS_ENABLE)
+	 	draw_minimap_rays(dt, 0);
 	if (MINIMAP_DIRECTION_RAY_ENABLE)
 		draw_minimap_rays(dt, 1);
 	return (EXIT_SUCCESS);

@@ -13,9 +13,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
 
-	// Load dummy map
 	if (parsing(&dt, argv[1]))
 		exit(1);
+	// Load dummy map
 	// dt.map = load_dummy_map();
 	print_level_map(&dt.map);
 

@@ -40,7 +40,7 @@
 # define MINIMAP_OFFSET_X					20
 # define MINIMAP_OFFSET_Y					20
 
-# define MINIMAP_BACKGROUND_COLOR			0xFFA500
+# define MINIMAP_BACKGROUND_COLOR			ORANGE
 
 # define MINIMAP_SIZE                       300
 # define MINIMAP_GRID_SIZE					40
@@ -57,7 +57,7 @@
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define MINIMAP_RAY_LENGTH		            1
+# define MINIMAP_RAY_LENGTH		            2
 
 # define MINIMAP_DIRECTION_RAY_ENABLE       1
 # define MINIMAP_DIRECTION_RAY_COLOR		MAGENTA

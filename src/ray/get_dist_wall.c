@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	set_wall_dist_and_type(t_data *dt, t_ray *ray, t_coor *map_coor)
+void	set_wall_distance_and_type(t_data *dt, t_ray *ray, t_coor *map_coor)
 {
 	t_x_y	step;
 	float	distance;
@@ -22,19 +22,14 @@ void	set_wall_dist_and_type(t_data *dt, t_ray *ray, t_coor *map_coor)
 
 	set_step(&step, &ray->vector);
 
+	distance = 0.0f;
 	if (ray->hit_side == 'x')
 		distance = (map_coor->x - dt->player.pos.x + (1 - step.x) / 2) / ray->vector.x;
-	else
+	else if (ray->hit_side == 'y')
 		distance = (map_coor->y - dt->player.pos.y + (1 - step.y) / 2) / ray->vector.y;
-
-	if (ray->cell_type == DOOR_VERTICAL)
-		distance += 0.5f * ray->vector.x;
 
 	ray->distance_to_wall = distance;
 	ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
-
-
-
 
 	set_wall_type(ray);
 	set_perc_wall(&dt->player.pos, ray);

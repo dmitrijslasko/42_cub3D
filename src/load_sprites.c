@@ -13,18 +13,18 @@ int	load_sprite_images(t_data *dt)
 	printf("Sprite images to be loaded: %zu\n", sprite_count);
 	while (i < sprite_count)
 	{
-		sprites[i].img.mlx_img = mlx_xpm_file_to_image( \
+		sprites[i].sprite_img = mlx_xpm_file_to_image( \
 			dt->mlx_ptr, \
 			"./sprites/sprite-1.xpm", \
-			&sprites[i].img.width, \
-			&sprites[i].img.height \
+			&sprites[i].width, \
+			&sprites[i].height \
 		);
 
-		sprites[i].img.addr = mlx_get_data_addr( \
-			sprites[i].img.mlx_img, \
-			&sprites[i].img.bpp, \
-			&sprites[i].img.line_len, \
-			&sprites[i].img.endian \
+		sprites[i].sprite_data = (int *)mlx_get_data_addr( \
+			sprites[i].sprite_img, \
+			&sprites[i].bpp, \
+			&sprites[i].size_line, \
+			&sprites[i].endian \
 		);
 		printf("Sprite image loaded!\n");
 		i++;
@@ -42,8 +42,6 @@ void	find_sprites(t_data *dt, int index, char sprite_type, size_t n)
 	count = 0;
 	row = 0;
 	dt->sprites[index].type = sprite_type;
-	dt->sprites[index].x = protected_malloc(sizeof(float) * n, *dt);
-	dt->sprites[index].y = protected_malloc(sizeof(float) * n, *dt);
 	while (row < dt->map.map_size_rows)
 	{
 		col = 0;
@@ -51,8 +49,8 @@ void	find_sprites(t_data *dt, int index, char sprite_type, size_t n)
 		{
 			if (get_cell_type_by_coordinates(&dt->map, row, col) == sprite_type)
 			{
-				dt->sprites[index].x[count] = row + 0.5;
-				dt->sprites[index].y[count] = col + 0.5;
+				dt->sprites[index].x = row + 0.5;
+				dt->sprites[index].y = col + 0.5;
 				count++;
 			}
 			col++;

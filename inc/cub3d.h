@@ -175,11 +175,15 @@ typedef struct s_sprite_texture
 {
 	void	*sprite_img;
 	int		*sprite_data; // Or char* depending on format
-	t_img	img;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	float	x;
+	float	y;
+	float	distance_to_player;
 	char	type;
-	float	*x;
-	float	*y;
-	float	*distance_to_player;
 	int		texture_id;
 	char	*filepath;
 }	t_sprite;

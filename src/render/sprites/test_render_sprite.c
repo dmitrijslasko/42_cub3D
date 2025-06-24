@@ -11,11 +11,11 @@ int test_render_sprite(t_data *dt)
 	int offset_x = WINDOW_W / 2;
 	int offset_y = WINDOW_H / 2;
 
-	for (int row = 0; row < dt->sprites[0].img.height; row++)
+	for (int row = 0; row < dt->sprites[0].height; row++)
 	{
-		for (int col = 0; col < dt->sprites[0].img.width; col++)
+		for (int col = 0; col < dt->sprites[0].width; col++)
 		{
-			unsigned int color = dt->sprites[0].sprite_data[row * dt->sprites[0].img.width + col];
+			unsigned int color = dt->sprites[0].sprite_data[row * dt->sprites[0].width + col];
 
 			// Skip transparent pixels (commonly 0)
 			if (color != TRANSPARENT_COLOR)

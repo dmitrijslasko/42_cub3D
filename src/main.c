@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 	dt.view = protected_malloc(sizeof(t_view), dt);
 
 	load_textures(&dt);
-	// load_sprites(&dt);
+	load_sprites(&dt);
 	init_doors(&dt);
 
 	setup_img(&dt, dt.minimap_base, dt.map.map_size_cols * MINIMAP_GRID_SIZE, dt.map.map_size_rows * MINIMAP_GRID_SIZE);

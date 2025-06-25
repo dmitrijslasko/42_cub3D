@@ -18,8 +18,12 @@ int test_render_sprite(t_data *dt, int spriteScreenX)
 			unsigned int color = dt->sprites[0].sprite_data[row * dt->sprites[0].width + col];
 
 			// Skip transparent pixels (commonly 0)
-			if (color != TRANSPARENT_COLOR)
-				img_pix_put(dt->scene_img, offset_x + col, offset_y + row, color);
+
+			int draw_x = offset_x + col;
+			int draw_y = offset_y + row;
+
+			if (draw_x >= 0 && draw_x < WINDOW_W && draw_y >= 0 && draw_y < WINDOW_H && color != TRANSPARENT_COLOR)
+				img_pix_put(dt->scene_img, draw_x, draw_y, color);
 		}
 	}
 	return (EXIT_SUCCESS);

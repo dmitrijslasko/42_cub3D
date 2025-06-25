@@ -9,6 +9,8 @@ void init_doors(t_data *dt)
 	size_t 	curr_col;
 
 	// malloc
+	print_separator_default();
+	printf(TXT_YELLOW "DOORS\n" TXT_RESET);
 	door_count = count_elements_in_the_map(&dt->map, "|-");
 	printf("Doors found: %zu\n", door_count);
 	dt->doors = malloc(sizeof(t_door) * door_count);
@@ -42,4 +44,5 @@ void init_doors(t_data *dt)
 		}
 		curr_row++;
 	}
+	printf(TXT_GREEN "Done!\n" TXT_RESET);
 }

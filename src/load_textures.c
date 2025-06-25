@@ -13,7 +13,8 @@ int load_textures(t_data *dt)
 	t_texture *texture;
 	size_t i;
 
-	printf("Loading textures...");
+	print_separator_default();
+	printf(TXT_YELLOW ">>> TEXTURES\n" TXT_RESET);
 
 	i = 0;
 	while (i < 6)
@@ -32,8 +33,9 @@ int load_textures(t_data *dt)
 													&texture->bpp,
 													&texture->size_line,
 													&texture->endian);
+		printf("Texture [%zu]: %s loaded!\n", i, texture->file);
 		i++;
 	}
-	printf(" Done!\n");
+	printf(TXT_GREEN "Done!\n" TXT_RESET);
 	return (EXIT_SUCCESS);
 }

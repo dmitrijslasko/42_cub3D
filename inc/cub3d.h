@@ -104,6 +104,7 @@ typedef struct s_ray
 	char		hit_side;
 	char		hit_content;
 	t_door		*door;
+	float 		distance_to_door_center;
 }	t_ray;
 
 typedef struct s_texture
@@ -415,5 +416,9 @@ float		fix_fish_eye(t_ray *ray, t_player *player);
 int			my_sleep(void);
 
 void		init_doors(t_data *dt);
+
+int clamp(int value, int min, int max);
+
+void render_3d_scene(t_data *dt);
 
 #endif

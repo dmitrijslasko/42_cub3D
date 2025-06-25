@@ -21,3 +21,21 @@ size_t	count_elements_in_the_map(t_map *map, char *element)
 	}
 	return (element_count);
 }
+
+size_t	count_types_elements_in_the_map(t_map *map, char *element)
+{
+	size_t	i;
+	size_t	element_type_count;
+	char	*type;
+
+	element_type_count = 0;
+	i = 0;
+	while (element[i])
+	{
+		type = ft_substr(element, i++, 1);
+		if (count_elements_in_the_map(map, type) > 0)
+			element_type_count++;
+		free(type);
+	}
+	return (element_type_count);
+}

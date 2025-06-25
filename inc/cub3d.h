@@ -195,6 +195,7 @@ typedef struct s_sprite
 	t_x_y	pos;
 	float	distance_to_player;
 	int		sprite_texture_id;
+	char	type;
 	bool	visible;
 }	t_sprite;
 
@@ -215,6 +216,7 @@ typedef struct s_data
 	t_sprite		*sprites;
 	size_t			sprite_count;
 	t_sprite_txt	*sprites_txt;
+	size_t			sprite_txt_count;
 	t_view			*view;
 	t_mouse			mouse;
 	float			sin_table[PRECALCULATED_TRIG];
@@ -416,6 +418,7 @@ int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);
 
 size_t		count_elements_in_the_map(t_map *map, char *element);
+size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
 int 		test_render_sprite(t_data *dt, int spriteScreenX);
 

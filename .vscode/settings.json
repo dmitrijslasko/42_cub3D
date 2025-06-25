@@ -19,6 +19,7 @@
 		"array": "c",
 		"math.h": "c",
 		"time.h": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"settings.h": "c"
 	}
 }

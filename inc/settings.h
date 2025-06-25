@@ -67,6 +67,7 @@
 
 // gameplay
 # define FIELD_OF_VIEW_DEG					60.0f
+# define FIELD_OF_VIEW_SCALE				0.577 //tan(FIELD_OF_VIEW_DEG / 2)
 # define SCALING				            500
 
 // colors

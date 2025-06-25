@@ -90,6 +90,11 @@ typedef struct s_x_y
 	float	y;
 }	t_x_y;
 
+typedef	struct s_camera_plan
+{
+	t_x_y	plane;
+}	t_camera;
+
 typedef struct s_ray
 {
 	float		distance_to_wall;
@@ -197,6 +202,7 @@ typedef struct s_data
 	t_img		*minimap_base;
 	t_img		*minimap;
 	t_map		map;
+	t_camera	camera;
 	t_door		*doors;
 	size_t		door_count;
 	t_ray		*rays;
@@ -405,7 +411,7 @@ void		process_keypresses(t_data *dt);
 
 size_t		count_elements_in_the_map(t_map *map, char *element);
 
-int			test_render_sprite(t_data *dt);
+int 		test_render_sprite(t_data *dt, int spriteScreenX);
 
 int			set_mouse_to_screen_center(t_data *dt);
 

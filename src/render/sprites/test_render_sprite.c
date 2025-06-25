@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int test_render_sprite(t_data *dt)
+int test_render_sprite(t_data *dt, int spriteScreenX)
 {
 	if (!dt->sprites || !dt->sprites[0].sprite_data)
 	{
@@ -8,8 +8,8 @@ int test_render_sprite(t_data *dt)
 		return (EXIT_FAILURE);
 	}
 
-	int offset_x = WINDOW_W / 2;
-	int offset_y = WINDOW_H / 2;
+	int offset_x = spriteScreenX - dt->sprites[0].width / 2;
+	int offset_y = WINDOW_H / 2 - dt->sprites[0].height / 2;
 
 	for (int row = 0; row < dt->sprites[0].height; row++)
 	{

@@ -31,7 +31,7 @@
 // structs
 typedef enum e_wall_type
 {
-	DEFAULT = -1,
+	DEFAULT_WALL = -1,
 	NORTH,
 	WEST,
 	SOUTH,
@@ -132,7 +132,7 @@ typedef struct s_map
 	char		**map_data;
 	size_t		map_size_rows;
 	size_t		map_size_cols;
-	t_wall_tile	wall_tile[6];
+	t_wall_tile	wall_tile[7];
 }	t_map;
 
 typedef struct s_player

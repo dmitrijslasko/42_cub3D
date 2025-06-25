@@ -14,8 +14,8 @@ bool	initialize_rays(t_data *dt)
 	{
 		dt->rays[i].distance_to_wall = 0;
 		dt->rays[i].percentage_of_image = 0;
-		dt->rays[i].wall_type = DEFAULT;
-		dt->rays[i].cell_type = DEFAULT;
+		dt->rays[i].wall_type = DEFAULT_WALL;
+		dt->rays[i].cell_type = DEFAULT_WALL;
 		i++;
 	}
 	printf(TXT_GREEN "Done!\n" TXT_RESET);

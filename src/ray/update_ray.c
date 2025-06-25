@@ -69,6 +69,13 @@ int door_is_hit(t_data *dt, t_coor *coor_map, t_ray *ray)
 	cell_entry_x = dt->player.pos.x + ray->vector.x * ray->distance_to_wall;
 	cell_entry_y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
 
+	if (ray->id == 0)
+	 	printf("Ray [%zu] entered door cell at [%f, %f]\n", ray->id, cell_entry_x, cell_entry_y);
+	if (ray->id == CASTED_RAYS_COUNT / 2 - 1)
+	 	printf("Ray [%zu] entered door cell at [%f, %f]\n", ray->id, cell_entry_x, cell_entry_y);
+	if (ray->id == CASTED_RAYS_COUNT - 1)
+	 	printf("Ray [%zu] entered door cell at [%f, %f]\n", ray->id, cell_entry_x, cell_entry_y);
+
 	if (ray->hit_side == 'x')
 	{
 		step = (ray->vector.x > 0) ? 0.5f : -0.5f;
@@ -91,7 +98,11 @@ int door_is_hit(t_data *dt, t_coor *coor_map, t_ray *ray)
 	door_hit_x = cell_entry_x + ray->vector.x * ray->distance_to_door_center;
 	door_hit_y = cell_entry_y + ray->vector.y * ray->distance_to_door_center;
 
-	// if (ray->id == CASTED_RAYS_COUNT / 2 - 1)
+	//if (ray->id == 0)
+	// 	printf("Ray [%zu] entered door at [%f, %f]\n", ray->id, door_hit_x, door_hit_y);
+	//if (ray->id == CASTED_RAYS_COUNT / 2 - 1)
+	// 	printf("Ray [%zu] entered door at [%f, %f]\n", ray->id, door_hit_x, door_hit_y);
+	//if (ray->id == CASTED_RAYS_COUNT - 1)
 	// 	printf("Ray [%zu] entered door at [%f, %f]\n", ray->id, door_hit_x, door_hit_y);
 
 	if (door_hit_x >= coor_map->x && door_hit_x <= coor_map->x + 1 &&

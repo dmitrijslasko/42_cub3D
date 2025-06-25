@@ -5,8 +5,8 @@ bool	check_all_wall_tile(t_map *map)
 	int	i;
 
 	i = 0;
-	while (i < 6)
-		if (map->wall_tile[i++].wall_type == DEFAULT)
-			return (error_message("Error: Wall,floor or door not defined.", 0));
+	while (i < 7)
+		if (map->wall_tile[i++].wall_type == DEFAULT_WALL)
+			return (error_message("Error: Wall, floor or door not defined.", 0));
 	return (1);
 }

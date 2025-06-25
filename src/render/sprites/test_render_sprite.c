@@ -12,20 +12,19 @@ bool	valid_sprites(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
-int	test_render_sprite(t_data *dt, int spriteScreenX)
+int	test_render_sprite(t_data *dt, int spriteScreenX, int i)
 {
 	if (valid_sprites(dt))
 		return (EXIT_FAILURE);
 
-	int id_texture = dt->sprites[0].sprite_texture_id;
-	int offset_x = spriteScreenX - dt->sprites_txt[id_texture].width / 2;
-	int offset_y = WINDOW_H / 2 - dt->sprites_txt[id_texture].height / 2;
+	int offset_x = spriteScreenX - dt->sprites_txt[i].width / 2;
+	int offset_y = WINDOW_H / 2 - dt->sprites_txt[i].height / 2;
 
-	for (int row = 0; row < dt->sprites_txt[id_texture].height; row++)
+	for (int row = 0; row < dt->sprites_txt[i].height; row++)
 	{
-		for (int col = 0; col < dt->sprites_txt[id_texture].width; col++)
+		for (int col = 0; col < dt->sprites_txt[i].width; col++)
 		{
-			unsigned int color = dt->sprites_txt[id_texture].sprite_data[row * dt->sprites_txt[id_texture].width + col];
+			unsigned int color = dt->sprites_txt[i].sprite_data[row * dt->sprites_txt[i].width + col];
 
 			// Skip transparent pixels (commonly 0)
 

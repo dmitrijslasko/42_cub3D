@@ -420,7 +420,7 @@ void		process_keypresses(t_data *dt);
 size_t		count_elements_in_the_map(t_map *map, char *element);
 size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
-int 		test_render_sprite(t_data *dt, int spriteScreenX);
+int			test_render_sprite(t_data *dt, int spriteScreenX, int i);
 
 int			set_mouse_to_screen_center(t_data *dt);
 

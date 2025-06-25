@@ -10,12 +10,22 @@ int	load_sprite_images(t_data *dt)
 	printf("Sprite images to be loaded: %zu\n", dt->sprite_txt_count);
 	while (i <  dt->sprite_txt_count)
 	{
+		if (i == 0)
+		{
 		sprites_txt[i].sprite_img = mlx_xpm_file_to_image( \
 			dt->mlx_ptr, \
 			"./sprites/sprite-1.xpm", \
 			&sprites_txt[i].width, \
 			&sprites_txt[i].height \
-		);
+		);}
+
+		if (i == 1)
+		{ sprites_txt[i].sprite_img = mlx_xpm_file_to_image( \
+			dt->mlx_ptr, \
+			"./sprites/KODOS.xpm", \
+			&sprites_txt[i].width, \
+			&sprites_txt[i].height \
+		);}
 
 		sprites_txt[i].sprite_data = (int *)mlx_get_data_addr( \
 			sprites_txt[i].sprite_img, \

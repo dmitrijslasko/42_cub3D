@@ -13,7 +13,10 @@ bool	initialize_rays(t_data *dt)
 	while (i < CASTED_RAYS_COUNT)
 	{
 		dt->rays[i].distance_to_wall = 0;
+		dt->rays[i].distance_to_door = 0;
 		dt->rays[i].percentage_of_image = 0;
+		dt->rays[i].wall_hit.x = 0;
+		dt->rays[i].wall_hit.y = 0;
 		dt->rays[i].wall_type = DEFAULT_WALL;
 		dt->rays[i].cell_type = DEFAULT_WALL;
 		i++;

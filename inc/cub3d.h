@@ -100,11 +100,11 @@ typedef struct s_ray
 	int			cell_type;
 	int			wall_type;
 	t_x_y		vector;
-	t_x_y		hit_point;
+	t_x_y		wall_hit;
 	char		hit_side;
 	char		hit_content;
 	t_door		*door;
-	float 		distance_to_door_center;
+	float 		distance_to_door;
 }	t_ray;
 
 typedef struct s_texture
@@ -420,5 +420,8 @@ void		init_doors(t_data *dt);
 int clamp(int value, int min, int max);
 
 void render_3d_scene(t_data *dt);
+
+int		fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
+void 	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 #endif

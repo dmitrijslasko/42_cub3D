@@ -22,7 +22,7 @@
 # define TRACKED_KEYS	70000
 
 // fps and casted rays count
-# define FPS					40
+# define FPS					30
 
 # define PRECALCULATED_TRIG		3600
 
@@ -53,7 +53,7 @@
 # define MINIMAP_DOOR_COLOR					BLUE
 # define MINIMAP_THIN_WALL					LIME
 
-# define MINIMAP_PLAYER_SIZE_PX 			10
+# define MINIMAP_PLAYER_SIZE_PX 			2
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 

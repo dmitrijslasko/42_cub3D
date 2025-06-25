@@ -57,11 +57,19 @@ void	add_coor_info(t_data *dt)
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].wall_hit.x);
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Hit point X: ");
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Cell hit point X: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].wall_hit.y);
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Hit point Y: ");
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Cell hit point Y: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].door_hit.x);
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Door hit point X: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].door_hit.y);
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 }
 

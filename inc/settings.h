@@ -16,7 +16,7 @@
 # define VERSION_INFO        "cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
-# define WINDOW_W		1200
+# define WINDOW_W		600
 # define WINDOW_H		WINDOW_W / 4 * 3
 
 # define TRACKED_KEYS	70000

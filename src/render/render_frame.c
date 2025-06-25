@@ -29,6 +29,7 @@ int	render_frame(void *param)
 		// print_player_logs(dt);
 
 	calculate_all_rays(dt);
+
 	render_3d_scene(dt);
 
 	update_minimap(dt);

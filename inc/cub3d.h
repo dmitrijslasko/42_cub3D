@@ -104,6 +104,7 @@ typedef struct s_ray
 	char		hit_side;
 	char		hit_content;
 	t_door		*door;
+	t_x_y		door_hit;
 	float 		distance_to_door;
 }	t_ray;
 
@@ -294,7 +295,7 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 // TODO DL: remove player from parameters
-void	set_wall_distance_and_type(t_data *dt, t_ray *ray, t_coor *map_coor);
+void	set_ray_distance_to_wall(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);

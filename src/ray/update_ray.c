@@ -40,56 +40,65 @@ void set_door_dist_and_type(t_data *dt, t_ray *ray, char side, t_coor *map_pos)
 bool	check_hit_door_cell(t_coor *coord, t_data *dt, t_ray *ray, char side)
 {
 	char	next_tile;
-	//char	current_tile;
 
 	(void) ray;
 	next_tile = get_cell_type(&dt->map, coord);
-	if (side == 'x')
-	{
-		if (next_tile == '|')
-			return (1);
-	}
+	if (next_tile == '|')
+		return (1);
 	return (0);
 }
 
-int ray_hits_door(t_data *dt, t_coor *coor_map, t_ray *ray)
+int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray)
 {
 	t_door *door;
-	float step;
-	float door_hit_x, door_hit_y;
+	float	step;
+	float	door_hit_x;
+	float	door_hit_y;
 
-	door = find_door_at(dt, coor_map->x, coor_map->y);
+	// find the door in the specified cell
+	door = find_door_at(dt, map_coor->x, map_coor->y);
 	if (!door)
 		return 0;
 
 	float distance_to_door;
 	float distance_to_wall = ray->distance_to_wall;
 
+	distance_to_door = 0;
 	if (ray->hit_side == 'x')
 	{
 		step = (ray->vector.x > 0) ? door->pos_x : -door->pos_x;
 		distance_to_door = step / ray->vector.x;
 	}
-	else
-	{
-		step = (ray->vector.y > 0) ? door->pos_y : -door->pos_y;
-		distance_to_door = step / ray->vector.y;
-	}
+	// else
+	// {
+	// 	step = (ray->vector.y > 0) ? door->pos_y : -door->pos_y;
+	// 	distance_to_door = step / ray->vector.y;
+	// }
+	if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+		printf("Distance to door: %f\n", distance_to_door);
 
-	float wall_hit_x = dt->player.pos.x + ray->vector.x * distance_to_wall;
-	float wall_hit_y = dt->player.pos.y + ray->vector.y * distance_to_wall;
+	ray->distance_to_door = distance_to_door;
+
+	if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+		printf("Ray [%zu] distance to door: %f\n", ray->id, ray->distance_to_door);
+
+	// if (ray->id == CASTED_RAYS_COUNT / 2)
+	// 	printf("Ray [%zu] wall hit X Y: %f %f\n", ray->id, wall_hit_x, wall_hit_y);
 
 	// Go deeper into the cell
-	door_hit_x = wall_hit_x + ray->vector.x * ray->distance_to_door;
-	door_hit_y = wall_hit_y + ray->vector.y * ray->distance_to_door;
+	door_hit_x = ray->wall_hit.x + ray->vector.x * ray->distance_to_door;
+	door_hit_y = ray->wall_hit.y + ray->vector.y * ray->distance_to_door;
+	ray->door_hit.x = door_hit_x;
+	ray->door_hit.y = door_hit_y;
 
-	if (door_hit_x >= coor_map->x && door_hit_x <= coor_map->x + 1 &&
-		door_hit_y >= coor_map->y && door_hit_y <= coor_map->y + 1)
+	// if (ray->id == CASTED_RAYS_COUNT / 2)
+	// 	printf("Ray [%zu] door hit X Y: %f %f\n", ray->id, door_hit_x, door_hit_y);
+
+	if (door_hit_x > map_coor->x && door_hit_x < map_coor->x + 1 &&
+		door_hit_y > map_coor->y && door_hit_y < map_coor->y + 1)
 	{
-		ray->door = door;
-		ray->distance_to_door = distance_to_door;
-		ray->distance_to_wall += distance_to_door;
-		ray->cell_type = DOOR_VERTICAL;
+		if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+			printf("Ray [%zu] hits the door!\n", ray->id);
 		return (1);
 	}
 	return (0);
@@ -97,10 +106,11 @@ int ray_hits_door(t_data *dt, t_coor *coor_map, t_ray *ray)
 
 void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 {
-	t_coor	coor_map;
+	t_coor	map_coor;
 	t_x_y	step;
 	char	hit_side;
 	int		door_hit;
+	int		door_cell_hit;
 
 	door_hit = 0;
 	hit_side = 0;
@@ -108,56 +118,75 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 	// This line sets the step based on the vector directions
 	set_step(&step, &ray->vector);
 
-	coor_map.x = (size_t)dt->player.pos.x;
-	coor_map.y = (size_t)dt->player.pos.y;
+	map_coor.x = (size_t)dt->player.pos.x;
+	map_coor.y = (size_t)dt->player.pos.y;
 
-	while (coor_map.x < dt->map.map_size_cols && \
-			coor_map.y < dt->map.map_size_rows)
+	if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+		printf("Ray [%zu] first checking cell X Y: %zu %zu\n", ray->id, map_coor.x, map_coor.y);
+
+
+	while (map_coor.x < dt->map.map_size_cols && \
+			map_coor.y < dt->map.map_size_rows)
 	{
 		if (side_dist->x < side_dist->y)
 		{
 			side_dist->x += delta_dist->x;
-			coor_map.x += step.x;
+			map_coor.x += step.x;
 			hit_side = 'x';
 		}
 		else
 		{
 			side_dist->y += delta_dist->y;
-			coor_map.y += step.y;
+			map_coor.y += step.y;
 			hit_side = 'y';
 		}
 
-		set_wall_distance_and_type(dt, ray, &coor_map);
+		// ray distances
+		set_ray_distance_to_wall(dt, ray, &map_coor);
+
+		// if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+		// 	printf("Ray [%zu] distance to cell edge: %f\n", ray->id, ray->distance_to_wall);
+
 		ray->wall_hit.x = dt->player.pos.x + ray->vector.x * ray->distance_to_wall;
 		ray->wall_hit.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
 
-		if (check_hit_door_cell(&coor_map, dt, ray, hit_side))
+		if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+			printf(TXT_CYAN "Ray [%zu] checking cell X Y: %zu %zu\n" TXT_RESET, ray->id, map_coor.x, map_coor.y);
+
+		door_cell_hit = check_hit_door_cell(&map_coor, dt, ray, hit_side);
+
+
+		if (door_cell_hit &&
+			(ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2))
+
+			printf("The ray hits the door cell at X Y: %f %f\n", ray->wall_hit.x, ray->wall_hit.y);
+
+		if (door_cell_hit)
 		{
-			door_hit = ray_hits_door(dt, &coor_map, ray);
-			if (ray->id == CASTED_RAYS_COUNT / 2 - 1)
-				printf("Ray hitting door: %d!\n", door_hit);
-
+			door_hit = ray_hits_door(dt, &map_coor, ray);
 			if (door_hit)
-			{
-
-
 				break ;
-			}
 		}
-		if (check_hit_wall(&coor_map, &dt->map, ray, hit_side))
+		if (check_hit_wall(&map_coor, &dt->map, ray, hit_side))
 			break ;
 	}
 
-	set_cell_type(dt, ray, &coor_map);
-
-
+	set_cell_type(dt, ray, &map_coor);
 	ray->hit_side = hit_side;
 
-	if (door_hit == 0)
-   		set_wall_distance_and_type(dt, ray, &coor_map);
+   	set_ray_distance_to_wall(dt, ray, &map_coor);
+	if (door_hit)
+		ray->distance_to_wall += ray->distance_to_door;
 	set_wall_type(ray);
 	set_perc_wall(&dt->player.pos, ray);
 	ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
+	if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+		printf("----------------------------\n");
+	if (ray->id == CASTED_RAYS_COUNT - 1)
+	{
+		printf("Ray [%zu] vector: (%f, %f)\n", ray->id, ray->vector.x, ray->vector.y);
+		printf("Ray [%zu] distance_to_wall: %f\n", ray->id, ray->distance_to_wall);
+	}
 
 
 }

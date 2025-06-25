@@ -6,10 +6,10 @@ int render_sprites(t_data *dt)
 
 	for (int i = 0; i < 1; i++)
 	{
-		distance = (dt->sprites[i].x - dt->player.pos.x) *
-				(dt->sprites[i].x - dt->player.pos.x) +
-				(dt->sprites[i].y - dt->player.pos.y) *
-				(dt->sprites[i].y - dt->player.pos.y);
+		distance = (dt->sprites[i].pos.x - dt->player.pos.x) *
+				(dt->sprites[i].pos.x - dt->player.pos.x) +
+				(dt->sprites[i].pos.y - dt->player.pos.y) *
+				(dt->sprites[i].pos.y - dt->player.pos.y);
 		(void) distance;
 		// printf("Distance to sprite[%d]: %.2f\n", i, distance);
 	}
@@ -18,8 +18,8 @@ int render_sprites(t_data *dt)
 
 	float dx;
 	float dy;
-	dx = dt->sprites[0].x - dt->player.pos.x;
-	dy = dt->sprites[0].y - dt->player.pos.y;
+	dx = dt->sprites[0].pos.x - dt->player.pos.x;
+	dy = dt->sprites[0].pos.y - dt->player.pos.y;
 
 	// float invDet = 1 / (-FIELD_OF_VIEW_SCALE * (dt->player.direction_vector.x * dt->player.direction_vector.x + 
 	// 											dt->player.direction_vector.y * dt->player.direction_vector.y) )

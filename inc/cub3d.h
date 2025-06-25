@@ -178,6 +178,7 @@ typedef struct s_img
 
 typedef struct s_sprite_texture
 {
+	int		texture_id;
 	void	*sprite_img;
 	int		*sprite_data; // Or char* depending on format
 	int		width;
@@ -185,36 +186,41 @@ typedef struct s_sprite_texture
 	int		bpp;
 	int		size_line;
 	int		endian;
-	float	x;
-	float	y;
-	float	distance_to_player;
 	char	type;
-	int		texture_id;
 	char	*filepath;
+}	t_sprite_txt;
+
+typedef struct s_sprite
+{
+	t_x_y	pos;
+	float	distance_to_player;
+	int		sprite_texture_id;
+	bool	visible;
 }	t_sprite;
 
 
 typedef struct s_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		*scene_img;
-	t_img		*minimap_base;
-	t_img		*minimap;
-	t_map		map;
-	t_camera	camera;
-	t_door		*doors;
-	size_t		door_count;
-	t_ray		*rays;
-	t_player	player;
-	t_sprite	*sprites;
-	size_t		sprite_count;
-	t_view		*view;
-	t_mouse		mouse;
-	float		sin_table[PRECALCULATED_TRIG];
-	float		cos_table[PRECALCULATED_TRIG];
-	char		keys[TRACKED_KEYS];
-	void		*welcome_img;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img			*scene_img;
+	t_img			*minimap_base;
+	t_img			*minimap;
+	t_map			map;
+	t_camera		camera;
+	t_door			*doors;
+	size_t			door_count;
+	t_ray			*rays;
+	t_player		player;
+	t_sprite		*sprites;
+	size_t			sprite_count;
+	t_sprite_txt	*sprites_txt;
+	t_view			*view;
+	t_mouse			mouse;
+	float			sin_table[PRECALCULATED_TRIG];
+	float			cos_table[PRECALCULATED_TRIG];
+	char			keys[TRACKED_KEYS];
+	void			*welcome_img;
 }	t_data;
 
 
@@ -298,7 +304,7 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 // TODO DL: remove player from parameters
-void	set_wall_dist_and_type(t_data *dt, t_ray *ray, char c, t_coor *map_coor);
+void		set_wall_dist_and_type(t_data *dt, t_ray *ray, char c, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);

@@ -29,7 +29,7 @@ bool	check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side)
 		if (neighbour_right == 'v')
 			return (1);
 	}
-	if (tile == '1' || tile == '|')
+	if (tile == '1')
 		return (1);
 
 	return (0);

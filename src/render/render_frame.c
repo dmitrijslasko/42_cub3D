@@ -9,7 +9,6 @@ int	render_frame(void *param)
 	dt = (t_data *)param;
 
 	// Render FPS at the predefined FPS
-	// usleep(500);
 	current_time = get_current_time_in_ms();
 	if (current_time - last_time < (1000 / FPS))
 	{
@@ -25,8 +24,6 @@ int	render_frame(void *param)
 
 	reset_mouse_position(dt);
 
-	// if (SHOW_CALCULATION_LOGS)
-		// print_player_logs(dt);
 
 	calculate_all_rays(dt);
 
@@ -37,7 +34,7 @@ int	render_frame(void *param)
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
 
 	// minimap base image
-	// mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap_base->mlx_img, 600, 600);
+	//mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap_base_img->mlx_img, 600, 600);
 
 	// minimap (open/close with Tab)
 	if (dt->view->show_minimap)

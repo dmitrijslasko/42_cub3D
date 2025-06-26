@@ -197,7 +197,7 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		*scene_img;
-	t_img		*minimap_base;
+	t_img		*minimap_base_img;
 	t_img		*minimap;
 	t_map		map;
 	t_door		*doors;
@@ -295,7 +295,7 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 // TODO DL: remove player from parameters
-void	set_ray_distance_to_wall(t_data *dt, t_ray *ray, t_coor *map_coor);
+void	update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
@@ -304,9 +304,9 @@ void		calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y *s
 //t_ray		*constructor_ray(float dist, t_wall_type wall);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
-bool		initialize_rays(t_data *dt);
+bool		init_rays(t_data *dt);
 void		set_side_dist(t_x_y *side_dist, t_x_y *dir_vec, t_x_y *pos_player, t_x_y *delta_dist);
-void		set_step(t_x_y *step, t_x_y *dir_vec);
+void		set_step(t_coor *step, t_x_y *dir_vec);
 
 //update_coor_player->c
 // t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
@@ -424,5 +424,10 @@ void render_3d_scene(t_data *dt);
 
 int		fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
 void 	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
+
+int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
+
+
+t_door *find_door_at(t_data *dt, int x, int y);
 
 #endif

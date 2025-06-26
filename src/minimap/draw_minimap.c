@@ -1,5 +1,42 @@
 #include "cub3d.h"
 
+int	draw_minimap_wall_cell(t_data *dt, size_t curr_col, size_t curr_row)
+{
+	draw_square_from_top_left(dt->minimap_base_img,
+			curr_col * MINIMAP_GRID_SIZE,
+			curr_row * MINIMAP_GRID_SIZE,
+			MINIMAP_GRID_SIZE,
+			MINIMAP_WALL_CELL_COLOR);
+}
+
+int	draw_minimap_thin_wall_vertical(t_data *dt, size_t curr_col, size_t curr_row)
+{
+	t_coor top_left;
+	t_coor bottom_right;
+
+	top_left.x = curr_col * MINIMAP_GRID_SIZE;
+	top_left.y = curr_row * MINIMAP_GRID_SIZE;
+
+	bottom_right.x = top_left.x + 10;
+	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
+
+	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_WALL_CELL_COLOR);
+}
+
+int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
+{
+	t_coor top_left;
+	t_coor bottom_right;
+
+	top_left.x = (curr_col + 0.5f) * MINIMAP_GRID_SIZE;
+	top_left.y = curr_row * MINIMAP_GRID_SIZE;
+
+	bottom_right.x = top_left.x + MINIMAP_DOOR_THICKNESS_PX;
+	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
+
+	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_WALL_CELL_COLOR);
+}
+
 int	draw_minimap_map(t_data *dt)
 {
 	size_t	curr_row;
@@ -10,9 +47,9 @@ int	draw_minimap_map(t_data *dt)
 	t_coor bottom_right;
 
 	set_coor_values(&top_left, 0, 0);
-	set_coor_values(&bottom_right,	dt->minimap_base->width,
-									dt->minimap_base->height);
-	draw_rectangle(dt->minimap_base, top_left, bottom_right, MINIMAP_BACKGROUND_COLOR);
+	set_coor_values(&bottom_right,	dt->minimap_base_img->width,
+									dt->minimap_base_img->height);
+	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_BACKGROUND_COLOR);
 
 	curr_row = 0;
 	while (curr_row < dt->map.map_size_rows)
@@ -26,15 +63,28 @@ int	draw_minimap_map(t_data *dt)
 				continue ;
 			}
 			if (ft_strchr("NSWE", dt->map.map_data[curr_row][curr_col]))
-				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
+			{
+		color = MINIMAP_THIN_WALL;		color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
+			}
 			else if (ft_strchr("v", dt->map.map_data[curr_row][curr_col]))
-				color = MINIMAP_THIN_WALL;
+			{
+				draw_minimap_thin_wall_vertical(dt, curr_col++, curr_row);
+				continue ;
+			}
+			else if (ft_strchr("h", dt->map.map_data[curr_row][curr_col]))
+				color = BLACK;
 			else if (ft_strchr("|-", dt->map.map_data[curr_row][curr_col]))
-				color = MINIMAP_DOOR_COLOR;
+			{
+				draw_minimap_door_vertical(dt, curr_col++, curr_row);
+				continue ;
+			}
 			else if (ft_strchr("1", dt->map.map_data[curr_row][curr_col]))
-				color = MINIMAP_WALL_CELL_COLOR;
+			{
+				draw_minimap_wall_cell(dt, curr_col++, curr_row);
+				continue ;
+			}
 
-			draw_square_from_top_left(dt->minimap_base,
+			draw_square_from_top_left(dt->minimap_base_img,
 						curr_col * MINIMAP_GRID_SIZE,
 						curr_row * MINIMAP_GRID_SIZE,
 						MINIMAP_GRID_SIZE,
@@ -134,7 +184,7 @@ int update_minimap(t_data *dt)
 	dx = MINIMAP_SIZE / 2 - dt->player.pos.x * MINIMAP_GRID_SIZE;
 	dy = MINIMAP_SIZE / 2 - dt->player.pos.y * MINIMAP_GRID_SIZE;
 
-	put_img_to_img(dt->minimap, dt->minimap_base, dx, dy);
+	put_img_to_img(dt->minimap, dt->minimap_base_img, dx, dy);
 
 	// draw player in the ce
 	draw_minimap_player(dt);

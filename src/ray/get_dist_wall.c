@@ -18,38 +18,27 @@ void 	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor)
 		ray->cell_type = EMPTY_CELL;
 }
 
-void	set_ray_distance_to_wall(t_data *dt, t_ray *ray, t_coor *map_coor)
+void	update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor)
 {
-	t_x_y	step;
+	t_coor	step;
 	float	distance;
+	t_cell_type tile;
 
 	set_step(&step, &ray->vector);
 
 	distance = 0.0f;
-
 	if (ray->hit_side == 'x')
 	{
-		distance = (map_coor->x - dt->player.pos.x + (1 - step.x) / 2) / ray->vector.x;
-		if (distance < 0.0f) distance = 0.0f;
+		distance = (
+			(float)(map_coor->x - dt->player.pos.x + (1 - step.x) / 2.0f)
+		) / ray->vector.x;
 	}
 	else if (ray->hit_side == 'y')
 	{
-		distance = (map_coor->y - dt->player.pos.y + (1 - step.y) / 2) / ray->vector.y;
-
-		if (distance < 0.0f) distance = 0.0f;
+		distance = (
+			(float)(map_coor->y - dt->player.pos.y + (1 - step.y) / 2.0f)
+		) / ray->vector.y;
 	}
 
-	ray->distance_to_wall = distance;
-
-	if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
-	{
-		printf("map coor x: %zu\n", map_coor->x);
-		printf("map coor y: %zu\n", map_coor->y);
-		printf("player coor x: %f\n", dt->player.pos.x);
-		printf("ray vector x: %f\n", ray->vector.x);
-		printf("Ray [%zu] distance to cell edge: %f\n", ray->id, ray->distance_to_wall);
-	}
-
-
-	// ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
+	ray->distance_to_wall = fabsf(distance);
 }

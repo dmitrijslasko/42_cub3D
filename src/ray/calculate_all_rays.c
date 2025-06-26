@@ -6,7 +6,10 @@ int	calculate_all_rays(t_data *dt)
 	t_x_y	vector;
 	double	angle;
 
-	angle = -FIELD_OF_VIEW_DEG / 2;
+	if (CASTED_RAYS_COUNT == 1)
+		angle = 0.0f;
+	else
+		angle = -FIELD_OF_VIEW_DEG / 2;
 	i = 0;
 	while (i < CASTED_RAYS_COUNT)
 	{

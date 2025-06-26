@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-bool	initialize_rays(t_data *dt)
+bool	init_rays(t_data *dt)
 {
 	size_t	i;
 

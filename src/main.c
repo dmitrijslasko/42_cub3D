@@ -14,7 +14,11 @@ int	main(int argc, char **argv)
 		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
 
 	if (parsing(&dt, argv[1]))
+	//	printf(TXT_RED "%s failed\n" TXT_RESET, argv[1]);
+	//else
+	//	printf(TXT_GREEN "%s successed\n" TXT_RESET, argv[1]);
 		exit(1);
+
 	// Load dummy map
 	// dt.map = load_dummy_map();
 	print_level_map(&dt.map);
@@ -28,7 +32,7 @@ int	main(int argc, char **argv)
 	// init_player(&dt);
 
 	// Initialize ray array. Later the rays get updated in render function.
-	initialize_rays(&dt);
+	init_rays(&dt);
 
 	// VISUAL PART
 	// -------------------------------------------------------------------------
@@ -38,14 +42,15 @@ int	main(int argc, char **argv)
 
 	dt.scene_img = protected_malloc(sizeof(t_img), dt);
 	dt.minimap = protected_malloc(sizeof(t_img), dt);
-	dt.minimap_base = protected_malloc(sizeof(t_img), dt);
+	dt.minimap_base_img = protected_malloc(sizeof(t_img), dt);
 	dt.view = protected_malloc(sizeof(t_view), dt);
 
 	load_textures(&dt);
 	// load_sprites(&dt);
 	init_doors(&dt);
 
-	setup_img(&dt, dt.minimap_base, dt.map.map_size_cols * MINIMAP_GRID_SIZE, dt.map.map_size_rows * MINIMAP_GRID_SIZE);
+	// minimap base image
+	setup_img(&dt, dt.minimap_base_img, dt.map.map_size_cols * MINIMAP_GRID_SIZE, dt.map.map_size_rows * MINIMAP_GRID_SIZE);
 	draw_minimap_map(&dt);
 
 	setup_view(&dt);

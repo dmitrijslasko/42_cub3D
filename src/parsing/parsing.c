@@ -22,7 +22,7 @@ bool	parsing(t_data *dt, char *file)
 {
 	int	fd;
 
-	if (!check_type_file(file, "cub"))
+	if (!check_type_file(file, ".cub"))
 		return (1);
 	fd = ft_open(file);
 	if (fd <= 0)

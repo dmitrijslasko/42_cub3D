@@ -367,6 +367,7 @@ int			error_message_close_fd(char *msg, int fd, int ret);
 int			error_message2(char *msg, char*msg2, int ret);
 int			error_message_free(char *msg, char **array, int ret);
 int			free_array_return(char **array, int ret);
+int			error_free_char_return(char *msg, char *str, int ret);
 void		free_array(char **array);
 
 // utils

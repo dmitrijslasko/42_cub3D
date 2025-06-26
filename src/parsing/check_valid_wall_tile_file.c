@@ -5,7 +5,6 @@ bool	check_valid_wall_tile_file(int fd)
 	char	**array;
 	char	*line;
 
-
 	array = NULL;
 	line = free_line_get_next(NULL, fd);
 	while (line)
@@ -23,7 +22,6 @@ bool	check_valid_wall_tile_file(int fd)
 		if (!check_valid_color_or_texture(array))
 			return (free_array_return(array, 1));
 		line = free_line_get_next(line, fd);
-		// free_array(array);
 	}
 	free_line_get_next(line, -1);
 	close(fd);

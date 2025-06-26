@@ -431,4 +431,6 @@ int			my_sleep(void);
 
 void		init_doors(t_data *dt);
 
+size_t		size_array(char **array);
+
 #endif

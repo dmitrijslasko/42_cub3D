@@ -1,15 +1,31 @@
 #include "cub3d.h"
 
-void	copy_line(t_map *map, int row, char *line)
+bool	check_valid_caracter_map(char c)
+{
+	if (!ft_strchr("01", c) || !ft_strchr(WHITE_SPACE, c))
+		return (1);
+	if (!ft_strchr(SPRITES_TYPES, c))
+		return (1);
+	// thin wall and door
+	return (error_message("Error: Caracter in map not valid!", 0));
+}
+
+bool	copy_line(t_map *map, int row, char *line)
 {
 	size_t	col;
+	char	c;
 
 	col = 0;
+	c = '0';
 	while (line && line[col])
 	{
-		map->map_data[row][col] = line[col];
+		c = line[col];
+		if (!check_valid_caracter_map(c))
+			return (EXIT_FAILURE);
+		map->map_data[row][col] = c;
 		col++;
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	get_value_map(char *line, int fd, t_map *map)
@@ -23,4 +39,5 @@ void	get_value_map(char *line, int fd, t_map *map)
 		line = free_line_get_next(line, fd);
 		count_row++;
 	}
+	free_line_get_next(line, -1);
 }

@@ -46,8 +46,8 @@ bool	set_size_map_data1(t_map *map, int fd)
 	{
 		if (is_empty_line(line))
 			break ;
-		if (is_valid_line_texture(line))
-			return (error_free_char_return("Error map->", line, 1));
+		// if (is_valid_line_texture(line))
+		// 	return (error_free_char_return("Error map->", line, 1));
 		count_row++;
 		update_value_max(&count_col, line);
 		line = free_line_get_next(line, fd);

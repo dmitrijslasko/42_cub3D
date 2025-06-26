@@ -26,7 +26,7 @@ bool	get_color(t_color *color, char **color_arr)
 		while (array[j])
 		{
 			if (!check_only_number(array[j]) || count > 3)
-				return (1);
+				return (free_array_return(array, 1));
 			add_color(color, ft_atoi(array[j++]), count++);
 		}
 		free_array(array);

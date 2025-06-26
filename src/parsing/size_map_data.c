@@ -1,11 +1,5 @@
 #include "cub3d.h"
 
-void	update_value_max(size_t *count, char *line)
-{
-	if (*count < ft_strlen(line))
-		*count = ft_strlen(line);
-}
-
 bool	check_empty_line_end_file(char *line, int fd)
 {
 	while (line && is_empty_line(line))
@@ -47,8 +41,6 @@ bool	set_size_map_data1(t_map *map, int fd)
 	{
 		if (is_empty_line(line))
 			break ;
-		// if (is_valid_line_texture(line))
-		// 	return (error_free_char_return("Error map->", line, 1));
 		count_row++;
 		update_value_max(&count_col, line);
 		line = free_line_get_next(line, fd);

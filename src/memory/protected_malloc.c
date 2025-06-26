@@ -14,5 +14,6 @@ void	*protected_malloc(size_t size, t_data *dt)
 			free_dt(dt);
 		exit (1);
 	}
+	ft_memset(ptr, '\0', size);
 	return (ptr);
 }

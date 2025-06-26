@@ -436,5 +436,6 @@ void		init_doors(t_data *dt);
 
 size_t		size_array(char **array);
 void		free_array(char **array);
+void		update_value_max(size_t *count, char *line);
 
 #endif

@@ -50,9 +50,10 @@ bool	check_valid_color_or_texture(char **info)
 		if (!check_valid_color(&info[1]))
 			return (error_message2("Error: invalid color or file for ", \
 									info[0], 0));
+		return (1);
 	}
-	else if (info[2])
-		return (error_message2("Error: invalid file for ", info[0], 0));
 	close(fd_texture_file);
+	if (info[2])
+		return (error_message2("Error: invalid file for ", info[0], 0));
 	return (1);
 }

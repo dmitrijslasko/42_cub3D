@@ -4,14 +4,15 @@ bool	check_single_line_wall_tile(char *line)
 {
 	char	**array;
 	size_t	size;
+	int		ret;
 
 	array = ft_split_special(line, WHITE_SPACE);
 	size = size_array(array);
 	if (size < 2)
 		return (error_message_free("Not valid input!", array, 0));
-	if (!check_valid_color_or_texture(array))
-		return (free_array_return(array, 0));
-	return (1);
+	ret = check_valid_color_or_texture(array);
+	free_array(array);
+	return (ret);
 }
 
 bool	check_valid_wall_tile_file1(int fd)

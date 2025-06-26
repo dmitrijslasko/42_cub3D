@@ -208,7 +208,7 @@ typedef struct s_data
 	t_img			*minimap_base;
 	t_img			*minimap;
 	t_map			map;
-	t_camera		camera;
+	// t_camera		camera;
 	t_door			*doors;
 	size_t			door_count;
 	t_ray			*rays;
@@ -261,7 +261,8 @@ void		setup_mouse_hooks(t_data *dt);
 // int			draw_map(t_data *dt);
 
 
-void		*protected_malloc(size_t size, t_data dt);
+void		*protected_malloc(size_t size, t_data *dt);
+void		free_dt(t_data *dt);
 
 static inline int	pixel_is_in_window(int x, int y);
 
@@ -273,16 +274,17 @@ bool		check_only_number(char *str);
 bool		check_valid_player(t_map *map);
 bool		check_valid_color_or_texture(char **info);
 bool		is_empty_line(char *line);
+void		init_dt(t_data *dt);
 // bool		is_delimiter(char c, const char *delimiters);
 bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
 bool		check_valid_wall_tile_file(char *file);
-bool		create_map_data(t_map *map);
-bool		create_double_array(char ***array, size_t max_row, size_t max_col);
+bool		create_map_data(t_map *map, t_data *dt);
+bool		create_double_array(char ***array, size_t max_row, size_t max_col, t_data *dt);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
 char		*remove_space_beginner(char *str);
-bool		init_value_map_data(char *file, t_map *map);
+bool		init_value_map_data(char *file, t_data *dt);
 bool		init_default_map(t_map *map);
 bool		init_value_player(t_map *map, t_player *player);
 int			ft_open(char *file);
@@ -295,7 +297,7 @@ void		get_init_position(t_map *map, t_player *player);
 bool		set_color_or_texture(t_map *map, char *identifier, char **value);
 bool		set_texture(char *identifier, char *file_texture, t_map *map);
 bool		set_color(char *identifier, char **color, t_map *map);
-bool		check_valid_map(t_map *map, t_player *player);
+bool		check_valid_map(t_map *map, t_player *player, t_data *dt);
 char		get_cell_type(t_map *map, t_coor *coord);
 char		get_cell_type_by_coordinates(t_map *map, size_t y, size_t x);
 char		**ft_split_special(const char *s, char *c);

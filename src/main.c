@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 		printf(TXT_RED "%s Error\n" TXT_RESET, argv[1]);
 	else
 		printf(TXT_GREEN "%s Sucessed\n" TXT_RESET, argv[1]);
+	free_dt(&dt);
 	exit(1);
 	// dt.map = load_dummy_map();
 	print_level_map(&dt.map);
@@ -39,10 +40,10 @@ int	main(int argc, char **argv)
 
 	setup_mlx_and_win(&dt);
 
-	dt.scene_img = protected_malloc(sizeof(t_img), dt);
-	dt.minimap = protected_malloc(sizeof(t_img), dt);
-	dt.minimap_base = protected_malloc(sizeof(t_img), dt);
-	dt.view = protected_malloc(sizeof(t_view), dt);
+	dt.scene_img = protected_malloc(sizeof(t_img), &dt);
+	dt.minimap = protected_malloc(sizeof(t_img), &dt);
+	dt.minimap_base = protected_malloc(sizeof(t_img), &dt);
+	dt.view = protected_malloc(sizeof(t_view), &dt);
 
 	load_textures(&dt);
 	load_sprites(&dt);

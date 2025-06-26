@@ -75,7 +75,7 @@ void	find_all_sprites(t_data *dt)
 	sprite_count = count_elements_in_the_map(&dt->map, SPRITES_TYPES);
 	if (!sprite_count)
 		return ;
-	dt->sprites = protected_malloc(sprite_count * sizeof(t_sprite), *dt);
+	dt->sprites = protected_malloc(sprite_count * sizeof(t_sprite), dt);
 	dt->sprite_count = sprite_count;
 	find_sprites(dt);
 }
@@ -92,7 +92,7 @@ int	load_sprites(t_data *dt)
 	if (sprite_type_count == 0)
 		return (EXIT_SUCCESS);
 	printf("Sprites found in the map: %zu\n", sprite_type_count);
-	dt->sprites_txt = protected_malloc(sizeof(t_sprite_txt) * sprite_type_count, *dt);
+	dt->sprites_txt = protected_malloc(sizeof(t_sprite_txt) * sprite_type_count, dt);
 	dt->sprite_txt_count = sprite_type_count;
 	load_sprite_images(dt);
 	find_all_sprites(dt);

@@ -18,11 +18,11 @@ bool	is_open_map(char **map, char **visited, int row, int col)
 	return (0);
 }
 
-bool	check_valid_map(t_map *map, t_player *player)
+bool	check_valid_map(t_map *map, t_player *player, t_data *dt)
 {
 	char	**visited;
 
-	create_double_array(&visited, map->map_size_rows, map->map_size_cols);
+	create_double_array(&visited, map->map_size_rows, map->map_size_cols, dt);
 	if (is_open_map(map->map_data, visited, (int)player->pos.y, \
 											(int)player->pos.x))
 		return (error_message_free("Error: Invalid map.", visited, 0));

@@ -2,18 +2,22 @@
 
 bool	is_valid_line_texture(char *line)
 {
-	line = remove_space_beginner(line);
-	if (!ft_strncmp(line, "SO ", 3))
+	int	i;
+
+	i = 0;
+	while (line[i] && ft_strchr(WHITE_SPACE, line[i]))
+		i++;
+	if (!ft_strncmp(&line[i], "SO ", 3))
 		return (1);
-	else if (!ft_strncmp(line, "NO ", 3))
+	else if (!ft_strncmp(&line[i], "NO ", 3))
 		return (1);
-	else if (!ft_strncmp(line, "WE ", 3))
+	else if (!ft_strncmp(&line[i], "WE ", 3))
 		return (1);
-	else if (!ft_strncmp(line, "EA ", 3))
+	else if (!ft_strncmp(&line[i], "EA ", 3))
 		return (1);
-	else if (!ft_strncmp(line, "F ", 2))
+	else if (!ft_strncmp(&line[i], "F ", 2))
 		return (1);
-	else if (!ft_strncmp(line, "C ", 2))
+	else if (!ft_strncmp(&line[i], "C ", 2))
 		return (1);
 	return (0);
 }

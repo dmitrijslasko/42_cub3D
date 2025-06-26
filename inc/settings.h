@@ -16,7 +16,7 @@
 # define VERSION_INFO        "cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
-# define WINDOW_W		600
+# define WINDOW_W		1200
 # define WINDOW_H		WINDOW_W / 4 * 3
 
 # define TRACKED_KEYS	70000
@@ -57,7 +57,7 @@
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
-# define MINIMAP_RAY_LENGTH		            2
+# define MINIMAP_RAY_LENGTH		            4
 
 # define MINIMAP_DIRECTION_RAY_ENABLE       1
 # define MINIMAP_DIRECTION_RAY_COLOR		MAGENTA

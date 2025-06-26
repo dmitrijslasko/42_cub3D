@@ -30,14 +30,16 @@ void	set_ray_distance_to_wall(t_data *dt, t_ray *ray, t_coor *map_coor)
 	if (ray->hit_side == 'x')
 	{
 		distance = (map_coor->x - dt->player.pos.x + (1 - step.x) / 2) / ray->vector.x;
-		// if (distance < 0.0f) distance = 0.0f;
+		if (distance < 0.0f) distance = 0.0f;
 	}
 	else if (ray->hit_side == 'y')
 	{
 		distance = (map_coor->y - dt->player.pos.y + (1 - step.y) / 2) / ray->vector.y;
 
-		// if (distance < 0.0f) distance = 0.0f;
+		if (distance < 0.0f) distance = 0.0f;
 	}
+
+	ray->distance_to_wall = distance;
 
 	if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
 	{
@@ -48,6 +50,6 @@ void	set_ray_distance_to_wall(t_data *dt, t_ray *ray, t_coor *map_coor)
 		printf("Ray [%zu] distance to cell edge: %f\n", ray->id, ray->distance_to_wall);
 	}
 
-	ray->distance_to_wall = distance;
+
 	// ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
 }

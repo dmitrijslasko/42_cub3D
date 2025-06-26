@@ -3,7 +3,7 @@
 
 void	set_wall_type(t_ray *ray)
 {
-	int wall_type;
+	int 	wall_type;
 	char	hit_side;
 
 	hit_side = ray->hit_side;

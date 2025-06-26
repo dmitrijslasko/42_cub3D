@@ -17,8 +17,11 @@ bool	initialize_rays(t_data *dt)
 		dt->rays[i].percentage_of_image = 0;
 		dt->rays[i].wall_hit.x = 0;
 		dt->rays[i].wall_hit.y = 0;
-		dt->rays[i].wall_type = DEFAULT_WALL;
-		dt->rays[i].cell_type = DEFAULT_WALL;
+		dt->rays[i].wall_type = -1;
+		dt->rays[i].cell_type = -1;
+		dt->rays[i].door = NULL;
+		dt->rays[i].hit_side = NULL;
+		dt->rays[i].hit_content = NULL;
 		i++;
 	}
 	printf(TXT_GREEN "Done!\n" TXT_RESET);

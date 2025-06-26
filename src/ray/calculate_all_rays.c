@@ -4,7 +4,7 @@ int	calculate_all_rays(t_data *dt)
 {
 	size_t	i;
 	t_x_y	vector;
-	float	angle;
+	double	angle;
 
 	angle = -FIELD_OF_VIEW_DEG / 2;
 	i = 0;

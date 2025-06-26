@@ -48,29 +48,34 @@ void	add_coor_info(t_data *dt)
 	else
 		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "N/D");
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].distance_to_wall);
+	size_t ray_id = CASTED_RAYS_COUNT / 2 - 1;
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_id].distance_to_wall);
 	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Distance to wall: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].percentage_of_image);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_id].percentage_of_image);
 	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Percentage of image: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].wall_hit.x);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_id].wall_hit.x);
 	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Cell hit point X: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].wall_hit.y);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_id].wall_hit.y);
 	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Cell hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].door_hit.x);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_id].door_hit.x);
 	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Door hit point X: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[CASTED_RAYS_COUNT / 2].door_hit.y);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_id].door_hit.y);
 	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+
+	// mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door ID: ");
+	// mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_id].door->id));
+	// printf("%d\n", dt->rays[ray_id].door->id);
 }
 
 void	add_crosshair(t_data *dt, int color)

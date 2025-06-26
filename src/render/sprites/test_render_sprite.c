@@ -1,32 +1,40 @@
 #include "cub3d.h"
 
-bool	valid_sprites(t_data *dt)
+bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_txt *sprite_txt)
 {
-	int	id_texture;
+	size_t	i;
 
-	if (!dt->sprites)
-		return (EXIT_FAILURE);
-	id_texture = dt->sprites[0].sprite_texture_id;
-	if (id_texture < -1 || !dt->sprites_txt[id_texture].sprite_data)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (!dt->sprites || !dt->sprites_txt)
+		return (0);
+
+	i = 0;
+	while (i < dt->sprite_txt_count)
+	{
+		if (dt->sprites_txt[i].type == type_sprite)
+		{
+			*sprite_txt = dt->sprites_txt[i];
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
-int	test_render_sprite(t_data *dt, int spriteScreenX, int i)
+int	test_render_sprite(t_data *dt, int spriteScreenX, char type_sprite)
 {
-	if (valid_sprites(dt))
+	t_sprite_txt	sprite_txt;
+
+	if (!valid_sprites(dt, type_sprite, &sprite_txt))
 		return (EXIT_FAILURE);
 
-	int offset_x = spriteScreenX - dt->sprites_txt[i].width / 2;
-	int offset_y = WINDOW_H / 2 - dt->sprites_txt[i].height / 2;
+	int offset_x = spriteScreenX - sprite_txt.width / 2;
+	int offset_y = WINDOW_H / 2 - sprite_txt.height / 2;
 
-	for (int row = 0; row < dt->sprites_txt[i].height; row++)
+	for (int row = 0; row < sprite_txt.height; row++)
 	{
-		for (int col = 0; col < dt->sprites_txt[i].width; col++)
+		for (int col = 0; col < sprite_txt.width; col++)
 		{
-			unsigned int color = dt->sprites_txt[i].sprite_data[row * dt->sprites_txt[i].width + col];
-
-			// Skip transparent pixels (commonly 0)
+			unsigned int color = sprite_txt.sprite_data[row * sprite_txt.width + col];
 
 			int draw_x = offset_x + col;
 			int draw_y = offset_y + row;

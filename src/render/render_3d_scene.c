@@ -64,5 +64,5 @@ void render_3d_scene(t_data *dt)
 		i++;
 	}
 	//print_separator_default();
-	// render_sprites(dt);
+	render_sprites(dt);
 }

@@ -1,25 +1,14 @@
 #include "cub3d.h"
 
-int render_sprites(t_data *dt)
+int render_sprites1(t_data *dt, t_sprite *sprite, int i)
 {
-	float	distance;
-
-	for (int i = 0; i < 2; i++)
-	{
-		distance = (dt->sprites[i].pos.x - dt->player.pos.x) *
-				(dt->sprites[i].pos.x - dt->player.pos.x) +
-				(dt->sprites[i].pos.y - dt->player.pos.y) *
-				(dt->sprites[i].pos.y - dt->player.pos.y);
-		(void) distance;
-		// printf("Distance to sprite[%d]: %.2f\n", i, distance);
-	
 	// dt->camera.plane.x =  -dt->player.direction_vector.y * FIELD_OF_VIEW_SCALE;
 	// dt->camera.plane.y =  dt->player.direction_vector.x * FIELD_OF_VIEW_SCALE;
 
 	float dx;
 	float dy;
-	dx = dt->sprites[i].pos.x - dt->player.pos.x;
-	dy = dt->sprites[i].pos.y - dt->player.pos.y;
+	dx = sprite->pos.x - dt->player.pos.x;
+	dy = sprite->pos.y - dt->player.pos.y;
 
 	// float invDet = 1 / (-FIELD_OF_VIEW_SCALE * (dt->player.direction_vector.x * dt->player.direction_vector.x + 
 	// 											dt->player.direction_vector.y * dt->player.direction_vector.y) )
@@ -37,7 +26,19 @@ int render_sprites(t_data *dt)
 	int spriteScreenX = (WINDOW_W / 2) * (1 + transformX / transformY);
 
 	if (transformY > 0)
-		test_render_sprite(dt, spriteScreenX, i);
-	}
+		test_render_sprite(dt, spriteScreenX, sprite->type);
 	return (EXIT_SUCCESS);
+}
+
+int	render_sprites(t_data *dt)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < dt->sprite_count)
+	{
+		render_sprites1(dt, &dt->sprites[i], i);
+		i++;
+	}
+
 }

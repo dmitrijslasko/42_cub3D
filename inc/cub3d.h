@@ -197,7 +197,7 @@ typedef struct s_sprite_texture
 typedef struct s_sprite
 {
 	t_x_y	pos;
-	float	distance_to_player;
+	float	dist_to_player;
 	int		sprite_texture_id;
 	char	type;
 	bool	visible;
@@ -313,7 +313,7 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 // TODO DL: remove player from parameters
-void	update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor);
+void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
@@ -428,7 +428,7 @@ void		process_keypresses(t_data *dt);
 size_t		count_elements_in_the_map(t_map *map, char *element);
 size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
-int			test_render_sprite(t_data *dt, int spriteScreenX, int i);
+int			test_render_sprite(t_data *dt, int spriteScreenX, char type_sprite);
 
 int			set_mouse_to_screen_center(t_data *dt);
 
@@ -442,16 +442,20 @@ size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(size_t *count, char *line);
 
-int clamp(int value, int min, int max);
+int 		clamp(int value, int min, int max);
 
-void render_3d_scene(t_data *dt);
+void 		render_3d_scene(t_data *dt);
 
-int		fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
-void 	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
+int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
+void 		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
-int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
+int 		ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
 
 
-t_door *find_door_at(t_data *dt, int x, int y);
+t_door 		*find_door_at(t_data *dt, int x, int y);
+
+//sprites
+void		find_all_sprites(t_data *dt);
+void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 
 #endif

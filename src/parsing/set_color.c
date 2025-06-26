@@ -26,7 +26,7 @@ bool	get_color(t_color *color, char **color_arr)
 		while (array[j])
 		{
 			if (!check_only_number(array[j]) || count > 3)
-				return (1);
+				return (free_array_return(array, 1));
 			add_color(color, ft_atoi(array[j++]), count++);
 		}
 		free_array(array);
@@ -44,6 +44,6 @@ bool	set_color(char *identifier, char **color, t_map *map)
 	map->wall_tile[wall_type].wall_type = wall_type;
 	map->wall_tile[wall_type].is_color = true;
 	if (get_color(&map->wall_tile[wall_type].color, color))
-		return (error_message2("Error: format/color of ", identifier, 1));
+		return (error_message2("Error: Format/color of ", identifier, 1));
 	return (0);
 }

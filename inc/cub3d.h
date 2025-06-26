@@ -90,6 +90,11 @@ typedef struct s_x_y
 	float	y;
 }	t_x_y;
 
+typedef	struct s_camera_plan
+{
+	t_x_y	plane;
+}	t_camera;
+
 typedef struct s_ray
 {
 	float		distance_to_wall;
@@ -129,7 +134,7 @@ typedef struct s_map
 	char		**map_data;
 	size_t		map_size_rows;
 	size_t		map_size_cols;
-	t_wall_tile	wall_tile[6];
+	t_wall_tile	wall_tile[NUMBER_TEXTURES];
 }	t_map;
 
 typedef struct s_player
@@ -173,38 +178,51 @@ typedef struct s_img
 
 typedef struct s_sprite_texture
 {
+	int		texture_id;
 	void	*sprite_img;
 	int		*sprite_data; // Or char* depending on format
-	t_img	img;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
 	char	type;
-	float	*x;
-	float	*y;
-	float	*distance_to_player;
-	int		texture_id;
 	char	*filepath;
+}	t_sprite_txt;
+
+typedef struct s_sprite
+{
+	t_x_y	pos;
+	float	distance_to_player;
+	int		sprite_texture_id;
+	char	type;
+	bool	visible;
 }	t_sprite;
 
 
 typedef struct s_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		*scene_img;
-	t_img		*minimap_base;
-	t_img		*minimap;
-	t_map		map;
-	t_door		*doors;
-	size_t		door_count;
-	t_ray		*rays;
-	t_player	player;
-	t_sprite	*sprites;
-	size_t		sprite_count;
-	t_view		*view;
-	t_mouse		mouse;
-	float		sin_table[PRECALCULATED_TRIG];
-	float		cos_table[PRECALCULATED_TRIG];
-	char		keys[TRACKED_KEYS];
-	void		*welcome_img;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img			*scene_img;
+	t_img			*minimap_base;
+	t_img			*minimap;
+	t_map			map;
+	// t_camera		camera;
+	t_door			*doors;
+	size_t			door_count;
+	t_ray			*rays;
+	t_player		player;
+	t_sprite		*sprites;
+	size_t			sprite_count;
+	t_sprite_txt	*sprites_txt;
+	size_t			sprite_txt_count;
+	t_view			*view;
+	t_mouse			mouse;
+	float			sin_table[PRECALCULATED_TRIG];
+	float			cos_table[PRECALCULATED_TRIG];
+	char			keys[TRACKED_KEYS];
+	void			*welcome_img;
 }	t_data;
 
 
@@ -243,7 +261,8 @@ void		setup_mouse_hooks(t_data *dt);
 // int			draw_map(t_data *dt);
 
 
-void		*protected_malloc(size_t size, t_data dt);
+void		*protected_malloc(size_t size, t_data *dt);
+void		free_dt(t_data *dt);
 
 static inline int	pixel_is_in_window(int x, int y);
 
@@ -255,17 +274,19 @@ bool		check_only_number(char *str);
 bool		check_valid_player(t_map *map);
 bool		check_valid_color_or_texture(char **info);
 bool		is_empty_line(char *line);
+void		init_dt(t_data *dt);
 // bool		is_delimiter(char c, const char *delimiters);
 bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
-bool		check_valid_wall_tile_file(int fd);
-bool		create_map_data(t_map *map);
-bool		create_double_array(char ***array, size_t max_row, size_t max_col);
+bool		check_valid_wall_tile_file(char *file);
+bool		create_map_data(t_map *map, t_data *dt);
+bool		create_double_array(char ***array, size_t max_row, size_t max_col, t_data *dt);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
 char		*remove_space_beginner(char *str);
-bool		init_value_map_data(char *file, t_map *map);
+bool		init_value_map_data(char *file, t_data *dt);
 bool		init_default_map(t_map *map);
+bool		init_value_player(t_map *map, t_player *player);
 int			ft_open(char *file);
 t_wall_type	check_valid_identifier_texture_wall(char *identifier);
 bool		check_all_wall_tile(t_map *map);
@@ -276,7 +297,7 @@ void		get_init_position(t_map *map, t_player *player);
 bool		set_color_or_texture(t_map *map, char *identifier, char **value);
 bool		set_texture(char *identifier, char *file_texture, t_map *map);
 bool		set_color(char *identifier, char **color, t_map *map);
-bool		check_valid_map(t_map *map, t_player *player);
+bool		check_valid_map(t_map *map, t_player *player, t_data *dt);
 char		get_cell_type(t_map *map, t_coor *coord);
 char		get_cell_type_by_coordinates(t_map *map, size_t y, size_t x);
 char		**ft_split_special(const char *s, char *c);
@@ -288,7 +309,7 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 // TODO DL: remove player from parameters
-void	set_wall_dist_and_type(t_data *dt, t_ray *ray, char c, t_coor *map_coor);
+void		set_wall_dist_and_type(t_data *dt, t_ray *ray, char c, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
@@ -349,6 +370,7 @@ int			error_message_close_fd(char *msg, int fd, int ret);
 int			error_message2(char *msg, char*msg2, int ret);
 int			error_message_free(char *msg, char **array, int ret);
 int			free_array_return(char **array, int ret);
+int			error_free_char_return(char *msg, char *str, int ret);
 void		free_array(char **array);
 
 // utils
@@ -400,8 +422,9 @@ int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);
 
 size_t		count_elements_in_the_map(t_map *map, char *element);
+size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
-int			test_render_sprite(t_data *dt);
+int			test_render_sprite(t_data *dt, int spriteScreenX, int i);
 
 int			set_mouse_to_screen_center(t_data *dt);
 
@@ -410,5 +433,9 @@ float		fix_fish_eye(t_ray *ray, t_player *player);
 int			my_sleep(void);
 
 void		init_doors(t_data *dt);
+
+size_t		size_array(char **array);
+void		free_array(char **array);
+void		update_value_max(size_t *count, char *line);
 
 #endif

@@ -1,80 +1,88 @@
 #include "cub3d.h"
 
-t_door *find_door_at(t_data *dt, int x, int y)
-{
-	size_t	i;
 
-	i = 0;
-	// printf("Trying to find the wall at %d %d...\n", x, y);
-	// printf("Total doors %zu...\n",dt->door_count);
-    while (i < dt->door_count)
-    {
-        if (dt->doors[i].cell_x == x && dt->doors[i].cell_y == y)
-            return &dt->doors[i];
-		i++;
-    }
-    return NULL;
+bool	check_hit_door_cell(t_coor *map_coor, t_data *dt, t_ray *ray, char side)
+{
+	char	tile;
+
+	(void) ray;
+	tile = get_cell_type(&dt->map, map_coor);
+	if (tile == '|')
+		return (1);
+	return (0);
 }
 
-void set_door_dist_and_type(t_data *dt, t_ray *ray, char side, t_coor *map_pos)
+void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
 {
-    t_x_y step;
+	t_coor	map_coor;
+	t_coor	step;
+	char	hit_side;
+	int		door_hit;
+	int		door_cell_hit;
 
-    // Recalculate step (same logic as in your DDA)
-    step.x = (ray->vector.x < 0) ? -1 : 1;
-    step.y = (ray->vector.y < 0) ? -1 : 1;
+	door_hit = 0;
+	hit_side = 0;
+	door_cell_hit = 0;
 
-    if (side == 'x')
-    {
-        ray->distance_to_wall = (map_pos->x - dt->player.pos.x +
-                               (1 - step.x) / 2) / ray->vector.x;
-    }
-    else
-    {
-        ray->distance_to_wall = (map_pos->y - dt->player.pos.y +
-                               (1 - step.y) / 2) / ray->vector.y;
-    }
-    ray->hit_side = side;
-    ray->hit_content = dt->map.map_data[map_pos->y][map_pos->x];
-}
-
-void	calc_dist_ray(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*side_dist)
-{
-	t_x_y	player_pos;
-	t_coor	coor_map;
-	t_x_y	step;
-	char	c;
-	// int		door_hit;
-
+	// This line sets the step based on the vector directions
 	set_step(&step, &ray->vector);
 
-	player_pos.x = dt->player.pos.x;
-	player_pos.y = dt->player.pos.y;
+	map_coor.x = (size_t)dt->player.pos.x;
+	map_coor.y = (size_t)dt->player.pos.y;
 
-	coor_map.x = (size_t)dt->player.pos.x;
-	coor_map.y = (size_t)dt->player.pos.y;
 
-	while (coor_map.x < dt->map.map_size_cols && \
-			coor_map.y < dt->map.map_size_rows)
+	size_t i = 0;
+
+	while (map_coor.x <  dt->map.map_size_cols && map_coor.y < dt->map.map_size_rows)
 	{
 		if (side_dist->x < side_dist->y)
 		{
 			side_dist->x += delta_dist->x;
-			coor_map.x += step.x;
-			c = 'x';
+			map_coor.x += step.x;
+			hit_side = 'x';
 		}
 		else
 		{
 			side_dist->y += delta_dist->y;
-			coor_map.y += step.y;
-			c = 'y';
+			map_coor.y += step.y;
+			hit_side = 'y';
 		}
-		if (check_hit_wall(&coor_map, &dt->map, ray, c))
+
+		ray->hit_side = hit_side;
+
+		// Ray distances
+		update_ray_distance_to_cell_edge(dt, ray, &map_coor);
+
+		ray->wall_hit.x = dt->player.pos.x + ray->vector.x * ray->distance_to_wall;
+		ray->wall_hit.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
+
+		// CHECK IF THE RAY HITS A DOOR CELL
+		door_cell_hit = check_hit_door_cell(&map_coor, dt, ray, hit_side);
+
+		if (door_cell_hit)
+		{
+			//printf("Checking if it also hits the door!\n");
+			door_hit = ray_hits_door(dt, &map_coor, ray);
+			if (door_hit)
+				break ;
+		}
+		if (check_hit_wall(&map_coor, &dt->map, ray, hit_side))
 			break ;
 	}
-    set_wall_dist_and_type(dt, ray, c, &coor_map);
 
-	ray->hit_point.x = player_pos.x + ray->vector.x * ray->distance_to_wall;
-	ray->hit_point.y = player_pos.y + ray->vector.y * ray->distance_to_wall;
+	set_cell_type(dt, ray, &map_coor);
+
+	if (door_hit == 1)
+	{
+		ray->distance_to_wall += ray->distance_to_door;
+		//printf(TXT_MAGENTA "TOTAL DISTANCE TO DOOR: %.2f\n" TXT_RESET, ray->distance_to_wall);
+	}
+
+	set_wall_type(ray);
+	set_perc_wall(&dt->player.pos, ray);
+
+	ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
+	//if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
+	//	//printf("----------------------------\n");
 
 }

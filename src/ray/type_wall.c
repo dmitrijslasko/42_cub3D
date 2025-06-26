@@ -1,15 +1,18 @@
 
 #include "cub3d.h"
 
-void	set_wall_type(char c, t_ray *ray)
+void	set_wall_type(t_ray *ray)
 {
-	int wall_type;
+	int 	wall_type;
+	char	hit_side;
 
-	if (c == 'y' && ray->vector.y < 0)
+	hit_side = ray->hit_side;
+
+	if (hit_side == 'y' && ray->vector.y < 0)
 		wall_type = SOUTH;
-	else if (c == 'y')
+	else if (hit_side == 'y')
 		wall_type = NORTH;
-	else if (c == 'x' && ray->vector.x < 0)
+	else if (hit_side == 'x' && ray->vector.x < 0)
 		wall_type = EAST;
 	else
 		wall_type = WEST;

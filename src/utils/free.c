@@ -23,8 +23,8 @@ void	free_dt(t_data *dt)
 		free(dt->scene_img);
 	if (dt->minimap)
 		free(dt->minimap);
-	if (dt->minimap_base)
-		free(dt->minimap_base);
+	if (dt->minimap_base_img)
+		free(dt->minimap_base_img);
 	if (dt->doors)
 		free(dt->doors);
 	if (dt->rays)

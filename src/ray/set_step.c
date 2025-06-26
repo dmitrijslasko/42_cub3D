@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	set_step(t_x_y *step, t_x_y *dir_vec)
+void	set_step(t_coor *step, t_x_y *dir_vec)
 {
 	if (dir_vec->x < 0)
 		step->x = -1;

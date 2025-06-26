@@ -1,58 +1,52 @@
 #include "cub3d.h"
 
+typedef struct s_texture_match
+{
+	const char				*str_with_space;
+	const char				*str;
+	const size_t			length;
+	const int				wall_type;
+}							t_texture_match;
+
+static const t_texture_match g_textures_lookup[] = {
+{"SO ", "SO", 3, SOUTH},
+{"NO ", "NO", 3, NORTH},
+{"WE ", "WE", 3, WEST},
+{"EA ", "EA", 3, EAST},
+{"F ", "F", 2, FLOOR},
+{"C ", "C", 2, CEILING},
+{"D ", "D", 2, DOOR},
+{NULL, NULL, -1, -1}
+};
+
 bool	is_valid_line_texture(char *line)
 {
-	int	i;
+	size_t i;
 
 	i = 0;
 	while (line[i] && ft_strchr(WHITE_SPACE, line[i]))
 		i++;
-	if (!ft_strncmp(&line[i], "SO ", 3))
-		return (1);
-	else if (!ft_strncmp(&line[i], "NO ", 3))
-		return (1);
-	else if (!ft_strncmp(&line[i], "WE ", 3))
-		return (1);
-	else if (!ft_strncmp(&line[i], "EA ", 3))
-		return (1);
-	else if (!ft_strncmp(&line[i], "F ", 2))
-		return (1);
-	else if (!ft_strncmp(&line[i], "C ", 2))
-		return (1);
+	while (g_textures_lookup[i].str_with_space)
+	{
+		if (!ft_strncmp(line, g_textures_lookup[i].str_with_space, g_textures_lookup[i].length))
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
-// bool	check_valid_identifier_texture(char *identifier)
-// {
-// 	if (!ft_strncmp(identifier, "SO", ft_strlen(identifier)))
-// 		return (1);
-// 	else if (!ft_strncmp(identifier, "NO", ft_strlen(identifier)))
-// 		return (1);
-// 	else if (!ft_strncmp(identifier, "WE", ft_strlen(identifier)))
-// 		return (1);
-// 	else if (!ft_strncmp(identifier, "EA", ft_strlen(identifier)))
-// 		return (1);
-// 	else if (!ft_strncmp(identifier, "F", ft_strlen(identifier)))
-// 		return (1);
-// 	else if (!ft_strncmp(identifier, "C", ft_strlen(identifier)))
-// 		return (1);
-// 	return (0);
-// }
+
 
 t_wall_type	check_valid_identifier_texture_wall(char *identifier)
 {
-	if (!ft_strncmp(identifier, "SO", ft_strlen(identifier)))
-		return (SOUTH);
-	else if (!ft_strncmp(identifier, "NO", ft_strlen(identifier)))
-		return (NORTH);
-	else if (!ft_strncmp(identifier, "WE", ft_strlen(identifier)))
-		return (WEST);
-	else if (!ft_strncmp(identifier, "EA", ft_strlen(identifier)))
-		return (EAST);
-	else if (!ft_strncmp(identifier, "F", ft_strlen(identifier)))
-		return (FLOOR);
-	else if (!ft_strncmp(identifier, "C", ft_strlen(identifier)))
-		return (CEILING);
-	else
-		return (DEFAULT);
+	size_t	i;
+
+ 	i = 0;
+	while (g_textures_lookup[i].str_with_space)
+	{
+		if (!ft_strncmp(identifier, g_textures_lookup[i].str, ft_strlen(identifier)))
+			return (g_textures_lookup[i].wall_type);
+		i++;
+	}
+	return (DEFAULT_WALL);
 }

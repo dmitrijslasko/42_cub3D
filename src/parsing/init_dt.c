@@ -6,7 +6,7 @@ void	init_dt(t_data *dt)
 	dt->win_ptr = NULL;
 	dt->scene_img = NULL;
 	dt->minimap = NULL;
-	dt->minimap_base = NULL;
+	dt->minimap_base_img = NULL;
 	dt->doors = NULL;
 	dt->rays = NULL;
 	dt->map.map_data = NULL;

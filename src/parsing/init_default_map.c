@@ -18,7 +18,7 @@ void	init_default_texture(t_texture *texture)
 void	init_default_wall_tile(t_wall_tile *wall_tile)
 {
 	wall_tile->is_color = 0;
-	wall_tile->wall_type = DEFAULT;
+	wall_tile->wall_type = DEFAULT_WALL;
 	init_default_texture(&wall_tile->texture);
 	init_default_color(&wall_tile->color);
 }

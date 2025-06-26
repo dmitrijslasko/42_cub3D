@@ -8,7 +8,6 @@ int	draw_minimap_rays(t_data *dt, int is_direction_vector)
 	set_coor_values(	&player_coor,
 						dt->minimap->width / 2,
 						dt->minimap->height / 2);
-	//printf("X Y: %d %d\n", player_coor.x, player_coor.y);
 
 	// draw the direction vector
 	if (is_direction_vector)

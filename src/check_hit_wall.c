@@ -15,7 +15,6 @@ bool	check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side)
 {
 	char	tile;
 	char	neighbour_right;
-	//char	neighbour_top;
 
 	tile = get_cell_type(map, coord);
 	neighbour_right = get_cell_type_by_coordinates(map, coord->y, coord->x + 1);
@@ -32,6 +31,7 @@ bool	check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side)
 	}
 	if (tile == '1')
 		return (1);
+
 	return (0);
 }
 

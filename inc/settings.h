@@ -120,6 +120,8 @@
 # define WELCOME_IMAGE       "./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  0
 
+//parsing
+# define NUMBER_TEXTURES    6 // four walls + celling + floor even if is a color
 # define WHITE_SPACE        " \a\b\t\n\v\f\r"
 # define SPRITES_TYPES      "spq"
 

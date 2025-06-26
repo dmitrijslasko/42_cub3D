@@ -33,6 +33,7 @@ void	get_init_position(t_map *map, t_player *player)
 {
 	size_t	row;
 	size_t	col;
+	char	c;
 
 	row = 0;
 	while (row < map->map_size_rows)
@@ -40,9 +41,10 @@ void	get_init_position(t_map *map, t_player *player)
 		col = 0;
 		while (col < map->map_size_cols)
 		{
-			if (ft_strchr("NSWE", map->map_data[row][col]))
+			c = map->map_data[row][col];
+			if (ft_strchr("NSWE", c))
 			{
-				find_position(player, col, row, map->map_data[row][col]);
+				find_position(player, col, row, c);
 				return ;
 			}
 			col++;

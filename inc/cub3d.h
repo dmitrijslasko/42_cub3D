@@ -134,7 +134,7 @@ typedef struct s_map
 	char		**map_data;
 	size_t		map_size_rows;
 	size_t		map_size_cols;
-	t_wall_tile	wall_tile[6];
+	t_wall_tile	wall_tile[NUMBER_TEXTURES];
 }	t_map;
 
 typedef struct s_player
@@ -284,6 +284,7 @@ void		remove_new_line(char *str);
 char		*remove_space_beginner(char *str);
 bool		init_value_map_data(char *file, t_map *map);
 bool		init_default_map(t_map *map);
+bool		init_value_player(t_map *map, t_player *player);
 int			ft_open(char *file);
 t_wall_type	check_valid_identifier_texture_wall(char *identifier);
 bool		check_all_wall_tile(t_map *map);
@@ -432,5 +433,6 @@ int			my_sleep(void);
 void		init_doors(t_data *dt);
 
 size_t		size_array(char **array);
+void		free_array(char **array);
 
 #endif

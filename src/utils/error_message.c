@@ -24,19 +24,6 @@ int	error_message2(char *msg, char*msg2, int ret)
 	return (ret);
 }
 
-void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return ;
-	while (!array[i])
-		free(array[i++]);
-	free(array);
-	array = NULL;
-}
-
 int	free_array_return(char **array, int ret)
 {
 	free_array(array);

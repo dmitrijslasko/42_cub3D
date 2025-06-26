@@ -25,6 +25,6 @@ bool	check_valid_map(t_map *map, t_player *player)
 	create_double_array(&visited, map->map_size_rows, map->map_size_cols);
 	if (is_open_map(map->map_data, visited, (int)player->pos.y, \
 											(int)player->pos.x))
-		return (error_message_free("Error: invalid map->", visited, 1));
-	return (free_array_return(visited, 0));
+		return (error_message_free("Error: Invalid map.", visited, 0));
+	return (free_array_return(visited, 1));
 }

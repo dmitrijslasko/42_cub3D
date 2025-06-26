@@ -14,9 +14,10 @@ int	main(int argc, char **argv)
 		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
 
 	if (parsing(&dt, argv[1]))
-	//	printf(TXT_RED "%s failed\n" TXT_RESET, argv[1]);
-	//else
-	//	printf(TXT_GREEN "%s successed\n" TXT_RESET, argv[1]);
+	// 	printf(TXT_RED "%s failed\n" TXT_RESET, argv[1]);
+	// else
+	// 	printf(TXT_GREEN "%s successed\n" TXT_RESET, argv[1]);
+	// free_dt(&dt);
 		exit(1);
 
 	// Load dummy map

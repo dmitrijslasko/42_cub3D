@@ -42,8 +42,8 @@ bool	check_valid_color_or_texture(char **info)
 {
 	int	fd_texture_file;
 
-	if (!check_valid_identifier_texture(info[0]))
-		return (error_message2("Error on identifier ", info[0], 0));
+	// if (!check_valid_identifier_texture(info[0]))
+	// 	return (error_message2("Error on identifier ", info[0], 0));
 	fd_texture_file = open(info[1], O_RDONLY);
 	if (fd_texture_file < 0)
 	{

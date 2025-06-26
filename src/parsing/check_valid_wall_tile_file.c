@@ -1,6 +1,30 @@
 #include "cub3d.h"
 
-bool	check_valid_wall_tile_file(int fd)
+size_t	size_array(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	while (array && array[i])
+		i++;
+	return (i);
+}
+
+bool	check_single_line_wall_tile(char *line)
+{
+	char	**array;
+	size_t	size;
+
+	array = ft_split_special(line, WHITE_SPACE);
+	size = size_array(array);
+	if (size < 2)
+		return (error_message_free("Not valid input!", array, 0));
+	if (!check_valid_color_or_texture(array))
+		return (free_array_return(array, 0));
+	return (1);
+}
+
+bool	check_valid_wall_tile_file1(int fd)
 {
 	char	**array;
 	char	*line;
@@ -16,14 +40,26 @@ bool	check_valid_wall_tile_file(int fd)
 		}
 		if (!is_valid_line_texture(line))
 			break ;
-		array = ft_split_special(line, WHITE_SPACE);
-		if (!array || !array[0] || !array[1])
-			return (error_message_free("Not valid input!", array, 1));
-		if (!check_valid_color_or_texture(array))
-			return (free_array_return(array, 1));
+		if (!check_single_line_wall_tile(line))
+		{
+			free_line_get_next(line, -1);
+			return (error_message("Error: Reading textures/colors.", 1));
+		}
 		line = free_line_get_next(line, fd);
 	}
 	free_line_get_next(line, -1);
-	close(fd);
 	return (free_array_return(array, 0));
+}
+
+bool	check_valid_wall_tile_file(char *file)
+{
+	int	fd;
+	int	ret;
+
+	fd = ft_open(file);
+	if (fd <= 0)
+		return (1);
+	ret = check_valid_wall_tile_file1(fd);
+	close(fd);
+	return (ret);
 }

@@ -20,15 +20,10 @@ bool	init_value_player(t_map *map, t_player *player)
 
 bool	parsing(t_data *dt, char *file)
 {
-	int	fd;
-
 	if (!check_type_file(file, ".cub"))
 		return (1);
-	fd = ft_open(file);
-	if (fd <= 0)
+	if (check_valid_wall_tile_file(file))
 		return (1);
-	if (check_valid_wall_tile_file(fd))
-		return (error_message_close_fd("Error: Reading textures.", fd, 1));
 	if (init_value_map_data(file, &dt->map))
 		return (1);
 	if (init_value_player(&dt->map, &dt->player))

@@ -276,7 +276,7 @@ bool		is_empty_line(char *line);
 // bool		is_delimiter(char c, const char *delimiters);
 bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
-bool		check_valid_wall_tile_file(int fd);
+bool		check_valid_wall_tile_file(char *file);
 bool		create_map_data(t_map *map);
 bool		create_double_array(char ***array, size_t max_row, size_t max_col);
 bool		check_type_file(char *file, char *type);

@@ -15,7 +15,10 @@ int	main(int argc, char **argv)
 
 	// Load dummy map
 	if (parsing(&dt, argv[1]))
-		exit(1);
+		printf(TXT_RED "%s Error\n" TXT_RESET, argv[1]);
+	else
+		printf(TXT_GREEN "%s Sucessed\n" TXT_RESET, argv[1]);
+	exit(1);
 	// dt.map = load_dummy_map();
 	print_level_map(&dt.map);
 

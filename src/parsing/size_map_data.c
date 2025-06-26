@@ -11,7 +11,7 @@ bool	check_empty_line_end_file(char *line, int fd)
 	while (line && is_empty_line(line))
 		line = free_line_get_next(line, fd);
 	if (line)
-		return (error_message("Error: don't expected line after map.", 1));
+		return (error_free_char_return("Error: don't expected line after map.", line, 1));
 	return (0);
 }
 
@@ -36,6 +36,7 @@ bool	set_size_map_data1(t_map *map, int fd)
 	char	*line;
 	size_t	count_row;
 	size_t	count_col;
+	int		ret;
 
 	count_col = 0;
 	count_row = 0;
@@ -52,11 +53,11 @@ bool	set_size_map_data1(t_map *map, int fd)
 		update_value_max(&count_col, line);
 		line = free_line_get_next(line, fd);
 	}
-	if (check_empty_line_end_file(line, fd))
-		return (1);
-	free_line_get_next(line, -1);
-	set_values_size_t(&map->map_size_cols, &map->map_size_rows, count_col, count_row);
-	return (0);
+	ret = check_empty_line_end_file(line, fd);
+	free_line_get_next(NULL, -1);
+	if (ret == Success)
+		set_values_size_t(&map->map_size_cols, &map->map_size_rows, count_col, count_row);
+	return (ret);
 }
 
 bool	set_size_map_data(t_map *map, char *file)

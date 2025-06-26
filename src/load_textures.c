@@ -8,21 +8,21 @@
 // 	NULL
 // };
 
-int load_textures(t_data *dt)
+int	load_textures(t_data *dt)
 {
-	t_texture *texture;
-	size_t i;
+	t_texture	*texture;
+	size_t 		i;
 
 	print_separator_default();
 	printf(TXT_YELLOW ">>> TEXTURES\n" TXT_RESET);
 
 	i = 0;
-	while (i < 6)
+	while (i < NUMBER_TEXTURES)
 	{
 		if (dt->map.wall_tile[i].is_color)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		texture = &dt->map.wall_tile[i].texture;
 		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,

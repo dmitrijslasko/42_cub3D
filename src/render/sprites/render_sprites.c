@@ -2,20 +2,42 @@
 
 int render_sprites(t_data *dt)
 {
-	float dx;
-	float dy;
-	float distance;
+	float	distance;
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 2; i++)
 	{
-		dx = fabs(dt->sprites[i].x - dt->player.pos.x);
-		dy = fabs(dt->sprites[i].y - dt->player.pos.y);
-
-		distance = sqrtf(dx * dx + dy * dy);
+		distance = (dt->sprites[i].pos.x - dt->player.pos.x) *
+				(dt->sprites[i].pos.x - dt->player.pos.x) +
+				(dt->sprites[i].pos.y - dt->player.pos.y) *
+				(dt->sprites[i].pos.y - dt->player.pos.y);
 		(void) distance;
 		// printf("Distance to sprite[%d]: %.2f\n", i, distance);
-	}
-	// test_render_sprite(dt);
+	
+	// dt->camera.plane.x =  -dt->player.direction_vector.y * FIELD_OF_VIEW_SCALE;
+	// dt->camera.plane.y =  dt->player.direction_vector.x * FIELD_OF_VIEW_SCALE;
 
+	float dx;
+	float dy;
+	dx = dt->sprites[i].pos.x - dt->player.pos.x;
+	dy = dt->sprites[i].pos.y - dt->player.pos.y;
+
+	// float invDet = 1 / (-FIELD_OF_VIEW_SCALE * (dt->player.direction_vector.x * dt->player.direction_vector.x + 
+	// 											dt->player.direction_vector.y * dt->player.direction_vector.y) )
+
+	float invDet = -1 / FIELD_OF_VIEW_SCALE;
+
+	float transformX = invDet * (dt->player.direction_vector.y * dx - 
+								 dt->player.direction_vector.x * dy);
+	// float transformY = invDet * (-dt->camera.plane.y * dx + 
+	// 							 dt->camera.plane.x * dy);
+	
+	float transformY = (dt->player.direction_vector.x * dx + 
+								 dt->player.direction_vector.y * dy);
+
+	int spriteScreenX = (WINDOW_W / 2) * (1 + transformX / transformY);
+
+	if (transformY > 0)
+		test_render_sprite(dt, spriteScreenX, i);
+	}
 	return (EXIT_SUCCESS);
 }

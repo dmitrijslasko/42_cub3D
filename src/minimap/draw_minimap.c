@@ -145,17 +145,17 @@ void put_pixel(t_img *img, int x, int y, unsigned int color)
 
 void put_img_to_img(t_img *dest, t_img *src, int dx, int dy)
 {
-	size_t x;
-	size_t y;
-	int src_x;
-	int src_y;
-	unsigned int color;
+	size_t			x;
+	size_t			y;
+	int				src_x;
+	int				src_y;
+	unsigned int	color;
 
 	y = 0;
-	while (y < dest->height)
+	while ((int)y < dest->height)
 	{
 		x = 0;
-		while (x < dest->width)
+		while ((int)x < dest->width)
 		{
 			src_x = x - dx;
 			src_y = y - dy;

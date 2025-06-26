@@ -40,13 +40,13 @@ int	main(int argc, char **argv)
 
 	setup_mlx_and_win(&dt);
 
-	dt.scene_img = protected_malloc(sizeof(t_img), dt);
-	dt.minimap = protected_malloc(sizeof(t_img), dt);
-	dt.minimap_base_img = protected_malloc(sizeof(t_img), dt);
-	dt.view = protected_malloc(sizeof(t_view), dt);
+	dt.scene_img = protected_malloc(sizeof(t_img), &dt);
+	dt.minimap = protected_malloc(sizeof(t_img), &dt);
+	dt.minimap_base_img = protected_malloc(sizeof(t_img), &dt);
+	dt.view = protected_malloc(sizeof(t_view), &dt);
 
 	load_textures(&dt);
-	// load_sprites(&dt);
+	load_sprites(&dt);
 	init_doors(&dt);
 
 	// minimap base image

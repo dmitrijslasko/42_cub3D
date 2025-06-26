@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Hardcoded folder path
-FOLDER="./maps/good"
+FOLDER="./maps/bad"
 
 # Check if folder exists
 if [ ! -d "$FOLDER" ]; then
@@ -13,7 +13,7 @@ fi
 for file in "$FOLDER"/*; do
 	if [ -f "$file" ]; then
 		echo "Running ./cub3d on $file"
-		./cub3D "$file"
+		valgrind ./cub3D "$file"
 	fi
 	echo ""
 done

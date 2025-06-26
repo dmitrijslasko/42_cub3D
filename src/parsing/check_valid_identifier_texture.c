@@ -23,8 +23,9 @@ bool	is_valid_line_texture(char *line)
 {
 	size_t i;
 
-	line = remove_space_beginner(line);
 	i = 0;
+	while (line[i] && ft_strchr(WHITE_SPACE, line[i]))
+		i++;
 	while (g_textures_lookup[i].str_with_space)
 	{
 		if (!ft_strncmp(line, g_textures_lookup[i].str_with_space, g_textures_lookup[i].length))
@@ -34,19 +35,7 @@ bool	is_valid_line_texture(char *line)
 	return (0);
 }
 
-bool	check_valid_identifier_texture(char *identifier)
-{
-	size_t	i;
 
- 	i = 0;
-	while (g_textures_lookup[i].str_with_space)
-	{
-		if (!ft_strncmp(identifier, g_textures_lookup[i].str, ft_strlen(identifier)))
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 t_wall_type	check_valid_identifier_texture_wall(char *identifier)
 {

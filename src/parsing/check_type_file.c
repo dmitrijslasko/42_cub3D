@@ -2,12 +2,14 @@
 
 bool	check_type_file(char *file, char *type)
 {
-	char	**array;
+	size_t	len_file;
+	size_t	len_type;
 
-	array = ft_split(file, '.');
-	if (!array || !array[0] || !array[1] || array[2])
-		return (error_message_free("Error  type file.", array, 0));
-	if (ft_strncmp(array[1], type, ft_strlen(array[1])))
-		return (error_message_free("Error  type file.", array, 0));
-	return (free_array_return(array, 1));
+	len_file = ft_strlen(file);
+	len_type = ft_strlen(type);
+
+	if (len_file < len_type || \
+		ft_strncmp(file + len_file - len_type, type, len_type))
+		return (error_message("Error type file.", 0));
+	return (1);
 }

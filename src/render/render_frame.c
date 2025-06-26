@@ -40,6 +40,7 @@ int	render_frame(void *param)
 	if (dt->view->show_minimap)
 		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
 	add_ui(dt);
+
 	return (EXIT_SUCCESS);
 }
 

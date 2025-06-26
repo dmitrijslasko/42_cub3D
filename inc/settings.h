@@ -68,6 +68,7 @@
 
 // gameplay
 # define FIELD_OF_VIEW_DEG					60.0f
+# define FIELD_OF_VIEW_SCALE				0.577 //tan(FIELD_OF_VIEW_DEG / 2)
 # define SCALING				            500
 
 // colors
@@ -120,6 +121,9 @@
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  				0
 
-# define WHITE_SPACE        				" \a\b\t\n\v\f\r"
+//parsing
+# define NUMBER_TEXTURES    6 // four walls + celling + floor even if is a color
+# define WHITE_SPACE        " \a\b\t\n\v\f\r"
+# define SPRITES_TYPES      "spq"
 
 #endif

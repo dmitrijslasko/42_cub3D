@@ -71,6 +71,9 @@
 # define FIELD_OF_VIEW_SCALE				0.577 //tan(FIELD_OF_VIEW_DEG / 2)
 # define SCALING				            500
 
+# define DEF_DOOR_OFFSET_X					0.5f
+# define DEF_DOOR_OFFSET_Y					0.5f
+
 // colors
 # define DEF_BG_COLOR			    		BLACK
 # define DEF_CEILING_COLOR					GREEN

@@ -29,14 +29,12 @@ void init_doors(t_data *dt)
 				door->id = i;
 				door->cell_x = curr_col;
 				door->cell_y = curr_row;
-				door->pos_x = 0.5;
-				door->pos_y = 0.5;
-				door->open_progress = 0.0;
+				door->pos_x = DEF_DOOR_OFFSET_X;
+				door->pos_y = DEF_DOOR_OFFSET_Y;
+				door->open_progress = 0.5f;
 				door->speed = 1.0f;
 				door->state = 0;
-				door->is_open = 0;
-				door->width = 0.2f;
-				printf("Door [%zu] added with id: %zu.\n", i, door->id);
+				printf("Door at [%zu] (%zu, %zu) added with id:\t%zu.\n", i, curr_row, curr_col, door->id);
 				i++;
 			}
 			curr_col++;

@@ -77,11 +77,11 @@ void	show_debug_info(t_data *dt)
 	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Percentage of image: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].door_hit.x);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].door_hit_coor.x);
 	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Door hit point X: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].door_hit.y);
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].door_hit_coor.y);
 	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Door hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 

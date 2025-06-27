@@ -109,7 +109,7 @@ typedef struct s_ray
 	char		hit_side;
 	char		hit_content;
 	t_door		*door;
-	t_x_y		door_hit;
+	t_x_y		door_hit_coor;
 	float 		distance_to_door;
 }	t_ray;
 

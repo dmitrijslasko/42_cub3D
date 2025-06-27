@@ -63,7 +63,7 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 		{
 			//printf("Checking if it also hits the door!\n");
 			door_hit = ray_hits_door(dt, &map_coor, ray);
-			if (ray->door_hit.y < dt->view->door_open)
+			if (ray->door_hit_coor.y < dt->view->door_open)
 				door_hit = 0;
 			if (door_hit)
 				break ;

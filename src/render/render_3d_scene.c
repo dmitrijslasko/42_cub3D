@@ -37,6 +37,7 @@ void render_3d_scene(t_data *dt)
 
 		// Vertical wall slice drawing
 		int y = top_y;
+
 		while (y < ft_min(WINDOW_H, bottom_y))
 		{
 			// // Relative position on the wall
@@ -67,6 +68,5 @@ void render_3d_scene(t_data *dt)
 		}
 		i++;
 	}
-	//print_separator_default();
 	// render_sprites(dt);
 }

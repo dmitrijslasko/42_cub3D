@@ -15,10 +15,10 @@ void	add_debug_info(t_data *dt)
 	else
 		ray_index = CASTED_RAYS_COUNT / 2;
 
-	field_1_x = WINDOW_W - 270;
-	field_2_x = WINDOW_W - 88;
+	field_1_x = WINDOW_W - DEBUG_FIELD_1_OFFSET_X;
+	field_2_x = WINDOW_W - DEBUG_FIELD_2_OFFSET_X;
 
-	y = 15;
+	y = DEBUG_FIELD_OFFSET_Y;
 	mlx = dt->mlx_ptr;
 	win = dt->win_ptr;
 
@@ -47,26 +47,23 @@ void	add_debug_info(t_data *dt)
 	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "LMB presses: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->mouse.lmb_press_count));
 
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Wall type: ");
-	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_index].wall_type));
-
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Cell type: ");
-	if (dt->rays[ray_index].cell_type == 4)
-		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "DOOR");
-	else if (dt->rays[ray_index].cell_type == 1)
-		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "WALL");
-	else if (dt->rays[ray_index].cell_type == 2)
-		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "THIN (V)");
-	else
-		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "N/D");
-
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].distance_to_wall);
 	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Distance to obstacle: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].percentage_of_image);
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Percentage of image: ");
-	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Obstacle type: ");
+	if (dt->rays[ray_index].cell_type == DOOR_VERTICAL)
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "DOOR");
+	else if (dt->rays[ray_index].cell_type == SOLID_WALL)
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "WALL");
+	else if (dt->rays[ray_index].cell_type == THIN_WALL_VERTICAL)
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "THIN (V)");
+	else
+		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "N/D");
+
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Wall type: ");
+	if (dt->rays[ray_index].cell_type == SOLID_WALL)
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_index].wall_type));
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].wall_hit.x);
 	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Cell hit point X: ");
@@ -74,6 +71,10 @@ void	add_debug_info(t_data *dt)
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].wall_hit.y);
 	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Cell hit point Y: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+
+	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].percentage_of_image);
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Percentage of image: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].door_hit.x);
@@ -84,29 +85,27 @@ void	add_debug_info(t_data *dt)
 	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	snprintf(buffer, sizeof(buffer), "%ld", dt->last_time);
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Timer: ");
-	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door ID: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_index].door->id));
 
-	// mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door ID: ");
-	// mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_id].door->id));
-	// printf("%d\n", dt->rays[ray_id].door->id);
+	snprintf(buffer, sizeof(buffer), "%ld", dt->last_time);
+	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Current time: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 }
 
 void	add_crosshair(t_data *dt, int color)
 {
-	t_coor	xy;
-	t_coor	xy2;
+	//t_coor	xy;
+	//t_coor	xy2;
 
-	set_coor_values(&xy2, WINDOW_W / 2, WINDOW_H);
+	//set_coor_values(&xy2, WINDOW_W / 2, WINDOW_H);
 
-	set_coor_values(&xy, WINDOW_W / 2, WINDOW_H / 2);
+	//set_coor_values(&xy, WINDOW_W / 2, WINDOW_H / 2);
 	draw_square_from_center(dt->scene_img, WINDOW_W / 2, WINDOW_H / 2, 5, color);
-	//draw_vertical_line(dt, xy, xy2, color);
 }
 
 void	add_ui(t_data *dt)
 {
 	add_debug_info(dt);
-	add_crosshair(dt, WHITE);
+	add_crosshair(dt, DEFAULT_CROSSHAIR_COLOR);
 }

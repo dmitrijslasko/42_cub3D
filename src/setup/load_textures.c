@@ -16,6 +16,19 @@ int	load_textures(t_data *dt)
 	print_separator_default();
 	printf(TXT_YELLOW ">>> TEXTURES\n" TXT_RESET);
 
+	if (PUT_DOOR)
+	{
+		texture = &dt->map.door.texture;
+		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
+													"./textures/door.xpm",
+													&texture->width,
+													&texture->height);
+		texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img,
+													&texture->bpp,
+													&texture->size_line,
+													&texture->endian);
+	}
+
 	i = 0;
 	while (i < NUMBER_TEXTURES)
 	{

@@ -27,12 +27,12 @@ int	draw_ceiling(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
-#include <math.h> // for M_PI, fmodf
-
 int draw_sky(t_data *dt)
 {
-	int screen_x, screen_y;
-	int tex_x, tex_y;
+	int screen_x;
+	int screen_y;
+	int texture_x;
+	int	texture_y;
 	uint32_t color;
 
 	// Player angle in radians
@@ -41,14 +41,15 @@ int draw_sky(t_data *dt)
 	// Controls how fast the sky scrolls horizontally
 	float rotation_scale = 6.0f;
 	float angle_offset = fmodf((angle_rad * rotation_scale) / (2 * M_PI), 1.0f);
-	if (angle_offset < 0) angle_offset += 1.0f;
+	if (angle_offset < 0)
+		angle_offset += 1.0f;
 
 	// Vertical camera pitch adjustment
-	float vertical_sensitivity = 0.1f; // 0.1–0.3 is good range
+	float vertical_sensitivity = 1.0f; // 0.1–0.3 is good range
 	int delta = (int)(-(dt->view->screen_center - (WINDOW_H / 2)) * vertical_sensitivity);
 
 	// Where to start sampling vertically from sky texture
-	int texture_start_y = (dt->sky_image->height / 2) - (WINDOW_H / 4) + delta;
+	int texture_start_y = (dt->sky_image->height / 2) - (WINDOW_H / 10) + delta;
 
 	for (screen_y = 0; screen_y < dt->view->screen_center; screen_y++)
 	{
@@ -57,18 +58,18 @@ int draw_sky(t_data *dt)
 			// Horizontal wrapping based on angle
 			float view_ratio = (float)screen_x / (float)WINDOW_W;
 			float tex_ratio = fmodf(view_ratio + angle_offset, 1.0f);
-			tex_x = (int)(tex_ratio * dt->sky_image->width);
+			texture_x = (int)(tex_ratio * dt->sky_image->width);
 
 			// Vertical sampling without stretching
-			tex_y = texture_start_y + screen_y;
+			texture_y = texture_start_y + screen_y;
 
 			// Clamp to texture bounds
-			if (tex_y < 0) tex_y = 0;
-			if (tex_y >= dt->sky_image->height) tex_y = dt->sky_image->height - 1;
+			if (texture_y < 0) texture_y = 0;
+			if (texture_y >= dt->sky_image->height) texture_y = dt->sky_image->height - 1;
 
 			char *pixel = dt->sky_image->addr
-				+ tex_y * dt->sky_image->line_len
-				+ tex_x * (dt->sky_image->bpp / 8);
+				+ texture_y * dt->sky_image->line_len
+				+ texture_x * (dt->sky_image->bpp / 8);
 
 			color = *(uint32_t *)pixel;
 

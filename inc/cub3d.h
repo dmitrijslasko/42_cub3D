@@ -139,6 +139,7 @@ typedef struct s_map
 	size_t		map_size_rows;
 	size_t		map_size_cols;
 	t_wall_tile	wall_tile[NUMBER_TEXTURES];
+	t_wall_tile door;
 }	t_map;
 
 typedef struct s_player

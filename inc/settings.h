@@ -93,11 +93,11 @@
 # define LOCK_VERTICAL_LOOK_DOWN			100
 
 // mouse sensitivity
-# define ENABLE_MOUSE       				0
+# define ENABLE_MOUSE       				1
 # define MOUSE_SENS_ROTATE 					2.0f
 //# define MOUSE_SENS_DRAG					0.05f
 # define MOUSE_SENS_SCROLL 					0.1f
-
+# define DEFAULT_CROSSHAIR_COLOR			WHITE
 
 // separator
 # define DEF_SEPARATOR_CHAR					"-"
@@ -122,8 +122,13 @@
 # define SHOW_WELCOME_IMAGE  				0
 
 //parsing
+# define PUT_DOOR			1
 # define NUMBER_TEXTURES    6 // four walls + celling + floor even if is a color
 # define WHITE_SPACE        " \a\b\t\n\v\f\r"
 # define SPRITES_TYPES      "spq"
+
+# define DEBUG_FIELD_1_OFFSET_X	270
+# define DEBUG_FIELD_2_OFFSET_X	88
+# define DEBUG_FIELD_OFFSET_Y	15
 
 #endif

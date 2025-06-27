@@ -43,22 +43,26 @@ void render_3d_scene(t_data *dt)
 			int d = y - top_y;
 			int texture_y = (d * texture_height) / (2 * wall_height);
 			if (texture_y < 0)
-			texture_y = 0;
+				texture_y = 0;
 			if (texture_y >= texture_height)
-			texture_y = texture_height - 1;
+				texture_y = texture_height - 1;
 
 			// Sample color from texture
 			int tex_index = texture_y * texture_width + texture_x;
 
 			int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			if (dt->rays[i].cell_type == DOOR_VERTICAL)
+			{
+				tex_index = texture_y * texture_width + (texture_x + 64 * (2.0f - dt->view->door_open));
+				color = dt->map.wall_tile[DOOR].texture.texture_data[tex_index];
+			}
 
-			apply_wall_shading_1(dt, i, &color);
+			if (ENABLE_SHADERS)
+				apply_distance_shadow(dt, i, &color);
 
 			for (int w = 0; w < screen_slice_width; w++)
-			{
 				if (pixel_is_in_window(screen_x + w, y))
 					img_pix_put(dt->scene_img, screen_x + w, y, color);
-			}
 			y++;
 		}
 		i++;

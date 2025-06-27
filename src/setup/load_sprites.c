@@ -85,7 +85,7 @@ int	load_sprites(t_data *dt)
 {
 	size_t	sprite_type_count;
 
-	printf("Loading sprites...\n");
+	printf(TXT_YELLOW ">>> LOADING SPRITES\n" TXT_RESET);
 	print_separator_default();
 
 	sprite_type_count = count_types_elements_in_the_map(&dt->map, SPRITES_TYPES);
@@ -96,6 +96,6 @@ int	load_sprites(t_data *dt)
 	dt->sprite_txt_count = sprite_type_count;
 	load_sprite_images(dt);
 	find_all_sprites(dt);
-	printf("Done!\n");
+	printf(TXT_GREEN "Done!\n" TXT_RESET);
 	return (EXIT_SUCCESS);
 }

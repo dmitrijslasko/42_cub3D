@@ -10,7 +10,7 @@ void init_doors(t_data *dt)
 
 	// malloc
 	print_separator_default();
-	printf(TXT_YELLOW "DOORS\n" TXT_RESET);
+	printf(TXT_YELLOW ">>> INITIALISING DOORS\n" TXT_RESET);
 	door_count = count_elements_in_the_map(&dt->map, "|-");
 	printf("Doors found: %zu\n", door_count);
 	dt->doors = malloc(sizeof(t_door) * door_count);
@@ -32,7 +32,6 @@ void init_doors(t_data *dt)
 				door->pos_x = 0.5;
 				door->pos_y = 0.5;
 				door->open_progress = 0.0;
-				//door->orientation = 0;
 				door->speed = 1.0f;
 				door->state = 0;
 				door->is_open = 0;

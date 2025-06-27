@@ -20,7 +20,7 @@ int	draw_minimap_thin_wall_vertical(t_data *dt, size_t curr_col, size_t curr_row
 	bottom_right.x = top_left.x + 10;
 	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
 
-	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_WALL_CELL_COLOR);
+	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_THIN_WALL_COLOR);
 }
 
 int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
@@ -34,7 +34,7 @@ int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
 	bottom_right.x = top_left.x + MINIMAP_DOOR_THICKNESS_PX;
 	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
 
-	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_WALL_CELL_COLOR);
+	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_DOOR_COLOR);
 }
 
 int	draw_minimap_map(t_data *dt)
@@ -42,10 +42,12 @@ int	draw_minimap_map(t_data *dt)
 	size_t	curr_row;
 	size_t	curr_col;
 	int		color;
-
 	t_coor top_left;
 	t_coor bottom_right;
 
+	printf(TXT_YELLOW ">>> PREPARING MINIMAP BASE MAP\n" TXT_RESET);
+	dt->minimap_base_img = protected_malloc(sizeof(t_img), dt);
+	setup_img(dt, dt->minimap_base_img, dt->map.map_size_cols * MINIMAP_GRID_SIZE, dt->map.map_size_rows * MINIMAP_GRID_SIZE);
 	set_coor_values(&top_left, 0, 0);
 	set_coor_values(&bottom_right,	dt->minimap_base_img->width,
 									dt->minimap_base_img->height);
@@ -63,9 +65,7 @@ int	draw_minimap_map(t_data *dt)
 				continue ;
 			}
 			if (ft_strchr("NSWE", dt->map.map_data[curr_row][curr_col]))
-			{
-		color = MINIMAP_THIN_WALL;		color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
-			}
+				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
 			else if (ft_strchr("v", dt->map.map_data[curr_row][curr_col]))
 			{
 				draw_minimap_thin_wall_vertical(dt, curr_col++, curr_row);

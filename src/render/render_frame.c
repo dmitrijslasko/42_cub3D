@@ -25,7 +25,6 @@ int	render_frame(void *param)
 
 	reset_mouse_position(dt);
 
-
 	calculate_all_rays(dt);
 
 	render_3d_scene(dt);
@@ -40,6 +39,10 @@ int	render_frame(void *param)
 	// minimap (open/close with Tab)
 	if (dt->view->show_minimap)
 		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+
+	if (dt->view->show_debug_info)
+		show_debug_info(dt);
+
 	add_ui(dt);
 
 	return (EXIT_SUCCESS);

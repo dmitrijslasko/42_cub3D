@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	add_debug_info(t_data *dt)
+void	show_debug_info(t_data *dt)
 {
 	int		y;
 	void	*mlx;
@@ -24,34 +24,34 @@ void	add_debug_info(t_data *dt)
 
 	mlx_string_put(mlx, win, field_1_x, y, UI_CLR_1, "Frames per second (FPS): ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(FPS));
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Window W: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Window W: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(WINDOW_W));
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Window H: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Window H: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(WINDOW_H));
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Casted rays: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Casted rays: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(CASTED_RAYS_COUNT));
 
 	char buffer[32];
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->player.pos.x);
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Player position X: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Player position X: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->player.pos.y);
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Player position Y: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Player position Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->player.direction_vector_deg);
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Player orientation (deg): ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Player orientation (deg): ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "LMB presses: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "LMB presses: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->mouse.lmb_press_count));
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].distance_to_wall);
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Distance to obstacle: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Distance to obstacle: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Obstacle type: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Obstacle type: ");
 	if (dt->rays[ray_index].cell_type == DOOR_VERTICAL)
 		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "DOOR");
 	else if (dt->rays[ray_index].cell_type == SOLID_WALL)
@@ -61,51 +61,48 @@ void	add_debug_info(t_data *dt)
 	else
 		mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, "N/D");
 
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Wall type: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Wall type: ");
 	if (dt->rays[ray_index].cell_type == SOLID_WALL)
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_index].wall_type));
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].wall_hit.x);
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Cell hit point X: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Cell hit point X: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].wall_hit.y);
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Cell hit point Y: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Cell hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].percentage_of_image);
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Percentage of image: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Percentage of image: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].door_hit.x);
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Door hit point X: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Door hit point X: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
 	snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[ray_index].door_hit.y);
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door hit point Y: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Door hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door ID: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Door ID: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_index].door->id));
 
 	snprintf(buffer, sizeof(buffer), "%ld", dt->last_time);
-	mlx_string_put(mlx, win, field_1_x, y += 20, UI_CLR_1, "Current time: ");
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Current time: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 }
 
 void	add_crosshair(t_data *dt, int color)
 {
-	//t_coor	xy;
-	//t_coor	xy2;
-
-	//set_coor_values(&xy2, WINDOW_W / 2, WINDOW_H);
-
-	//set_coor_values(&xy, WINDOW_W / 2, WINDOW_H / 2);
-	draw_square_from_center(dt->scene_img, WINDOW_W / 2, WINDOW_H / 2, 5, color);
+	draw_square_from_center(dt->scene_img,
+							WINDOW_W / 2,
+							WINDOW_H / 2,
+							DEFAULT_CROSSHAIR_SIZE,
+							color);
 }
 
 void	add_ui(t_data *dt)
 {
-	add_debug_info(dt);
 	add_crosshair(dt, DEFAULT_CROSSHAIR_COLOR);
 }

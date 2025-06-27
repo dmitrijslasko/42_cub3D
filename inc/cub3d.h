@@ -168,6 +168,7 @@ typedef struct s_view
 	int		screen_center;
 	char	show_minimap;
 	int		minimap_color;
+	char	show_debug_info;
 	float	door_open;
 }	t_view;
 
@@ -425,7 +426,7 @@ int			precalculate_trig_tables(t_data *dt);
 
 int			render_sprites(t_data *dt);
 
-int			apply_wall_shading_1(t_data *dt, size_t i, int *color);
+int			apply_distance_shadow(t_data *dt, size_t i, int *color);
 
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);
@@ -447,16 +448,16 @@ size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(size_t *count, char *line);
 
-int clamp(int value, int min, int max);
+int 		clamp(int value, int min, int max);
 
-void render_3d_scene(t_data *dt);
+void 		render_3d_scene(t_data *dt);
 
-int		fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
-void 	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
+int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
+void 		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
-int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
+int 		ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
 
 
-t_door *find_door_at(t_data *dt, int x, int y);
+t_door 		*find_door_at(t_data *dt, int x, int y);
 
 #endif

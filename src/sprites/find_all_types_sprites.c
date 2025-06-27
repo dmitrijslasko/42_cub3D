@@ -18,8 +18,8 @@ void	find_sprites(t_data *dt)
 			if (ft_strchr(SPRITES_TYPES, c))
 			{
 				dt->sprites[count].type = c;
-				dt->sprites[count].pos.x = row + 0.5;
-				dt->sprites[count].pos.y = col + 0.5;
+				dt->sprites[count].pos.x = col + 0.5;
+				dt->sprites[count].pos.y = row + 0.5;
 				count++;
 			}
 			col++;

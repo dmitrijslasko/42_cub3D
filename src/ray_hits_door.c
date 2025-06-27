@@ -10,15 +10,10 @@ int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray)
 	float distance_to_door;
 	float distance_to_wall;
 
-	// find the door in the specified cell
-
 	door = find_door_at(dt, map_coor->x, map_coor->y);
-	ray->door = door;
 	if (!door)
-	{
-		//printf("No door found!\n");
 		return (0);
-	}
+	ray->door = door;
 
 	distance_to_door = 0;
 

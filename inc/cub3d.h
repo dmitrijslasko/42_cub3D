@@ -167,6 +167,7 @@ typedef struct s_view
 	int		screen_center;
 	char	show_minimap;
 	int		minimap_color;
+	float	door_open;
 }	t_view;
 
 typedef struct s_img
@@ -227,6 +228,9 @@ typedef struct s_data
 	float			cos_table[PRECALCULATED_TRIG];
 	char			keys[TRACKED_KEYS];
 	void			*welcome_img;
+	long			last_time;
+	long			delta_time;
+	t_img			*sky_image;
 }	t_data;
 
 

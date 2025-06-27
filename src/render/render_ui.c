@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	add_coor_info(t_data *dt)
+void	add_debug_info(t_data *dt)
 {
 	int		y;
 	void	*mlx;
@@ -15,8 +15,8 @@ void	add_coor_info(t_data *dt)
 	else
 		ray_index = CASTED_RAYS_COUNT / 2;
 
-	field_1_x = WINDOW_W - 250;
-	field_2_x = WINDOW_W - 50;
+	field_1_x = WINDOW_W - 270;
+	field_2_x = WINDOW_W - 88;
 
 	y = 15;
 	mlx = dt->mlx_ptr;
@@ -84,6 +84,10 @@ void	add_coor_info(t_data *dt)
 	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
+	snprintf(buffer, sizeof(buffer), "%ld", dt->last_time);
+	mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Timer: ");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+
 	// mlx_string_put(mlx, win, field_1_x, y += 10, UI_CLR_1, "Door ID: ");
 	// mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_id].door->id));
 	// printf("%d\n", dt->rays[ray_id].door->id);
@@ -103,6 +107,6 @@ void	add_crosshair(t_data *dt, int color)
 
 void	add_ui(t_data *dt)
 {
-	add_coor_info(dt);
+	add_debug_info(dt);
 	add_crosshair(dt, WHITE);
 }

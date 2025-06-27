@@ -11,7 +11,7 @@ void render_3d_scene(t_data *dt)
 	if (SHOW_DEBUG_INFO)
 		printf("Rendering 3D scene at %d FPS...\n", FPS);
 
-	draw_ceiling(dt);
+	draw_sky(dt);
 	draw_floor(dt);
 
 	i = 0;

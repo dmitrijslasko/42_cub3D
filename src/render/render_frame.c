@@ -10,12 +10,13 @@ int	render_frame(void *param)
 
 	// Render FPS at the predefined FPS
 	current_time = get_current_time_in_ms();
-	if (current_time - last_time < (1000 / FPS))
+	dt->delta_time = current_time - dt->last_time;
+	if (dt->delta_time < (1000 / FPS))
 	{
 		//my_sleep();
 		return (EXIT_SUCCESS);
 	}
-	last_time = current_time;
+	dt->last_time = current_time;
 
 	if (dt->win_ptr == NULL)
 		return (EXIT_FAILURE);

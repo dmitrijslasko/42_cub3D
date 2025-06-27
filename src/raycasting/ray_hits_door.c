@@ -11,6 +11,7 @@ int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray)
 	door = find_door_at(dt, map_coor->x, map_coor->y);
 	if (!door)
 		return (0);
+	ray->door = door;
 
 	distance_to_door = 0;
 
@@ -36,7 +37,7 @@ int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray)
 
 	if ((int)door_hit_coor.x == map_coor->x && (int)door_hit_coor.y == map_coor->y)
 	{
-		ray->door = door;
+
 		ray->distance_to_door = distance_to_door;
 		ray->door_hit_coor.x = door_hit_coor.x;
 		ray->door_hit_coor.y = door_hit_coor.y;

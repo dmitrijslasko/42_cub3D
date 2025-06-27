@@ -28,7 +28,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT					1200
+# define CASTED_RAYS_COUNT					400
 
 // dummy map
 # define DUMMY_MAP_TOP						"1111111111111111111111111111111"

@@ -29,11 +29,11 @@ void	process_keypresses(t_data *dt)
 		dt->player.move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
 	else
 		dt->player.move_speed_multiplier = 1;
-	//if (dt->keys[91])
-	//	dt->view->door_open = fmax(2.0f, dt->view->door_open - 0.05f);
-	//if (dt->keys[93])
-	//{
-	//	dt->view->door_open = fmin(3.0f, dt->view->door_open + 0.05f);
-	//	printf("Door open: %f\n", dt->view->door_open);
-	//}
+	if (dt->keys[91])
+		dt->view->door_open = fmax(2.0f, dt->view->door_open - 0.05f);
+	if (dt->keys[93])
+	{
+		dt->view->door_open = fmin(3.0f, dt->view->door_open + 0.05f);
+		//printf("Door open: %f\n", dt->view->door_open);
+	}
 }

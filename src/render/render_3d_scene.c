@@ -54,7 +54,9 @@ void render_3d_scene(t_data *dt)
 			int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 			if (dt->rays[i].cell_type == DOOR_VERTICAL)
 			{
-				tex_index = texture_y * texture_width + (texture_x + 64 * (2.0f - dt->view->door_open));
+				tex_index = texture_y * texture_width + (texture_x + 64 * ((float)dt->rays[i].door->cell_y - dt->view->door_open));
+				//printf("%f\n", (float)dt->rays[i].door->cell_y);
+				//tex_index = texture_y * texture_width + (texture_x + 64 * (2.0f - dt->view->door_open));
 				color = dt->map.wall_tile[DOOR].texture.texture_data[tex_index];
 			}
 

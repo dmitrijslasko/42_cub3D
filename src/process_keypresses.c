@@ -27,6 +27,8 @@ void	process_keypresses(t_data *dt)
 	}
 	if (dt->keys[65505])
 		dt->player.move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
+	else
+		dt->player.move_speed_multiplier = 1;
 	if (dt->keys[91])
 	{
 		dt->view->door_open = fmax(2.0f, dt->view->door_open - 0.01f);
@@ -35,6 +37,4 @@ void	process_keypresses(t_data *dt)
 	{
 		dt->view->door_open = fmin(3.0f, dt->view->door_open + 0.01f);
 	}
-	else
-		dt->player.move_speed_multiplier = 1;
 }

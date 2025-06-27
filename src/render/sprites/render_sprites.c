@@ -1,12 +1,13 @@
 #include "cub3d.h"
 
-int render_sprites1(t_data *dt, t_sprite *sprite, int i)
+int render_sprites1(t_data *dt, t_sprite *sprite)
 {
 	// dt->camera.plane.x =  -dt->player.direction_vector.y * FIELD_OF_VIEW_SCALE;
 	// dt->camera.plane.y =  dt->player.direction_vector.x * FIELD_OF_VIEW_SCALE;
 
-	float dx;
-	float dy;
+	float	dx;
+	float	dy;
+
 	dx = sprite->pos.x - dt->player.pos.x;
 	dy = sprite->pos.y - dt->player.pos.y;
 
@@ -25,8 +26,7 @@ int render_sprites1(t_data *dt, t_sprite *sprite, int i)
 
 	int spriteScreenX = (WINDOW_W / 2) * (1 + transformX / transformY);
 
-	if (transformY > 0)
-		test_render_sprite(dt, spriteScreenX, sprite->type);
+	test_render_sprite(dt, spriteScreenX, sprite->type, transformY, sprite);
 	return (EXIT_SUCCESS);
 }
 
@@ -37,7 +37,7 @@ int	render_sprites(t_data *dt)
 	i = 0;
 	while (i < dt->sprite_count)
 	{
-		render_sprites1(dt, &dt->sprites[i], i);
+		render_sprites1(dt, &dt->sprites[i]);
 		i++;
 	}
 

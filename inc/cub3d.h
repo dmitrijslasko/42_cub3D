@@ -8,7 +8,6 @@
 
 # include <stdio.h>
 # include <string.h>
-// # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
 # include <fcntl.h>
@@ -25,7 +24,6 @@
 # include "errors.h"
 # include "keys.h"
 # include "settings.h"
-
 
 
 // structs
@@ -211,31 +209,31 @@ typedef struct s_sprite
 
 typedef struct s_data
 {
-	void			*mlx_ptr;
-	void			*win_ptr;
-	t_img			*scene_img;
-	t_img			*minimap_base_img;
-	t_img			*minimap;
-	t_map			map;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	t_img				*scene_img;
+	t_img				*minimap_base_img;
+	t_img				*minimap;
+	t_map				map;
 	// t_camera		camera;
-	t_door			*doors;
-	size_t			door_count;
-	t_ray			*rays;
-	t_player		player;
-	t_sprite		*sprites;
-	size_t			sprite_count;
+	t_door				*doors;
+	size_t				door_count;
+	t_ray				*rays;
+	t_player			player;
+	t_sprite			*sprites;
+	size_t				sprite_count;
 	t_sprite_texture	*sprite_textures;
-	size_t			sprite_type_count;
-	t_view			*view;
-	t_mouse			mouse;
-	float			sin_table[PRECALCULATED_TRIG];
-	float			cos_table[PRECALCULATED_TRIG];
-	char			keys[TRACKED_KEYS];
-	void			*welcome_img;
-	long			last_time;
-	long			delta_time;
-	t_img			*sky_image;
-	t_img			*message_img;
+	size_t				sprite_type_count;
+	t_view				*view;
+	t_mouse				mouse;
+	float				sin_table[PRECALCULATED_TRIG];
+	float				cos_table[PRECALCULATED_TRIG];
+	char				keys[TRACKED_KEYS];
+	void				*welcome_img;
+	long				last_time;
+	long				delta_time;
+	t_img				*sky_image;
+	t_img				*message_img;
 }	t_data;
 
 
@@ -264,15 +262,6 @@ void		img_pix_put(t_img *img, int x, int y, int clr);
 
 void		setup_keyboard_hooks(t_data *dt);
 void		setup_mouse_hooks(t_data *dt);
-
-// void		draw_square(t_data *data, int x, int y, int size, int clr);
-// void		draw_circle(t_data *data, int x, int y, int radius, int clr);
-// void		draw_background(t_img *img, int clr);
-// void		draw_line(t_data *dt, t_coor pt_1, t_coor pt_2, int clr);
-
-// int			draw_player(t_data *dt);
-// int			draw_map(t_data *dt);
-
 
 void		*protected_malloc(size_t size, t_data *dt);
 void		free_dt(t_data *dt);

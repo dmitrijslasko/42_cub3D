@@ -25,20 +25,18 @@ void init_doors(t_data *dt)
 		{
 			if (ft_strchr("|-", get_cell_type_by_coordinates(&dt->map, curr_row, curr_col)))
 			{
-				door = &dt->doors[i];
+				door = &dt->doors[i++];
 				door->id = i;
 				door->cell_x = curr_col;
 				door->cell_y = curr_row;
 				door->pos_x = 0.5;
 				door->pos_y = 0.5;
 				door->open_progress = 0.0;
-				//door->orientation = 0;
 				door->speed = 1.0f;
 				door->state = 0;
 				door->is_open = 0;
 				door->width = 0.2f;
 				printf("Door [%zu] added with id: %zu.\n", i, door->id);
-				i++;
 			}
 			curr_col++;
 		}

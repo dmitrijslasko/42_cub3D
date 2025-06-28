@@ -2,11 +2,13 @@
 
 #define SHADOW_STRENGTH 0.2f
 
-int	apply_wall_shading_1(t_data *dt, size_t i, int *color)
+int	apply_wall_shading_1(t_data *dt, size_t i, int *color, float shadow_strength)
 {
+	if (TRANSPARENT_COLOR == color)
+		return (EXIT_SUCCESS);
 	// Apply shading
 	float distance = dt->rays[i].distance_to_wall;
-	float shade = 1.0f / (1.0f + distance * SHADOW_STRENGTH);
+	float shade = 1.0f / (1.0f + distance * shadow_strength);
 	if (shade < 0.1f) shade = 0.1f;
 
 	int r = ((*color >> 16) & 0xFF) * shade;

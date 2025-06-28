@@ -1,44 +1,43 @@
 #include "cub3d.h"
 
-int render_sprites1(t_data *dt, t_sprite *sprite)
+int render_sprite(t_data *dt, t_sprite *sprite)
 {
-	// dt->camera.plane.x =  -dt->player.direction_vector.y * FIELD_OF_VIEW_SCALE;
-	// dt->camera.plane.y =  dt->player.direction_vector.x * FIELD_OF_VIEW_SCALE;
-
 	float	dx;
 	float	dy;
 
 	dx = sprite->pos.x - dt->player.pos.x;
 	dy = sprite->pos.y - dt->player.pos.y;
 
-	// float invDet = 1 / (-FIELD_OF_VIEW_SCALE * (dt->player.direction_vector.x * dt->player.direction_vector.x + 
+	// float inv_det = 1 / (-FIELD_OF_VIEW_SCALE * (dt->player.direction_vector.x * dt->player.direction_vector.x +
 	// 											dt->player.direction_vector.y * dt->player.direction_vector.y) )
 
-	float invDet = -1 / FIELD_OF_VIEW_SCALE;
+	float inv_det = -1 / FIELD_OF_VIEW_SCALE;
 
-	float transformX = invDet * (dt->player.direction_vector.y * dx - 
+	float transform_x = inv_det * (dt->player.direction_vector.y * dx -
 								 dt->player.direction_vector.x * dy);
-	// float transformY = invDet * (-dt->camera.plane.y * dx + 
+	// float transform_y = inv_det * (-dt->camera.plane.y * dx +
 	// 							 dt->camera.plane.x * dy);
-	
-	float transformY = (dt->player.direction_vector.x * dx + 
+
+	float transform_y = (dt->player.direction_vector.x * dx +
 								 dt->player.direction_vector.y * dy);
 
-	int spriteScreenX = (WINDOW_W / 2) * (1 + transformX / transformY);
+	int sprite_screen_x = (WINDOW_W / 2) * (1 + transform_x / transform_y);
 
-	test_render_sprite(dt, spriteScreenX, sprite->type, transformY, sprite);
+	test_render_sprite(dt, sprite, sprite_screen_x, sprite->type, transform_y);
 	return (EXIT_SUCCESS);
 }
 
-int	render_sprites(t_data *dt)
+int	render_all_sprites(t_data *dt)
 {
 	size_t	i;
 
+	//puts("Rendering sprites...");
+	sort_sprites_by_distance(dt);
+	//sort_sprites(dt, dt->sprite_count);
 	i = 0;
 	while (i < dt->sprite_count)
 	{
-		render_sprites1(dt, &dt->sprites[i]);
+		render_sprite(dt, &dt->sprites[i]);
 		i++;
 	}
-
 }

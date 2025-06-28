@@ -180,11 +180,11 @@ typedef struct s_img
 	int		width;
 }	t_img;
 
-typedef struct s_sprite_texture
+typedef struct s_sprite_textures
 {
 	int		texture_id;
 	void	*sprite_img;
-	int		*sprite_data; // Or char* depending on format
+	int		*sprite_data;
 	int		width;
 	int		height;
 	int		bpp;
@@ -192,13 +192,13 @@ typedef struct s_sprite_texture
 	int		endian;
 	char	type;
 	char	*filepath;
-}	t_sprite_txt;
+}	t_sprite_textures;
 
 typedef struct s_sprite
 {
 	t_x_y	pos;
-	float	dist_to_player;
-	int		sprite_texture_id;
+	float	distance_to_player;
+	int		sprite_textures_id;
 	char	type;
 	bool	visible;
 }	t_sprite;
@@ -219,8 +219,8 @@ typedef struct s_data
 	t_player		player;
 	t_sprite		*sprites;
 	size_t			sprite_count;
-	t_sprite_txt	*sprites_txt;
-	size_t			sprite_txt_count;
+	t_sprite_textures	*sprite_textures;
+	size_t			sprite_textures_count;
 	t_view			*view;
 	t_mouse			mouse;
 	float			sin_table[PRECALCULATED_TRIG];
@@ -418,9 +418,9 @@ int			load_textures(t_data *dt);
 int			load_sprites(t_data *dt);
 int			precalculate_trig_tables(t_data *dt);
 
-int			render_sprites(t_data *dt);
+int			render_all_sprites(t_data *dt);
 
-int			apply_wall_shading_1(t_data *dt, size_t i, int *color);
+int			apply_wall_shading_1(t_data *dt, size_t i, int *color, float strength);
 
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);
@@ -428,7 +428,7 @@ void		process_keypresses(t_data *dt);
 size_t		count_elements_in_the_map(t_map *map, char *element);
 size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
-int			test_render_sprite(t_data *dt, int spriteScreenX, char type_sprite, float tranformY, t_sprite *sprite);
+int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y);
 
 int			set_mouse_to_screen_center(t_data *dt);
 
@@ -457,5 +457,7 @@ t_door 		*find_door_at(t_data *dt, int x, int y);
 //sprites
 void		find_all_sprites(t_data *dt);
 void		sort_sprites(t_sprite *sprites, size_t num_sprites);
+
+void		sort_sprites_by_distance(t_data *dt);
 
 #endif

@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 
 	load_textures(&dt);
 	load_sprites(&dt);
-	init_doors(&dt);
+	//init_doors(&dt);
 
 	// minimap base image
 	setup_img(&dt, dt.minimap_base_img, dt.map.map_size_cols * MINIMAP_GRID_SIZE, dt.map.map_size_rows * MINIMAP_GRID_SIZE);

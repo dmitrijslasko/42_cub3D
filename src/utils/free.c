@@ -46,8 +46,8 @@ void	free_dt(t_data *dt)
 		free_array(dt->map.map_data);
 	if (dt->sprites)
 		free(dt->sprites);
-	if (dt->sprites_txt)
-		free(dt->sprites_txt);
+	if (dt->sprite_textures)
+		free(dt->sprite_textures);
 	if (dt->view)
 		free(dt->view);
 	if (dt->welcome_img)

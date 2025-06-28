@@ -1,5 +1,22 @@
 #include "cub3d.h"
 
+t_coor 	get_cell_ahead(t_data *dt)
+{
+	t_door *door;
+	t_coor player_pos;
+	t_coor cell_ahead;
+	t_coor step;
+
+	player_pos.x = (size_t)dt->player.pos.x;
+	player_pos.y = (size_t)dt->player.pos.y;
+
+	set_step(&step, &dt->player.direction_vector);
+	cell_ahead.x = player_pos.x + step.x;
+	cell_ahead.y = player_pos.y + 0;
+
+	printf("Cell ahead X Y: %zu %zu\n", cell_ahead.x, cell_ahead.y);
+	return (cell_ahead);
+}
 void	process_keypresses(t_data *dt)
 {
 	if (dt->keys[119])  // W
@@ -29,14 +46,28 @@ void	process_keypresses(t_data *dt)
 		dt->player.move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
 	else
 		dt->player.move_speed_multiplier = 1;
+	t_coor	cell_ahead;
+	t_door	*door;
 	if (dt->keys[91])
 	{
-		dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress = fmax(0.0f, dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress - 0.05f);
-		printf("Door open: %f\n", dt->doors[0].open_progress);
+		cell_ahead = get_cell_ahead(dt);
+		if (get_cell_type(&dt->map, &cell_ahead) == '|')
+		{
+			dt->view->show_door_open_message = 1;
+			door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
+			door->open_progress = fmax(0.0f, door->open_progress - 0.05f);
+		}
+		printf("Door open: %f\n", door->open_progress);
 	}
 	if (dt->keys[93])
 	{
-		dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress = fmin(1.0f, dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress + 0.05f);
-		printf("Door open: %f\n", dt->doors[0].open_progress);
+		cell_ahead = get_cell_ahead(dt);
+		if (get_cell_type(&dt->map, &cell_ahead) == '|')
+		{
+			dt->view->show_door_open_message = 1;
+			door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
+			door->open_progress = fmin(1.0f, door->open_progress + 0.05f);
+		}
+		printf("Door open: %f\n", door->open_progress);
 	}
 }

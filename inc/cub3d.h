@@ -169,6 +169,7 @@ typedef struct s_view
 	char	show_minimap;
 	int		minimap_color;
 	char	show_debug_info;
+	char	show_door_open_message;
 	float	door_open;
 }	t_view;
 
@@ -233,6 +234,7 @@ typedef struct s_data
 	long			last_time;
 	long			delta_time;
 	t_img			*sky_image;
+	t_img			*message_img;
 }	t_data;
 
 
@@ -459,5 +461,7 @@ int 		ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
 
 
 t_door 		*find_door_at(t_data *dt, int x, int y);
+
+int			render_ui_message(t_data *dt);
 
 #endif

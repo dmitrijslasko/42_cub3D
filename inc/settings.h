@@ -130,7 +130,7 @@
 
 
 // shaders
-# define ENABLE_SHADERS					0
+# define ENABLE_SHADERS					1
 # define DISTANCE_SHADOW_STRENGTH 		0.2f
 
 #endif

@@ -12,7 +12,7 @@ int	load_textures(t_data *dt)
 	{
 		texture = &dt->map.door.texture;
 		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
-													"./textures/door.xpm",
+													"./textures/wolf37.xpm",
 													&texture->width,
 													&texture->height);
 		texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img,

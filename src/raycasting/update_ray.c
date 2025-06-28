@@ -18,11 +18,9 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 	t_coor	step;
 	char	hit_side;
 	int		door_hit;
-	int		door_cell_hit;
 
 	door_hit = 0;
 	hit_side = 0;
-	door_cell_hit = 0;
 
 	// This line sets the step based on the vector directions
 	set_step(&step, &ray->vector);
@@ -57,13 +55,11 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 		ray->wall_hit.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
 
 		// CHECK IF THE RAY HITS A DOOR CELL
-		door_cell_hit = check_hit_door_cell(&map_coor, dt, ray, hit_side);
-
-		if (door_cell_hit)
+		if (check_hit_door_cell(&map_coor, dt, ray, hit_side))
 		{
-			//printf("Checking if it also hits the door!\n");
 			door_hit = ray_hits_door(dt, &map_coor, ray);
-			if (ray->door_hit_coor.y < dt->view->door_open)
+			// if (ray->door_hit_coor.y < dt->view->door_open)
+			if (ray->door_hit_coor.y < ray->door->cell_y + ray->door->open_progress)
 				door_hit = 0;
 			if (door_hit)
 				break ;
@@ -75,16 +71,10 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 	set_cell_type(dt, ray, &map_coor);
 
 	if (door_hit == 1)
-	{
 		ray->distance_to_wall += ray->distance_to_door;
-		//printf(TXT_MAGENTA "TOTAL DISTANCE TO DOOR: %.2f\n" TXT_RESET, ray->distance_to_wall);
-	}
 
 	set_wall_type(ray);
 	set_perc_wall(&dt->player.pos, ray);
 
 	ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
-	//if (ray->id == 0 || ray->id == CASTED_RAYS_COUNT - 1 || ray->id == CASTED_RAYS_COUNT / 2)
-	//	//printf("----------------------------\n");
-
 }

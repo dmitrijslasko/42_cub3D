@@ -2,24 +2,38 @@
 #include "cub3d.h"
 
 // TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
-int	map_position_is_walkable(t_map *map, float *new_x, float *new_y)
+int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 {
 	size_t min_x = (size_t)(*new_x - MIN_DISTANCE_TO_WALL);
 	size_t max_x = (size_t)(*new_x + MIN_DISTANCE_TO_WALL);
 	size_t min_y = (size_t)(*new_y - MIN_DISTANCE_TO_WALL);
 	size_t max_y = (size_t)(*new_y + MIN_DISTANCE_TO_WALL);
+	t_door *door;
 
 	// Check for out-of-bounds access
-	if (max_x >= map->map_size_cols || max_y >= map->map_size_rows)
+	if (max_x >= dt->map.map_size_cols || max_y >= dt->map.map_size_rows)
 		return (0);
 
+		// printf("%s\n", "Door not found!");
+
 	// Check four corners of bounding box
-	if (ft_strchr("1v", map->map_data[min_y][min_x]) ||
-		ft_strchr("1v", map->map_data[min_y][max_x]) ||
-		ft_strchr("1v", map->map_data[max_y][min_x]) ||
-		ft_strchr("1v", map->map_data[max_y][max_x]))
+	if (ft_strchr("1v", dt->map.map_data[min_y][min_x]) ||
+		ft_strchr("1v", dt->map.map_data[min_y][max_x]) ||
+		ft_strchr("1v", dt->map.map_data[max_y][min_x]) ||
+		ft_strchr("1v", dt->map.map_data[max_y][max_x]))
 	{
 		return (0);
+	}
+	if (ft_strchr("|", dt->map.map_data[min_y][min_x]) ||
+		ft_strchr("|", dt->map.map_data[min_y][max_x]) ||
+		ft_strchr("|", dt->map.map_data[max_y][min_x]) ||
+		ft_strchr("|", dt->map.map_data[max_y][max_x]))
+	{
+		door = find_door_at(dt, (int)*new_x + 1, (int)*new_y);
+		if (door)
+			printf("Door id: %zu\n", door->id);
+		if (door && door->open_progress != 1.0)
+			return (0);
 	}
 	return (1);
 }
@@ -44,14 +58,14 @@ int	move_forward_backward(t_data *dt, int direction)
 	new_x = player_pos->x + dt->player.direction_vector.x * speed * direction;
 	new_y = player_pos->y + dt->player.direction_vector.y * speed * direction;
 
-	if (map_position_is_walkable(&dt->map, &new_x, &new_y))
+	if (map_position_is_walkable(dt, &new_x, &new_y))
 	{
 		player_pos->x = new_x;
 		player_pos->y = new_y;
 	}
-	else if (map_position_is_walkable(&dt->map, &new_x, &player_pos->y))
+	else if (map_position_is_walkable(dt, &new_x, &player_pos->y))
 		player_pos->x = new_x;
-	else if (map_position_is_walkable(&dt->map, &player_pos->x, &new_y))
+	else if (map_position_is_walkable(dt, &player_pos->x, &new_y))
 		player_pos->y = new_y;
 	return (EXIT_SUCCESS);
 }
@@ -72,14 +86,14 @@ int move_sideways(t_data *dt, int is_to_the_right)
 	new_x = player_pos->x + rotated_vector.x * KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
 	new_y = player_pos->y + rotated_vector.y * KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
 
-	if (map_position_is_walkable(&dt->map, &new_x, &new_y))
+	if (map_position_is_walkable(dt, &new_x, &new_y))
 	{
 		player_pos->x = new_x;
 		player_pos->y = new_y;
 	}
-	else if (map_position_is_walkable(&dt->map, &new_x, &player_pos->y))
+	else if (map_position_is_walkable(dt, &new_x, &player_pos->y))
 		player_pos->x = new_x;
-	else if (map_position_is_walkable(&dt->map, &player_pos->x, &new_y))
+	else if (map_position_is_walkable(dt, &player_pos->x, &new_y))
 		player_pos->y = new_y;
 	return (EXIT_SUCCESS);
 }

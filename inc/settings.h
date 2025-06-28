@@ -122,15 +122,15 @@
 # define SHOW_WELCOME_IMAGE  				0
 
 //parsing
-# define PUT_DOOR				1
-# define NUMBER_TEXTURES    	6 // four walls + celling + floor even if is a color
-# define WHITE_SPACE        	" \a\b\t\n\v\f\r"
-# define SPRITES_TYPES     	 	"spq"
+# define PUT_DOOR				            1
+# define NUMBER_TEXTURES    	            6 // four walls + celling + floor even if is a color
+# define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
+# define SPRITES_TYPES     	 	            "spq"
 
 
 
 // shaders
-# define ENABLE_SHADERS					1
+# define ENABLE_SHADERS					0
 # define DISTANCE_SHADOW_STRENGTH 		0.2f
 
 #endif

@@ -49,15 +49,22 @@ void render_3d_scene(t_data *dt)
 				texture_y = texture_height - 1;
 
 			// Sample color from texture
-			int tex_index = texture_y * texture_width + texture_x;
+			int tex_index;
+			int color;
 
-			int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 			if (dt->rays[i].cell_type == DOOR_VERTICAL)
 			{
-				tex_index = texture_y * texture_width + (texture_x + 64 * ((float)dt->rays[i].door->cell_y - dt->view->door_open));
-				//printf("%f\n", (float)dt->rays[i].door->cell_y);
-				//tex_index = texture_y * texture_width + (texture_x + 64 * (2.0f - dt->view->door_open));
+				// tex_index = texture_y * 64 + (texture_x + 64 * ((float)dt->rays[i].door->cell_y - dt->rays[i].door->open_progress));
+				if (dt->rays[i].vector.x > 0)
+					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
+				else
+					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image + dt->rays[i].door->open_progress));
 				color = dt->map.wall_tile[DOOR].texture.texture_data[tex_index];
+			}
+			else
+			{
+				tex_index = texture_y * texture_width + texture_x;
+				color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
 			}
 
 			if (ENABLE_SHADERS)

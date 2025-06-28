@@ -76,7 +76,7 @@ typedef struct s_door
 	int		is_open;
 	int		orientation;
 	float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
-	float	speed;		// Animation speed (progress per second)
+	float	speed;			// Animation speed (progress per second)
 }	t_door;
 
 typedef struct s_coor

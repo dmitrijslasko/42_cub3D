@@ -30,10 +30,13 @@ void	process_keypresses(t_data *dt)
 	else
 		dt->player.move_speed_multiplier = 1;
 	if (dt->keys[91])
-		dt->view->door_open = fmax(2.0f, dt->view->door_open - 0.05f);
+	{
+		dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress = fmax(0.0f, dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress - 0.05f);
+		printf("Door open: %f\n", dt->doors[0].open_progress);
+	}
 	if (dt->keys[93])
 	{
-		dt->view->door_open = fmin(3.0f, dt->view->door_open + 0.05f);
-		//printf("Door open: %f\n", dt->view->door_open);
+		dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress = fmin(1.0f, dt->rays[CASTED_RAYS_COUNT / 2].door->open_progress + 0.05f);
+		printf("Door open: %f\n", dt->doors[0].open_progress);
 	}
 }

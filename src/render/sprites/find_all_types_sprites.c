@@ -15,7 +15,7 @@ void	find_sprites(t_data *dt)
 		while (col < dt->map.map_size_cols && count < dt->sprite_count)
 		{
 			c = get_cell_type_by_coordinates(&dt->map, row, col);
-			if (ft_strchr(SPRITES_TYPES, c))
+			if (ft_strchr(SPRITE_TYPES, c))
 			{
 				dt->sprites[count].id = count;
 				dt->sprites[count].type = c;
@@ -33,7 +33,7 @@ void	find_all_sprites(t_data *dt)
 {
 	size_t	sprite_count;
 
-	sprite_count = count_elements_in_the_map(&dt->map, SPRITES_TYPES);
+	sprite_count = count_elements_in_the_map(&dt->map, SPRITE_TYPES);
 	if (!sprite_count)
 		return ;
 	dt->sprites = protected_malloc(sprite_count * sizeof(t_sprite), dt);

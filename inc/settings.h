@@ -78,7 +78,7 @@
 // colors
 # define DEF_BG_COLOR			    		BLACK
 # define DEF_CEILING_COLOR					GREEN
-# define DEF_FLOOR_COLOR					BLUE
+# define DEF_FLOOR_COLOR					ORANGE
 # define DEF_WALL_COLOR						PINK
 
 # define MIN_DISTANCE_TO_WALL				0.4f
@@ -126,12 +126,15 @@
 # define PUT_DOOR				            1
 # define NUMBER_TEXTURES    	            6 // four walls + celling + floor even if is a color
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
-# define SPRITES_TYPES     	 	            "spq"
 
-
+# define PLAYER_SPAWN_POINT_TYPES			"NSWE"
+# define SPRITE_TYPES     	 	            "spq"
+# define WALL_TYPES							"1"
+# define VERTICAL_DOOR_TYPES				"|"
+# define HORIZONTAL_DOOR_TYPES				"-"
 
 // shaders
-# define ENABLE_SHADERS					1
-# define DISTANCE_SHADOW_STRENGTH 		0.2f
+# define ENABLE_SHADERS						1
+# define DISTANCE_SHADOW_STRENGTH 			0.2f
 
 #endif

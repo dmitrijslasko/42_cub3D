@@ -8,7 +8,7 @@ bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_textur
 		return (0);
 
 	i = 0;
-	while (i < dt->sprite_texture_count)
+	while (i < dt->sprite_type_count)
 	{
 		if (dt->sprite_textures[i].type == type_sprite)
 		{

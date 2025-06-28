@@ -4,7 +4,7 @@ bool	check_valid_caracter_map(char c)
 {
 	if (!ft_strchr("01", c) || !ft_strchr(WHITE_SPACE, c))
 		return (1);
-	if (!ft_strchr(SPRITES_TYPES, c))
+	if (!ft_strchr(SPRITE_TYPES, c))
 		return (1);
 	// thin wall and door
 	return (error_message("Error: Caracter in map not valid!", 0));

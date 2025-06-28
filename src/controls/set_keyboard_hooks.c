@@ -17,7 +17,7 @@ int	close_window(void)
 
 int	handle_keypress(int keycode, t_data *dt)
 {
-	printf("Key %d pressed\n", keycode);
+	//printf("Key %d pressed\n", keycode);
 	if (keycode == ESC_BUTTON)
 	{
 		keypress_exit(dt);

@@ -7,8 +7,8 @@
 
 //	i = 0;
 //	sprite_texture = dt->sprite_textures;
-//	printf("Sprite images to be loaded: %zu\n", dt->sprite_texture_count);
-//	while (i <  dt->sprite_texture_count)
+//	printf("Sprite images to be loaded: %zu\n", dt->sprite_type_count);
+//	while (i <  dt->sprite_type_count)
 //	{
 //		if (i == 0)
 //		{
@@ -55,7 +55,7 @@
 //		while (col < dt->map.map_size_cols && count < dt->sprite_count)
 //		{
 //			c = get_cell_type_by_coordinates(&dt->map, row, col);
-//			if (ft_strchr(SPRITES_TYPES, c))
+//			if (ft_strchr(SPRITE_TYPES, c))
 //			{
 //				dt->sprites[count].type = c;
 //				dt->sprites[count].pos.x = row + 0.5;
@@ -72,7 +72,7 @@
 //{
 //	size_t	sprite_count;
 
-//	sprite_count = count_elements_in_the_map(&dt->map, SPRITES_TYPES);
+//	sprite_count = count_elements_in_the_map(&dt->map, SPRITE_TYPES);
 //	if (!sprite_count)
 //		return ;
 //	dt->sprites = protected_malloc(sprite_count * sizeof(t_sprite), dt);
@@ -87,12 +87,12 @@
 
 //	print_separator_default();
 //	printf(TXT_YELLOW ">>> LOADING SPRITES\n" TXT_RESET);
-//	sprite_type_count = count_types_elements_in_the_map(&dt->map, SPRITES_TYPES);
+//	sprite_type_count = count_types_elements_in_the_map(&dt->map, SPRITE_TYPES);
 //	if (sprite_type_count == 0)
 //		return (EXIT_SUCCESS);
 //	printf("Sprites found in the map: %zu\n", sprite_type_count);
 //	dt->sprite_textures = protected_malloc(sizeof(t_sprite_texture) * sprite_type_count, dt);
-//	dt->sprite_texture_count = sprite_type_count;
+//	dt->sprite_type_count = sprite_type_count;
 //	load_sprite_images(dt);
 //	find_all_sprites(dt);
 //	printf(TXT_GREEN "Done!\n" TXT_RESET);

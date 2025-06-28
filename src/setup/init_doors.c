@@ -26,7 +26,7 @@ void init_doors(t_data *dt)
 		{
 			if (ft_strchr("|-", get_cell_type_by_coordinates(&dt->map, curr_row, curr_col)))
 			{
-				door = &dt->doors[i++];
+				door = &dt->doors[i];
 				door->id = i;
 				door->cell_x = curr_col;
 				door->cell_y = curr_row;

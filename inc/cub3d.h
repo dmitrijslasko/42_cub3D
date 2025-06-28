@@ -225,7 +225,7 @@ typedef struct s_data
 	t_sprite		*sprites;
 	size_t			sprite_count;
 	t_sprite_texture	*sprite_textures;
-	size_t			sprite_texture_count;
+	size_t			sprite_type_count;
 	t_view			*view;
 	t_mouse			mouse;
 	float			sin_table[PRECALCULATED_TRIG];

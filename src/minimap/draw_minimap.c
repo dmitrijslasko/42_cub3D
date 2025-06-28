@@ -74,30 +74,32 @@ int	draw_minimap_map(t_data *dt)
 				curr_col++;
 				continue ;
 			}
-			if (ft_strchr("NSWE", dt->map.map_data[curr_row][curr_col]))
+			if (ft_strchr(PLAYER_SPAWN_POINT_TYPES, dt->map.map_data[curr_row][curr_col]))
 				color = MINIMAP_PLAYER_SPAWN_CELL_COLOR;
 			else if (ft_strchr("v", dt->map.map_data[curr_row][curr_col]))
 			{
 				draw_minimap_thin_wall_vertical(dt, curr_col++, curr_row);
 				continue ;
 			}
-			else if (ft_strchr("h", dt->map.map_data[curr_row][curr_col]))
+			else if (ft_strchr(HORIZONTAL_DOOR_TYPES, dt->map.map_data[curr_row][curr_col]))
 				color = BLACK;
-			else if (ft_strchr("|-", dt->map.map_data[curr_row][curr_col]))
+			else if (ft_strchr(VERTICAL_DOOR_TYPES, dt->map.map_data[curr_row][curr_col]))
 			{
 				draw_minimap_door_vertical(dt, curr_col++, curr_row);
 				continue ;
 			}
-			else if (ft_strchr("1", dt->map.map_data[curr_row][curr_col]))
+			else if (ft_strchr(WALL_TYPES, dt->map.map_data[curr_row][curr_col]))
 			{
 				draw_minimap_wall_cell(dt, curr_col++, curr_row);
 				continue ;
 			}
-			else if (ft_strchr("spq", dt->map.map_data[curr_row][curr_col]))
+			else if (ft_strchr(SPRITE_TYPES, dt->map.map_data[curr_row][curr_col]))
 			{
 				draw_minimap_sprite(dt, curr_col++, curr_row);
 				continue ;
 			}
+			else
+				color = MINIMAP_BACKGROUND_COLOR;
 
 			draw_square_from_top_left(dt->minimap_base_img,
 						curr_col * MINIMAP_GRID_SIZE,

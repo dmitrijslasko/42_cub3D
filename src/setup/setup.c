@@ -10,6 +10,15 @@ int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 	size_t max_y = (size_t)(*new_y + MIN_DISTANCE_TO_WALL);
 	t_door *door;
 
+	t_coor cell_ahead;
+	cell_ahead = get_cell_ahead(dt);
+
+	// NOTE DL: Should not be here probably!
+	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
+	if (dt->player.cell_type_ahead == '|')
+		dt->view->show_door_open_message = 1;
+	else
+		dt->view->show_door_open_message = 0;
 	// Check for out-of-bounds access
 	if (max_x >= dt->map.map_size_cols || max_y >= dt->map.map_size_rows)
 		return (0);

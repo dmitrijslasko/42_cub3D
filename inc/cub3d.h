@@ -50,8 +50,15 @@ typedef enum e_cell_type
 	DOOR_HORIZONTAL,
 	ELEVATOR_VERTICAL,
 	ELEVATOR_HORIZONTAL,
-
 }	t_cell_type;
+
+typedef enum e_active_message
+{
+	NO_MESSAGE = 0,
+	OPEN_DOOR,
+	BE_KIND,
+	ENJOY_THE_GAME,
+}	t_active_message;
 
 typedef struct s_color
 {
@@ -65,14 +72,13 @@ typedef struct s_color
 typedef struct s_door
 {
 	size_t	id;
-    float	pos_x;		// Base x-offset in cell (0.0 to 1.0) when closed
-    float	pos_y;		// Base y-offset in cell (0.0 to 1.0)
-    float 	width;		// Width of the door (e.g., 0.2)
+    float	pos_x;			// Base x-offset in cell (0.0 to 1.0) when closed
+    float	pos_y;			// Base y-offset in cell (0.0 to 1.0)
+    float 	width;			// Width of the door (e.g., 0.2)
     int 	cell_x;
-	int		cell_y;		// Grid cell coordinates
-	int		tex_id;		// Texture ID
-	int		state;		// 0: closed, 1: opening, 2: open, 3: closing
-	int		is_open;
+	int		cell_y;			// Grid cell coordinates
+	int		tex_id;			// Texture ID
+	int		state;			// 0: closed, 1: opening, 2: open, 3: closing
 	int		orientation;
 	float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
 	float	speed;			// Animation speed (progress per second)
@@ -90,7 +96,7 @@ typedef struct s_x_y
 	float	y;
 }	t_x_y;
 
-typedef	struct s_camera_plan
+typedef	struct s_camera_plane
 {
 	t_x_y	plane;
 }	t_camera;
@@ -115,7 +121,7 @@ typedef struct s_ray
 typedef struct s_texture
 {
 	void		*texture_img;
-	int			*texture_data; // Or char* depending on format
+	int			*texture_data;		// Or char* depending on format
 	int			width;
 	int			height;
 	int			bpp;
@@ -146,6 +152,7 @@ typedef struct s_player
 	t_x_y	pos;
 	t_x_y	direction_vector;
 	float	direction_vector_deg;
+	char	cell_type_ahead;
 	float	move_speed_multiplier;
 	bool	can_move;
 }	t_player;
@@ -207,7 +214,6 @@ typedef struct s_sprite
 	bool	visible;
 }	t_sprite;
 
-
 typedef struct s_data
 {
 	void				*mlx_ptr;
@@ -216,14 +222,14 @@ typedef struct s_data
 	t_img				*minimap_base_img;
 	t_img				*minimap;
 	t_map				map;
-	// t_camera		camera;
+	// t_camera			camera;
 	t_door				*doors;
 	size_t				door_count;
 	t_ray				*rays;
 	t_player			player;
 	t_sprite			*sprites;
-	size_t				sprite_count;
 	t_sprite_texture	*sprite_textures;
+	size_t				sprite_count;
 	size_t				sprite_type_count;
 	t_view				*view;
 	t_mouse				mouse;
@@ -236,8 +242,8 @@ typedef struct s_data
 	long				start_time;
 	t_img				*sky_image;
 	t_img				*message_img;
+	float				ambient_light;
 }	t_data;
-
 
 
 static inline int pixel_is_in_window(int x, int y)
@@ -267,8 +273,6 @@ void		setup_mouse_hooks(t_data *dt);
 
 void		*protected_malloc(size_t size, t_data *dt);
 void		free_dt(t_data *dt);
-
-static inline int	pixel_is_in_window(int x, int y);
 
 //parsing
 char		*free_line_get_next(char *line, int fd);
@@ -409,6 +413,7 @@ int			draw_minimap_rays(t_data *dt, int is_direction_vector);
 // 3d render
 int			draw_ceiling(t_data *dt);
 int			draw_floor(t_data *dt);
+int			draw_sky(t_data *dt);
 
 
 // int	get_pixel_color(t_img *img, int x, int y);
@@ -428,7 +433,7 @@ void		process_keypresses(t_data *dt);
 size_t		count_elements_in_the_map(t_map *map, char *element);
 size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
-int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y);
+int			render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y);
 
 int			set_mouse_to_screen_center(t_data *dt);
 
@@ -460,6 +465,8 @@ void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 
 void		sort_sprites_by_distance(t_data *dt);
 int 		draw_sky(t_data *dt);
+
+t_coor 	get_cell_ahead(t_data *dt);
 
 
 #endif

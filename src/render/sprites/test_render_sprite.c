@@ -20,7 +20,7 @@ bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_textur
 	return (0);
 }
 
-int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y)
+int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y)
 {
 	t_sprite_texture	sprite_textures;
 	unsigned int	color;

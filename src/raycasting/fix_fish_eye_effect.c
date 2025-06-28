@@ -12,6 +12,10 @@ float	fix_fish_eye(t_ray *ray, t_player *player)
 	return (ray->distance_to_wall * angle_cos);
 }
 
+/**
+ * 	fish-eye correction - angle_cos
+ */
+
 int	fix_fish_eye_2(t_ray *ray, t_player *player, float *distance)
 {
 	float	angle_cos;

@@ -76,7 +76,7 @@ typedef struct s_door
 	int		is_open;
 	int		orientation;
 	float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
-	float	speed;		// Animation speed (progress per second)
+	float	speed;			// Animation speed (progress per second)
 }	t_door;
 
 typedef struct s_coor
@@ -109,7 +109,7 @@ typedef struct s_ray
 	char		hit_side;
 	char		hit_content;
 	t_door		*door;
-	t_x_y		door_hit;
+	t_x_y		door_hit_coor;
 	float 		distance_to_door;
 }	t_ray;
 
@@ -139,6 +139,7 @@ typedef struct s_map
 	size_t		map_size_rows;
 	size_t		map_size_cols;
 	t_wall_tile	wall_tile[NUMBER_TEXTURES];
+	t_wall_tile door;
 }	t_map;
 
 typedef struct s_player
@@ -164,9 +165,12 @@ typedef struct s_mouse
 
 typedef struct s_view
 {
-	int		screen_center;
+	int		screen_center_y;
 	char	show_minimap;
 	int		minimap_color;
+	char	show_debug_info;
+	char	show_door_open_message;
+	float	door_open;
 }	t_view;
 
 typedef struct s_img
@@ -180,7 +184,7 @@ typedef struct s_img
 	int		width;
 }	t_img;
 
-typedef struct s_sprite_textures
+typedef struct s_sprite_texture
 {
 	int		texture_id;
 	void	*sprite_img;
@@ -192,10 +196,11 @@ typedef struct s_sprite_textures
 	int		endian;
 	char	type;
 	char	*filepath;
-}	t_sprite_textures;
+}	t_sprite_texture;
 
 typedef struct s_sprite
 {
+	size_t	id;
 	t_x_y	pos;
 	float	distance_to_player;
 	int		sprite_textures_id;
@@ -219,14 +224,18 @@ typedef struct s_data
 	t_player		player;
 	t_sprite		*sprites;
 	size_t			sprite_count;
-	t_sprite_textures	*sprite_textures;
-	size_t			sprite_textures_count;
+	t_sprite_texture	*sprite_textures;
+	size_t			sprite_texture_count;
 	t_view			*view;
 	t_mouse			mouse;
 	float			sin_table[PRECALCULATED_TRIG];
 	float			cos_table[PRECALCULATED_TRIG];
 	char			keys[TRACKED_KEYS];
 	void			*welcome_img;
+	long			last_time;
+	long			delta_time;
+	t_img			*sky_image;
+	t_img			*message_img;
 }	t_data;
 
 
@@ -420,7 +429,7 @@ int			precalculate_trig_tables(t_data *dt);
 
 int			render_all_sprites(t_data *dt);
 
-int			apply_wall_shading_1(t_data *dt, size_t i, int *color, float strength);
+int			apply_distance_shadow(t_data *dt, size_t i, int *color, float strength);
 
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);

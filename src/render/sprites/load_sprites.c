@@ -3,13 +3,13 @@
 int	load_sprite_images(t_data *dt)
 {
 	size_t			i;
-	t_sprite_textures	*sprite_textures;
+	t_sprite_texture	*sprite_textures;
 
 	i = 0;
 	sprite_textures = dt->sprite_textures;
-	printf("Sprite images to be loaded: %zu\n", dt->sprite_textures_count);
+	printf("Sprite images to be loaded: %zu\n", dt->sprite_texture_count);
 
-	while (i < dt->sprite_textures_count)
+	while (i < dt->sprite_texture_count)
 	{
 		if (i == 0)
 		{
@@ -46,7 +46,7 @@ int	load_sprite_images(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
-int	load_sprite_texturess(t_data *dt)
+int	load_sprite_textures(t_data *dt)
 {
 	size_t	sprite_element_count;
 	size_t	sprite_type_count;
@@ -57,8 +57,8 @@ int	load_sprite_texturess(t_data *dt)
 		return (EXIT_SUCCESS);
 	printf("Sprite elements found in the map: %zu\n", sprite_element_count);
 	printf("Sprite types found in the map: %zu\n", sprite_type_count);
-	dt->sprite_textures = protected_malloc(sizeof(t_sprite_textures) * sprite_type_count, dt);
-	dt->sprite_textures_count = sprite_type_count;
+	dt->sprite_textures = protected_malloc(sizeof(t_sprite_texture) * sprite_type_count, dt);
+	dt->sprite_texture_count = sprite_type_count;
 	load_sprite_images(dt);
 	return (EXIT_SUCCESS);
 }
@@ -67,7 +67,7 @@ int	load_sprites(t_data *dt)
 {
 	print_separator_default();
 	printf(TXT_YELLOW ">>> SPRITES\n" TXT_RESET);
-	load_sprite_texturess(dt);
+	load_sprite_textures(dt);
 	find_all_sprites(dt);
 	printf(TXT_GREEN "Done!\n" TXT_RESET);
 	return (EXIT_SUCCESS);

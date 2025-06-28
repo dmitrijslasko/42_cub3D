@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_textures *sprite_textures)
+bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_textures)
 {
 	size_t	i;
 
@@ -8,7 +8,7 @@ bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_textures *sprite_textu
 		return (0);
 
 	i = 0;
-	while (i < dt->sprite_textures_count)
+	while (i < dt->sprite_texture_count)
 	{
 		if (dt->sprite_textures[i].type == type_sprite)
 		{
@@ -22,7 +22,7 @@ bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_textures *sprite_textu
 
 int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y)
 {
-	t_sprite_textures	sprite_textures;
+	t_sprite_texture	sprite_textures;
 	unsigned int	color;
 	size_t			row;
 	size_t			col;
@@ -34,9 +34,12 @@ int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char t
 
 	int sprite_height = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
 	int sprite_width = fmin(WINDOW_W * 4, sprite_height * ((float)sprite_textures.width / sprite_textures.height));
+	//printf("Sprite [%zu]\twidth: %d\n", sprite->id, sprite_width);
 
 	int offset_x = sprite_screen_x - sprite_width  / 2;
-	int offset_y = dt->view->screen_center - sprite_height / 2;
+	int offset_y = dt->view->screen_center_y - sprite_height / 2;
+
+	//printf("Sprite [%zu]\t offset x y: %d %d\n", sprite->id, offset_x, offset_y);
 
 	row = 0;
 	while (row < sprite_height)
@@ -68,8 +71,10 @@ int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char t
 				col++;
 				continue;
 			}
-			//apply_wall_shading_1(dt, draw_x, &color, 0.02f);
-			float distance_to_wall = dt->rays[draw_x].corrected_distance_to_wall;
+
+			float distance_to_wall = dt->rays[draw_x / (WINDOW_W / CASTED_RAYS_COUNT)].corrected_distance_to_wall;
+
+			//printf("%f vs %f\n", distance_to_wall, sprite->distance_to_player);
 			if (distance_to_wall * distance_to_wall > sprite->distance_to_player)
 				img_pix_put(dt->scene_img, draw_x, draw_y, color);
 			col++;

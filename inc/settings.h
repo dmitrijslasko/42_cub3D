@@ -28,7 +28,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT					1200
+# define CASTED_RAYS_COUNT					400
 
 // dummy map
 # define DUMMY_MAP_TOP						"1111111111111111111111111111111"
@@ -49,10 +49,10 @@
 
 # define MINIMAP_WALL_CELL_COLOR			BLACK
 # define MINIMAP_PLAYER_SPAWN_CELL_COLOR	0xFFBB00
+# define MINIMAP_DOOR_COLOR					GREY
+# define MINIMAP_THIN_WALL_COLOR			BLACK
 # define MINIMAP_SPRITE_COLOR				RED
 
-# define MINIMAP_DOOR_COLOR					BLUE
-# define MINIMAP_THIN_WALL					LIME
 # define MINIMAP_DOOR_THICKNESS_PX			3
 
 # define MINIMAP_PLAYER_SIZE_PX 			1
@@ -71,6 +71,9 @@
 # define FIELD_OF_VIEW_DEG					60.0f
 # define FIELD_OF_VIEW_SCALE				0.577 //tan(FIELD_OF_VIEW_DEG / 2)
 # define SCALING				            500
+
+# define DEF_DOOR_OFFSET_X					0.5f
+# define DEF_DOOR_OFFSET_Y					0.5f
 
 // colors
 # define DEF_BG_COLOR			    		BLACK
@@ -94,11 +97,12 @@
 # define LOCK_VERTICAL_LOOK_DOWN			100
 
 // mouse sensitivity
-# define ENABLE_MOUSE       				0
+# define ENABLE_MOUSE       				1
 # define MOUSE_SENS_ROTATE 					2.0f
 //# define MOUSE_SENS_DRAG					0.05f
 # define MOUSE_SENS_SCROLL 					0.1f
-
+# define DEFAULT_CROSSHAIR_COLOR			WHITE
+# define DEFAULT_CROSSHAIR_SIZE				5
 
 // separator
 # define DEF_SEPARATOR_CHAR					"-"
@@ -106,25 +110,28 @@
 # define DEF_SEPARATOR_COUNT				1
 
 // menu & UI
-# define DEF_MENU_ROW_H 					15
-# define MENU_WIDTH_PX      				200
+# define DEBUG_MENU_NL	 					10
+# define DEBUG_MENU_NL_2					20
 # define UI_CLR_1    	    				WHITE
 # define UI_CLR_2    	    				GOLD
+# define DEBUG_FIELD_1_OFFSET_X				270
+# define DEBUG_FIELD_2_OFFSET_X				90
+# define DEBUG_FIELD_OFFSET_Y				20
 
-// map parsing
-# define PARSE_MAP							TRUE
-# define TEST_MAP_X							10
-# define TEST_MAP_Y		    				10
-# define TEST_MAP_Z         				0
-# define REPLACE_SPACE_MAP 					0
-
-// welcome screen
+// welcome screens
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  				0
 
 //parsing
-# define NUMBER_TEXTURES    6 // four walls + celling + floor even if is a color
-# define WHITE_SPACE        " \a\b\t\n\v\f\r"
-# define SPRITES_TYPES      "spq"
+# define PUT_DOOR				            1
+# define NUMBER_TEXTURES    	            6 // four walls + celling + floor even if is a color
+# define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
+# define SPRITES_TYPES     	 	            "spq"
+
+
+
+// shaders
+# define ENABLE_SHADERS					1
+# define DISTANCE_SHADOW_STRENGTH 		0.2f
 
 #endif

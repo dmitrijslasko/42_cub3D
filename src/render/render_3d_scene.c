@@ -11,7 +11,7 @@ void render_3d_scene(t_data *dt)
 	if (SHOW_DEBUG_INFO)
 		printf("Rendering 3D scene at %d FPS...\n", FPS);
 
-	draw_ceiling(dt);
+	draw_sky(dt);
 	draw_floor(dt);
 
 	i = 0;
@@ -20,8 +20,8 @@ void render_3d_scene(t_data *dt)
 		// Distance-based projection
 		wall_height = 1.0f / dt->rays[i].corrected_distance_to_wall * SCALING;
 
-		top_y = dt->view->screen_center - wall_height;
-		bottom_y = dt->view->screen_center + wall_height;
+		top_y = dt->view->screen_center_y - wall_height;
+		bottom_y = dt->view->screen_center_y + wall_height;
 
 		 int texture_width = dt->map.wall_tile->texture.width;
 		 int texture_height = dt->map.wall_tile->texture.height;
@@ -37,28 +37,42 @@ void render_3d_scene(t_data *dt)
 
 		// Vertical wall slice drawing
 		int y = top_y;
+
 		while (y < ft_min(WINDOW_H, bottom_y))
 		{
 			// // Relative position on the wall
 			int d = y - top_y;
 			int texture_y = (d * texture_height) / (2 * wall_height);
 			if (texture_y < 0)
-			texture_y = 0;
+				texture_y = 0;
 			if (texture_y >= texture_height)
-			texture_y = texture_height - 1;
+				texture_y = texture_height - 1;
 
 			// Sample color from texture
-			int tex_index = texture_y * texture_width + texture_x;
+			int tex_index;
+			int color;
 
-			int color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			if (dt->rays[i].cell_type == DOOR_VERTICAL)
+			{
+				// tex_index = texture_y * 64 + (texture_x + 64 * ((float)dt->rays[i].door->cell_y - dt->rays[i].door->open_progress));
+				if (dt->rays[i].vector.x > 0)
+					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
+				else
+					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image + dt->rays[i].door->open_progress));
+				color = dt->map.wall_tile[DOOR].texture.texture_data[tex_index];
+			}
+			else
+			{
+				tex_index = texture_y * texture_width + texture_x;
+				color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
+			}
 
-			apply_wall_shading_1(dt, i, &color, 0.2f);
+			if (ENABLE_SHADERS)
+				apply_distance_shadow(dt, i, &color, DISTANCE_SHADOW_STRENGTH);
 
 			for (int w = 0; w < screen_slice_width; w++)
-			{
 				if (pixel_is_in_window(screen_x + w, y))
 					img_pix_put(dt->scene_img, screen_x + w, y, color);
-			}
 			y++;
 		}
 		i++;

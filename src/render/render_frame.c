@@ -1,5 +1,28 @@
 #include "cub3d.h"
 
+int	render_ui_message(t_data *dt)
+{
+	for (int row = 0; row < dt->message_img[0].height; row++)
+	{
+		for (int col = 0; col < dt->message_img[0].width; col++)
+		{
+			char *src_pixel;
+
+			src_pixel = dt->message_img[0].addr + row * dt->message_img[0].line_len + col * dt->message_img->bpp / 8;
+			unsigned int color;
+
+			color = *(unsigned int *)src_pixel;
+
+			int draw_x = ((WINDOW_W - dt->message_img[0].width)/ 2) + col;
+			int draw_y = 700 + row;
+
+			if (color != TRANSPARENT_COLOR)
+				img_pix_put(dt->scene_img, draw_x, draw_y, color);
+		}
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	render_frame(void *param)
 {
 	static long	last_time = 0;
@@ -10,12 +33,10 @@ int	render_frame(void *param)
 
 	// Render FPS at the predefined FPS
 	current_time = get_current_time_in_ms();
-	if (current_time - last_time < (1000 / FPS))
-	{
-		//my_sleep();
+	dt->delta_time = current_time - dt->last_time;
+	if (dt->delta_time < (1000 / FPS))
 		return (EXIT_SUCCESS);
-	}
-	last_time = current_time;
+	dt->last_time = current_time;
 
 	if (dt->win_ptr == NULL)
 		return (EXIT_FAILURE);
@@ -38,6 +59,13 @@ int	render_frame(void *param)
 	// minimap (open/close with Tab)
 	if (dt->view->show_minimap)
 		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+
+	if (dt->view->show_debug_info)
+		show_debug_info(dt);
+
+	if (dt->view->show_door_open_message)
+		render_ui_message(dt);
+
 	add_ui(dt);
 
 	return (EXIT_SUCCESS);

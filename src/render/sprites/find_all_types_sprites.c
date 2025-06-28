@@ -17,6 +17,7 @@ void	find_sprites(t_data *dt)
 			c = get_cell_type_by_coordinates(&dt->map, row, col);
 			if (ft_strchr(SPRITES_TYPES, c))
 			{
+				dt->sprites[count].id = count;
 				dt->sprites[count].type = c;
 				dt->sprites[count].pos.x = col + 0.5;
 				dt->sprites[count].pos.y = row + 0.5;

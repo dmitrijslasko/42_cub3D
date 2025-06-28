@@ -19,7 +19,7 @@ bool	init_rays(t_data *dt)
 		dt->rays[i].wall_hit.y = 0;
 		dt->rays[i].wall_type = -1;
 		dt->rays[i].cell_type = -1;
-		dt->rays[i].door = NULL;
+		dt->rays[i].door = 0;
 		dt->rays[i].hit_side = NULL;
 		dt->rays[i].hit_content = NULL;
 		i++;

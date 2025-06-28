@@ -10,9 +10,10 @@ void init_doors(t_data *dt)
 
 	// malloc
 	print_separator_default();
-	printf(TXT_YELLOW "DOORS\n" TXT_RESET);
+	printf(TXT_YELLOW ">>> INITIALISING DOORS\n" TXT_RESET);
 	door_count = count_elements_in_the_map(&dt->map, "|-");
 	printf("Doors found: %zu\n", door_count);
+
 	dt->doors = malloc(sizeof(t_door) * door_count);
 	dt->door_count = door_count;
 
@@ -29,14 +30,13 @@ void init_doors(t_data *dt)
 				door->id = i;
 				door->cell_x = curr_col;
 				door->cell_y = curr_row;
-				door->pos_x = 0.5;
-				door->pos_y = 0.5;
-				door->open_progress = 0.0;
+				door->pos_x = DEF_DOOR_OFFSET_X;
+				door->pos_y = DEF_DOOR_OFFSET_Y;
+				door->open_progress = 0.0f;
 				door->speed = 1.0f;
 				door->state = 0;
-				door->is_open = 0;
-				door->width = 0.2f;
-				printf("Door [%zu] added with id: %zu.\n", i, door->id);
+				printf("Door [%zu] at X Y (%zu, %zu) added with id:\t%zu\n", i, curr_col, curr_row, door->id);
+				i++;
 			}
 			curr_col++;
 		}

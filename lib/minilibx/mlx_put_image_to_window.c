@@ -13,8 +13,7 @@
 #include	"mlx_int.h"
 
 
-int	mlx_put_image_to_window(t_xvar *xvar,t_win_list *win,t_img *img,
-				int x,int y)
+int	mlx_put_image_to_window(t_xvar *xvar, t_win_list *win, t_img *img, int x, int y)
 {
   GC	gc;
 

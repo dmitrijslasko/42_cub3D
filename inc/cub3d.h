@@ -7,6 +7,7 @@
 # include <sys/time.h>      // for gettimeofday()
 
 # include <stdio.h>
+# include <stdint.h>
 # include <string.h>
 # include <stdbool.h>
 # include <math.h>
@@ -458,5 +459,7 @@ void		find_all_sprites(t_data *dt);
 void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 
 void		sort_sprites_by_distance(t_data *dt);
+int 		draw_sky(t_data *dt);
+
 
 #endif

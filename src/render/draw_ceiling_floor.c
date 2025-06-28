@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-// Full RGBA version
-#include <stdint.h>
-
 int create_color_rgba(int r, int g, int b, int a) {
     return (a << 24) | (r << 16) | (g << 8) | b;
 }
@@ -49,23 +46,29 @@ int draw_sky(t_data *dt)
 	int delta = (int)(-(dt->view->screen_center_y - (WINDOW_H / 2)) * vertical_sensitivity);
 
 	// Where to start sampling vertically from sky texture
-	int texture_start_y = (dt->sky_image->height / 2) - (WINDOW_H / 10) + delta;
+	int texture_start_y = (dt->sky_image->height / 3) - (WINDOW_H / 20) + delta;
 
-	for (screen_y = 0; screen_y < dt->view->screen_center_y; screen_y++)
+	screen_y = 0;
+	while (screen_y < dt->view->screen_center_y)
 	{
-		for (screen_x = 0; screen_x < WINDOW_W; screen_x++)
+		screen_x = 0;
+		while (screen_x < WINDOW_W)
 		{
 			// Horizontal wrapping based on angle
 			float view_ratio = (float)screen_x / (float)WINDOW_W;
 			float tex_ratio = fmodf(view_ratio + angle_offset, 1.0f);
 			texture_x = (int)(tex_ratio * dt->sky_image->width);
+			if (ENABLE_MOVING_SKY)
+				texture_x += (dt->last_time - dt->start_time) / 100;
 
 			// Vertical sampling without stretching
 			texture_y = texture_start_y + screen_y;
 
 			// Clamp to texture bounds
-			if (texture_y < 0) texture_y = 0;
-			if (texture_y >= dt->sky_image->height) texture_y = dt->sky_image->height - 1;
+			if (texture_y < 0)
+				texture_y = 0;
+			if (texture_y > dt->sky_image->height)
+				texture_y = dt->sky_image->height;
 
 			char *pixel = dt->sky_image->addr
 				+ texture_y * dt->sky_image->line_len
@@ -74,7 +77,9 @@ int draw_sky(t_data *dt)
 			color = *(uint32_t *)pixel;
 
 			img_pix_put(dt->scene_img, screen_x, screen_y, color);
+			screen_x++;
 		}
+		screen_y++;
 	}
 	return (EXIT_SUCCESS);
 }

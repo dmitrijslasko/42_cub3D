@@ -55,9 +55,8 @@ void	process_keypresses(t_data *dt)
 		{
 			dt->view->show_door_open_message = 1;
 			door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
-			door->open_progress = fmax(0.0f, door->open_progress - 0.05f);
+			door->open_progress = fmax(0.0f, door->open_progress - door->speed);
 		}
-		printf("Door open: %f\n", door->open_progress);
 	}
 	if (dt->keys[93])
 	{
@@ -66,8 +65,7 @@ void	process_keypresses(t_data *dt)
 		{
 			dt->view->show_door_open_message = 1;
 			door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
-			door->open_progress = fmin(1.0f, door->open_progress + 0.05f);
+			door->open_progress = fmin(1.0f, door->open_progress + door->speed);
 		}
-		printf("Door open: %f\n", door->open_progress);
 	}
 }

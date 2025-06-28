@@ -93,8 +93,8 @@
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f
 
 # define ENABLE_VERTICAL_LOOK				1
-# define LOCK_VERTICAL_LOOK_UP				100
-# define LOCK_VERTICAL_LOOK_DOWN			100
+# define LOCK_VERTICAL_LOOK_UP				200
+# define LOCK_VERTICAL_LOOK_DOWN			200
 
 // mouse sensitivity
 # define ENABLE_MOUSE       				1
@@ -136,5 +136,7 @@
 // shaders
 # define ENABLE_SHADERS						1
 # define DISTANCE_SHADOW_STRENGTH 			0.2f
+
+# define ENABLE_MOVING_SKY					1
 
 #endif

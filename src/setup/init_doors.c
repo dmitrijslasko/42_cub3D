@@ -33,7 +33,7 @@ void init_doors(t_data *dt)
 				door->pos_x = DEF_DOOR_OFFSET_X;
 				door->pos_y = DEF_DOOR_OFFSET_Y;
 				door->open_progress = 0.0f;
-				door->speed = 1.0f;
+				door->speed = 0.05f;
 				door->state = 0;
 				printf("Door [%zu] at X Y (%zu, %zu) added with id:\t%zu\n", i, curr_col, curr_row, door->id);
 				i++;

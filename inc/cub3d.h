@@ -185,8 +185,8 @@ typedef struct s_img
 typedef struct s_sprite_texture
 {
 	int		texture_id;
-	void	*sprite_img;
-	int		*sprite_data;
+	void	*sprite_img[2];
+	int		*sprite_data[2];
 	int		width;
 	int		height;
 	int		bpp;
@@ -232,6 +232,7 @@ typedef struct s_data
 	void				*welcome_img;
 	long				last_time;
 	long				delta_time;
+	long				start_time;
 	t_img				*sky_image;
 	t_img				*message_img;
 }	t_data;

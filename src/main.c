@@ -100,10 +100,11 @@ int	main(int argc, char **argv)
 	init_rays(&dt);
 	init_keys(&dt);
 
-	// VISUAL PART
-	// -------------------------------------------------------------------------
 	precalculate_trig_tables(&dt);
 
+	// VISUAL PART
+	// -------------------------------------------------------------------------
+	dt.start_time = get_current_time_in_ms();
 	setup_mlx_and_win(&dt);
 
 	dt.scene_img = protected_malloc(sizeof(t_img), &dt);

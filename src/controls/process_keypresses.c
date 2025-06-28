@@ -14,7 +14,7 @@ t_coor 	get_cell_ahead(t_data *dt)
 	cell_ahead.x = player_pos.x + step.x;
 	cell_ahead.y = player_pos.y + 0;
 
-	printf("Cell ahead X Y: %zu %zu\n", cell_ahead.x, cell_ahead.y);
+	//printf("Cell ahead X Y: %zu %zu\n", cell_ahead.x, cell_ahead.y);
 	return (cell_ahead);
 }
 void	process_keypresses(t_data *dt)

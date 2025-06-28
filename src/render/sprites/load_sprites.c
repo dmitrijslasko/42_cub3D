@@ -4,12 +4,13 @@ typedef struct s_sprite_file
 {
 	const char	minimap_repr;
 	const char	*filepath;
+	const char	*filepath2;
 }				t_sprite_file;
 
 static const t_sprite_file g_sprites[] =
 {
-	{'s', "./sprites/cacti1-min.xpm"},
-	{'q', "./sprites/cacti2-min.xpm"},
+	{'s', "./sprites/cacti1-min.xpm", "./sprites/cacti2-min.xpm"},
+	{'q', "./sprites/cacti2-min.xpm", "./sprites/cacti1-min.xpm"},
 };
 
 int	load_sprite_images(t_data *dt)
@@ -22,18 +23,31 @@ int	load_sprite_images(t_data *dt)
 	i = 0;
 	while (i < dt->sprite_type_count)
 	{
-			sprite_textures[i].type = g_sprites[i].minimap_repr;
-			sprite_textures[i].sprite_img = mlx_xpm_file_to_image( \
-										dt->mlx_ptr, \
-										g_sprites[i].filepath, \
-										&sprite_textures[i].width, \
-										&sprite_textures[i].height);
-		sprite_textures[i].sprite_data = (int *)mlx_get_data_addr( \
-						sprite_textures[i].sprite_img, \
+		sprite_textures[i].type = g_sprites[i].minimap_repr;
+		sprite_textures[i].sprite_img[0] = mlx_xpm_file_to_image( \
+						dt->mlx_ptr, \
+						g_sprites[i].filepath, \
+						&sprite_textures[i].width, \
+						&sprite_textures[i].height);
+
+		sprite_textures[i].sprite_data[0] = (int *)mlx_get_data_addr( \
+						sprite_textures[i].sprite_img[0], \
 						&sprite_textures[i].bpp, \
 						&sprite_textures[i].size_line, \
-						&sprite_textures[i].endian \
-		);
+						&sprite_textures[i].endian);
+
+		sprite_textures[i].sprite_img[1] = mlx_xpm_file_to_image( \
+						dt->mlx_ptr, \
+						g_sprites[i].filepath2, \
+						&sprite_textures[i].width, \
+						&sprite_textures[i].height);
+
+		sprite_textures[i].sprite_data[1] = (int *)mlx_get_data_addr( \
+						sprite_textures[i].sprite_img[1], \
+						&sprite_textures[i].bpp, \
+						&sprite_textures[i].size_line, \
+						&sprite_textures[i].endian);
+
 		printf("Sprite image loaded!\n");
 		i++;
 	}

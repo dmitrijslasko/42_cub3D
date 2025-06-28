@@ -34,12 +34,9 @@ int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char t
 
 	int sprite_height = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
 	int sprite_width = fmin(WINDOW_W * 4, sprite_height * ((float)sprite_textures.width / sprite_textures.height));
-	//printf("Sprite [%zu]\twidth: %d\n", sprite->id, sprite_width);
 
 	int offset_x = sprite_screen_x - sprite_width  / 2;
 	int offset_y = dt->view->screen_center_y - sprite_height / 2;
-
-	//printf("Sprite [%zu]\t offset x y: %d %d\n", sprite->id, offset_x, offset_y);
 
 	row = 0;
 	while (row < sprite_height)
@@ -65,7 +62,7 @@ int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char t
 
 			int tex_x = col * sprite_textures.width / sprite_width;
 
-			color = sprite_textures.sprite_data[tex_y * sprite_textures.width + tex_x];
+			color = sprite_textures.sprite_data[(dt->last_time - dt->start_time) / 100 % 2][tex_y * sprite_textures.width + tex_x];
 			if (color == TRANSPARENT_COLOR)
 			{
 				col++;
@@ -73,8 +70,6 @@ int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char t
 			}
 
 			float distance_to_wall = dt->rays[draw_x / (WINDOW_W / CASTED_RAYS_COUNT)].corrected_distance_to_wall;
-
-			//printf("%f vs %f\n", distance_to_wall, sprite->distance_to_player);
 			if (distance_to_wall * distance_to_wall > sprite->distance_to_player)
 				img_pix_put(dt->scene_img, draw_x, draw_y, color);
 			col++;

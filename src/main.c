@@ -2,7 +2,7 @@
 
 void	setup_view(t_data *dt)
 {
-	dt->view->screen_center = WINDOW_H / 2;
+	dt->view->screen_center_y = WINDOW_H / 2;
 	dt->view->show_minimap = 0;
 	dt->view->show_debug_info = 0;
 	dt->view->show_door_open_message = 0;
@@ -86,9 +86,10 @@ int	main(int argc, char **argv)
 		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
 
 	if (parsing(&dt, argv[1]))
-	//	printf(TXT_RED "%s failed\n" TXT_RESET, argv[1]);
-	//else
-	//	printf(TXT_GREEN "%s successed\n" TXT_RESET, argv[1]);
+	// 	printf(TXT_RED "%s failed\n" TXT_RESET, argv[1]);
+	// else
+	// 	printf(TXT_GREEN "%s successed\n" TXT_RESET, argv[1]);
+	// free_dt(&dt);
 		exit(1);
 
 	// Load dummy map
@@ -116,8 +117,8 @@ int	main(int argc, char **argv)
 	load_textures(&dt);
 	load_sky_image(&dt);
 	load_messages(&dt);
-	load_sprites(&dt);
 	init_doors(&dt);
+	load_sprites(&dt);
 
 	// minimap base image
 	setup_view(&dt);

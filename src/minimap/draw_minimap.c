@@ -37,6 +37,16 @@ int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
 	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_DOOR_COLOR);
 }
 
+int	draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row)
+{
+	t_coor center;
+
+	center.x = (curr_col + 0.5f) * MINIMAP_GRID_SIZE;
+	center.y = (curr_row + 0.5f) * MINIMAP_GRID_SIZE;
+
+	draw_circle(dt->minimap_base_img, center.x, center.y, 10, MINIMAP_SPRITE_COLOR);
+}
+
 int	draw_minimap_map(t_data *dt)
 {
 	size_t	curr_row;
@@ -81,6 +91,11 @@ int	draw_minimap_map(t_data *dt)
 			else if (ft_strchr("1", dt->map.map_data[curr_row][curr_col]))
 			{
 				draw_minimap_wall_cell(dt, curr_col++, curr_row);
+				continue ;
+			}
+			else if (ft_strchr("spq", dt->map.map_data[curr_row][curr_col]))
+			{
+				draw_minimap_sprite(dt, curr_col++, curr_row);
 				continue ;
 			}
 

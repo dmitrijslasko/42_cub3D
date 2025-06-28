@@ -85,8 +85,8 @@ void	show_debug_info(t_data *dt)
 	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Door hit point Y: ");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
 
-	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Door ID: ");
-	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_index].door->id));
+	//mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_1, "Door ID: ");
+	//mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, ft_itoa(dt->rays[ray_index].door->id));
 
 	snprintf(buffer, sizeof(buffer), "%ld", dt->last_time);
 	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Current time: ");

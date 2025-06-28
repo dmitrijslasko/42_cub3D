@@ -56,12 +56,12 @@ int	mouse_move(int x, int y, t_data *dt)
 	if (ENABLE_VERTICAL_LOOK)
 	{
 		if (y > dt->mouse.prev_y)
-			dt->view->screen_center = ft_max(
-							dt->view->screen_center - KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
+			dt->view->screen_center_y = ft_max(
+							dt->view->screen_center_y - KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
 							WINDOW_H / 2 - LOCK_VERTICAL_LOOK_DOWN);
 		if (y < dt->mouse.prev_y)
-			dt->view->screen_center = ft_min(
-						dt->view->screen_center + KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
+			dt->view->screen_center_y = ft_min(
+						dt->view->screen_center_y + KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
 						WINDOW_H / 2 + LOCK_VERTICAL_LOOK_UP);
 	}
 	return (0);

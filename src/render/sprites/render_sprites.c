@@ -1,43 +1,43 @@
 #include "cub3d.h"
 
-int render_sprites(t_data *dt)
+int render_sprite(t_data *dt, t_sprite *sprite)
 {
-	float	distance;
+	float	dx;
+	float	dy;
 
-	for (int i = 0; i < 2; i++)
-	{
-		distance = (dt->sprites[i].pos.x - dt->player.pos.x) *
-				(dt->sprites[i].pos.x - dt->player.pos.x) +
-				(dt->sprites[i].pos.y - dt->player.pos.y) *
-				(dt->sprites[i].pos.y - dt->player.pos.y);
-		(void) distance;
-		// printf("Distance to sprite[%d]: %.2f\n", i, distance);
-	
-	// dt->camera.plane.x =  -dt->player.direction_vector.y * FIELD_OF_VIEW_SCALE;
-	// dt->camera.plane.y =  dt->player.direction_vector.x * FIELD_OF_VIEW_SCALE;
+	dx = sprite->pos.x - dt->player.pos.x;
+	dy = sprite->pos.y - dt->player.pos.y;
 
-	float dx;
-	float dy;
-	dx = dt->sprites[i].pos.x - dt->player.pos.x;
-	dy = dt->sprites[i].pos.y - dt->player.pos.y;
-
-	// float invDet = 1 / (-FIELD_OF_VIEW_SCALE * (dt->player.direction_vector.x * dt->player.direction_vector.x + 
+	// float inv_det = 1 / (-FIELD_OF_VIEW_SCALE * (dt->player.direction_vector.x * dt->player.direction_vector.x +
 	// 											dt->player.direction_vector.y * dt->player.direction_vector.y) )
 
-	float invDet = -1 / FIELD_OF_VIEW_SCALE;
+	float inv_det = -1 / FIELD_OF_VIEW_SCALE;
 
-	float transformX = invDet * (dt->player.direction_vector.y * dx - 
+	float transform_x = inv_det * (dt->player.direction_vector.y * dx -
 								 dt->player.direction_vector.x * dy);
-	// float transformY = invDet * (-dt->camera.plane.y * dx + 
+	// float transform_y = inv_det * (-dt->camera.plane.y * dx +
 	// 							 dt->camera.plane.x * dy);
-	
-	float transformY = (dt->player.direction_vector.x * dx + 
+
+	float transform_y = (dt->player.direction_vector.x * dx +
 								 dt->player.direction_vector.y * dy);
 
-	int spriteScreenX = (WINDOW_W / 2) * (1 + transformX / transformY);
+	int sprite_screen_x = (WINDOW_W / 2) * (1 + transform_x / transform_y);
 
-	if (transformY > 0)
-		test_render_sprite(dt, spriteScreenX, i);
-	}
+	test_render_sprite(dt, sprite, sprite_screen_x, sprite->type, transform_y);
 	return (EXIT_SUCCESS);
+}
+
+int	render_all_sprites(t_data *dt)
+{
+	size_t	i;
+
+	//puts("Rendering sprites...");
+	sort_sprites_by_distance(dt);
+	//sort_sprites(dt, dt->sprite_count);
+	i = 0;
+	while (i < dt->sprite_count)
+	{
+		render_sprite(dt, &dt->sprites[i]);
+		i++;
+	}
 }

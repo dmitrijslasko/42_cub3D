@@ -20,8 +20,8 @@ void render_3d_scene(t_data *dt)
 		// Distance-based projection
 		wall_height = 1.0f / dt->rays[i].corrected_distance_to_wall * SCALING;
 
-		top_y = dt->view->screen_center - wall_height;
-		bottom_y = dt->view->screen_center + wall_height;
+		top_y = dt->view->screen_center_y - wall_height;
+		bottom_y = dt->view->screen_center_y + wall_height;
 
 		 int texture_width = dt->map.wall_tile->texture.width;
 		 int texture_height = dt->map.wall_tile->texture.height;
@@ -68,7 +68,7 @@ void render_3d_scene(t_data *dt)
 			}
 
 			if (ENABLE_SHADERS)
-				apply_distance_shadow(dt, i, &color);
+				apply_distance_shadow(dt, i, &color, DISTANCE_SHADOW_STRENGTH);
 
 			for (int w = 0; w < screen_slice_width; w++)
 				if (pixel_is_in_window(screen_x + w, y))
@@ -77,5 +77,5 @@ void render_3d_scene(t_data *dt)
 		}
 		i++;
 	}
-	// render_sprites(dt);
+	render_all_sprites(dt);
 }

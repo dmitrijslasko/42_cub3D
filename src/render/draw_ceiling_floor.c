@@ -19,7 +19,7 @@ int	draw_ceiling(t_data *dt)
 	t_coor		bottom_right;
 
 	set_coor_values(&top_left, 0, 0);
-	set_coor_values(&bottom_right, WINDOW_W, dt->view->screen_center);
+	set_coor_values(&bottom_right, WINDOW_W, dt->view->screen_center_y);
 	// if (dt->map->wall_tile[CEILING].is_color)
 	color = create_color_rgb(dt->map.wall_tile[CEILING].color.r, dt->map.wall_tile[CEILING].color.g, dt->map.wall_tile[CEILING].color.b);
 	draw_rectangle(dt->scene_img, top_left, bottom_right, color);
@@ -46,12 +46,12 @@ int draw_sky(t_data *dt)
 
 	// Vertical camera pitch adjustment
 	float vertical_sensitivity = 1.0f; // 0.1–0.3 is good range
-	int delta = (int)(-(dt->view->screen_center - (WINDOW_H / 2)) * vertical_sensitivity);
+	int delta = (int)(-(dt->view->screen_center_y - (WINDOW_H / 2)) * vertical_sensitivity);
 
 	// Where to start sampling vertically from sky texture
 	int texture_start_y = (dt->sky_image->height / 2) - (WINDOW_H / 10) + delta;
 
-	for (screen_y = 0; screen_y < dt->view->screen_center; screen_y++)
+	for (screen_y = 0; screen_y < dt->view->screen_center_y; screen_y++)
 	{
 		for (screen_x = 0; screen_x < WINDOW_W; screen_x++)
 		{
@@ -87,7 +87,7 @@ int	draw_floor(t_data *dt)
 	t_coor	top_left;
 	t_coor	bottom_right;
 
-	set_coor_values(&top_left, 0, dt->view->screen_center);
+	set_coor_values(&top_left, 0, dt->view->screen_center_y);
 	set_coor_values(&bottom_right, WINDOW_W, WINDOW_H);
 
 	color = create_color_rgb(dt->map.wall_tile[FLOOR].color.r, dt->map.wall_tile[FLOOR].color.g, dt->map.wall_tile[FLOOR].color.b);

@@ -2,6 +2,7 @@
 
 int	setup_img(t_data *dt, t_img *img, size_t width, size_t height)
 {
+	print_separator_default();
 	printf("Image setup...");
 	img->mlx_img = mlx_new_image(dt->mlx_ptr, width, height);
 	img->width = width;

@@ -34,12 +34,12 @@ void	process_keypresses(t_data *dt)
 	if (ENABLE_VERTICAL_LOOK)
 	{
 		if (dt->keys[65362]) // Up
-			dt->view->screen_center = ft_min(
-							dt->view->screen_center + KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
+			dt->view->screen_center_y = ft_min(
+							dt->view->screen_center_y + KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
 							WINDOW_H / 2 + LOCK_VERTICAL_LOOK_UP );
 		if (dt->keys[65364]) // Down
-			dt->view->screen_center = ft_max(
-							dt->view->screen_center - KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
+			dt->view->screen_center_y = ft_max(
+							dt->view->screen_center_y - KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
 							WINDOW_H / 2 - LOCK_VERTICAL_LOOK_DOWN);
 	}
 	if (dt->keys[65505])

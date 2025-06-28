@@ -1,12 +1,12 @@
 #include "cub3d.h"
 
-int	apply_distance_shadow(t_data *dt, size_t i, int *color)
+int	apply_distance_shadow(t_data *dt, size_t i, int *color, float strength)
 {
 	float distance;
 	float shade;
 
 	distance = dt->rays[i].distance_to_wall;
-	shade = 1.0f / (1.0f + distance * DISTANCE_SHADOW_STRENGTH);
+	shade = 1.0f / (1.0f + distance * strength);
 
 	if (shade < 0.1f)
 		shade = 0.1f;

@@ -21,14 +21,16 @@ static const t_texture_match g_textures_lookup[] = {
 
 bool	is_valid_line_texture(char *line)
 {
-	size_t i;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (line[i] && ft_strchr(WHITE_SPACE, line[i]))
-		i++;
+	j = 0;
+	while (line[j] && ft_strchr(WHITE_SPACE, line[j]))
+		j++;
 	while (g_textures_lookup[i].str_with_space)
 	{
-		if (!ft_strncmp(line, g_textures_lookup[i].str_with_space, g_textures_lookup[i].length))
+		if (!ft_strncmp(&line[j], g_textures_lookup[i].str_with_space, g_textures_lookup[i].length))
 			return (1);
 		i++;
 	}

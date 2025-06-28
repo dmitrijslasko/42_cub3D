@@ -11,7 +11,7 @@ void	init_dt(t_data *dt)
 	dt->rays = NULL;
 	dt->map.map_data = NULL;
 	dt->sprites = NULL;
-	dt->sprites_txt = NULL;
+	dt->sprite_textures = NULL;
 	dt->view = NULL;
 	dt->welcome_img = NULL;
 }

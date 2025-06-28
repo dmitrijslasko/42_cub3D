@@ -13,6 +13,19 @@ void	free_array(char **array)
 	array = NULL;
 }
 
+void	free_file_texture(t_data *dt)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < NUMBER_TEXTURES)
+	{
+		if (dt->map.wall_tile[i].texture.file)
+			free(dt->map.wall_tile[i].texture.file);
+		i++;
+	}
+}
+
 void	free_dt(t_data *dt)
 {
 	if (dt->mlx_ptr)
@@ -33,10 +46,11 @@ void	free_dt(t_data *dt)
 		free_array(dt->map.map_data);
 	if (dt->sprites)
 		free(dt->sprites);
-	if (dt->sprites_txt)
-		free(dt->sprites_txt);
+	if (dt->sprite_textures)
+		free(dt->sprite_textures);
 	if (dt->view)
 		free(dt->view);
 	if (dt->welcome_img)
 		free(dt->welcome_img);
+	free_file_texture(dt);
 }

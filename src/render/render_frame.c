@@ -24,7 +24,6 @@ int	render_frame(void *param)
 
 	reset_mouse_position(dt);
 
-
 	calculate_all_rays(dt);
 
 	render_3d_scene(dt);

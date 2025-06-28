@@ -1,39 +1,80 @@
 #include "cub3d.h"
 
-bool	valid_sprites(t_data *dt)
+bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_textures *sprite_textures)
 {
-	int	id_texture;
+	size_t	i;
 
-	if (!dt->sprites)
-		return (EXIT_FAILURE);
-	id_texture = dt->sprites[0].sprite_texture_id;
-	if (id_texture < -1 || !dt->sprites_txt[id_texture].sprite_data)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (!dt->sprites || !dt->sprite_textures)
+		return (0);
+
+	i = 0;
+	while (i < dt->sprite_textures_count)
+	{
+		if (dt->sprite_textures[i].type == type_sprite)
+		{
+			*sprite_textures = dt->sprite_textures[i];
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
-int	test_render_sprite(t_data *dt, int spriteScreenX, int i)
+int	test_render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y)
 {
-	if (valid_sprites(dt))
+	t_sprite_textures	sprite_textures;
+	unsigned int	color;
+	size_t			row;
+	size_t			col;
+
+	if (transform_y <= 0.2f)
+		return (0);
+	if (!valid_sprites(dt, type_sprite, &sprite_textures))
 		return (EXIT_FAILURE);
 
-	int offset_x = spriteScreenX - dt->sprites_txt[i].width / 2;
-	int offset_y = WINDOW_H / 2 - dt->sprites_txt[i].height / 2;
+	int sprite_height = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
+	int sprite_width = fmin(WINDOW_W * 4, sprite_height * ((float)sprite_textures.width / sprite_textures.height));
 
-	for (int row = 0; row < dt->sprites_txt[i].height; row++)
+	int offset_x = sprite_screen_x - sprite_width  / 2;
+	int offset_y = dt->view->screen_center - sprite_height / 2;
+
+	row = 0;
+	while (row < sprite_height)
 	{
-		for (int col = 0; col < dt->sprites_txt[i].width; col++)
+		int draw_y = offset_y + row;
+		if (draw_y < 0 || draw_y >= WINDOW_H)
 		{
-			unsigned int color = dt->sprites_txt[i].sprite_data[row * dt->sprites_txt[i].width + col];
-
-			// Skip transparent pixels (commonly 0)
-
-			int draw_x = offset_x + col;
-			int draw_y = offset_y + row;
-
-			if (draw_x >= 0 && draw_x < WINDOW_W && draw_y >= 0 && draw_y < WINDOW_H && color != TRANSPARENT_COLOR)
-				img_pix_put(dt->scene_img, draw_x, draw_y, color);
+			row++;
+			continue;
 		}
+
+		int tex_y = row * sprite_textures.height / sprite_height;
+
+		col = 0;
+		while (col < sprite_width)
+		{
+			int draw_x = offset_x + col;
+			if (draw_x < 0 || draw_x >= WINDOW_W)
+			{
+				col++;
+				continue;
+			}
+
+			int tex_x = col * sprite_textures.width / sprite_width;
+
+			color = sprite_textures.sprite_data[tex_y * sprite_textures.width + tex_x];
+			if (color == TRANSPARENT_COLOR)
+			{
+				col++;
+				continue;
+			}
+			//apply_wall_shading_1(dt, draw_x, &color, 0.02f);
+			float distance_to_wall = dt->rays[draw_x].corrected_distance_to_wall;
+			if (distance_to_wall * distance_to_wall > sprite->distance_to_player)
+				img_pix_put(dt->scene_img, draw_x, draw_y, color);
+			col++;
+		}
+		row++;
 	}
 	return (EXIT_SUCCESS);
 }

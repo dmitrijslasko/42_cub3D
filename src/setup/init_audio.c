@@ -1,4 +1,7 @@
-#include "cub3d.h"
+#include "sound.h"
+#include "colors.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 Mix_Music *init_audio(void)
 {

@@ -6,6 +6,7 @@ bool	check_hit_door_cell(t_coor *map_coor, t_data *dt, t_ray *ray, char side)
 	char	tile;
 
 	(void) ray;
+	(void) side;
 	tile = get_cell_type(&dt->map, map_coor);
 	if (tile == '|')
 		return (1);
@@ -27,9 +28,6 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 
 	map_coor.x = (size_t)dt->player.pos.x;
 	map_coor.y = (size_t)dt->player.pos.y;
-
-
-	size_t i = 0;
 
 	while (map_coor.x <  dt->map.map_size_cols && map_coor.y < dt->map.map_size_rows)
 	{
@@ -58,7 +56,6 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 		if (check_hit_door_cell(&map_coor, dt, ray, hit_side))
 		{
 			door_hit = ray_hits_door(dt, &map_coor, ray);
-			// if (ray->door_hit_coor.y < dt->view->door_open)
 			if (ray->door_hit_coor.y < ray->door->cell_y + ray->door->open_progress)
 				door_hit = 0;
 			if (door_hit)

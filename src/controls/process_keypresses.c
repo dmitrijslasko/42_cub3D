@@ -1,20 +1,17 @@
 #include "cub3d.h"
 
+// TODO DL: This currently only works with vertical cells / movement
 t_coor 	get_cell_ahead(t_data *dt)
 {
-	t_door *door;
 	t_coor player_pos;
 	t_coor cell_ahead;
 	t_coor step;
 
 	player_pos.x = (size_t)dt->player.pos.x;
 	player_pos.y = (size_t)dt->player.pos.y;
-
 	set_step(&step, &dt->player.direction_vector);
 	cell_ahead.x = player_pos.x + step.x;
 	cell_ahead.y = player_pos.y + 0;
-
-	//printf("Cell ahead X Y: %zu %zu\n", cell_ahead.x, cell_ahead.y);
 	return (cell_ahead);
 }
 void	process_keypresses(t_data *dt)

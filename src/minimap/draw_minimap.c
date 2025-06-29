@@ -7,6 +7,7 @@ int	draw_minimap_wall_cell(t_data *dt, size_t curr_col, size_t curr_row)
 			curr_row * MINIMAP_GRID_SIZE,
 			MINIMAP_GRID_SIZE,
 			MINIMAP_WALL_CELL_COLOR);
+	return (EXIT_SUCCESS);
 }
 
 int	draw_minimap_thin_wall_vertical(t_data *dt, size_t curr_col, size_t curr_row)
@@ -21,6 +22,7 @@ int	draw_minimap_thin_wall_vertical(t_data *dt, size_t curr_col, size_t curr_row
 	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
 
 	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_THIN_WALL_COLOR);
+	return (EXIT_SUCCESS);
 }
 
 int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
@@ -35,6 +37,7 @@ int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
 	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
 
 	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_DOOR_COLOR);
+	return (EXIT_SUCCESS);
 }
 
 int	draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row)
@@ -45,6 +48,7 @@ int	draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row)
 	center.y = (curr_row + 0.5f) * MINIMAP_GRID_SIZE;
 
 	draw_circle(dt->minimap_base_img, center.x, center.y, 10, MINIMAP_SPRITE_COLOR);
+	return (EXIT_SUCCESS);
 }
 
 int	draw_minimap_map(t_data *dt)
@@ -126,39 +130,6 @@ void put_pixel(t_img *img, int x, int y, unsigned int color)
 {
     *(unsigned int *)(img->addr + (y * img->line_len + x * (img->bpp / 8))) = color;
 }
-// void put_img_to_img(t_img *dest, t_img *src, int dx, int dy)
-// {
-// 	size_t	x;
-// 	size_t	y;
-// 	unsigned int	color;
-
-// 	printf("SRC W H %zu %zu\n", src->width, src->height);
-// 	printf("DEST W H %zu %zu\n", dest->width, dest->height);
-
-// 	y = 0;
-//   	while (y < 200)
-//     {
-//         int dest_y = dy + y;
-//         if (dest_y < 0 || dest_y >= (int) dest->height)
-//             continue;
-
-// 		x = 0;
-//         while (x < 200)
-//         {
-//             int dest_x = dx + x;
-//             if (dest_x < 0 || dest_x >= (int) dest->width)
-//                 continue;
-
-//             color = get_pixel(src, x, y);
-
-//             // Optional: skip transparent/black
-//             if (color != TRANSPARENT_COLOR)
-//                 put_pixel(dest, dest_x, dest_y, color);
-// 			x++;
-//         }
-// 		y++;
-//     }
-// }
 
 void put_img_to_img(t_img *dest, t_img *src, int dx, int dy)
 {
@@ -187,7 +158,6 @@ void put_img_to_img(t_img *dest, t_img *src, int dx, int dy)
 		y++;
 	}
 }
-
 
 int update_minimap(t_data *dt)
 {

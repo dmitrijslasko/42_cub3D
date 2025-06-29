@@ -1,8 +1,10 @@
 #include "cub3d.h"
+#include "sound.h"
 
 int	main(int argc, char **argv)
 {
 	t_data	dt;
+	Mix_Music *bgm;
 
 	if (argc != 2)
 		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
@@ -12,10 +14,10 @@ int	main(int argc, char **argv)
 	// else
 	// 	printf(TXT_GREEN "%s successed\n" TXT_RESET, argv[1]);
 	// free_dt(&dt);
-		exit(1);
+		return (EXIT_FAILURE);
 
 	// Load dummy map
-	// dt.map = load_dummy_map();
+	//dt->map = load_dummy_map();
 	print_level_map(&dt.map);
 
 	// Initialize ray array. Later the rays get updated in render function.
@@ -35,15 +37,12 @@ int	main(int argc, char **argv)
 	dt.view = protected_malloc(sizeof(t_view), &dt);
 	dt.last_time = 0;
 
-	dt.view->door_open = 2.0f;
-
 	load_textures(&dt);
 	load_sky_image(&dt);
 	load_messages(&dt);
 	init_doors(&dt);
 	load_sprites(&dt);
 
-	// minimap base image
 	setup_view(&dt);
 
 	draw_minimap_map(&dt);
@@ -54,9 +53,8 @@ int	main(int argc, char **argv)
 	if (ENABLE_MOUSE)
 		setup_mouse_hooks(&dt);
 
-	print_separator_default();
-
-	Mix_Music *bgm = init_audio();
+	bgm = init_audio();
+	print_separator(3, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 

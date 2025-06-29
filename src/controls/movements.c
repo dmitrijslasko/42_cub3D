@@ -8,7 +8,6 @@ int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 	size_t max_x = (size_t)(*new_x + MIN_DISTANCE_TO_WALL);
 	size_t min_y = (size_t)(*new_y - MIN_DISTANCE_TO_WALL);
 	size_t max_y = (size_t)(*new_y + MIN_DISTANCE_TO_WALL);
-	t_door *door;
 
 	t_coor cell_ahead;
 	cell_ahead = get_cell_ahead(dt);

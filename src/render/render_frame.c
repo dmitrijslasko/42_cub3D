@@ -25,7 +25,6 @@ int	render_ui_message(t_data *dt)
 
 int	render_frame(void *param)
 {
-	static long	last_time = 0;
 	long		current_time;
 	t_data		*dt;
 

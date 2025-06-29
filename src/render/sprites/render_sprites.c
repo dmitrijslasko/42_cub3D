@@ -35,4 +35,5 @@ int	render_all_sprites(t_data *dt)
 		get_position_and_render_sprite(dt, &dt->sprites[i]);
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }

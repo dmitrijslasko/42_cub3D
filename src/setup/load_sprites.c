@@ -3,8 +3,8 @@
 typedef struct s_sprite_file
 {
 	const char	minimap_repr;
-	const char	*filepath;
-	const char	*filepath2;
+	char		*filepath;
+	char		*filepath2;
 }				t_sprite_file;
 
 static const t_sprite_file g_sprites[] =

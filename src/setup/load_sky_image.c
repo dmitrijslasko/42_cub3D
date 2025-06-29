@@ -13,7 +13,7 @@ int load_sky_image(t_data *dt)
 		fprintf(stderr, "Failed to allocate memory for sky image\n");
 		return (EXIT_FAILURE);
 	}
-	dt->sky_image->mlx_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/sky_2.xpm", &w, &h);
+	dt->sky_image->mlx_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/sky_1.xpm", &w, &h);
 	if (!dt->sky_image->mlx_img)
 	{
 		fprintf(stderr, "Failed to load sky texture\n");

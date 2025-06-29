@@ -32,8 +32,8 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_s
 	if (!valid_sprites(dt, type_sprite, &sprite_textures))
 		return (EXIT_FAILURE);
 
-	int sprite_height = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
-	int sprite_width = fmin(WINDOW_W * 4, sprite_height * ((float)sprite_textures.width / sprite_textures.height));
+	size_t sprite_height = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
+	size_t sprite_width = fmin(WINDOW_W * 4, sprite_height * ((float)sprite_textures.width / sprite_textures.height));
 
 	int offset_x = sprite_screen_x - sprite_width  / 2;
 	int offset_y = dt->view->screen_center_y - sprite_height / 2;

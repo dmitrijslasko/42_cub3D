@@ -10,4 +10,5 @@ int init_keys(t_data *dt)
 		dt->keys[i] = 0;
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }

@@ -7,6 +7,7 @@ void render_3d_scene(t_data *dt)
 	int		screen_x;
 	int 	top_y;
 	int		bottom_y;
+	int 	w;
 
 	if (SHOW_DEBUG_INFO)
 		printf("Rendering 3D scene at %d FPS...\n", FPS);
@@ -54,11 +55,10 @@ void render_3d_scene(t_data *dt)
 
 			if (dt->rays[i].cell_type == DOOR_VERTICAL)
 			{
-				// tex_index = texture_y * 64 + (texture_x + 64 * ((float)dt->rays[i].door->cell_y - dt->rays[i].door->open_progress));
 				if (dt->rays[i].vector.x > 0)
 					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
 				else
-					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image + dt->rays[i].door->open_progress));
+					tex_index = texture_y * 64 + (64 * (1.0f - dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
 				color = dt->map.wall_tile[DOOR].texture.texture_data[tex_index];
 			}
 			else
@@ -70,9 +70,13 @@ void render_3d_scene(t_data *dt)
 			if (ENABLE_SHADERS)
 				apply_distance_shadow(dt, i, &color, DISTANCE_SHADOW_STRENGTH);
 
-			for (int w = 0; w < screen_slice_width; w++)
+			w = 0;
+			while (w < screen_slice_width)
+			{
 				if (pixel_is_in_window(screen_x + w, y))
 					img_pix_put(dt->scene_img, screen_x + w, y, color);
+				w++;
+			}
 			y++;
 		}
 		i++;

@@ -6,7 +6,7 @@ int ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray)
 	float	step;
 	t_x_y	door_hit_coor;
 	float 	distance_to_door;
-	float 	distance_to_wall;
+
 
 	door = find_door_at(dt, map_coor->x, map_coor->y);
 	if (!door)

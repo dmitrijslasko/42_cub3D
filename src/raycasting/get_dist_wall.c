@@ -22,7 +22,6 @@ void	update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor)
 {
 	t_coor	step;
 	float	distance;
-	t_cell_type tile;
 
 	set_step(&step, &ray->vector);
 

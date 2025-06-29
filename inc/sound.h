@@ -3,6 +3,7 @@
 
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_mixer.h>
+# include "cub3d.h"
 
 Mix_Music	*init_audio(void);
 

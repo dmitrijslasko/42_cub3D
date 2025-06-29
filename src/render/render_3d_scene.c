@@ -59,7 +59,7 @@ void render_3d_scene(t_data *dt)
 					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
 				else
 					tex_index = texture_y * 64 + (64 * (1.0f - dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
-				color = dt->map.wall_tile[DOOR].texture.texture_data[tex_index];
+				color = dt->map.door.texture.texture_data[tex_index];
 			}
 			else
 			{

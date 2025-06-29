@@ -27,6 +27,7 @@
 		"settings.h": "c",
 		"sdl_mixer.h": "c",
 		"errors.h": "c",
-		"sound.h": "c"
+		"sound.h": "c",
+		"system_error": "c"
 	}
 }

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub3D",
-            "args":  ["${workspaceFolder}/maps/good/matrix.cub"],
+            "args":  ["${workspaceFolder}/maps/good/creepy.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

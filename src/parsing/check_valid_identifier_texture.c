@@ -9,13 +9,13 @@ typedef struct s_texture_match
 }							t_texture_match;
 
 static const t_texture_match g_textures_lookup[] = {
-{"SO ", "SO", 3, SOUTH},
-{"NO ", "NO", 3, NORTH},
-{"WE ", "WE", 3, WEST},
-{"EA ", "EA", 3, EAST},
-{"F ", "F", 2, FLOOR},
-{"C ", "C", 2, CEILING},
-{"D ", "D", 2, DOOR},
+{"SO ", "SO", 2, SOUTH},
+{"NO ", "NO", 2, NORTH},
+{"WE ", "WE", 2, WEST},
+{"EA ", "EA", 2, EAST},
+{"F ", "F", 1, FLOOR},
+{"C ", "C", 1, CEILING},
+{"D ", "D", 1, DOOR},
 {NULL, NULL, -1, -1}
 };
 
@@ -28,9 +28,9 @@ bool	is_valid_line_texture(char *line)
 	j = 0;
 	while (line[j] && ft_strchr(WHITE_SPACE, line[j]))
 		j++;
-	while (g_textures_lookup[i].str_with_space)
+	while (g_textures_lookup[i].str)
 	{
-		if (!ft_strncmp(&line[j], g_textures_lookup[i].str_with_space, g_textures_lookup[i].length))
+		if (!ft_strncmp(&line[j], g_textures_lookup[i].str, g_textures_lookup[i].length) && ft_strchr(WHITE_SPACE, line[j + g_textures_lookup[i].length]))
 			return (1);
 		i++;
 	}

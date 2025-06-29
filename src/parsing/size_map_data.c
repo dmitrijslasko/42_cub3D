@@ -5,7 +5,7 @@ bool	check_empty_line_end_file(char *line, int fd)
 	while (line && is_empty_line(line))
 		line = free_line_get_next(line, fd);
 	if (line)
-		return (error_free_char_return("Error: don't expected line after map.", line, 1));
+		return (error_free_char_return("Error: unexpected line after map.", line, 1));
 	return (0);
 }
 

@@ -31,7 +31,7 @@ bool	init_default_map(t_map *map)
 	map->map_size_cols = 0;
 	map->map_size_rows = 0;
 	i = 0;
-	while (i < 6)
+	while (i < NUMBER_TEXTURES)
 		init_default_wall_tile(&map->wall_tile[i++]);
 	return (0);
 }

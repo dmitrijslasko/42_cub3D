@@ -105,10 +105,3 @@ int move_sideways(t_data *dt, int is_to_the_right)
 	return (EXIT_SUCCESS);
 }
 
-//int	show_welcome_img(t_data *dt)
-//{
-//	if (dt->win_ptr == NULL)
-//		return (1);
-//	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->welcome_img, 0, 0);
-//	return (0);
-//}

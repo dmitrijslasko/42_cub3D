@@ -28,11 +28,14 @@ CFLAGS += -I$(INC_DIR)
 # CFLAGS += -std=c99
 CFLAGS += -Wno-error=type-limits
 
+
+
 #CFLAGS += -Wno-unused-but-set-variable
 
 # LINKER FLAGS
 LDFLAGS = -L$(LIBFT_DIR) -lft
 LDFLAGS += -lmlx -lm -lXext -lX11
+LDFLAGS += -lSDL2 -lSDL2_mixer
 
 # EXTRA FLAGS
 BONUSFLAGS = -DBONUS=1

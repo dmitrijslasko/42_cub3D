@@ -8,6 +8,18 @@ void	setup_view(t_data *dt)
 	dt->view->show_door_open_message = 0;
 }
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+
+Mix_Music *init_audio(void)
+{
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    Mix_Music *bgm = Mix_LoadMUS("./sounds/music.wav");
+    Mix_PlayMusic(bgm, -1); // Loop
+    return bgm;
+}
+
+
 int init_keys(t_data *dt)
 {
 	size_t i;
@@ -134,6 +146,7 @@ int	main(int argc, char **argv)
 
 	print_separator_default();
 
+	Mix_Music *bgm = init_audio();
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 

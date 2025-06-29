@@ -3,14 +3,14 @@
 typedef struct s_sprite_file
 {
 	const char	minimap_repr;
-	char		*filepath;
-	char		*filepath2;
+	const char	*filepath;
+	const char	*filepath2;
 }				t_sprite_file;
 
 static const t_sprite_file g_sprites[] =
 {
-	{'s', "./sprites/cacti1-min.xpm", "./sprites/cacti2-min.xpm"},
-	{'q', "./sprites/cacti2-min.xpm", "./sprites/cacti1-min.xpm"},
+	{'s', "./sprites/tommy1.xpm", "./sprites/tommy2.xpm"},
+	{'q', "./sprites/sammy1.xpm", "./sprites/sammy2.xpm"},
 };
 
 int	load_sprite_images(t_data *dt)

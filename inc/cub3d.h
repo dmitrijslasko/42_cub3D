@@ -144,7 +144,7 @@ typedef struct s_map
 	size_t		map_size_rows;
 	size_t		map_size_cols;
 	t_wall_tile	wall_tile[NUMBER_TEXTURES];
-	t_wall_tile door;
+	t_wall_tile	door;
 }	t_map;
 
 typedef struct s_player
@@ -222,7 +222,6 @@ typedef struct s_data
 	t_img				*minimap_base_img;
 	t_img				*minimap;
 	t_map				map;
-	// t_camera			camera;
 	t_door				*doors;
 	size_t				door_count;
 	t_ray				*rays;
@@ -230,7 +229,7 @@ typedef struct s_data
 	t_sprite			*sprites;
 	t_sprite_texture	*sprite_textures;
 	size_t				sprite_count;
-	size_t				sprite_type_count;
+	size_t				sprite_txt_count;
 	t_view				*view;
 	t_mouse				mouse;
 	float				sin_table[PRECALCULATED_TRIG];

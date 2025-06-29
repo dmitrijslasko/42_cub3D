@@ -3,9 +3,7 @@
 static int	keypress_exit(t_data *dt)
 {
 	printf("ESC button pressed, closing the window...");
-	mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
-	dt->win_ptr = NULL;
-	free(dt->rays);
+	free_dt(dt);
 	printf(" Done!\n");
 	return (EXIT_SUCCESS);
 }

@@ -390,10 +390,12 @@ long		get_current_time_in_ms(void);
 void		swap(void *a, void *b, size_t size);
 void		toggle_setting(char *setting);
 int			sign(int x);
+int 		clamp(int value, int min, int max);
 
 // useful functions
 void		print_separator(size_t count, char *c);
 void		print_separator_default(void);
+
 
 int			set_coor_values(t_coor *coor, int x, int y);
 
@@ -401,23 +403,22 @@ t_x_y		rotate_vector(t_x_y *vet, float angle_degrees);
 
 // minimap
 int			update_minimap(t_data *dt);
-
 int			draw_minimap_map(t_data *dt);
 void		draw_minimap_grid(t_data *dt);
 int			draw_minimap_player(t_data *dt);
-
 void		draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
 int			draw_minimap_rays(t_data *dt, int is_direction_vector);
 
 
 // 3d render
+int 		load_sky_image(t_data *dt);
+int			draw_sky(t_data *dt);
+void 		render_3d_scene(t_data *dt);
 int			draw_ceiling(t_data *dt);
 int			draw_floor(t_data *dt);
-int			draw_sky(t_data *dt);
-
-
-// int	get_pixel_color(t_img *img, int x, int y);
-// int blend_colors(int fg, int bg, float alpha);
+int			render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y);
+float		fix_fish_eye(t_ray *ray, t_player *player);
+int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
 
 int			load_textures(t_data *dt);
 int			load_sprites(t_data *dt);
@@ -430,47 +431,35 @@ int			apply_distance_shadow(t_data *dt, size_t i, int *color, float strength);
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);
 
+// inits
+void		init_doors(t_data *dt);
+
+// controls
+int			set_mouse_to_screen_center(t_data *dt);
+
+// working with the map
 size_t		count_elements_in_the_map(t_map *map, char *element);
 size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
-int			render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y);
-
-int			set_mouse_to_screen_center(t_data *dt);
-
-float		fix_fish_eye(t_ray *ray, t_player *player);
-
-int			my_sleep(void);
-
-void		init_doors(t_data *dt);
+//int			my_sleep(void);
 
 size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(size_t *count, char *line);
 
-int 		clamp(int value, int min, int max);
-
-void 		render_3d_scene(t_data *dt);
-
-int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
+t_coor 		get_cell_ahead(t_data *dt);
 void 		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 int 		ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
-
-
 t_door 		*find_door_at(t_data *dt, int x, int y);
 
 //sprites
 void		find_all_sprites(t_data *dt);
 void		sort_sprites(t_sprite *sprites, size_t num_sprites);
-
 void		sort_sprites_by_distance(t_data *dt);
-int 		draw_sky(t_data *dt);
-
-t_coor 		get_cell_ahead(t_data *dt);
 
 int 		init_keys(t_data *dt);
 int 		load_messages(t_data *dt);
-int 		load_sky_image(t_data *dt);
 void		setup_view(t_data *dt);
 
 int			create_color_rgba(int r, int g, int b, int a);

@@ -11,10 +11,10 @@ sdl2-config.cmake
 sdl2-config-version.cmake
 sdl2.pc
 SDL2.spec
-build
+#build
 gen
-Build
-buildbot
+#Build
+#buildbot
 /VERSION.txt
 
 *.so

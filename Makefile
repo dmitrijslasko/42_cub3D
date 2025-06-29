@@ -26,7 +26,7 @@ SDL2_MIXER_INC := lib/SDL2_mixer/build/include
 CFLAGS = -Wall -Wextra
 CFLAGS += -Werror
 CFLAGS += -g
-CFLAGS += -MMD -MP
+#CFLAGS += -MMD -MP
 CFLAGS += -I$(INC_DIR)
 CFLAGS += -std=c99
 CFLAGS += -Wno-error=type-limits
@@ -79,7 +79,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(CYAN)Compiling $<$(RST)"
 
--include $(DEPS)
+#-include $(DEPS)
 
 # ------------------------------------------------------------------------------
 

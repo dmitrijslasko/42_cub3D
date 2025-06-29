@@ -1,5 +1,9 @@
 # lib
-maps
+#maps
 obj
 cub3D
-README.md
+#README.md
+
+# ⛳ Keep local SDL builds
+!lib/SDL2/build/**
+!lib/SDL2_mixer/build/**

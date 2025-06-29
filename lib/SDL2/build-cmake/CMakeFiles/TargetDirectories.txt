@@ -1,0 +1,12 @@
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/sdl_headers_copy.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/SDL2main.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/SDL2.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/SDL2-static.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/SDL2_test.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/uninstall.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/edit_cache.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/rebuild_cache.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/list_install_components.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/install.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/install/local.dir
+/home/dmlasko/_cursus/cub3d/lib/SDL2/build-cmake/CMakeFiles/install/strip.dir

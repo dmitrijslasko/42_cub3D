@@ -25,7 +25,11 @@
 # include "errors.h"
 # include "keys.h"
 # include "settings.h"
+# include "sound.h"
 
+// music
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 // structs
 typedef enum e_wall_type
@@ -466,7 +470,12 @@ void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 void		sort_sprites_by_distance(t_data *dt);
 int 		draw_sky(t_data *dt);
 
-t_coor 	get_cell_ahead(t_data *dt);
+t_coor 		get_cell_ahead(t_data *dt);
 
+Mix_Music	*init_audio(void);
+int 		init_keys(t_data *dt);
+int 		load_messages(t_data *dt);
+int 		load_sky_image(t_data *dt);
+void		setup_view(t_data *dt);
 
 #endif

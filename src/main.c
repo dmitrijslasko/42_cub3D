@@ -1,83 +1,5 @@
 #include "cub3d.h"
 
-void	setup_view(t_data *dt)
-{
-	dt->view->screen_center_y = WINDOW_H / 2;
-	dt->view->show_minimap = 0;
-	dt->view->show_debug_info = 0;
-	dt->view->show_door_open_message = 0;
-}
-
-int init_keys(t_data *dt)
-{
-	size_t i;
-
-	i = 0;
-	while (i < TRACKED_KEYS)
-	{
-		dt->keys[i] = 0;
-		i++;
-	}
-}
-
-int load_sky_image(t_data *dt)
-{
-	int w;
-	int h;
-
-	print_separator_default();
-	printf(TXT_YELLOW ">>> LOADING SKY IMAGE\n" TXT_RESET);
-	dt->sky_image = malloc(sizeof(t_img));
-	if (!dt->sky_image)
-	{
-		fprintf(stderr, "Failed to allocate memory for sky image\n");
-		return (EXIT_FAILURE);
-	}
-	dt->sky_image->mlx_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./textures/sky_2.xpm", &w, &h);
-	if (!dt->sky_image->mlx_img)
-	{
-		fprintf(stderr, "Failed to load sky texture\n");
-		return (EXIT_FAILURE);
-	}
-	dt->sky_image->width = w;
-	dt->sky_image->height = h;
-	dt->sky_image->addr = mlx_get_data_addr(dt->sky_image->mlx_img,
-		&dt->sky_image->bpp, &dt->sky_image->line_len, &dt->sky_image->endian);
-
-	printf("Loaded sky texture: %d x %d px\n", w, h);
-	printf(TXT_GREEN "Done!\n" TXT_RESET);
-	return (EXIT_SUCCESS);
-}
-
-int load_messages(t_data *dt)
-{
-	int w;
-	int h;
-
-	print_separator_default();
-	printf(TXT_YELLOW ">>> LOADING UI MESSAGES\n" TXT_RESET);
-	dt->message_img = malloc(sizeof(t_img));
-	if (!dt->message_img)
-	{
-		fprintf(stderr, "Failed to allocate memory\n");
-		return (EXIT_FAILURE);
-	}
-	dt->message_img->mlx_img = mlx_xpm_file_to_image(dt->mlx_ptr, "./ui/open-close-door.xpm", &w, &h);
-	if (!dt->message_img->mlx_img)
-	{
-		fprintf(stderr, "Failed to load message_img\n");
-		return (EXIT_FAILURE);
-	}
-	dt->message_img->width = w;
-	dt->message_img->height = h;
-	dt->message_img->addr = mlx_get_data_addr(dt->message_img->mlx_img,
-		&dt->message_img->bpp, &dt->message_img->line_len, &dt->message_img->endian);
-
-	printf("Loaded message: %d x %d px\n", w, h);
-	printf(TXT_GREEN "Done!\n" TXT_RESET);
-	return (EXIT_SUCCESS);
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	dt;
@@ -134,6 +56,7 @@ int	main(int argc, char **argv)
 
 	print_separator_default();
 
+	Mix_Music *bgm = init_audio();
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 

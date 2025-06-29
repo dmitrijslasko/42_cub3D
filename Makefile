@@ -19,20 +19,25 @@ LIBDIRS = ./lib
 LIBFT_DIR = $(LIBDIRS)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
+SDL2_INC := lib/SDL2/build/include/SDL2
+SDL2_MIXER_INC := lib/SDL2_mixer/build/include
+
 # COMPILATION FLAGS
 # CFLAGS = -Wall -Wextra
 # CFLAGS += -Werror
 CFLAGS += -g
 CFLAGS += -MMD -MP
 CFLAGS += -I$(INC_DIR)
-# CFLAGS += -std=c99
+CFLAGS += -std=c99
 CFLAGS += -Wno-error=type-limits
+CFLAGS += -I$(SDL2_INC) -I$(SDL2_MIXER_INC) -D_REENTRANT
 
-#CFLAGS += -Wno-unused-but-set-variable
+
 
 # LINKER FLAGS
 LDFLAGS = -L$(LIBFT_DIR) -lft
 LDFLAGS += -lmlx -lm -lXext -lX11
+LDFLAGS += -Llib/SDL2/build/lib -Llib/SDL2_mixer/build/lib -lSDL2 -lSDL2_mixer
 
 # EXTRA FLAGS
 BONUSFLAGS = -DBONUS=1

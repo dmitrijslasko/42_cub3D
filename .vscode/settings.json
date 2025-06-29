@@ -24,6 +24,9 @@
 		"ranges": "c",
 		"span": "c",
 		"utility": "c",
-		"settings.h": "c"
+		"settings.h": "c",
+		"sdl_mixer.h": "c",
+		"errors.h": "c",
+		"sound.h": "c"
 	}
 }

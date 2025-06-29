@@ -12,8 +12,8 @@
 # define SHOW_DEBUG_INFO 					0
 
 // window name
-# define WINDOW_NAME         				"cub3d - fvargas & dmlasko @ 42Berlin"
-# define VERSION_INFO        				"cub3d project - 42 Berlin - fvargas & dmlasko, v1.0"
+# define WINDOW_NAME         				"cub3D - fvargas & dmlasko @ 42Berlin"
+# define VERSION_INFO        				"cub3D project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
 # define WINDOW_W							1200

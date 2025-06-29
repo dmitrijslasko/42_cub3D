@@ -62,7 +62,7 @@ void	process_keypresses(t_data *dt)
 		{
 			dt->view->show_door_open_message = 1;
 			door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
-			door->open_progress = fmin(1.0f, door->open_progress + door->speed);
+			door->open_progress = fmin(0.8f, door->open_progress + door->speed);
 		}
 	}
 }

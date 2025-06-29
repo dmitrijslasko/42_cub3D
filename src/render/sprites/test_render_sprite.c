@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_textures)
+bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_texture)
 {
 	size_t	i;
 
@@ -12,7 +12,7 @@ bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_textur
 	{
 		if (dt->sprite_textures[i].type == type_sprite)
 		{
-			*sprite_textures = dt->sprite_textures[i];
+			*sprite_texture = dt->sprite_textures[i];
 			return (1);
 		}
 		i++;
@@ -27,7 +27,7 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_s
 	size_t			row;
 	size_t			col;
 
-	if (transform_y <= 0.2f)
+	if (transform_y <= 0.4f)
 		return (0);
 	if (!valid_sprites(dt, type_sprite, &sprite_textures))
 		return (EXIT_FAILURE);
@@ -36,7 +36,7 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_s
 	size_t sprite_width = fmin(WINDOW_W * 4, sprite_height * ((float)sprite_textures.width / sprite_textures.height));
 
 	int offset_x = sprite_screen_x - sprite_width  / 2;
-	int offset_y = dt->view->screen_center_y - sprite_height / 2;
+	int offset_y = dt->view->screen_center_y - sprite_height / 3;
 
 	row = 0;
 	while (row < sprite_height)
@@ -69,7 +69,7 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_s
 				continue;
 			}
 
-			float distance_to_wall = dt->rays[draw_x / (WINDOW_W / CASTED_RAYS_COUNT)].corrected_distance_to_wall;
+			float distance_to_wall = dt->rays[draw_x / (WINDOW_W / CASTED_RAYS_COUNT)].distance_to_wall;
 			if (distance_to_wall * distance_to_wall > sprite->distance_to_player)
 				img_pix_put(dt->scene_img, draw_x, draw_y, color);
 			col++;

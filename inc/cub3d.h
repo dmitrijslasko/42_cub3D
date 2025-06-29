@@ -209,9 +209,10 @@ typedef struct s_sprite
 	size_t	id;
 	t_x_y	pos;
 	float	distance_to_player;
-	int		sprite_textures_id;
+	int		sprite_texture_id;
 	char	type;
 	bool	visible;
+	int		y_offset_factor;
 }	t_sprite;
 
 typedef struct s_data

@@ -4,8 +4,8 @@ void	draw_background(t_img *img, int color)
 {
 	int	current_x;
 	int	current_y;
-	int width;
-	int height;
+	int	width;
+	int	height;
 
 	current_y = 0;
 	width = img->width;

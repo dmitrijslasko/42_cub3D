@@ -42,12 +42,12 @@ int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
 
 int	draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row)
 {
-	t_coor center;
+	t_coor	center;
 
 	center.x = (curr_col + 0.5f) * MINIMAP_GRID_SIZE;
 	center.y = (curr_row + 0.5f) * MINIMAP_GRID_SIZE;
 
-	draw_circle(dt->minimap_base_img, center.x, center.y, 10, MINIMAP_SPRITE_COLOR);
+	draw_circle(dt->minimap_base_img, &center, 10, MINIMAP_SPRITE_COLOR);
 	return (EXIT_SUCCESS);
 }
 

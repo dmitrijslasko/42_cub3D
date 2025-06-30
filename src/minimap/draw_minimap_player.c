@@ -29,7 +29,7 @@ int draw_minimap_player(t_data *dt)
 						dt->minimap->height / 2);
 
 	if (MINIMAP_PLAYER_DISPLAY_STYLE == CIRCLE)
-		draw_circle(dt->minimap, player_coor.x, player_coor.y, MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);
+		draw_circle(dt->minimap, &player_coor, MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);
 	else if (MINIMAP_PLAYER_DISPLAY_STYLE == SQUARE)
 		draw_square_from_center(dt->minimap, player_coor.x, player_coor.y, MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);
 

@@ -44,7 +44,7 @@ bool	set_texture_sprites(t_data *dt)
 			if (dt->sprites[i].type == dt->sprite_textures[j].type)
 			{
 				dt->sprites[i].texture = &dt->sprite_textures[j];
-				break;
+				break ;
 			}
 			j++;
 		}

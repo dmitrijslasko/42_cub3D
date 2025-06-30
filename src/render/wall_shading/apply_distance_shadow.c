@@ -2,11 +2,11 @@
 
 int	apply_distance_shadow(t_data *dt, size_t i, int *color, float strength)
 {
-	float distance;
-	float shade;
-	int	r;
-	int g;
-	int b;
+	float	distance;
+	float	shade;
+	int		r;
+	int		g;
+	int		b;
 
 	distance = dt->rays[i].distance_to_wall;
 	shade = 1.0f / (1.0f + distance * strength);

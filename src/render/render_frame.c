@@ -1,28 +1,5 @@
 #include "cub3d.h"
 
-int	render_ui_message(t_data *dt)
-{
-	char 			*src_pixel;
-	unsigned int 	color;;
-	int				draw_x;
-	int 			draw_y;
-
-	for (int row = 0; row < dt->message_img[0].height; row++)
-	{
-		for (int col = 0; col < dt->message_img[0].width; col++)
-		{
-			src_pixel = dt->message_img[0].addr + row * dt->message_img[0].line_len + col * dt->message_img->bpp / 8;
-
-			color = *(unsigned int *)src_pixel;
-			draw_x = ((WINDOW_W - dt->message_img[0].width)/ 2) + col;
-			draw_y = UI_MESSAGE_OFFSET_Y + row;
-
-			if (color != TRANSPARENT_COLOR)
-				img_pix_put(dt->scene_img, draw_x, draw_y, color);
-		}
-	}
-	return (EXIT_SUCCESS);
-}
 int update_prompt_message(t_data *dt)
 {
 	t_coor cell_ahead;

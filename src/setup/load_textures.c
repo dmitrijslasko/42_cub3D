@@ -1,5 +1,29 @@
 #include "cub3d.h"
 
+int	load_texture(t_data *dt, t_texture *texture, char *file)
+{
+	char	*texture_file;
+
+	if (file != NULL)
+		texture_file = file;
+	else
+		texture_file = texture->file;
+	texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
+			texture_file,
+			&texture->width,
+			&texture->height);
+	if (!texture->texture_img)
+	{
+		fprintf(stderr, "Failed to load texture from file: %s\n", texture_file);
+		return (EXIT_FAILURE);
+	}
+	texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img,
+			&texture->bpp,
+			&texture->size_line,
+			&texture->endian);
+	return (EXIT_SUCCESS);
+}
+
 int	load_textures(t_data *dt)
 {
 	t_texture	*texture;
@@ -7,20 +31,11 @@ int	load_textures(t_data *dt)
 
 	print_separator_default();
 	printf(TXT_YELLOW ">>> LOADING TEXTURES\n" TXT_RESET);
-
 	if (PUT_DOOR)
 	{
 		texture = &dt->map.door.texture;
-		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
-													"./textures/wolf37.xpm",
-													&texture->width,
-													&texture->height);
-		texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img,
-													&texture->bpp,
-													&texture->size_line,
-													&texture->endian);
+		load_texture(dt, texture, DOOR_TEXTURE_PATHFILE);
 	}
-
 	i = 0;
 	while (i < NUMBER_TEXTURES)
 	{
@@ -30,14 +45,7 @@ int	load_textures(t_data *dt)
 			continue ;
 		}
 		texture = &dt->map.wall_tile[i].texture;
-		texture->texture_img = mlx_xpm_file_to_image(dt->mlx_ptr,
-													texture->file,
-													&texture->width,
-													&texture->height);
-		texture->texture_data = (int *)mlx_get_data_addr(texture->texture_img,
-													&texture->bpp,
-													&texture->size_line,
-													&texture->endian);
+		load_texture(dt, texture, NULL);
 		printf("Texture [%zu]: %s loaded!\n", i, texture->file);
 		i++;
 	}

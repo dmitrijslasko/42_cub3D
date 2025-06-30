@@ -11,6 +11,9 @@
 
 # define SHOW_DEBUG_INFO 					0
 
+
+// bonus part
+# define SKY_TEXTURE_PATHFILE				"./textures/sky_1.xpm"
 // window name
 # define WINDOW_NAME         				"cub3D - fvargas & dmlasko @ 42Berlin"
 # define VERSION_INFO        				"cub3D project - 42 Berlin - fvargas & dmlasko, v1.0"
@@ -128,14 +131,17 @@
 
 //parsing
 # define PUT_DOOR				            1
+# define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
 # define NUMBER_TEXTURES    	            6 // four walls + celling + floor even if is a color
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 
 # define PLAYER_SPAWN_POINT_TYPES			"NSWE"
 # define SPRITE_TYPES     	 	            "spqha"
+# define SPRITE_FRAMES						2
 # define WALL_TYPES							"1"
 # define VERTICAL_WALL_TYPES				"v"
 # define HORIZONTAL_WALL_TYPES				"h"
+# define DOOR_TYPES							"|-"
 # define VERTICAL_DOOR_TYPES				"|"
 # define HORIZONTAL_DOOR_TYPES				"-"
 

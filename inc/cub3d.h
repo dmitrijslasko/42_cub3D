@@ -244,6 +244,7 @@ typedef struct s_data
 	t_img				*sky_image;
 	t_img				*message_img;
 	float				ambient_light;
+	void				*background_music;
 }	t_data;
 
 
@@ -274,6 +275,7 @@ void		setup_mouse_hooks(t_data *dt);
 
 void		*protected_malloc(size_t size, t_data *dt);
 void		free_dt(t_data *dt);
+void		free_audio(void *ptr);
 
 //parsing
 char		*free_line_get_next(char *line, int fd);

@@ -53,4 +53,5 @@ void	free_dt(t_data *dt)
 	if (dt->welcome_img)
 		free(dt->welcome_img);
 	free_file_texture(dt);
+	free_audio(dt->background_music);
 }

@@ -52,11 +52,10 @@ int	main(int argc, char **argv)
 	if (ENABLE_MOUSE)
 		setup_mouse_hooks(&dt);
 
-	init_audio();
+	dt.background_music = init_audio();
 	print_separator(3, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
-
 	return (EXIT_SUCCESS);
 }
 

@@ -16,10 +16,8 @@ void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color)
 		prev = curr;
 		curr.x = (size_t)pos.x;
 		curr.y = (size_t)pos.y;
-
 		if (length > 0)
 			draw_line(dt->minimap, prev, curr, color);
-
 		pos.x += dir.x * step_size;
 		pos.y += dir.y * step_size;
 		length += step_size;

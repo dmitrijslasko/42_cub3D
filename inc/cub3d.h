@@ -374,7 +374,7 @@ void		draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color);
 void		draw_circle(t_img *img, t_coor *coor, int radius, int clr);
 void		draw_rectangle(t_img *img, t_coor top_left, t_coor bottom_right, int clr);
 
-void		draw_square_from_center(t_img *img, int x, int y, int size, int clr);
+void		draw_square_from_center(t_img *img, t_coor *coor, int size, int clr);
 void		draw_square_from_top_left(t_img *img, int x, int y, int size, int clr);
 
 //

@@ -212,8 +212,8 @@ typedef struct s_img
 typedef struct s_sprite_texture
 {
 	int		texture_id;
-	void	*sprite_img[2];
-	int		*sprite_data[2];
+	void	*sprite_img[SPRITE_FRAMES];
+	int		*sprite_data[SPRITE_FRAMES];
 	int		width;
 	int		height;
 	int		bpp;
@@ -228,11 +228,9 @@ typedef struct s_sprite
 	size_t				id;
 	t_x_y				pos;
 	float				distance_to_player;
-	int					sprite_texture_id;
 	char				type;
+	int					time;
 	t_sprite_texture	*texture;
-	bool				visible;
-	int					y_offset_factor;
 }	t_sprite;
 
 typedef struct s_data

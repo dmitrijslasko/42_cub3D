@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:10:31 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/30 20:10:31 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/06/30 22:40:19 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 typedef struct s_sprite_file
 {
 	const char	minimap_repr;
-	char		*filepath;
-	char		*filepath2;
+	char		*filepath[2];
 }				t_sprite_file;
 
 static const t_sprite_file	g_sprites[] = {
-{'s', "./sprites/heart.xpm", "./sprites/heart.xpm"},
-{'q', "./sprites/test.xpm", "./sprites/test.xpm"},
-{'p', "./sprites/container.xpm", "./sprites/container.xpm"},
-{'h', "./sprites/sammy1.xpm", "./sprites/sammy2.xpm"},
-{'a', "./sprites/tommy1.xpm", "./sprites/tommy2.xpm"},
+{'s', {"./sprites/heart.xpm", "./sprites/heart.xpm"}},
+{'q', {"./sprites/test.xpm", "./sprites/test.xpm"}},
+{'p', {"./sprites/container.xpm", "./sprites/container.xpm"}},
+{'h', {"./sprites/sammy1.xpm", "./sprites/sammy2.xpm"}},
+{'a', {"./sprites/tommy1.xpm", "./sprites/tommy2.xpm"}},
 };
 
 static int	set_sprite_img(t_data *dt, t_sprite_texture *texture,
@@ -32,7 +31,7 @@ static int	set_sprite_img(t_data *dt, t_sprite_texture *texture,
 {
 	texture[i].sprite_img[frame] = mlx_xpm_file_to_image(\
 		dt->mlx_ptr, \
-		g_sprites[i].filepath, \
+		g_sprites[i].filepath[frame], \
 		&texture[i].width, \
 		&texture[i].height);
 	return (EXIT_SUCCESS);

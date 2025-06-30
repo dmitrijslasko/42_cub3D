@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 bool	check_hit_door_cell(t_coor *map_coor, t_data *dt)
 {
 	char	tile;
@@ -20,13 +19,10 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 
 	door_hit = 0;
 	hit_side = 0;
-
-	// This line sets the step based on the vector directions
 	set_step(&step, &ray->vector);
 
 	map_coor.x = (int)dt->player.pos.x;
 	map_coor.y = (int)dt->player.pos.y;
-
 	while (map_coor.x < dt->map.map_size_cols && map_coor.y < dt->map.map_size_rows)
 	{
 		if (side_dist->x < side_dist->y)
@@ -62,14 +58,10 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 		if (check_hit_wall(&map_coor, &dt->map, ray, hit_side))
 			break ;
 	}
-
 	set_cell_type(dt, ray, &map_coor);
-
 	if (door_hit == 1)
 		ray->distance_to_wall += ray->distance_to_door;
-
 	set_wall_type(ray);
 	set_perc_wall(&dt->player.pos, ray);
-
 	ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
 }

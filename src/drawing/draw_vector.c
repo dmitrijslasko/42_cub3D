@@ -23,4 +23,3 @@ void	draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color)
 		length += step_size;
 	}
 }
-

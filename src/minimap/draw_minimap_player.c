@@ -1,12 +1,5 @@
 #include "cub3d.h"
 
-int	set_coor_values(t_coor *coor, int x, int y)
-{
-	coor->x = x;
-	coor->y = y;
-	return (EXIT_SUCCESS);
-}
-
 typedef enum e_minimap_player_display_style
 {
 	SQUARE,
@@ -19,24 +12,17 @@ typedef enum e_minimap_player_display_style
  * @param dt
  * @return int
  */
-int draw_minimap_player(t_data *dt)
+int	draw_minimap_player(t_data *dt)
 {
-	t_coor	player_coor;
-	// size_t	grid_repr;
+	t_coor	player_pos;
 
-	player_coor.x = dt->minimap->width / 2;
-	player_coor.y = dt->minimap->height / 2;
-
+	player_pos.x = dt->minimap->width / 2;
+	player_pos.y = dt->minimap->height / 2;
 	if (MINIMAP_PLAYER_DISPLAY_STYLE == CIRCLE)
-		draw_circle(dt->minimap, &player_coor, MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);
+		draw_circle(dt->minimap, &player_pos, MINIMAP_PLAYER_SIZE_PX,
+			MINIMAP_PLAYER_COLOR);
 	else if (MINIMAP_PLAYER_DISPLAY_STYLE == SQUARE)
-		draw_square_from_center(dt->minimap, &player_coor, MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);
-
-	// grid_repr = MIN_DISTANCE_TO_WALL * MINIMAP_GRID_SIZE;
-
-	// draw_circle(dt->minimap, player_coor.x + grid_repr, player_coor.y + grid_repr, 2, MAGENTA);
-	// draw_circle(dt->minimap, player_coor.x + grid_repr, player_coor.y - grid_repr, 2, MAGENTA);
-	// draw_circle(dt->minimap, player_coor.x - grid_repr, player_coor.y + grid_repr, 2, MAGENTA);
-	// draw_circle(dt->minimap, player_coor.x - grid_repr, player_coor.y - grid_repr, 2, MAGENTA);
+		draw_square_from_center(dt->minimap, &player_pos,
+			MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);
 	return (EXIT_SUCCESS);
 }

@@ -27,8 +27,8 @@ char	*get_first_line_map(int fd)
 bool	set_size_map_data1(t_map *map, int fd)
 {
 	char	*line;
-	int	count_row;
-	int	count_col;
+	int		count_row;
+	int		count_col;
 	int		ret;
 
 	count_col = 0;

@@ -15,4 +15,3 @@ t_x_y	rotate_vector(t_x_y *vet, float angle_degrees)
 	result.y = vet->x * sin_theta + vet->y * cos_theta;
 	return (result);
 }
-

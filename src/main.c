@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 
 	dt.scene_img = protected_malloc(sizeof(t_img), &dt);
 	dt.minimap = protected_malloc(sizeof(t_img), &dt);
-	dt.minimap_base_img = protected_malloc(sizeof(t_img), &dt);
 	dt.view = protected_malloc(sizeof(t_view), &dt);
 	dt.last_time = 0;
 
@@ -41,7 +40,7 @@ int	main(int argc, char **argv)
 
 	setup_view(&dt);
 
-	draw_minimap_map(&dt);
+	draw_minimap_base_img(&dt);
 	setup_img(&dt, dt.scene_img, WINDOW_W, WINDOW_H);
 	setup_img(&dt, dt.minimap, MINIMAP_SIZE, MINIMAP_SIZE);
 

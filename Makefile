@@ -23,16 +23,13 @@ SDL2_INC := lib/SDL2/build/include/SDL2
 SDL2_MIXER_INC := lib/SDL2_mixer/build/include
 
 # COMPILATION FLAGS
- CFLAGS = -Wall -Wextra
- CFLAGS += -Werror
+CFLAGS = -Wall -Wextra
+CFLAGS += -Werror
 CFLAGS += -g
-#CFLAGS += -MMD -MP
 CFLAGS += -I$(INC_DIR)
 CFLAGS += -std=c99
 CFLAGS += -Wno-error=type-limits
 CFLAGS += -I$(SDL2_INC) -I$(SDL2_MIXER_INC) -D_REENTRANT
-
-
 
 # LINKER FLAGS
 LDFLAGS = -L$(LIBFT_DIR) -lft

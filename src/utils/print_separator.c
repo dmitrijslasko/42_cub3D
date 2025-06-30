@@ -16,7 +16,6 @@ void	print_separator_default(void)
 	}
 }
 
-
 void	print_separator(size_t count, char *c)
 {
 	int		i;

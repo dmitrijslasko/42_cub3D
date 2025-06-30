@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
-bool	create_double_array(char ***array, size_t size_row, size_t size_col, t_data *dt)
+bool	create_double_array(char ***array, size_t size_row,
+	size_t size_col, t_data *dt)
 {
 	size_t	curr_col;
 	size_t	curr_row;

@@ -31,8 +31,8 @@ void	find_position(t_player *player, size_t col, size_t row, char c)
 
 void	get_init_position(t_map *map, t_player *player)
 {
-	int	row;
-	int	col;
+	int		row;
+	int		col;
 	char	c;
 
 	row = 0;

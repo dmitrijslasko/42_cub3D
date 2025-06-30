@@ -1,17 +1,14 @@
 #include "cub3d.h"
 
-//static inline int	pixel_is_in_window(int x, int y)
-//{
-//	return (x >= 0 && x < WINDOW_W && y >= 0 && y < WINDOW_H);
-//}
-
-
-void img_pix_put(t_img *img, int x, int y, int clr)
+void	img_pix_put(t_img *img, int x, int y, int clr)
 {
-	uint32_t *pixel = (uint32_t *)(img->addr + (y * img->line_len + x * 4));
+	uint32_t	*pixel;
+
+	pixel = (uint32_t *)(img->addr + (y * img->line_len + x * 4));
 	*pixel = (uint32_t)clr;
 }
 
+// NOTE DL: Nice experimental feature :)
 ///**
 // * @brief Img_pix_put with alpha channel support.
 // *

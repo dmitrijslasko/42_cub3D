@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 size_t	count_words(char const *s, char *delimiters)

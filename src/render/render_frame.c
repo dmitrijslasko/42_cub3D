@@ -22,6 +22,19 @@ int	render_ui_message(t_data *dt)
 	}
 	return (EXIT_SUCCESS);
 }
+int update_prompt_message(t_data *dt)
+{
+	t_coor cell_ahead;
+
+	cell_ahead = get_cell_ahead(dt);
+	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
+
+	if (dt->player.cell_type_ahead == '|')
+		dt->view->show_door_open_message = 1;
+	else
+		dt->view->show_door_open_message = 0;
+	return (EXIT_SUCCESS);
+}
 
 int	render_frame(void *param)
 {
@@ -45,6 +58,8 @@ int	render_frame(void *param)
 	reset_mouse_position(dt);
 
 	calculate_all_rays(dt);
+
+	update_prompt_message(dt);
 
 	render_3d_scene(dt);
 

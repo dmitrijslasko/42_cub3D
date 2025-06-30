@@ -19,7 +19,8 @@ void	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor)
 		ray->cell_type = EMPTY_CELL;
 }
 
-void	update_ray_dist_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor)
+void	update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray,
+	t_coor *map_coor)
 {
 	t_coor	step;
 	float	distance;

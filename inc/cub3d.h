@@ -109,6 +109,15 @@ typedef struct s_coor
 	int	y;
 }	t_coor;
 
+typedef struct s_dda_info
+{
+	t_coor	*map;
+	t_coor	*step;
+	t_x_y	*delta;
+	t_x_y	*side;
+	char	*hit_side;
+}	t_dda_info;
+
 typedef struct s_x_y
 {
 	float	x;
@@ -341,7 +350,7 @@ int			move_forward_backward(t_data *dt, int direction);
 void		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
-void		update_ray_dist_to_cell_edge(t_data *dt, t_ray *ray,
+void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray,
 						t_coor *map_coor);
 
 //constructor_ray.c

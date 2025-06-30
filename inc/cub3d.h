@@ -60,7 +60,7 @@ typedef struct s_texture_match
 	const int				wall_type;
 }							t_texture_match;
 
-static const t_texture_match g_txt_lookup[] = {
+t_texture_match	g_txt_lookup[] = {
 {"SO", 2, SOUTH},
 {"NO", 2, NORTH},
 {"WE", 2, WEST},
@@ -91,16 +91,16 @@ typedef struct s_color
 typedef struct s_door
 {
 	size_t	id;
-    float	pos_x;			// Base x-offset in cell (0.0 to 1.0) when closed
-    float	pos_y;			// Base y-offset in cell (0.0 to 1.0)
-    float 	width;			// Width of the door (e.g., 0.2)
-    int 	cell_x;
-	int		cell_y;			// Grid cell coordinates
-	int		tex_id;			// Texture ID
-	int		state;			// 0: closed, 1: opening, 2: open, 3: closing
+	float	pos_x;
+	float	pos_y;
+	float	width;
+	int		cell_x;
+	int		cell_y;
+	int		tex_id;
+	int		state;
 	int		orientation;
-	float	open_progress;	// Animation progress (0.0 closed, 1.0 fully open)
-	float	speed;			// Animation speed (progress per second)
+	float	open_progress;
+	float	speed;
 }	t_door;
 
 typedef struct s_coor
@@ -115,7 +115,7 @@ typedef struct s_x_y
 	float	y;
 }	t_x_y;
 
-typedef	struct s_camera_plane
+typedef struct s_camera_plane
 {
 	t_x_y	plane;
 }	t_camera;
@@ -134,13 +134,13 @@ typedef struct s_ray
 	char		hit_content;
 	t_door		*door;
 	t_x_y		door_hit_coor;
-	float 		distance_to_door;
+	float		distance_to_door;
 }	t_ray;
 
 typedef struct s_texture
 {
 	void		*texture_img;
-	int			*texture_data;		// Or char* depending on format
+	int			*texture_data;
 	int			width;
 	int			height;
 	int			bpp;
@@ -160,8 +160,8 @@ typedef struct s_wall_tile
 typedef struct s_map
 {
 	char		**map_data;
-	int		map_size_rows;
-	int		map_size_cols;
+	int			map_size_rows;
+	int			map_size_cols;
 	t_wall_tile	wall_tile[NUMBER_TEXTURES];
 	t_wall_tile	door;
 }	t_map;
@@ -266,19 +266,18 @@ typedef struct s_data
 	void				*background_music;
 }	t_data;
 
-
-static inline int pixel_is_in_window(int x, int y)
+static inline int	pixel_is_in_window(int x, int y)
 {
-    return (x >= 0 && x < WINDOW_W && y >= 0 && y < WINDOW_H);
+	return (x >= 0 && x < WINDOW_W && y >= 0 && y < WINDOW_H);
 }
 
-static inline float clampf(float value, float min, float max)
+static inline float	clampf(float value, float min, float max)
 {
 	if (value < min)
-		return min;
+		return (min);
 	if (value > max)
-		return max;
-	return value;
+		return (max);
+	return (value);
 }
 
 // function prototypes
@@ -312,7 +311,8 @@ bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
 bool		check_valid_wall_tile_file(char *file);
 bool		create_map_data(t_map *map, t_data *dt);
-bool		create_double_array(char ***array, size_t max_row, size_t max_col, t_data *dt);
+bool		create_double_array(char ***array, size_t max_row,
+						size_t max_col, t_data *dt);
 bool		check_type_file(char *file, char *type);
 void		remove_new_line(char *str);
 char		*remove_space_beginner(char *str);
@@ -335,27 +335,26 @@ char		get_cell_type_by_coordinates(t_map *map, size_t y, size_t x);
 char		**ft_split_special(const char *s, char *c);
 
 // player movements
-int 		move_sideways(t_data *dt, int is_to_the_right);
+int			move_sideways(t_data *dt, int is_to_the_right);
 int			move_forward_backward(t_data *dt, int direction);
-void 		rotate_player(t_data *dt, float d_angle, int direction);
+void		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
-// TODO DL: remove player from parameters
-void		update_ray_dist_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor);
+void		update_ray_dist_to_cell_edge(t_data *dt, t_ray *ray,
+						t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
-void		calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y *side_dist);
-
-//t_ray		*constructor_ray(float dist, t_wall_type wall);
+void		calculate_ray_distance(t_data *dt, t_ray *ray,
+						t_x_y *delta_dist, t_x_y *side_dist);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool		init_rays(t_data *dt);
-void		set_side_dist(t_x_y *side_dist, t_x_y *dir_vec, t_x_y *pos_player, t_x_y *delta_dist);
+void		set_side_dist(t_x_y *side_dist, t_x_y *dir_vec,
+						t_x_y *pos_player, t_x_y *delta_dist);
 void		set_step(t_coor *step, t_x_y *dir_vec);
 
 //update_coor_player->c
-// t_coor		get_updated_coor_player(t_x_y pos, t_x_y dir, int signal);
 void		set_perc_wall(t_x_y *pos_player, t_ray *ray);
 
 //wall_type.c
@@ -376,10 +375,13 @@ void		draw_line(t_img *img, t_coor pt_1, t_coor pt_2, int clr);
 void		draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color);
 
 void		draw_circle(t_img *img, t_coor *coor, int radius, int clr);
-void		draw_rectangle(t_img *img, t_coor top_left, t_coor bottom_right, int clr);
+void		draw_rectangle(t_img *img, t_coor top_left,
+						t_coor bottom_right, int clr);
 
-void		draw_square_from_center(t_img *img, t_coor *coor, int size, int clr);
-void		draw_square_from_top_left(t_img *img, t_coor coor, int size, int clr);
+void		draw_square_from_center(t_img *img, t_coor *coor,
+						int size, int clr);
+void		draw_square_from_top_left(t_img *img, t_coor coor,
+						int size, int clr);
 
 //
 t_map		*load_dummy_map(void);
@@ -413,12 +415,11 @@ long		get_current_time_in_ms(void);
 void		swap(void *a, void *b, size_t size);
 void		toggle_setting(char *setting);
 int			sign(int x);
-int 		clamp(int value, int min, int max);
+int			clamp(int value, int min, int max);
 
 // useful functions
 void		print_separator(size_t count, char *c);
 void		print_separator_default(void);
-
 
 int			set_coor_values(t_coor *coor, int x, int y);
 
@@ -431,19 +432,22 @@ void		draw_minimap_grid(t_data *dt);
 int			draw_minimap_player(t_data *dt);
 void		draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
 int			draw_minimap_rays(t_data *dt, int is_direction_vector);
-int			draw_minimap_thin_wall_vertical(t_data *dt, size_t curr_col, size_t curr_row);
-int			draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row);
+int			draw_minimap_thin_wall_vertical(t_data *dt,
+						size_t curr_col, size_t curr_row);
+int			draw_minimap_door_vertical(t_data *dt,
+						size_t curr_col, size_t curr_row);
 int			draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row);
-int			draw_minimap_wall_cell(t_data *dt, size_t curr_col, size_t curr_row);
-
+int			draw_minimap_wall_cell(t_data *dt, size_t curr_col,
+						size_t curr_row);
 
 // 3d render
-int 		load_sky_image(t_data *dt);
+int			load_sky_image(t_data *dt);
 int			draw_sky(t_data *dt);
-void 		render_3d_scene(t_data *dt);
+void		render_3d_scene(t_data *dt);
 int			draw_ceiling(t_data *dt);
 int			draw_floor(t_data *dt);
-int			render_sprite(t_data *dt, t_sprite *sprite, t_coor *offset, t_coor *sprite_size);
+int			render_sprite(t_data *dt, t_sprite *sprite, t_coor *offset,
+						t_coor *sprite_size);
 float		fix_fish_eye(t_ray *ray, t_player *player);
 int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
 
@@ -453,7 +457,8 @@ int			precalculate_trig_tables(t_data *dt);
 
 int			render_all_sprites(t_data *dt);
 
-int			apply_distance_shadow(t_data *dt, size_t i, int *color, float strength);
+int			apply_distance_shadow(t_data *dt, size_t i, int *color,
+						float strength);
 
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);
@@ -468,17 +473,15 @@ int			set_mouse_to_screen_center(t_data *dt);
 size_t		count_elements_in_the_map(t_map *map, char *element);
 size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
-//int			my_sleep(void);
-
 size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(int *count, char *line);
 
-t_coor 		get_cell_ahead(t_data *dt);
-void 		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
+t_coor		get_cell_ahead(t_data *dt);
+void		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
-int 		ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
-t_door 		*find_door_at(t_data *dt, int x, int y);
+int			ray_hits_door(t_data *dt, t_coor *map_coor, t_ray *ray);
+t_door		*find_door_at(t_data *dt, int x, int y);
 
 //sprites
 void		find_all_sprites(t_data *dt);
@@ -486,8 +489,8 @@ void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 void		sort_sprites_by_distance(t_data *dt);
 void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 
-int 		init_keys(t_data *dt);
-int 		load_messages(t_data *dt);
+int			init_keys(t_data *dt);
+int			load_messages(t_data *dt);
 void		setup_view(t_data *dt);
 
 int			create_color_rgba(int r, int g, int b, int a);

@@ -13,25 +13,17 @@ int update_prompt_message(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
-int	limit_fps(t_data *dt)
-{
-	long		current_time;
-
-	current_time = get_current_time_in_ms();
-	dt->delta_time = current_time - dt->last_time;
-	if (dt->delta_time < (1000 / FPS))
-		return (1);
-	dt->last_time = current_time;
-	return (0);
-}
-
 int	render_frame(void *param)
 {
 	t_data		*dt;
+	long		current_time;
 
 	dt = (t_data *)param;
-	while (limit_fps(dt))
-		continue ;
+	current_time = get_current_time_in_ms();
+	dt->delta_time = current_time - dt->last_time;
+	if (dt->delta_time < (1000 / FPS))
+		return (0);
+	dt->last_time = current_time;
 	reset_mouse_position(dt);
 	process_keypresses(dt);
 	calculate_all_rays(dt);

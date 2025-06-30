@@ -79,7 +79,8 @@ void render_3d_scene(t_data *dt)
 			w = 0;
 			while (w < screen_slice_width)
 			{
-				img_pix_put(dt->scene_img, screen_x + w, y, color);
+				if (pixel_is_in_window(screen_x + w, y))
+					img_pix_put(dt->scene_img, screen_x + w, y, color);
 				w++;
 			}
 			y++;

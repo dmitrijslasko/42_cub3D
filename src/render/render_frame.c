@@ -2,19 +2,20 @@
 
 int	render_ui_message(t_data *dt)
 {
+	char 			*src_pixel;
+	unsigned int 	color;;
+	int				draw_x;
+	int 			draw_y;
+
 	for (int row = 0; row < dt->message_img[0].height; row++)
 	{
 		for (int col = 0; col < dt->message_img[0].width; col++)
 		{
-			char *src_pixel;
-
 			src_pixel = dt->message_img[0].addr + row * dt->message_img[0].line_len + col * dt->message_img->bpp / 8;
-			unsigned int color;
 
 			color = *(unsigned int *)src_pixel;
-
-			int draw_x = ((WINDOW_W - dt->message_img[0].width)/ 2) + col;
-			int draw_y = 700 + row;
+			draw_x = ((WINDOW_W - dt->message_img[0].width)/ 2) + col;
+			draw_y = UI_MESSAGE_OFFSET_Y + row;
 
 			if (color != TRANSPARENT_COLOR)
 				img_pix_put(dt->scene_img, draw_x, draw_y, color);
@@ -28,7 +29,6 @@ int update_prompt_message(t_data *dt)
 
 	cell_ahead = get_cell_ahead(dt);
 	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
-
 	if (dt->player.cell_type_ahead == '|')
 		dt->view->show_door_open_message = 1;
 	else
@@ -36,52 +36,39 @@ int update_prompt_message(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
-int	render_frame(void *param)
+int	limit_fps(t_data *dt)
 {
 	long		current_time;
-	t_data		*dt;
 
-	dt = (t_data *)param;
-
-	// Render FPS at the predefined FPS
 	current_time = get_current_time_in_ms();
 	dt->delta_time = current_time - dt->last_time;
 	if (dt->delta_time < (1000 / FPS))
-		return (EXIT_SUCCESS);
+		return (1);
 	dt->last_time = current_time;
+	return (0);
+}
 
-	if (dt->win_ptr == NULL)
-		return (EXIT_FAILURE);
+int	render_frame(void *param)
+{
+	t_data		*dt;
 
-	process_keypresses(dt);
-
+	dt = (t_data *)param;
+	while (limit_fps(dt))
+		continue ;
 	reset_mouse_position(dt);
-
+	process_keypresses(dt);
 	calculate_all_rays(dt);
-
 	update_prompt_message(dt);
-
 	render_3d_scene(dt);
-
 	update_minimap(dt);
-
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
-
-	// minimap base image
-	//mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap_base_img->mlx_img, 600, 600);
-
-	// minimap (open/close with Tab)
 	if (dt->view->show_minimap)
 		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
-
 	if (dt->view->show_debug_info)
 		show_debug_info(dt);
-
 	if (dt->view->show_door_open_message)
 		render_ui_message(dt);
-
 	add_ui(dt);
-
 	return (EXIT_SUCCESS);
 }
 

@@ -60,7 +60,7 @@ typedef struct s_texture_match
 	const int				wall_type;
 }							t_texture_match;
 
-t_texture_match	g_txt_lookup[] = {
+static const t_texture_match	g_txt_lookup[] = {
 {"SO", 2, SOUTH},
 {"NO", 2, NORTH},
 {"WE", 2, WEST},
@@ -264,6 +264,7 @@ typedef struct s_data
 	t_img				*message_img;
 	float				ambient_light;
 	void				*background_music;
+	int					frame_counter;
 }	t_data;
 
 static inline int	pixel_is_in_window(int x, int y)

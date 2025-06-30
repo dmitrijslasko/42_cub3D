@@ -115,6 +115,7 @@
 # define DEBUG_FIELD_1_OFFSET_X				270
 # define DEBUG_FIELD_2_OFFSET_X				90
 # define DEBUG_FIELD_OFFSET_Y				20
+# define UI_MESSAGE_OFFSET_Y				700
 
 // welcome screens
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"

@@ -94,8 +94,8 @@
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f
 
 # define ENABLE_VERTICAL_LOOK				1
-# define LOCK_VERTICAL_LOOK_UP				200
-# define LOCK_VERTICAL_LOOK_DOWN			200
+# define VERTICAL_LOOK_LOCK_UP				200
+# define VERTICAL_LOOK_LOCK_DOWN			200
 
 // mouse sensitivity
 # define ENABLE_MOUSE       				1

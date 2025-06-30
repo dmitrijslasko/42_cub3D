@@ -33,11 +33,11 @@ void	process_keypresses(t_data *dt)
 		if (dt->keys[65362]) // Up
 			dt->view->screen_center_y = ft_min(
 							dt->view->screen_center_y + KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
-							WINDOW_H / 2 + LOCK_VERTICAL_LOOK_UP );
+							WINDOW_H / 2 + VERTICAL_LOOK_LOCK_UP );
 		if (dt->keys[65364]) // Down
 			dt->view->screen_center_y = ft_max(
 							dt->view->screen_center_y - KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
-							WINDOW_H / 2 - LOCK_VERTICAL_LOOK_DOWN);
+							WINDOW_H / 2 - VERTICAL_LOOK_LOCK_DOWN);
 	}
 	if (dt->keys[65505])
 		dt->player.move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;

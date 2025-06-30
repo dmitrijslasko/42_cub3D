@@ -15,8 +15,15 @@ t_coor	get_cell_ahead(t_data *dt)
 	return (cell_ahead);
 }
 
-static int	handle_wall(t_data *dt, t_coor min, t_coor max)
+static int	handle_wall(t_data *dt, float *new_x, float *new_y)
 {
+	t_coor	min;
+	t_coor	max;
+
+	min.x = (int)(*new_x - MIN_DISTANCE_TO_WALL);
+	max.x = (int)(*new_x + MIN_DISTANCE_TO_WALL);
+	min.y = (int)(*new_y - MIN_DISTANCE_TO_WALL);
+	max.y = (int)(*new_y + MIN_DISTANCE_TO_WALL);
 	if (ft_strchr("1v", dt->map.map_data[min.y][min.x]) ||
 	ft_strchr("1v", dt->map.map_data[min.y][max.x]) ||
 	ft_strchr("1v", dt->map.map_data[max.y][min.x]) ||
@@ -25,19 +32,43 @@ static int	handle_wall(t_data *dt, t_coor min, t_coor max)
 	return (1);
 }
 
-static int	handle_door(t_data *dt, t_coor min, t_coor max)
+//static int	handle_door(t_data *dt, t_coor min, t_coor max)
+//{
+//	t_coor	cell_ahead;
+//	t_door	*door;
+
+//	cell_ahead = get_cell_ahead(dt);
+//	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
+//	if (ft_strchr("|", dt->map.map_data[min.y][min.x]) ||
+//		ft_strchr("|", dt->map.map_data[min.y][max.x]) ||
+//		ft_strchr("|", dt->map.map_data[max.y][min.x]) ||
+//		ft_strchr("|", dt->map.map_data[max.y][max.x]))
+//	{
+//		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
+//		if (door && door->open_progress < DOOR_OPEN_VALUE)
+//			return (0);
+//	}
+//	return (1);
+//}
+
+static int	handle_door2(t_data *dt, float *new_x, float *new_y)
 {
-	t_coor	cell_ahead;
+	t_coor	min;
+	t_coor	max;
+	t_coor	new_pos;
 	t_door	*door;
 
-	cell_ahead = get_cell_ahead(dt);
-	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
+	min.x = (int)(*new_x - MIN_DISTANCE_TO_WALL);
+	max.x = (int)(*new_x + MIN_DISTANCE_TO_WALL);
+	min.y = (int)(*new_y - MIN_DISTANCE_TO_WALL);
+	max.y = (int)(*new_y + MIN_DISTANCE_TO_WALL);
+	set_coor_values(&new_pos, (int)*new_x, (int)*new_y);
+	door = find_door_at(dt, new_pos.x, new_pos.y);
 	if (ft_strchr("|", dt->map.map_data[min.y][min.x]) ||
-		ft_strchr("|", dt->map.map_data[min.y][max.x]) ||
-		ft_strchr("|", dt->map.map_data[max.y][min.x]) ||
-		ft_strchr("|", dt->map.map_data[max.y][max.x]))
+	ft_strchr("|", dt->map.map_data[min.y][max.x]) ||
+	ft_strchr("|", dt->map.map_data[max.y][min.x]) ||
+	ft_strchr("|", dt->map.map_data[max.y][max.x]))
 	{
-		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
 		if (door && door->open_progress < DOOR_OPEN_VALUE)
 			return (0);
 	}
@@ -49,16 +80,9 @@ static int	handle_door(t_data *dt, t_coor min, t_coor max)
 // TODO DL: unoptimal placement for the show_door_open_message
 int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 {
-	t_coor	min;
-	t_coor	max;
-
-	min.x = (int)(*new_x - MIN_DISTANCE_TO_WALL);
-	max.x = (int)(*new_x + MIN_DISTANCE_TO_WALL);
-	min.y = (int)(*new_y - MIN_DISTANCE_TO_WALL);
-	max.y = (int)(*new_y + MIN_DISTANCE_TO_WALL);
-	if (!handle_wall(dt, min, max))
+	if (!handle_wall(dt, new_x, new_y))
 		return (0);
-	if (!handle_door(dt, min, max))
+	if (!handle_door2(dt, new_x, new_y))
 		return (0);
 	return (1);
 }

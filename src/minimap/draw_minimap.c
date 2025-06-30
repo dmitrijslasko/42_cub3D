@@ -53,8 +53,8 @@ int	draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row)
 
 int	draw_minimap_map(t_data *dt)
 {
-	size_t	curr_row;
-	size_t	curr_col;
+	int	curr_row;
+	int	curr_col;
 	int		color;
 	t_coor top_left;
 	t_coor bottom_right;

@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
-void	update_value_max(size_t *count, char *line)
+void	update_value_max(int *count, char *line)
 {
-	if (*count < ft_strlen(line))
-		*count = ft_strlen(line);
+	if ((size_t)*count < ft_strlen(line))
+		*count = (int)ft_strlen(line);
 }

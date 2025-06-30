@@ -24,7 +24,7 @@ void	init_dt(t_data *dt)
 	dt->sprites = NULL;
 	dt->sprite_textures = NULL;
 	dt->sprite_count = 0;
-	dt->sprite_txt_count = 0;
+	dt->sprite_texture_count = 0;
 	dt->view = NULL;
 	dt->welcome_img = NULL;
 	dt->sky_image = NULL;

@@ -2,7 +2,7 @@
 
 void	draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color)
 {
-	size_t	curr_y;
+	int	curr_y;
 
 	if (pt_1.y > pt_2.y)
 		swap(&pt_1, &pt_2, sizeof(t_coor));

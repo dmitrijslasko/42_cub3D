@@ -5,8 +5,8 @@ void init_doors(t_data *dt)
 	t_door 	*door;
 	size_t  door_count;
 	size_t 	i;
-	size_t 	curr_row;
-	size_t 	curr_col;
+	int 	curr_row;
+	int 	curr_col;
 
 	// malloc
 	print_separator_default();
@@ -35,7 +35,7 @@ void init_doors(t_data *dt)
 				door->open_progress = 0.0f;
 				door->speed = 0.05f;
 				door->state = 0;
-				printf("Door [%zu] at X Y (%zu, %zu) added with id:\t%zu\n", i, curr_col, curr_row, door->id);
+				printf("Door [%zu] at X Y (%d, %d) added with id:\t%zu\n", i, curr_col, curr_row, door->id);
 				i++;
 			}
 			curr_col++;

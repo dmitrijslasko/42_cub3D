@@ -4,35 +4,27 @@
 // TODO DL: this can be replaced by an already existing function, bool	check_hit_wall(t_coor coord, t_map map)
 int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 {
-	size_t min_x = (size_t)(*new_x - MIN_DISTANCE_TO_WALL);
-	size_t max_x = (size_t)(*new_x + MIN_DISTANCE_TO_WALL);
-	size_t min_y = (size_t)(*new_y - MIN_DISTANCE_TO_WALL);
-	size_t max_y = (size_t)(*new_y + MIN_DISTANCE_TO_WALL);
+	int min_x = (int)(*new_x - MIN_DISTANCE_TO_WALL);
+	int max_x = (int)(*new_x + MIN_DISTANCE_TO_WALL);
+	int min_y = (int)(*new_y - MIN_DISTANCE_TO_WALL);
+	int max_y = (int)(*new_y + MIN_DISTANCE_TO_WALL);
 	t_door *door;
 
 	t_coor cell_ahead;
 	cell_ahead = get_cell_ahead(dt);
 
-	// NOTE DL: Should not be here probably!
 	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
 	if (dt->player.cell_type_ahead == '|')
 		dt->view->show_door_open_message = 1;
 	else
 		dt->view->show_door_open_message = 0;
-	// Check for out-of-bounds access
 	if (max_x >= dt->map.map_size_cols || max_y >= dt->map.map_size_rows)
 		return (0);
-
-		// printf("%s\n", "Door not found!");
-
-	// Check four corners of bounding box
 	if (ft_strchr("1v", dt->map.map_data[min_y][min_x]) ||
 		ft_strchr("1v", dt->map.map_data[min_y][max_x]) ||
 		ft_strchr("1v", dt->map.map_data[max_y][min_x]) ||
 		ft_strchr("1v", dt->map.map_data[max_y][max_x]))
-	{
 		return (0);
-	}
 	if (ft_strchr("|", dt->map.map_data[min_y][min_x]) ||
 		ft_strchr("|", dt->map.map_data[min_y][max_x]) ||
 		ft_strchr("|", dt->map.map_data[max_y][min_x]) ||

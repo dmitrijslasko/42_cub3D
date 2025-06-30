@@ -9,7 +9,7 @@ float	max_float(float a, float b)
 	return (b);
 }
 
-void	set_values_size_t(size_t *new_x, size_t *new_y, size_t x, size_t y)
+void	set_values_size_t(int *new_x, int *new_y, int x, int y)
 {
 	*new_x = x;
 	*new_y = y;

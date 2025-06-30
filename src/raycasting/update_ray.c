@@ -24,8 +24,8 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 	// This line sets the step based on the vector directions
 	set_step(&step, &ray->vector);
 
-	map_coor.x = (size_t)dt->player.pos.x;
-	map_coor.y = (size_t)dt->player.pos.y;
+	map_coor.x = (int)dt->player.pos.x;
+	map_coor.y = (int)dt->player.pos.y;
 
 	while (map_coor.x < dt->map.map_size_cols && map_coor.y < dt->map.map_size_rows)
 	{

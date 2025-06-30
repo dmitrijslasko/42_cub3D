@@ -2,8 +2,8 @@
 
 void	print_level_map(t_map *map)
 {
-	size_t	row;
-	size_t	col;
+	int	row;
+	int	col;
 
 	row = 0;
 	printf(TXT_YELLOW "Printing out the level map->..\n" TXT_RESET);

@@ -8,7 +8,7 @@ bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_textur
 		return (0);
 
 	i = 0;
-	while (i < dt->sprite_txt_count)
+	while (i < dt->sprite_texture_count)
 	{
 		if (dt->sprite_textures[i].type == type_sprite)
 		{
@@ -22,18 +22,19 @@ bool	valid_sprites(t_data *dt, char type_sprite, t_sprite_texture *sprite_textur
 
 int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_sprite, float transform_y)
 {
-	t_sprite_texture	sprite_textures;
+	//t_sprite_texture	sprite_textures;
 	unsigned int	color;
 	size_t			row;
 	size_t			col;
 
-	if (transform_y <= 0.4f)
-		return (0);
-	if (!valid_sprites(dt, type_sprite, &sprite_textures))
-		return (EXIT_FAILURE);
+	
+
+	(void)type_sprite;
+	//if (!valid_sprites(dt, type_sprite, &sprite_textures))
+	//	return (EXIT_FAILURE);
 
 	size_t sprite_height = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
-	size_t sprite_width = fmin(WINDOW_W * 4, sprite_height * ((float)sprite_textures.width / sprite_textures.height));
+	size_t sprite_width = fmin(WINDOW_W * 4, sprite_height);
 
 	int offset_x = sprite_screen_x - sprite_width  / 2;
 	int offset_y = dt->view->screen_center_y - sprite_height / 3;
@@ -48,7 +49,7 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_s
 			continue;
 		}
 
-		int tex_y = row * sprite_textures.height / sprite_height;
+		int tex_y = row * sprite->texture->height / sprite_height;
 
 		col = 0;
 		while (col < sprite_width)
@@ -60,9 +61,10 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, char type_s
 				continue;
 			}
 
-			int tex_x = col * sprite_textures.width / sprite_width;
+			int tex_x = col * sprite->texture->width / sprite_width;
 
-			color = sprite_textures.sprite_data[(dt->last_time - dt->start_time) / 100 % 2][tex_y * sprite_textures.width + tex_x];
+			int time = (dt->last_time - dt->start_time) / 100 % 2;
+			color = sprite->texture->sprite_data[time][tex_y * sprite->texture->width + tex_x];
 			if (color == TRANSPARENT_COLOR)
 			{
 				col++;

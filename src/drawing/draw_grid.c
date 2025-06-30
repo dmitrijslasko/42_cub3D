@@ -2,8 +2,8 @@
 
 void	draw_minimap_grid(t_data *dt)
 {
-	size_t	col_px;
-	size_t	row_px;
+	int	col_px;
+	int	row_px;
 
 	row_px = 0;
 	while (row_px <= dt->map.map_size_rows * MINIMAP_GRID_SIZE + 1)

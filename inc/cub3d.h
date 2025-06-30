@@ -105,8 +105,8 @@ typedef struct s_door
 
 typedef struct s_coor
 {
-	size_t	x;
-	size_t	y;
+	int	x;
+	int	y;
 }	t_coor;
 
 typedef struct s_x_y
@@ -160,8 +160,8 @@ typedef struct s_wall_tile
 typedef struct s_map
 {
 	char		**map_data;
-	size_t		map_size_rows;
-	size_t		map_size_cols;
+	int		map_size_rows;
+	int		map_size_cols;
 	t_wall_tile	wall_tile[NUMBER_TEXTURES];
 	t_wall_tile	door;
 }	t_map;
@@ -225,13 +225,14 @@ typedef struct s_sprite_texture
 
 typedef struct s_sprite
 {
-	size_t	id;
-	t_x_y	pos;
-	float	distance_to_player;
-	int		sprite_texture_id;
-	char	type;
-	bool	visible;
-	int		y_offset_factor;
+	size_t				id;
+	t_x_y				pos;
+	float				distance_to_player;
+	int					sprite_texture_id;
+	char				type;
+	t_sprite_texture	*texture;
+	bool				visible;
+	int					y_offset_factor;
 }	t_sprite;
 
 typedef struct s_data
@@ -249,7 +250,7 @@ typedef struct s_data
 	t_sprite			*sprites;
 	t_sprite_texture	*sprite_textures;
 	size_t				sprite_count;
-	size_t				sprite_txt_count;
+	size_t				sprite_texture_count;
 	t_view				*view;
 	t_mouse				mouse;
 	float				sin_table[PRECALCULATED_TRIG];
@@ -362,7 +363,7 @@ void		print_ray(t_ray ray);
 
 //x_y.c
 float		max_float(float a, float b);
-void		set_values_size_t(size_t *new_x, size_t *new_y, size_t x, size_t y);
+void		set_values_size_t(int *new_x, int *new_y, int x, int y);
 t_x_y		get_values_x_y(float x, float y);
 void		set_values_x_y(t_x_y *new, float x, float y);
 t_coor		get_values_coor(int x, int y);
@@ -467,7 +468,7 @@ size_t		count_types_elements_in_the_map(t_map *map, char *element);
 
 size_t		size_array(char **array);
 void		free_array(char **array);
-void		update_value_max(size_t *count, char *line);
+void		update_value_max(int *count, char *line);
 
 t_coor 		get_cell_ahead(t_data *dt);
 void 		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);

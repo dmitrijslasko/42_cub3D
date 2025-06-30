@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void		draw_circle(t_img *img, t_coor *coor, int radius, int clr)
+void	draw_circle(t_img *img, t_coor *coor, int radius, int clr)
 {
 	int	curr_x;
 	int	curr_y;
@@ -25,4 +25,3 @@ void		draw_circle(t_img *img, t_coor *coor, int radius, int clr)
 		++curr_x;
 	}
 }
-

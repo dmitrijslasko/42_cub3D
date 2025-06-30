@@ -10,7 +10,6 @@ void	draw_background(t_img *img, int color)
 	current_y = 0;
 	width = img->width;
 	height = img->height;
-
 	while (current_y < width)
 	{
 		current_x = 0;

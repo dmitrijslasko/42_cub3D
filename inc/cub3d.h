@@ -109,6 +109,12 @@ typedef struct s_coor
 	int	y;
 }	t_coor;
 
+typedef struct s_x_y
+{
+	float	x;
+	float	y;
+}	t_x_y;
+
 typedef struct s_dda_info
 {
 	t_coor	*map;
@@ -117,17 +123,6 @@ typedef struct s_dda_info
 	t_x_y	*side;
 	char	*hit_side;
 }	t_dda_info;
-
-typedef struct s_x_y
-{
-	float	x;
-	float	y;
-}	t_x_y;
-
-typedef struct s_camera_plane
-{
-	t_x_y	plane;
-}	t_camera;
 
 typedef struct s_ray
 {

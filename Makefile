@@ -22,6 +22,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SDL2_INC := lib/SDL2/build/include/SDL2
 SDL2_MIXER_INC := lib/SDL2_mixer/build/include
 
+MINILIBX = $(MINILIBX_DIR)libmlx.a
+MINILIBX_DIR = $(LIBDIRS)/minilibx/
+
 # COMPILATION FLAGS
 CFLAGS = -Wall -Wextra
 CFLAGS += -Werror
@@ -33,7 +36,8 @@ CFLAGS += -I$(SDL2_INC) -I$(SDL2_MIXER_INC) -D_REENTRANT
 
 # LINKER FLAGS
 LDFLAGS = -L$(LIBFT_DIR) -lft
-LDFLAGS += -lmlx -lm -lXext -lX11
+LDFLAGS += -lm -lXext -lX11
+LDFLAGS += -L$(MINILIBX_DIR) -lmlx
 LDFLAGS += -Llib/SDL2/build/lib -Llib/SDL2_mixer/build/lib -lSDL2 -lSDL2_mixer
 
 # EXTRA FLAGS
@@ -64,7 +68,7 @@ DEPS_BONUS = $(OBJ_BONUS:.o=.d)
 test: all
 	./${NAME} ./maps/good/works.cub
 
-all: libft $(NAME) $(HEADER_FILE_M)
+all: libft $(NAME) $(MINILIBX) $(HEADER_FILE_M)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $@
@@ -102,6 +106,9 @@ re: fclean all
 	@echo "- $(GREEN)make clean$(RESET): removes object files"
 	@echo "- $(GREEN)make fclean$(RESET): removes object files and the final binary"
 
+$(MINILIBX):
+	$(MAKE) -C $(MINILIBX_DIR)
+
 # ------------------------------------------------------------------------------
 
-.PHONY: all bonus clean fclean re libft %
+.PHONY: all bonus clean fclean re libft minilibx %

@@ -456,8 +456,7 @@ int			precalculate_trig_tables(t_data *dt);
 
 int			render_all_sprites(t_data *dt);
 
-int			apply_distance_shadow(t_data *dt, size_t i, int *color,
-						float strength);
+int			apply_distance_shadow(t_ray *ray, int *color);
 
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);

@@ -160,8 +160,8 @@ typedef struct s_wall_tile
 typedef struct s_map
 {
 	char		**map_data;
-	int		map_size_rows;
-	int		map_size_cols;
+	int			map_size_rows;
+	int			map_size_cols;
 	t_wall_tile	wall_tile[NUMBER_TEXTURES];
 	t_wall_tile	door;
 }	t_map;

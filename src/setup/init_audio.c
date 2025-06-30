@@ -7,7 +7,7 @@ void free_audio(void *ptr)
 {
 	Mix_Music	*music;
 
-	music = (Mix_Music *) ptr;
+	music = (Mix_Music *)ptr;
     if (music != NULL)
     {
         Mix_FreeMusic(music);

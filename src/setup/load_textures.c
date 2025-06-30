@@ -3,7 +3,7 @@
 int	load_textures(t_data *dt)
 {
 	t_texture	*texture;
-	size_t 		i;
+	size_t		i;
 
 	print_separator_default();
 	printf(TXT_YELLOW ">>> LOADING TEXTURES\n" TXT_RESET);

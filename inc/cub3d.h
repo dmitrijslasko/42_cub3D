@@ -439,7 +439,7 @@ int			draw_sky(t_data *dt);
 void 		render_3d_scene(t_data *dt);
 int			draw_ceiling(t_data *dt);
 int			draw_floor(t_data *dt);
-int			render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, float transform_y);
+int			render_sprite(t_data *dt, t_sprite *sprite, t_coor *offset, t_coor *sprite_size);
 float		fix_fish_eye(t_ray *ray, t_player *player);
 int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
 

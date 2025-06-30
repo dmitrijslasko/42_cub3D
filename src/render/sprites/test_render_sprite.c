@@ -11,17 +11,6 @@ bool	check_sprite_closer_than_wall(t_data *dt, t_coor *coor, t_sprite *spr)
 	return (0);
 }
 
-// unsigned int	find_color_texture(t_sprite_texture *texture, t_coor *coor, t_coor *offset, t_coor *sprite_size)
-// {
-// 	unsigned int	color;
-// 	int				tex_y;
-// 	int				tex_x;
-
-// 	tex_y = (coor->y - offset->y) * texture->height / sprite_size->y;
-// 	tex_x = (coor->x - offset->x) * texture->width / sprite_size->x;
-// 	color = *texture->sprite_data[tex_y * texture->width + tex_x];
-// 	return (color);
-// }
 
 t_coor	calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, t_coor *offset, t_coor *sprite_size)
 {
@@ -32,40 +21,34 @@ t_coor	calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, t_coor *offset
 	return (tex_coor);
 }
 
-void	sprite_put_color(t_data *dt, t_sprite_texture *texture, t_coor *coor, t_coor *offset, t_coor *sprite_size, int time)
+void	sprite_put_color(t_data *dt, t_sprite_texture *texture, t_coor *coor, int time, t_coor *tex_coor)
 {
 	unsigned int	color;
-	t_coor			tex_coor;
 
-	tex_coor = calculate_tex_x_y(texture, coor, offset, sprite_size);
-	color = texture->sprite_data[time][tex_coor.y * texture->width + tex_coor.x];
+	color = texture->sprite_data[time][tex_coor->y * texture->width + tex_coor->x];
 	if (color == TRANSPARENT_COLOR)
 		return ;
 	img_pix_put(dt->scene_img, coor->x, coor->y, color);
 }
 
 int	render_sprite(t_data *dt, t_sprite *sprite, \
-					int sprite_screen_x, float transform_y)
+					t_coor *offset, t_coor	*sprite_size)
 {
-	t_coor			coor;
-	t_coor			offset;
-	t_coor			sprite_size;
-	int				time;
+	t_coor	coor;
+	t_coor	tex_coor;
+	int		time;
 
 	time = (dt->last_time - dt->start_time) / 100 % 2;
-	sprite_size.y = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
-	sprite_size.x = fmin(WINDOW_W * 4, sprite_size.y);
-	offset.x = sprite_screen_x - sprite_size.x / 2;
-	offset.y = dt->view->screen_center_y - sprite_size.y / 3;
-	coor.y = ft_max(offset.y, 0);
-	while (coor.y < sprite_size.y + offset.y && coor.y < WINDOW_H)
+	coor.y = ft_max(offset->y, 0);
+	while (coor.y < sprite_size->y + offset->y && coor.y < WINDOW_H)
 	{
-		coor.x = ft_max(offset.x, 0);
-		while (coor.x < sprite_size.x + offset.x && coor.x < WINDOW_W)
+		coor.x = ft_max(offset->x, 0);
+		while (coor.x < sprite_size->x + offset->x && coor.x < WINDOW_W)
 		{
 			if (check_sprite_closer_than_wall(dt, &coor, sprite))
 			{
-				sprite_put_color(dt, sprite->texture, &coor, &offset, &sprite_size, time);
+				tex_coor = calculate_tex_x_y(sprite->texture, &coor, offset, sprite_size);
+				sprite_put_color(dt, sprite->texture, &coor, time, &tex_coor);
 			}
 			coor.x++;
 		}

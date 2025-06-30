@@ -2,28 +2,29 @@
 
 #define INV_FIELD_OF_VIEW_SCALE (-1.0f / FIELD_OF_VIEW_SCALE)
 
-int get_position_and_render_sprite(t_data *dt, t_sprite *sprite)
+int	get_position_and_render_sprite(t_data *dt, t_sprite *sprite)
 {
-	float	dx;
-	float	dy;
-	float	transform_x;
-	float	transform_y;
+	t_x_y	dist;
+	t_x_y	transform;
 	int		sprite_screen_x;
+	t_coor	sprite_size;
+	t_coor	offset;
 
-	dx = sprite->pos.x - dt->player.pos.x;
-	dy = sprite->pos.y - dt->player.pos.y;
-
-	transform_x = INV_FIELD_OF_VIEW_SCALE *
-					(dt->player.direction_vector.y * dx -
-								dt->player.direction_vector.x * dy);
-
-	transform_y = (	dt->player.direction_vector.x * dx +
-					dt->player.direction_vector.y * dy);
-
-	sprite_screen_x = (WINDOW_W / 2) * (1 + transform_x / transform_y);
-
-	if (transform_y >= 0.4f)
-		render_sprite(dt, sprite, sprite_screen_x, sprite->type, transform_y);
+	dist.x = sprite->pos.x - dt->player.pos.x;
+	dist.y = sprite->pos.y - dt->player.pos.y;
+	transform.y = (dt->player.direction_vector.x * dist.x + \
+					dt->player.direction_vector.y * dist.y);
+	if (transform.y <= 0.4f)
+		return (EXIT_SUCCESS);
+	transform.x = INV_FIELD_OF_VIEW_SCALE * \
+					(dt->player.direction_vector.y * dist.x - \
+								dt->player.direction_vector.x * dist.y);
+	sprite_size.y = fmin(WINDOW_H * 4, WINDOW_H / transform.y);
+	sprite_size.x = fmin(WINDOW_W * 4, sprite_size.y);
+	sprite_screen_x = (WINDOW_W / 2) * (1 + transform.x / transform.y);
+	offset.x = sprite_screen_x - sprite_size.x / 2;
+	offset.y = dt->view->screen_center_y - sprite_size.y / 3;
+	render_sprite(dt, sprite, &offset, &sprite_size);
 	return (EXIT_SUCCESS);
 }
 

@@ -2,8 +2,8 @@
 
 void	find_sprites(t_data *dt)
 {
-	int	row;
-	int	col;
+	int		row;
+	int		col;
 	size_t	count;
 	char	c;
 

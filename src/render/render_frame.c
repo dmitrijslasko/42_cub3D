@@ -2,7 +2,7 @@
 
 int update_prompt_message(t_data *dt)
 {
-	t_coor cell_ahead;
+	t_coor	cell_ahead;
 
 	cell_ahead = get_cell_ahead(dt);
 	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
@@ -13,25 +13,18 @@ int update_prompt_message(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
-int	limit_fps(t_data *dt)
+int	render_frame(void *param)
 {
+	t_data		*dt;
 	long		current_time;
+
+	dt = (t_data *)param;
 
 	current_time = get_current_time_in_ms();
 	dt->delta_time = current_time - dt->last_time;
 	if (dt->delta_time < (1000 / FPS))
-		return (1);
+		return (0);
 	dt->last_time = current_time;
-	return (0);
-}
-
-int	render_frame(void *param)
-{
-	t_data		*dt;
-
-	dt = (t_data *)param;
-	while (limit_fps(dt))
-		continue ;
 	reset_mouse_position(dt);
 	process_keypresses(dt);
 	calculate_all_rays(dt);

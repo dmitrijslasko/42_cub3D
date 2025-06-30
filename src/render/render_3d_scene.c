@@ -10,231 +10,90 @@ static int	render_floor_and_ceiling(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
-// void render_3d_scene(t_data *dt)
-// {
-// 	size_t	i;
-// 	float	wall_height;
-// 	int		screen_x;
-// 	int 	top_y;
-// 	int		bottom_y;
-// 	int 	w;
-// 	int		tex_index;
-// 	int		color;
-// 	size_t	texture_x;
-// 	int		screen_slice_width;
-// 	int		y;
-// 	int 	texture_y;
-
-// 	render_floor_and_ceiling(dt);
-
-// 	i = 0;
-// 	while (i < CASTED_RAYS_COUNT)
-// 	{
-// 		// Distance-based projection
-// 		wall_height = 1.0f / dt->rays[i].corrected_distance_to_wall * SCALING;
-
-// 		top_y = dt->view->screen_center_y - wall_height;
-// 		bottom_y = dt->view->screen_center_y + wall_height;
-
-// 		 int texture_width = dt->map.wall_tile->texture.width;
-// 		 int texture_height = dt->map.wall_tile->texture.height;
-
-// 		 texture_x = (dt->rays[i].percentage_of_image * texture_width);
-
-// 		 if (texture_x >= (size_t)texture_width)
-// 		 	texture_x = texture_width - 1;
-
-// 		// Horizontal screen position
-// 		screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
-// 		screen_x = i * screen_slice_width;
-
-// 		// Vertical wall slice drawing
-// 		y = ft_max(top_y, 0);
-// 		while (y < ft_min(WINDOW_H, bottom_y))
-// 		{
-// 			// // Relative position on the wall
-// 			int d = y - top_y;
-// 			texture_y = fmax((d * texture_height) / (2 * wall_height), 0);
-// 			if (texture_y >= texture_height)
-// 				texture_y = texture_height - 1;
-
-// 			if (dt->rays[i].cell_type == DOOR_VERTICAL)
-// 			{
-// 				if (dt->rays[i].vector.x > 0)
-// 					tex_index = texture_y * 64 + (64 * (dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
-// 				else
-// 					tex_index = texture_y * 64 + (64 * (1.0f - dt->rays[i].percentage_of_image - dt->rays[i].door->open_progress));
-// 				color = dt->map.door.texture.texture_data[tex_index];
-// 			}
-// 			else
-// 			{
-// 				tex_index = texture_y * texture_width + texture_x;
-// 				color = dt->map.wall_tile[dt->rays[i].wall_type].texture.texture_data[tex_index];
-// 			}
-
-// 			if (ENABLE_SHADERS)
-// 				apply_distance_shadow(dt, i, &color, DISTANCE_SHADOW_STRENGTH);
-
-// 			w = ft_max(screen_x, 0);
-// 			while (w < screen_slice_width + screen_x && w < WINDOW_W)
-// 			{
-// 				// if (pixel_is_in_window(w, y))
-// 				img_pix_put(dt->scene_img, w, y, color);
-// 				w++;
-// 			}
-// 			y++;
-// 		}
-// 		i++;
-// 	}
-// 	render_all_sprites(dt);
-// }
-
-
-// void render_3d_scene1(t_data *dt, t_ray *ray)
-// {
-// 	float	wall_height;
-// 	int		screen_x;
-// 	int 	top_y;
-// 	int		bottom_y;
-// 	int 	w;
-
-// 	size_t	texture_x;
-// 	int		screen_slice_width;
-// 	int		y;
-// 	int 	texture_y;
-
-// 	// Distance-based projection
-// 	wall_height = 1.0f / ray->corrected_distance_to_wall * SCALING;
-
-// 	top_y = dt->view->screen_center_y - wall_height;
-// 	bottom_y = dt->view->screen_center_y + wall_height;
-
-// 	int texture_width = dt->map.wall_tile->texture.width;
-// 	int texture_height = dt->map.wall_tile->texture.height;
-
-// 	// Horizontal screen position
-// 	screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
-// 	screen_x = ray->id * screen_slice_width;
-
-// 	// Vertical wall slice drawing
-// 	y = ft_max(top_y, 0);
-// 	while (y < ft_min(WINDOW_H, bottom_y))
-// 	{
-// 		// // Relative position on the wall
-// 		int d = y - top_y;
-// 		texture_y = fmax((d * texture_height) / (2 * wall_height), 0);
-// 		if (texture_y >= texture_height)
-// 			texture_y = texture_height - 1;
-
-// 		// if (ray->cell_type == DOOR_VERTICAL)
-// 		// {
-// 		// 	if (ray->vector.x > 0)
-// 		// 		tex_index = 64 * (texture_y + (ray->percentage_of_image - ray->door->open_progress));
-// 		// 	else
-// 		// 		tex_index = 64 * (texture_y + (1.0f - ray->percentage_of_image - ray->door->open_progress));
-// 		// 	color = dt->map.door.texture.texture_data[tex_index];
-// 		// }
-// 		// else
-// 		// {
-// 		// 	texture_x = (ray->percentage_of_image * texture_width);
-// 		// 	tex_index = texture_y * texture_width + texture_x;
-// 		// 	color = dt->map.wall_tile[ray->wall_type].texture.texture_data[tex_index];
-// 		// }
-
-// 		if (ENABLE_SHADERS)
-// 			apply_distance_shadow(ray, &color);
-
-// 		w = ft_max(screen_x, 0);
-// 		while (w < screen_slice_width + screen_x && w < WINDOW_W)
-// 		{
-// 			img_pix_put(dt->scene_img, w, y, color);
-// 			w++;
-// 		}
-// 		y++;
-// 	}
-// }
-
-int	get_color_render3d(t_data *dt, t_ray *ray, t_coor *texture, int *texture_width)
+void	calc_texture_coor(t_data *dt, int *texture_y, \
+							float *distance_to_wall, int d)
 {
-	int		color;
-	int		tex_index;
+	float	wall_height;
+	t_coor	tex_size;
 
+	tex_size.y = dt->map.wall_tile->texture.height;
+	wall_height = 1.0f / *distance_to_wall * SCALING;
+	*texture_y = (d * tex_size.y) / (2 * wall_height);
+	if (*texture_y >= tex_size.y)
+		*texture_y = tex_size.y - 1;
+}
+
+int	get_color_render3d(t_data *dt, t_ray *ray, t_coor *tex_coor)
+{
+	int			color;
+	int			tex_index;
+	t_texture	texture;
+
+	texture = dt->map.wall_tile[ray->wall_type].texture;
+	tex_coor->x = (texture.width * ray->percentage_of_image);
+	tex_index = texture.width * tex_coor->y + tex_coor->x;
 	if (ray->cell_type == DOOR_VERTICAL)
 	{
+		texture = dt->map.door.texture;
 		if (ray->vector.x > 0)
-			tex_index = 64 * (texture->y + (ray->percentage_of_image - ray->door->open_progress));
+			tex_index = texture.width * (tex_coor->y + \
+						(ray->percentage_of_image - ray->door->open_progress));
 		else
-			tex_index = 64 * (texture->y + (1.0f - ray->percentage_of_image - ray->door->open_progress));
-		color = dt->map.door.texture.texture_data[tex_index];
+			tex_index = texture.width * (tex_coor->y + \
+				(1.0f - ray->percentage_of_image - ray->door->open_progress));
 	}
-	else
-	{
-		texture->x = ( *texture_width * ray->percentage_of_image);
-		tex_index = *texture_width * texture->y  + texture->x;
-		color = dt->map.wall_tile[ray->wall_type].texture.texture_data[tex_index];
-	}
+	color = texture.texture_data[tex_index];
 	if (ENABLE_SHADERS)
 		apply_distance_shadow(ray, &color);
 	return (color);
 }
 
-void render_3d_scene1(t_data *dt, t_ray *ray)
+void	put_pix_img(t_data *dt, t_ray *ray, t_coor *texture, t_coor *coor)
 {
-	float	wall_height;
-	int		screen_x;
-	int 	top_y;
-	int		bottom_y;
-	int 	w;
-	t_coor	texture;
-	t_coor	tex_size;
-	int		screen_slice_width;
-	int		y;
 	int		color;
 
-	// Distance-based projection
+	color = get_color_render3d(dt, ray, texture);
+	img_pix_put(dt->scene_img, coor->x, coor->y, color);
+}
+
+void	render_3d_scene1(t_data *dt, t_ray *ray, int screen_slice_width)
+{
+	float	wall_height;
+	int		top_y;
+	t_coor	coor;
+	t_coor	texture;
+	t_coor	tex_size;
+
 	wall_height = 1.0f / ray->corrected_distance_to_wall * SCALING;
-
 	top_y = dt->view->screen_center_y - wall_height;
-	bottom_y = dt->view->screen_center_y + wall_height;
-
 	tex_size.y = dt->map.wall_tile->texture.height;
-
-	// Horizontal screen position
-	screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
-	screen_x = ray->id * screen_slice_width;
-
-	// Vertical wall slice drawing
-	y = ft_max(top_y, 0);
-	while (y < ft_min(WINDOW_H, bottom_y))
+	coor.y = ft_max(top_y, 0);
+	while (coor.y < ft_min(WINDOW_H, dt->view->screen_center_y + wall_height))
 	{
-		// // Relative position on the wall
-		int d = y - top_y;
-		texture.y = fmax((d * tex_size.y) / (2 * wall_height), 0);
-		if (texture.y >= tex_size.y)
-			texture.y = tex_size.y - 1;
-
-		w = ft_max(screen_x, 0);
-		while (w < screen_slice_width + screen_x && w < WINDOW_W)
+		calc_texture_coor(dt, &texture.y, &ray->corrected_distance_to_wall, \
+																coor.y - top_y);
+		coor.x = ft_max(ray->id * screen_slice_width, 0);
+		while (coor.x < (ray->id + 1) * screen_slice_width && coor.x < WINDOW_W)
 		{
-			tex_size.x = dt->map.wall_tile->texture.width;
-			color = get_color_render3d(dt, ray, &texture, &tex_size.x);
-			img_pix_put(dt->scene_img, w, y, color);
-			w++;
+			put_pix_img(dt, ray, &texture, &coor);
+			coor.x++;
 		}
-		y++;
+		coor.y++;
 	}
 }
 
 void	render_3d_scene(t_data *dt)
 {
-	size_t	i;
+	int	i;
+	int	screen_slice_width;
 
 	i = 0;
+	screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
 	render_floor_and_ceiling(dt);
 	while (i < CASTED_RAYS_COUNT)
 	{
 		dt->rays[i].id = i;
-		render_3d_scene1(dt, &dt->rays[i++]);
+		render_3d_scene1(dt, &dt->rays[i++], screen_slice_width);
 	}
 	render_all_sprites(dt);
 }

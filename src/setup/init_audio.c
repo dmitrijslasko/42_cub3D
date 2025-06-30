@@ -3,6 +3,26 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
+//void	free_music(void *ptr)
+//{
+//	Mix_Music	*background_music;
+
+//	background_music = (Mix_Music *) ptr;
+//	free(background_music);
+//}
+
+void free_audio(void *ptr)
+{
+	Mix_Music	*music;
+
+	music = (Mix_Music *) ptr;
+    if (music != NULL)
+    {
+        Mix_FreeMusic(music);
+        music = NULL;
+    }
+    Mix_CloseAudio();  // Shut down audio subsystem
+}
 Mix_Music *init_audio(void)
 {
     Mix_Music *background_music;

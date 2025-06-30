@@ -4,7 +4,6 @@
 int	main(int argc, char **argv)
 {
 	t_data	dt;
-	Mix_Music *bgm;
 
 	if (argc != 2)
 		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
@@ -50,7 +49,7 @@ int	main(int argc, char **argv)
 	if (ENABLE_MOUSE)
 		setup_mouse_hooks(&dt);
 
-	bgm = init_audio();
+	dt.background_music = init_audio();
 	print_separator(3, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);

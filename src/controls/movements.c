@@ -8,6 +8,7 @@ int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 	size_t max_x = (size_t)(*new_x + MIN_DISTANCE_TO_WALL);
 	size_t min_y = (size_t)(*new_y - MIN_DISTANCE_TO_WALL);
 	size_t max_y = (size_t)(*new_y + MIN_DISTANCE_TO_WALL);
+	t_door *door;
 
 	t_coor cell_ahead;
 	cell_ahead = get_cell_ahead(dt);
@@ -32,15 +33,15 @@ int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 	{
 		return (0);
 	}
-	// if (ft_strchr("|", dt->map.map_data[min_y][min_x]) ||
-	// 	ft_strchr("|", dt->map.map_data[min_y][max_x]) ||
-	// 	ft_strchr("|", dt->map.map_data[max_y][min_x]) ||
-	// 	ft_strchr("|", dt->map.map_data[max_y][max_x]))
-	// {
-	// 	door = find_door_at(dt, (int)*new_x + 1, (int)*new_y);
-	// 	if (door && door->open_progress != 1.0)
-	// 		return (0);
-	// }
+	if (ft_strchr("|", dt->map.map_data[min_y][min_x]) ||
+		ft_strchr("|", dt->map.map_data[min_y][max_x]) ||
+		ft_strchr("|", dt->map.map_data[max_y][min_x]) ||
+		ft_strchr("|", dt->map.map_data[max_y][max_x]))
+	{
+		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
+		if (door && door->open_progress < DOOR_OPEN_VALUE)
+			return (0);
+	}
 	return (1);
 }
 

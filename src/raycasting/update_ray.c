@@ -27,7 +27,7 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 	map_coor.x = (size_t)dt->player.pos.x;
 	map_coor.y = (size_t)dt->player.pos.y;
 
-	while (map_coor.x <  dt->map.map_size_cols && map_coor.y < dt->map.map_size_rows)
+	while (map_coor.x < dt->map.map_size_cols && map_coor.y < dt->map.map_size_rows)
 	{
 		if (side_dist->x < side_dist->y)
 		{

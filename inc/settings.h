@@ -82,6 +82,7 @@
 # define DEF_WALL_COLOR						PINK
 
 # define MIN_DISTANCE_TO_WALL				0.4f
+# define DOOR_OPEN_VALUE                    1.0f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD		0.1f
@@ -93,8 +94,8 @@
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f
 
 # define ENABLE_VERTICAL_LOOK				1
-# define LOCK_VERTICAL_LOOK_UP				200
-# define LOCK_VERTICAL_LOOK_DOWN			200
+# define VERTICAL_LOOK_LOCK_UP				200
+# define VERTICAL_LOOK_LOCK_DOWN			200
 
 // mouse sensitivity
 # define ENABLE_MOUSE       				1
@@ -128,7 +129,7 @@
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 
 # define PLAYER_SPAWN_POINT_TYPES			"NSWE"
-# define SPRITE_TYPES     	 	            "spq"
+# define SPRITE_TYPES     	 	            "spqha"
 # define WALL_TYPES							"1"
 # define VERTICAL_DOOR_TYPES				"|"
 # define HORIZONTAL_DOOR_TYPES				"-"

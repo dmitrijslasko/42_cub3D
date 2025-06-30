@@ -10,8 +10,10 @@ typedef struct s_sprite_file
 static const t_sprite_file g_sprites[] =
 {
 	{'s', "./sprites/heart.xpm", "./sprites/heart.xpm"},
-	{'q', "./sprites/sammy1.xpm", "./sprites/sammy2.xpm"},
-	//{'p', "./sprites/container.xpm", "./sprites/container.xpm"},
+	{'q', "./sprites/test.xpm", "./sprites/test.xpm"},
+	{'p', "./sprites/container.xpm", "./sprites/container.xpm"},
+	{'h', "./sprites/sammy1.xpm", "./sprites/sammy2.xpm"},
+	{'a', "./sprites/tommy1.xpm", "./sprites/tommy2.xpm"},
 };
 
 int	load_sprite_images(t_data *dt)

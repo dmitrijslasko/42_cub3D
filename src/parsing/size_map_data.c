@@ -12,11 +12,9 @@ bool	check_empty_line_end_file(char *line, int fd)
 
 char	*get_first_line_map(int fd)
 {
-	bool	flag_map;
 	char	*line;
 
 	line = free_line_get_next(NULL, fd);
-	flag_map = 0;
 	while (line)
 	{
 		if (!is_empty_line(line) && !is_valid_line_texture(line))

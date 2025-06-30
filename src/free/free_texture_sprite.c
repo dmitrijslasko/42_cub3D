@@ -18,4 +18,5 @@ void	free_texture_sprite(t_data *dt)
 		}
 		i++;
 	}
+	ft_free(dt->sprite_textures);
 }

@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 
 	setup_view(&dt);
 
-	draw_minimap_map(&dt);
+	draw_minimap_base_img(&dt);
 	setup_img(&dt, dt.scene_img, WINDOW_W, WINDOW_H);
 	setup_img(&dt, dt.minimap, MINIMAP_SIZE, MINIMAP_SIZE);
 

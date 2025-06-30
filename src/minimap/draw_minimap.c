@@ -2,40 +2,39 @@
 
 int	draw_minimap_wall_cell(t_data *dt, size_t curr_col, size_t curr_row)
 {
+	t_coor	coor;
+
+	set_coor_values(&coor, curr_col * MINIMAP_GRID_SIZE,
+			curr_row * MINIMAP_GRID_SIZE);
 	draw_square_from_top_left(dt->minimap_base_img,
-			curr_col * MINIMAP_GRID_SIZE,
-			curr_row * MINIMAP_GRID_SIZE,
-			MINIMAP_GRID_SIZE,
-			MINIMAP_WALL_CELL_COLOR);
+		coor,
+		MINIMAP_GRID_SIZE,
+		MINIMAP_WALL_CELL_COLOR);
 	return (EXIT_SUCCESS);
 }
 
 int	draw_minimap_thin_wall_vertical(t_data *dt, size_t curr_col, size_t curr_row)
 {
-	t_coor top_left;
-	t_coor bottom_right;
+	t_coor	top_left;
+	t_coor	bottom_right;
 
 	top_left.x = curr_col * MINIMAP_GRID_SIZE;
 	top_left.y = curr_row * MINIMAP_GRID_SIZE;
-
 	bottom_right.x = top_left.x + 10;
 	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
-
 	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_THIN_WALL_COLOR);
 	return (EXIT_SUCCESS);
 }
 
 int	draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row)
 {
-	t_coor top_left;
-	t_coor bottom_right;
+	t_coor	top_left;
+	t_coor	bottom_right;
 
 	top_left.x = (curr_col + 0.5f) * MINIMAP_GRID_SIZE;
 	top_left.y = curr_row * MINIMAP_GRID_SIZE;
-
 	bottom_right.x = top_left.x + MINIMAP_DOOR_THICKNESS_PX;
 	bottom_right.y = (curr_row + 1) * MINIMAP_GRID_SIZE;
-
 	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_DOOR_COLOR);
 	return (EXIT_SUCCESS);
 }
@@ -46,18 +45,18 @@ int	draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row)
 
 	center.x = (curr_col + 0.5f) * MINIMAP_GRID_SIZE;
 	center.y = (curr_row + 0.5f) * MINIMAP_GRID_SIZE;
-
 	draw_circle(dt->minimap_base_img, &center, 10, MINIMAP_SPRITE_COLOR);
 	return (EXIT_SUCCESS);
 }
 
-int	draw_minimap_map(t_data *dt)
+int	draw_minimap_base_img(t_data *dt)
 {
-	int	curr_row;
-	int	curr_col;
+	t_coor	coor;
+	int		curr_row;
+	int		curr_col;
+	t_coor	top_left;
+	t_coor	bottom_right;
 	int		color;
-	t_coor top_left;
-	t_coor bottom_right;
 
 	printf(TXT_YELLOW ">>> PREPARING MINIMAP BASE MAP\n" TXT_RESET);
 	dt->minimap_base_img = protected_malloc(sizeof(t_img), dt);
@@ -66,7 +65,6 @@ int	draw_minimap_map(t_data *dt)
 	set_coor_values(&bottom_right,	dt->minimap_base_img->width,
 									dt->minimap_base_img->height);
 	draw_rectangle(dt->minimap_base_img, top_left, bottom_right, MINIMAP_BACKGROUND_COLOR);
-
 	curr_row = 0;
 	while (curr_row < dt->map.map_size_rows)
 	{
@@ -105,80 +103,19 @@ int	draw_minimap_map(t_data *dt)
 			else
 				color = MINIMAP_BACKGROUND_COLOR;
 
+			set_coor_values(&coor, curr_col * MINIMAP_GRID_SIZE,
+				curr_row * MINIMAP_GRID_SIZE);
 			draw_square_from_top_left(dt->minimap_base_img,
-						curr_col * MINIMAP_GRID_SIZE,
-						curr_row * MINIMAP_GRID_SIZE,
-						MINIMAP_GRID_SIZE,
-						color);
+				coor,
+				MINIMAP_GRID_SIZE,
+				color);
 			curr_col++;
 		}
 		curr_row++;
 	}
 	if (MINIMAP_GRID_ENABLE)
 		draw_minimap_grid(dt);
-	printf("Finished rendering the minimap base!\n");
+	printf("Finished rendering the minimap base image!\n");
 	return (EXIT_SUCCESS);
 }
 
-
-unsigned int get_pixel(t_img *img, int x, int y)
-{
-    return *(unsigned int *)(img->addr + (y * img->line_len + x * (img->bpp / 8)));
-}
-
-void put_pixel(t_img *img, int x, int y, unsigned int color)
-{
-    *(unsigned int *)(img->addr + (y * img->line_len + x * (img->bpp / 8))) = color;
-}
-
-void put_img_to_img(t_img *dest, t_img *src, int dx, int dy)
-{
-	size_t			x;
-	size_t			y;
-	int				src_x;
-	int				src_y;
-	unsigned int	color;
-
-	y = 0;
-	while ((int)y < dest->height)
-	{
-		x = 0;
-		while ((int)x < dest->width)
-		{
-			src_x = x - dx;
-			src_y = y - dy;
-
-			if (src_x >= 0 && src_y >= 0 && src_x <= (int)src->width && src_y <= (int)src->height)
-			{
-				color = get_pixel(src, src_x, src_y);
-				put_pixel(dest, x, y, color);
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-int update_minimap(t_data *dt)
-{
-	int 	dx;
-	int		dy;
-
-	draw_background(dt->minimap, MINIMAP_WALL_CELL_COLOR);
-
-	// place minimap base into correct position
-
-	dx = MINIMAP_SIZE / 2 - dt->player.pos.x * MINIMAP_GRID_SIZE;
-	dy = MINIMAP_SIZE / 2 - dt->player.pos.y * MINIMAP_GRID_SIZE;
-
-	put_img_to_img(dt->minimap, dt->minimap_base_img, dx, dy);
-
-	// draw player in the ce
-	draw_minimap_player(dt);
-
-	 if (MINIMAP_RENDER_RAYS_ENABLE)
-	 	draw_minimap_rays(dt, 0);
-	if (MINIMAP_DIRECTION_RAY_ENABLE)
-		draw_minimap_rays(dt, 1);
-	return (EXIT_SUCCESS);
-}

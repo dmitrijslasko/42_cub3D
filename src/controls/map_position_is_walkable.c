@@ -1,0 +1,64 @@
+#include "cub3d.h"
+
+// TODO DL: This currently only works with vertical cells / movement
+t_coor	get_cell_ahead(t_data *dt)
+{
+	t_coor	player_pos;
+	t_coor	cell_ahead;
+	t_coor	step;
+
+	player_pos.x = (int) dt->player.pos.x;
+	player_pos.y = (int) dt->player.pos.y;
+	set_step(&step, &dt->player.direction_vector);
+	cell_ahead.x = player_pos.x + step.x;
+	cell_ahead.y = player_pos.y + 0;
+	return (cell_ahead);
+}
+
+static int	handle_wall(t_data *dt, t_coor min, t_coor max)
+{
+	if (ft_strchr("1v", dt->map.map_data[min.y][min.x]) ||
+	ft_strchr("1v", dt->map.map_data[min.y][max.x]) ||
+	ft_strchr("1v", dt->map.map_data[max.y][min.x]) ||
+	ft_strchr("1v", dt->map.map_data[max.y][max.x]))
+		return (0);
+	return (1);
+}
+
+static int	handle_door(t_data *dt, t_coor min, t_coor max)
+{
+	t_coor	cell_ahead;
+	t_door	*door;
+
+	cell_ahead = get_cell_ahead(dt);
+	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
+	if (ft_strchr("|", dt->map.map_data[min.y][min.x]) ||
+		ft_strchr("|", dt->map.map_data[min.y][max.x]) ||
+		ft_strchr("|", dt->map.map_data[max.y][min.x]) ||
+		ft_strchr("|", dt->map.map_data[max.y][max.x]))
+	{
+		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
+		if (door && door->open_progress < DOOR_OPEN_VALUE)
+			return (0);
+	}
+	return (1);
+}
+
+// TODO DL: this can be replaced by an already existing function,
+// 			bool check_hit_wall(t_coor coord, t_map map)?
+// TODO DL: unoptimal placement for the show_door_open_message
+int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
+{
+	t_coor	min;
+	t_coor	max;
+
+	min.x = (int)(*new_x - MIN_DISTANCE_TO_WALL);
+	max.x = (int)(*new_x + MIN_DISTANCE_TO_WALL);
+	min.y = (int)(*new_y - MIN_DISTANCE_TO_WALL);
+	max.y = (int)(*new_y + MIN_DISTANCE_TO_WALL);
+	if (!handle_wall(dt, min, max))
+		return (0);
+	if (!handle_door(dt, min, max))
+		return (0);
+	return (1);
+}

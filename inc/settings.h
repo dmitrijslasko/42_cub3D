@@ -28,7 +28,7 @@
 
 
 // TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT					200
+# define CASTED_RAYS_COUNT					400
 
 // dummy map
 # define DUMMY_MAP_TOP						"1111111111111111111111111111111"
@@ -89,7 +89,7 @@
 # define KEYBOARD_PLAYER_STEP_BACKWARD		0.05f
 # define KEYBOARD_PLAYER_STEP_SIDE 			0.05f
 # define KEYBOARD_PLAYER_ROTATION_STEP 		2.0f
-# define KEYBOARD_PLAYER_VERTICAL_LOOK_STEP 10.0f
+# define KEYBOARD_VERTICAL_LOOK_STEP 10.0f
 # define MOVE_SPEED_MULTIPLIER_SLOW 		0.4f
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f
 
@@ -99,9 +99,12 @@
 
 // mouse sensitivity
 # define ENABLE_MOUSE       				1
-# define MOUSE_SENS_ROTATE 					2.0f
+# define MOUSE_SENS_ROTATE 					1.5f
 //# define MOUSE_SENS_DRAG					0.05f
 # define MOUSE_SENS_SCROLL 					0.1f
+# define MOUSE_CENTER_TOLERANCE_PX			25
+
+# define ENABLE_CROSSHAIR					0
 # define DEFAULT_CROSSHAIR_COLOR			WHITE
 # define DEFAULT_CROSSHAIR_SIZE				5
 

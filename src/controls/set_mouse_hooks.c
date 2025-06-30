@@ -1,41 +1,33 @@
 #include "cub3d.h"
-#include <unistd.h>
 
 // Handle mouse press
+// Currently only works for LMB
 int	mouse_press(int button, int x, int y, t_data *dt)
 {
-	(void)x;
-	(void)y;
-	//if (dt->view->show_welcome)
-	//	return (1);
-	//if (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
-	//	mouse_zoom(button, dt);
+	(void) x;
+	(void) y;
 	if (button == MOUSE_LEFT_BUTTON)
 	{
 		dt->mouse.lmb_is_pressed = 1;
 		dt->mouse.lmb_press_count++;
 		system("aplay sounds/shot.wav &");
-		printf("🖱️  LMB is pressed! Total press count: %zu\n", dt->mouse.lmb_press_count);
+		printf("🖱️  LMB is pressed! Total press count: %zu\n", \
+			dt->mouse.lmb_press_count);
 	}
 	return (EXIT_SUCCESS);
 }
 
 // Handle mouse release
+// Currently only works for LMB
 int	mouse_release(int button, int x, int y, t_data *dt)
 {
-	(void)x;
-	(void)y;
-	//(void)button;
-	//if (dt->view->show_welcome)
-	//	return (1);
+	(void) x;
+	(void) y;
 	if (button == MOUSE_LEFT_BUTTON)
 	{
 		dt->mouse.lmb_is_pressed = 0;
-
-		//printf("LMB released!\n");
+		printf("LMB released!\n");
 	}
-	//if (button == MOUSE_THIRD_BUTTON)
-	//	dt->mouse->rmb_is_pressed = FALSE;
 	return (0);
 }
 
@@ -46,7 +38,6 @@ int	mouse_move(int x, int y, t_data *dt)
 	dt->mouse.prev_y = dt->mouse.y;
 	dt->mouse.x = x;
 	dt->mouse.y = y;
-
 	if (x > dt->mouse.prev_x)
 		rotate_player(dt, MOUSE_SENS_ROTATE, -1);
 	else if (x < dt->mouse.prev_x)
@@ -55,12 +46,14 @@ int	mouse_move(int x, int y, t_data *dt)
 	{
 		if (y > dt->mouse.prev_y)
 			dt->view->screen_center_y = ft_max(
-							dt->view->screen_center_y - KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
-							WINDOW_H / 2 - VERTICAL_LOOK_LOCK_DOWN);
+					dt->view->screen_center_y - \
+					KEYBOARD_VERTICAL_LOOK_STEP,
+					WINDOW_H / 2 - VERTICAL_LOOK_LOCK_DOWN);
 		if (y < dt->mouse.prev_y)
 			dt->view->screen_center_y = ft_min(
-						dt->view->screen_center_y + KEYBOARD_PLAYER_VERTICAL_LOOK_STEP,
-						WINDOW_H / 2 + VERTICAL_LOOK_LOCK_UP);
+					dt->view->screen_center_y + \
+					KEYBOARD_VERTICAL_LOOK_STEP,
+					WINDOW_H / 2 + VERTICAL_LOOK_LOCK_UP);
 	}
 	return (0);
 }

@@ -296,6 +296,7 @@ void		*protected_malloc(size_t size, t_data *dt);
 void		free_dt(t_data *dt);
 void		free_audio(void *ptr);
 
+void		put_img_to_img(t_img *dest, t_img *src, int dx, int dy);
 //parsing
 char		*free_line_get_next(char *line, int fd);
 bool		parsing(t_data *dt, char *file);
@@ -379,7 +380,7 @@ void		draw_circle(t_img *img, t_coor *coor, int radius, int clr);
 void		draw_rectangle(t_img *img, t_coor top_left, t_coor bottom_right, int clr);
 
 void		draw_square_from_center(t_img *img, t_coor *coor, int size, int clr);
-void		draw_square_from_top_left(t_img *img, int x, int y, int size, int clr);
+void		draw_square_from_top_left(t_img *img, t_coor coor, int size, int clr);
 
 //
 t_map		*load_dummy_map(void);
@@ -426,7 +427,7 @@ t_x_y		rotate_vector(t_x_y *vet, float angle_degrees);
 
 // minimap
 int			update_minimap(t_data *dt);
-int			draw_minimap_map(t_data *dt);
+int			draw_minimap_base_img(t_data *dt);
 void		draw_minimap_grid(t_data *dt);
 int			draw_minimap_player(t_data *dt);
 void		draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
@@ -490,5 +491,9 @@ int			create_color_rgba(int r, int g, int b, int a);
 int			create_color_rgb(int r, int g, int b);
 
 void		show_debug_info(t_data *dt);
+
+int			move_sideways(t_data *dt, int to_the_right);
+int			move_forward_backward(t_data *dt, int direction);
+int			map_position_is_walkable(t_data *dt, float *new_x, float *new_y);
 
 #endif

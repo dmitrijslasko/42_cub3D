@@ -16,8 +16,8 @@ void	draw_background(t_img *img, int color)
 		while (current_x < height)
 		{
 			img_pix_put(img, current_x, current_y, color);
-			++current_x;
+			current_x++;
 		}
-		++current_y;
+		current_y++;
 	}
 }

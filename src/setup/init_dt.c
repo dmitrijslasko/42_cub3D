@@ -8,7 +8,6 @@ void	init_mouse(t_mouse *mouse)
 	mouse->prev_x = 0;
 	mouse->prev_y = 0;
 	mouse->lmb_press_count = 0;
-	mouse->suppress_mouse_frames = 0;
 }
 
 void	init_dt(t_data *dt)

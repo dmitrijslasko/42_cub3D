@@ -60,5 +60,4 @@ void	free_dt(t_data *dt)
 	free_audio(dt->background_music);
 	mlx_destroy_display(dt->mlx_ptr);
 	dt->mlx_ptr = NULL;
-	// free(dt->bgm);
 }

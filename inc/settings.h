@@ -1,38 +1,33 @@
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
-#ifndef M_PI
-# define M_PI 3.14
-#endif
+# ifndef M_PI
+#  define M_PI 3.14
+# endif
+
+// window name
+# define WINDOW_NAME       "cub3D - fvargas & dmlasko @ 42Berlin"
+# define VERSION_INFO      "cub3D project - 42 Berlin - fvargas & dmlasko, v1.0"
+
+# define SHOW_CALCULATION_LOGS				1
+# define SHOW_DEBUG_INFO 					0
 
 # define GRID_SIZE  						64
 
-# define SHOW_CALCULATION_LOGS				1
-
-# define SHOW_DEBUG_INFO 					0
-
+# define BONUS								1
 
 // bonus part
 # define SKY_TEXTURE_PATHFILE				"./textures/sky_1.xpm"
-// window name
-# define WINDOW_NAME         				"cub3D - fvargas & dmlasko @ 42Berlin"
-# define VERSION_INFO        				"cub3D project - 42 Berlin - fvargas & dmlasko, v1.0"
 
 // window size
 # define WINDOW_W							1200
-# define WINDOW_H							WINDOW_W / 4 * 3
-
-# define TRACKED_KEYS						70000
-
-// fps and casted rays count
+# define WINDOW_H							900
+# define CASTED_RAYS_COUNT					400
 # define FPS								30
+# define SCALING				            500
 
 # define PRECALCULATED_TRIG					3600
-
-
-// TODO DL: add the ability to limit the number of rays (essentially resolution)
-# define CASTED_RAYS_COUNT					400
-
+# define TRACKED_KEYS						70000
 // dummy map
 # define DUMMY_MAP_TOP						"1111111111111111111111111111111"
 # define DUMMY_MAP_MID						"1000001001001000000000001001001"
@@ -73,7 +68,6 @@
 // gameplay
 # define FIELD_OF_VIEW_DEG					60.0f
 # define FIELD_OF_VIEW_SCALE				0.577 //tan(FIELD_OF_VIEW_DEG / 2)
-# define SCALING				            500
 
 # define DEF_DOOR_OFFSET_X					0.5f
 # define DEF_DOOR_OFFSET_Y					0.5f
@@ -124,15 +118,17 @@
 # define DEBUG_FIELD_1_OFFSET_X				270
 # define DEBUG_FIELD_2_OFFSET_X				90
 # define DEBUG_FIELD_OFFSET_Y				20
+# define UI_MESSAGE_OFFSET_Y				700
 
 // welcome screens
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  				0
 
-//parsing
+
 # define PUT_DOOR				            1
 # define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
 # define NUMBER_TEXTURES    	            6 // four walls + celling + floor even if is a color
+
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 
 # define PLAYER_SPAWN_POINT_TYPES			"NSWE"

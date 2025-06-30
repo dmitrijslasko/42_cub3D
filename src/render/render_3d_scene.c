@@ -1,5 +1,14 @@
 #include "cub3d.h"
 
+static int		render_floor_and_ceiling(t_data *dt)
+{
+	if (BONUS)
+		draw_sky(dt);
+	else
+		draw_ceiling(dt);
+	draw_floor(dt);
+	return (EXIT_SUCCESS);
+}
 void render_3d_scene(t_data *dt)
 {
 	size_t	i;
@@ -8,12 +17,13 @@ void render_3d_scene(t_data *dt)
 	int 	top_y;
 	int		bottom_y;
 	int 	w;
+	int		tex_index;
+	int		color;
+	size_t	texture_x;
+	int		screen_slice_width;
+	int		y;
 
-	if (SHOW_DEBUG_INFO)
-		printf("Rendering 3D scene at %d FPS...\n", FPS);
-
-	draw_sky(dt);
-	draw_floor(dt);
+	render_floor_and_ceiling(dt);
 
 	i = 0;
 	while (i < CASTED_RAYS_COUNT)
@@ -27,17 +37,17 @@ void render_3d_scene(t_data *dt)
 		 int texture_width = dt->map.wall_tile->texture.width;
 		 int texture_height = dt->map.wall_tile->texture.height;
 
-		 size_t texture_x = (dt->rays[i].percentage_of_image * texture_width);
+		 texture_x = (dt->rays[i].percentage_of_image * texture_width);
 
 		 if (texture_x >= (size_t)texture_width)
 		 	texture_x = texture_width - 1;
 
 		// Horizontal screen position
-		int screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
+		screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
 		screen_x = i * screen_slice_width;
 
 		// Vertical wall slice drawing
-		int y = top_y;
+		y = top_y;
 
 		while (y < ft_min(WINDOW_H, bottom_y))
 		{
@@ -48,10 +58,6 @@ void render_3d_scene(t_data *dt)
 				texture_y = 0;
 			if (texture_y >= texture_height)
 				texture_y = texture_height - 1;
-
-			// Sample color from texture
-			int tex_index;
-			int color;
 
 			if (dt->rays[i].cell_type == DOOR_VERTICAL)
 			{
@@ -73,8 +79,7 @@ void render_3d_scene(t_data *dt)
 			w = 0;
 			while (w < screen_slice_width)
 			{
-				if (pixel_is_in_window(screen_x + w, y))
-					img_pix_put(dt->scene_img, screen_x + w, y, color);
+				img_pix_put(dt->scene_img, screen_x + w, y, color);
 				w++;
 			}
 			y++;

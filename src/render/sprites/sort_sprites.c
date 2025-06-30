@@ -1,4 +1,4 @@
-# include "cub3d.h"
+#include "cub3d.h"
 
 static void	swap_sprites(t_sprite *a, t_sprite *b)
 {

@@ -11,8 +11,8 @@ bool	check_sprite_closer_than_wall(t_data *dt, t_coor *coor, t_sprite *spr)
 	return (0);
 }
 
-
-t_coor	calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, t_coor *offset, t_coor *sprite_size)
+t_coor	calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor,
+	t_coor *offset, t_coor *sprite_size)
 {
 	t_coor	tex_coor;
 
@@ -21,11 +21,13 @@ t_coor	calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, t_coor *offset
 	return (tex_coor);
 }
 
-void	sprite_put_color(t_data *dt, t_sprite_texture *texture, t_coor *coor, int time, t_coor *tex_coor)
+void	sprite_put_color(t_data *dt, t_sprite_texture *texture,
+	t_coor *coor, int time, t_coor *tex_coor)
 {
 	unsigned int	color;
 
-	color = texture->sprite_data[time][tex_coor->y * texture->width + tex_coor->x];
+	color = texture->sprite_data[time][tex_coor->y * texture->width + \
+			tex_coor->x];
 	if (color == TRANSPARENT_COLOR)
 		return ;
 	img_pix_put(dt->scene_img, coor->x, coor->y, color);
@@ -47,8 +49,10 @@ int	render_sprite(t_data *dt, t_sprite *sprite, \
 		{
 			if (check_sprite_closer_than_wall(dt, &coor, sprite))
 			{
-				tex_coor = calculate_tex_x_y(sprite->texture, &coor, offset, sprite_size);
-				sprite_put_color(dt, sprite->texture, &coor, time, &tex_coor);
+				tex_coor = calculate_tex_x_y(sprite->texture,
+						&coor, offset, sprite_size);
+				sprite_put_color(dt, sprite->texture,
+					&coor, time, &tex_coor);
 			}
 			coor.x++;
 		}

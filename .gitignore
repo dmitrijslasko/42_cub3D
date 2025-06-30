@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-# lib
-maps
-=======
-./lib/libft/obj
-#maps
->>>>>>> main
-./obj
-obj
+*.o
 cub3D
 #README.md
 

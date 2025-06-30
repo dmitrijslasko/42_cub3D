@@ -1,12 +1,10 @@
 #include "cub3d.h"
 
 
-bool	check_hit_door_cell(t_coor *map_coor, t_data *dt, t_ray *ray, char side)
+bool	check_hit_door_cell(t_coor *map_coor, t_data *dt)
 {
 	char	tile;
 
-	(void) ray;
-	(void) side;
 	tile = get_cell_type(&dt->map, map_coor);
 	if (tile == '|')
 		return (1);
@@ -47,13 +45,13 @@ void	calculate_ray_distance(t_data *dt, t_ray *ray, t_x_y *delta_dist, t_x_y*sid
 		ray->hit_side = hit_side;
 
 		// Ray distances
-		update_ray_distance_to_cell_edge(dt, ray, &map_coor);
+		update_ray_dist_to_cell_edge(dt, ray, &map_coor);
 
 		ray->wall_hit.x = dt->player.pos.x + ray->vector.x * ray->distance_to_wall;
 		ray->wall_hit.y = dt->player.pos.y + ray->vector.y * ray->distance_to_wall;
 
 		// CHECK IF THE RAY HITS A DOOR CELL
-		if (check_hit_door_cell(&map_coor, dt, ray, hit_side))
+		if (check_hit_door_cell(&map_coor, dt))
 		{
 			door_hit = ray_hits_door(dt, &map_coor, ray);
 			if (ray->door_hit_coor.y < ray->door->cell_y + ray->door->open_progress)

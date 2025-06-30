@@ -6,7 +6,6 @@ bool	check_valid_caracter_map(char c)
 		return (1);
 	if (!ft_strchr(SPRITE_TYPES, c))
 		return (1);
-	// thin wall and door
 	return (error_message("Error: Caracter in map not valid!", 0));
 }
 

@@ -8,7 +8,7 @@ int	precalculate_trig_tables(t_data *dt)
 	angle_index = 0;
 	while (angle_index < PRECALCULATED_TRIG)
 	{
-    	dt->sin_table[angle_index] = sinf(angle_index * M_PI / 180);
+		dt->sin_table[angle_index] = sinf(angle_index * M_PI / 180);
 		dt->cos_table[angle_index] = cosf(angle_index * M_PI / 180);
 		angle_index++;
 	}

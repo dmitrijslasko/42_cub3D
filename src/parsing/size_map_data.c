@@ -5,7 +5,8 @@ bool	check_empty_line_end_file(char *line, int fd)
 	while (line && is_empty_line(line))
 		line = free_line_get_next(line, fd);
 	if (line)
-		return (error_free_char_return("Error: unexpected line after map.", line, 1));
+		return (error_free_char_return("Error: unexpected line after map.", \
+																	line, 1));
 	return (0);
 }
 
@@ -48,7 +49,8 @@ bool	set_size_map_data1(t_map *map, int fd)
 	ret = check_empty_line_end_file(line, fd);
 	free_line_get_next(NULL, -1);
 	if (ret == Success)
-		set_values_size_t(&map->map_size_cols, &map->map_size_rows, count_col, count_row);
+		set_values_size_t(&map->map_size_cols, &map->map_size_rows, \
+							count_col, count_row);
 	return (ret);
 }
 

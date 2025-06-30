@@ -5,10 +5,9 @@ bool	init_rays(t_data *dt)
 	size_t	i;
 
 	printf(TXT_YELLOW "Initializing the ray array...\n" TXT_RESET);
-	printf(TXT_YELLOW "Total rays to be cast: %d\n" TXT_RESET, CASTED_RAYS_COUNT);
-	dt->rays = malloc(sizeof(t_ray) * WINDOW_W);
-	if (dt->rays == NULL)
-		return (EXIT_FAILURE);
+	printf(TXT_YELLOW "Total rays to be cast: %d\n" TXT_RESET, \
+												CASTED_RAYS_COUNT);
+	dt->rays = protected_malloc(sizeof(t_ray) * WINDOW_W, dt);
 	i = 0;
 	while (i < CASTED_RAYS_COUNT)
 	{

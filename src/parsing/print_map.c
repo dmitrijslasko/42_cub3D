@@ -2,15 +2,24 @@
 
 void	print_level_map(t_map *map)
 {
+	size_t	row;
+	size_t	col;
+
+	row = 0;
 	printf(TXT_YELLOW "Printing out the level map->..\n" TXT_RESET);
 	print_separator(1, DEF_SEPARATOR_CHAR);
 	if (!map->map_data[0] || !map->map_data[0][0])
 		return ;
-	for(size_t y = 0; y < map->map_size_rows; y++)
+	while (row < map->map_size_rows)
 	{
-		for (size_t x = 0; x < map->map_size_cols; x++)
-			printf("%c ", map->map_data[y][x]);
+		col = 0;
+		while (col < map->map_size_cols)
+		{
+			printf("%c ", map->map_data[row][col]);
+			col++;
+		}
 		printf("\n");
+		row++;
 	}
 	print_separator_default();
 }

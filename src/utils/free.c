@@ -43,7 +43,7 @@ void	free_dt(t_data *dt)
 	free_img(dt->minimap, dt->mlx_ptr);
 	free_img(dt->sky_image, dt->mlx_ptr);
 	free_img(dt->message_img, dt->mlx_ptr);
-	free_img(dt->welcome_img, dt->mlx_ptr);
+	//free_img(dt->welcome_img, dt->mlx_ptr);
 	if (dt->doors)
 		free(dt->doors);
 	if (dt->rays)

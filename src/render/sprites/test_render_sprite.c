@@ -31,42 +31,31 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, float trans
 	time = (dt->last_time - dt->start_time) / 100 % 2;
 	int sprite_height = fmin(WINDOW_H * 4, WINDOW_H / transform_y);
 	int sprite_width = fmin(WINDOW_W * 4, sprite_height);
-
 	int offset_x = sprite_screen_x - sprite_width  / 2;
 	int offset_y = dt->view->screen_center_y - sprite_height / 3;
 
-	row = 0;
-	while (row < sprite_height)
+	row = offset_y;
+	if (row < 0)
+		row = 0;
+	while (row < sprite_height + offset_y && row < WINDOW_H)
 	{
-		int draw_y = offset_y + row;
-		if (draw_y < 0 || draw_y >= WINDOW_H)
+		col = offset_x;
+		if (col < 0)
+			col = 0;
+		while (col < sprite_width + offset_x && col < WINDOW_W)
 		{
-			row++;
-			continue;
-		}
-
-		int tex_y = row * sprite->texture->height / sprite_height;
-
-		col = 0;
-		while (col < sprite_width && col < WINDOW_W - offset_x)
-		{
-			int draw_x = offset_x + col;
-			if (draw_x < 0 || draw_x >= WINDOW_W)
-			{
-				col++;
-				continue;
-			}
-			float distance_to_wall = dt->rays[draw_x / (WINDOW_W / CASTED_RAYS_COUNT)].distance_to_wall;
+			float distance_to_wall = dt->rays[col / (WINDOW_W / CASTED_RAYS_COUNT)].distance_to_wall;
 			if (distance_to_wall * distance_to_wall > sprite->distance_to_player)
 			{
-				int tex_x = col * sprite->texture->width / sprite_width;
+				int tex_y = (row - offset_y) * sprite->texture->height / sprite_height;
+				int tex_x = (col - offset_x) * sprite->texture->width / sprite_width;
 				color = sprite->texture->sprite_data[time][tex_y * sprite->texture->width + tex_x];
 				if (color == TRANSPARENT_COLOR)
 				{
 					col++;
 					continue;
 				}
-				img_pix_put(dt->scene_img, draw_x, draw_y, color);
+				img_pix_put(dt->scene_img, col, row, color);
 			}
 			col++;
 		}

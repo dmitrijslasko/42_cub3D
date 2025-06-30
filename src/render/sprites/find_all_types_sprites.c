@@ -1,4 +1,4 @@
-# include "cub3d.h"
+#include "cub3d.h"
 
 void	find_sprites(t_data *dt)
 {

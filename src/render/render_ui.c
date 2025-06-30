@@ -7,9 +7,9 @@ void	add_crosshair(t_data *dt, int color)
 	coor.x = WINDOW_W / 2;
 	coor.y = WINDOW_H / 2;
 	draw_square_from_center(dt->scene_img,
-							&coor,
-							DEFAULT_CROSSHAIR_SIZE,
-							color);
+						&coor,
+						DEFAULT_CROSSHAIR_SIZE,
+						color);
 }
 
 void	add_ui(t_data *dt)

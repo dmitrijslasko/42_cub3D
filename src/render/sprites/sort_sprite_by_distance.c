@@ -1,4 +1,4 @@
-# include "cub3d.h"
+#include "cub3d.h"
 
 void	sort_sprites_by_distance(t_data *dt)
 {

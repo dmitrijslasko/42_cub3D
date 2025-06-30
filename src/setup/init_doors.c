@@ -1,43 +1,44 @@
 #include <cub3d.h>
 
-void init_doors(t_data *dt)
+static void	init_a_door(t_data *dt, t_door **door_ptr, int curr_row, int curr_col)
 {
-	t_door 	*door;
-	size_t  door_count;
-	size_t 	i;
-	int 	curr_row;
-	int 	curr_col;
+	t_door	*door_ptr_ref;
 
-	// malloc
+	door_ptr_ref = *door_ptr;
+	door_ptr_ref->id = door_ptr_ref - dt->doors;
+	door_ptr_ref->cell_x = curr_col;
+	door_ptr_ref->cell_y = curr_row;
+	door_ptr_ref->pos_x = DEF_DOOR_OFFSET_X;
+	door_ptr_ref->pos_y = DEF_DOOR_OFFSET_Y;
+	door_ptr_ref->open_progress = 0.0f;
+	door_ptr_ref->speed = 0.05f;
+	door_ptr_ref->state = 0;
+	printf("Door [%zu] at X Y (%d, %d) added with id:\t%zu\n",
+		door_ptr_ref->id, curr_col, curr_row, door_ptr_ref->id);
+	(*door_ptr)++;
+}
+
+void	init_doors(t_data *dt)
+{
+	t_door	*door_ptr;
+	int		curr_row;
+	int		curr_col;
+
 	print_separator_default();
 	printf(TXT_YELLOW ">>> INITIALISING DOORS\n" TXT_RESET);
-	door_count = count_elements_in_the_map(&dt->map, "|-");
-	printf("Doors found: %zu\n", door_count);
-
-	dt->doors = malloc(sizeof(t_door) * door_count);
-	dt->door_count = door_count;
-
-	i = 0;
+	dt->door_count = count_elements_in_the_map(&dt->map, "|-");
+	printf("Doors found: %zu\n", dt->door_count);
+	dt->doors = protected_malloc(sizeof(t_door) * dt->door_count, dt);
+	door_ptr = dt->doors;
 	curr_row = 0;
 	while (curr_row < dt->map.map_size_rows)
 	{
 		curr_col = 0;
 		while (curr_col < dt->map.map_size_cols)
 		{
-			if (ft_strchr("|-", get_cell_type_by_coordinates(&dt->map, curr_row, curr_col)))
-			{
-				door = &dt->doors[i];
-				door->id = i;
-				door->cell_x = curr_col;
-				door->cell_y = curr_row;
-				door->pos_x = DEF_DOOR_OFFSET_X;
-				door->pos_y = DEF_DOOR_OFFSET_Y;
-				door->open_progress = 0.0f;
-				door->speed = 0.05f;
-				door->state = 0;
-				printf("Door [%zu] at X Y (%d, %d) added with id:\t%zu\n", i, curr_col, curr_row, door->id);
-				i++;
-			}
+			if (ft_strchr(DOOR_TYPES, get_cell_type_by_coordinates(&dt->map,
+						curr_row, curr_col)))
+				init_a_door(dt, &door_ptr, curr_row, curr_col);
 			curr_col++;
 		}
 		curr_row++;

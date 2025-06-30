@@ -16,6 +16,9 @@
 
 # define BONUS								1
 
+// bonus part
+# define SKY_TEXTURE_PATHFILE				"./textures/sky_1.xpm"
+
 // window size
 # define WINDOW_W							1200
 # define WINDOW_H							900
@@ -121,16 +124,20 @@
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  				0
 
-//parsing
-# define PUT_DOOR			1
-# define NUMBER_TEXTURES    6 // four walls + celling + floor even if is a color
+
+# define PUT_DOOR				            1
+# define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
+# define NUMBER_TEXTURES    	            6 // four walls + celling + floor even if is a color
+
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 
 # define PLAYER_SPAWN_POINT_TYPES			"NSWE"
 # define SPRITE_TYPES     	 	            "spqha"
+# define SPRITE_FRAMES						2
 # define WALL_TYPES							"1"
 # define VERTICAL_WALL_TYPES				"v"
 # define HORIZONTAL_WALL_TYPES				"h"
+# define DOOR_TYPES							"|-"
 # define VERTICAL_DOOR_TYPES				"|"
 # define HORIZONTAL_DOOR_TYPES				"-"
 

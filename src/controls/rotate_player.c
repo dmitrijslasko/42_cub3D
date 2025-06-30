@@ -1,21 +1,21 @@
 #include "cub3d.h"
 
 // Rotate both direction and camera plane
-void rotate_player(t_data *dt, float d_angle, int direction)
+// Rotate direction vector using rotation matrix
+// Update stored angle, keeping it between 0 and 359
+void	rotate_player(t_data *dt, float d_angle, int direction)
 {
-	float angle_rad;
-	float old_dir_x;
-	float old_dir_y;
+	float	angle_rad;
+	float	old_dir_x;
+	float	old_dir_y;
 
 	angle_rad = deg_to_rad(d_angle * -direction);
 	old_dir_x = dt->player.direction_vector.x;
 	old_dir_y = dt->player.direction_vector.y;
-
-	// Rotate direction vector using rotation matrix
-	dt->player.direction_vector.x = old_dir_x * cosf(angle_rad) - old_dir_y * sinf(angle_rad);
-	dt->player.direction_vector.y = old_dir_x * sinf(angle_rad) + old_dir_y * cosf(angle_rad);
-
-	// Update stored angle, keeping it between 0 and 359
+	dt->player.direction_vector.x = old_dir_x * cosf(angle_rad) - \
+									old_dir_y * sinf(angle_rad);
+	dt->player.direction_vector.y = old_dir_x * sinf(angle_rad) + \
+									old_dir_y * cosf(angle_rad);
 	dt->player.direction_vector_deg += d_angle * -direction;
 	if (dt->player.direction_vector_deg >= 360.0f)
 		dt->player.direction_vector_deg -= 360.0f;

@@ -22,9 +22,9 @@ int	load_sprite_images(t_data *dt)
 	t_sprite_texture	*sprite_textures;
 
 	sprite_textures = dt->sprite_textures;
-	printf("Sprite types to be loaded: %zu\n", dt->sprite_type_count);
+	printf("Sprite types to be loaded: %zu\n", dt->sprite_txt_count);
 	i = 0;
-	while (i < dt->sprite_type_count)
+	while (i < dt->sprite_txt_count)
 	{
 		sprite_textures[i].type = g_sprites[i].minimap_repr;
 		sprite_textures[i].sprite_img[0] = mlx_xpm_file_to_image( \
@@ -69,7 +69,7 @@ int	load_sprite_textures(t_data *dt)
 	printf("Sprite elements found in the map: %zu\n", sprite_element_count);
 	printf("Sprite types found in the map: %zu\n", sprite_type_count);
 	dt->sprite_textures = protected_malloc(sizeof(t_sprite_texture) * sprite_type_count, dt);
-	dt->sprite_type_count = sprite_type_count;
+	dt->sprite_txt_count = sprite_type_count;
 	load_sprite_images(dt);
 	return (EXIT_SUCCESS);
 }

@@ -10,9 +10,13 @@ int	set_mouse_to_screen_center(t_data *dt)
 
 int	reset_mouse_position(t_data *dt)
 {
-	int dx = dt->mouse.x - WINDOW_W / 2;
-	int dy = dt->mouse.y - WINDOW_H / 2;
+	int	dx;
+	int	dy;
+	int	new_x;
+	int	new_y;
 
+	dx = dt->mouse.x - WINDOW_W / 2;
+	dy = dt->mouse.y - WINDOW_H / 2;
 	if (dt->mouse.suppress_mouse_frames > 0)
 	{
 		dt->mouse.suppress_mouse_frames--;
@@ -21,8 +25,8 @@ int	reset_mouse_position(t_data *dt)
 
 	if (abs(dx) > CENTER_TOLERANCE || abs(dy) > CENTER_TOLERANCE)
 	{
-		int new_x = dt->mouse.x;
-		int new_y = dt->mouse.y;
+		new_x = dt->mouse.x;
+		new_y = dt->mouse.y;
 
 		if (abs(dx) > CENTER_TOLERANCE)
 				new_x = WINDOW_W / 2 + sign(dx) * CENTER_TOLERANCE;

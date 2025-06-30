@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include <unistd.h>
 
 // Handle mouse press
 int	mouse_press(int button, int x, int y, t_data *dt)
@@ -41,9 +42,6 @@ int	mouse_release(int button, int x, int y, t_data *dt)
 // Handle mouse move
 int	mouse_move(int x, int y, t_data *dt)
 {
-	//int	dx;
-	//int dy;
-
 	dt->mouse.prev_x = dt->mouse.x;
 	dt->mouse.prev_y = dt->mouse.y;
 	dt->mouse.x = x;

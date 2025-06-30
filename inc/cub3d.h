@@ -28,6 +28,7 @@
 //# include "sound.h"
 
 // structs
+
 typedef enum e_wall_type
 {
 	DEFAULT_WALL = -1,
@@ -51,6 +52,24 @@ typedef enum e_cell_type
 	ELEVATOR_VERTICAL,
 	ELEVATOR_HORIZONTAL,
 }	t_cell_type;
+
+typedef struct s_texture_match
+{
+	const char				*str;
+	const size_t			length;
+	const int				wall_type;
+}							t_texture_match;
+
+static const t_texture_match g_txt_lookup[] = {
+{"SO", 2, SOUTH},
+{"NO", 2, NORTH},
+{"WE", 2, WEST},
+{"EA", 2, EAST},
+{"F", 1, FLOOR},
+{"C", 1, CEILING},
+{"D", 1, DOOR},
+{NULL, -1, -1}
+};
 
 typedef enum e_active_message
 {
@@ -144,7 +163,7 @@ typedef struct s_map
 	size_t		map_size_rows;
 	size_t		map_size_cols;
 	t_wall_tile	wall_tile[NUMBER_TEXTURES];
-	t_wall_tile door;
+	t_wall_tile	door;
 }	t_map;
 
 typedef struct s_player
@@ -223,7 +242,6 @@ typedef struct s_data
 	t_img				*minimap_base_img;
 	t_img				*minimap;
 	t_map				map;
-	// t_camera			camera;
 	t_door				*doors;
 	size_t				door_count;
 	t_ray				*rays;
@@ -231,7 +249,7 @@ typedef struct s_data
 	t_sprite			*sprites;
 	t_sprite_texture	*sprite_textures;
 	size_t				sprite_count;
-	size_t				sprite_type_count;
+	size_t				sprite_txt_count;
 	t_view				*view;
 	t_mouse				mouse;
 	float				sin_table[PRECALCULATED_TRIG];
@@ -281,12 +299,13 @@ void		free_audio(void *ptr);
 char		*free_line_get_next(char *line, int fd);
 bool		parsing(t_data *dt, char *file);
 bool		check_valid_identifier_texture(char *identifier);
+bool		check_color(char *one_color);
+bool		check_valid_color(char **color);
 bool		check_only_number(char *str);
 bool		check_valid_player(t_map *map);
 bool		check_valid_color_or_texture(char **info);
 bool		is_empty_line(char *line);
 void		init_dt(t_data *dt);
-// bool		is_delimiter(char c, const char *delimiters);
 bool		is_valid_line_texture(char *line);
 bool		set_size_map_data(t_map *map, char *file);
 bool		check_valid_wall_tile_file(char *file);
@@ -320,7 +339,7 @@ void 		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
 // TODO DL: remove player from parameters
-void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor);
+void		update_ray_dist_to_cell_edge(t_data *dt, t_ray *ray, t_coor *map_coor);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
@@ -355,10 +374,10 @@ void		draw_background(t_img *img, int color);
 void		draw_line(t_img *img, t_coor pt_1, t_coor pt_2, int clr);
 void		draw_vertical_line(t_img *img, t_coor pt_1, t_coor pt_2, int color);
 
-void		draw_circle(t_img *img, int x, int y, int radius, int clr);
+void		draw_circle(t_img *img, t_coor *coor, int radius, int clr);
 void		draw_rectangle(t_img *img, t_coor top_left, t_coor bottom_right, int clr);
 
-void		draw_square_from_center(t_img *img, int x, int y, int size, int clr);
+void		draw_square_from_center(t_img *img, t_coor *coor, int size, int clr);
 void		draw_square_from_top_left(t_img *img, int x, int y, int size, int clr);
 
 //
@@ -460,6 +479,7 @@ t_door 		*find_door_at(t_data *dt, int x, int y);
 void		find_all_sprites(t_data *dt);
 void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 void		sort_sprites_by_distance(t_data *dt);
+void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 
 int 		init_keys(t_data *dt);
 int 		load_messages(t_data *dt);

@@ -78,21 +78,20 @@ int	move_forward_backward(t_data *dt, int direction)
 }
 
 // TODO DL: rewrite this to reuse what we have in forward/backward move
-int move_sideways(t_data *dt, int is_to_the_right)
+int	move_sideways(t_data *dt, int is_to_the_right)
 {
-	t_x_y *player_pos;
-	float new_x;
-	float new_y;
+	t_x_y	*player_pos;
+	float	new_x;
+	float	new_y;
 	t_x_y	rotated_vector;
 
 	player_pos = &(dt->player.pos);
-
-	rotated_vector = rotate_vector(&dt->player.direction_vector, 90.0f * is_to_the_right);
-
-	// Calculate new position
-	new_x = player_pos->x + rotated_vector.x * KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
-	new_y = player_pos->y + rotated_vector.y * KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
-
+	rotated_vector = rotate_vector(&dt->player.direction_vector, \
+									90.0f * is_to_the_right);
+	new_x = player_pos->x + rotated_vector.x * \
+				KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
+	new_y = player_pos->y + rotated_vector.y * \
+				KEYBOARD_PLAYER_STEP_SIDE * dt->player.move_speed_multiplier;
 	if (map_position_is_walkable(dt, &new_x, &new_y))
 	{
 		player_pos->x = new_x;
@@ -104,4 +103,3 @@ int move_sideways(t_data *dt, int is_to_the_right)
 		player_pos->y = new_y;
 	return (EXIT_SUCCESS);
 }
-

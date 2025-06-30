@@ -3,9 +3,7 @@
 static int	keypress_exit(t_data *dt)
 {
 	printf("ESC button pressed, closing the window...");
-	mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
-	dt->win_ptr = NULL;
-	free(dt->rays);
+	free_dt(dt);
 	printf(" Done!\n");
 	return (EXIT_SUCCESS);
 }
@@ -17,7 +15,6 @@ int	close_window(void)
 
 int	handle_keypress(int keycode, t_data *dt)
 {
-	//printf("Key %d pressed\n", keycode);
 	if (keycode == ESC_BUTTON)
 	{
 		keypress_exit(dt);
@@ -32,7 +29,6 @@ int	handle_keypress(int keycode, t_data *dt)
 
 int	handle_keyrelease(int keycode, t_data *dt)
 {
-	//printf("Key %d released\n", keycode);
 	if (keycode == XK_Tab)
 		toggle_setting(&dt->view->show_minimap);
 	if (keycode == XK_F12)

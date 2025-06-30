@@ -1,16 +1,16 @@
 #include "cub3d.h"
 
 // TODO DL: turn x, y into t_coor
-void	draw_square_from_center(t_img *img, int x, int y, int size, int clr)
+void	draw_square_from_center(t_img *img, t_coor *coor, int size, int clr)
 {
 	int	curr_x;
 	int	curr_y;
 
-	curr_x = x - size / 2;
-	while (curr_x <= x + size / 2)
+	curr_x = coor->x - size / 2;
+	while (curr_x <= (int)coor->x + size / 2)
 	{
-		curr_y = y - size / 2;
-		while (curr_y <= y + size / 2)
+		curr_y = (int)coor->y - size / 2;
+		while (curr_y <= (int)coor->y + size / 2)
 		{
 			img_pix_put(img, curr_x, curr_y, clr);
 			++curr_y;

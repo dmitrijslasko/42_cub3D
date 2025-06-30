@@ -26,18 +26,24 @@ void	free_file_texture(t_data *dt)
 	}
 }
 
+void	free_img(t_img *img, void *mlx_ptr)
+{
+	if (img->mlx_img)
+		mlx_destroy_image(mlx_ptr, img->mlx_img);
+	img->mlx_img = NULL;
+}
+
 void	free_dt(t_data *dt)
 {
-	if (dt->mlx_ptr)
-		free(dt->mlx_ptr);
 	if (dt->win_ptr)
-		free(dt->win_ptr);
-	if (dt->scene_img)
-		free(dt->scene_img);
-	if (dt->minimap)
-		free(dt->minimap);
-	if (dt->minimap_base_img)
-		free(dt->minimap_base_img);
+		mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
+	dt->win_ptr = NULL;
+	free_img(dt->scene_img, dt->mlx_ptr);
+	free_img(dt->minimap_base_img, dt->mlx_ptr);
+	free_img(dt->minimap, dt->mlx_ptr);
+	free_img(dt->sky_image, dt->mlx_ptr);
+	free_img(dt->message_img, dt->mlx_ptr);
+	//free_img(dt->welcome_img, dt->mlx_ptr);
 	if (dt->doors)
 		free(dt->doors);
 	if (dt->rays)
@@ -50,8 +56,9 @@ void	free_dt(t_data *dt)
 		free(dt->sprite_textures);
 	if (dt->view)
 		free(dt->view);
-	if (dt->welcome_img)
-		free(dt->welcome_img);
 	free_file_texture(dt);
 	free_audio(dt->background_music);
+	mlx_destroy_display(dt->mlx_ptr);
+	dt->mlx_ptr = NULL;
+	// free(dt->bgm);
 }

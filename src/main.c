@@ -9,14 +9,11 @@ int	main(int argc, char **argv)
 		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
 
 	if (parsing(&dt, argv[1]))
-	// 	printf(TXT_RED "%s failed\n" TXT_RESET, argv[1]);
-	// else
-	// 	printf(TXT_GREEN "%s successed\n" TXT_RESET, argv[1]);
-	// free_dt(&dt);
+	{
+		free_dt(&dt);
 		return (EXIT_FAILURE);
+	}
 
-	// Load dummy map
-	//dt->map = load_dummy_map();
 	print_level_map(&dt.map);
 
 	// Initialize ray array. Later the rays get updated in render function.
@@ -56,6 +53,8 @@ int	main(int argc, char **argv)
 	print_separator(3, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
+
+	free_dt(&dt);
 	return (EXIT_SUCCESS);
 }
 

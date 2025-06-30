@@ -9,7 +9,6 @@ static void	swap_sprites(t_sprite *a, t_sprite *b)
 	*b = temp;
 }
 
-
 void	sort_sprites(t_sprite *sprites, size_t num_sprites)
 {
 	size_t	i;
@@ -23,25 +22,11 @@ void	sort_sprites(t_sprite *sprites, size_t num_sprites)
 		j = 0;
 		while (j < num_sprites - i - 1)
 		{
-			if (sprites[j].distance_to_player < sprites[j + 1].distance_to_player)
+			if (sprites[j].distance_to_player < \
+											sprites[j + 1].distance_to_player)
 				swap_sprites(&sprites[j], &sprites[j + 1]);
 			j++;
 		}
 		i++;
 	}
-}
-
-void	sort_sprites_by_distance(t_data *dt)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < dt->sprite_count)
-	{
-		float dx = dt->sprites[i].pos.x - dt->player.pos.x;
-		float dy = dt->sprites[i].pos.y - dt->player.pos.y;
-		dt->sprites[i].distance_to_player = dx * dx + dy * dy;
-		i++;
-	}
-	sort_sprites(dt->sprites, dt->sprite_count);
 }

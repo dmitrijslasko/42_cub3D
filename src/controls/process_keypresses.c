@@ -14,6 +14,7 @@ t_coor 	get_cell_ahead(t_data *dt)
 	cell_ahead.y = player_pos.y + 0;
 	return (cell_ahead);
 }
+
 void	process_keypresses(t_data *dt)
 {
 	if (dt->keys[119])  // W

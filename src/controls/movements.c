@@ -39,7 +39,7 @@ int	map_position_is_walkable(t_data *dt, float *new_x, float *new_y)
 		ft_strchr("|", dt->map.map_data[max_y][max_x]))
 	{
 		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
-		if (door && door->open_progress < 0.2f)
+		if (door && door->open_progress < 1 - DOOR_OPEN_VALUE)
 			return (0);
 	}
 	return (1);

@@ -82,6 +82,7 @@
 # define DEF_WALL_COLOR						PINK
 
 # define MIN_DISTANCE_TO_WALL				0.4f
+# define DOOR_OPEN_VALUE                    1.0f
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD		0.1f

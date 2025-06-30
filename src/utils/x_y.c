@@ -1,13 +1,4 @@
-
-
 #include "cub3d.h"
-
-float	max_float(float a, float b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
 
 void	set_values_size_t(int *new_x, int *new_y, int x, int y)
 {

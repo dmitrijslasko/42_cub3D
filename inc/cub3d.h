@@ -363,7 +363,6 @@ void		set_wall_type(t_ray *ray);
 void		print_ray(t_ray ray);
 
 //x_y.c
-float		max_float(float a, float b);
 void		set_values_size_t(int *new_x, int *new_y, int x, int y);
 t_x_y		get_values_x_y(float x, float y);
 void		set_values_x_y(t_x_y *new, float x, float y);
@@ -432,6 +431,10 @@ void		draw_minimap_grid(t_data *dt);
 int			draw_minimap_player(t_data *dt);
 void		draw_minimap_ray(t_data *dt, t_coor origin, t_x_y dir, int color);
 int			draw_minimap_rays(t_data *dt, int is_direction_vector);
+int			draw_minimap_thin_wall_vertical(t_data *dt, size_t curr_col, size_t curr_row);
+int			draw_minimap_door_vertical(t_data *dt, size_t curr_col, size_t curr_row);
+int			draw_minimap_sprite(t_data *dt, size_t curr_col, size_t curr_row);
+int			draw_minimap_wall_cell(t_data *dt, size_t curr_col, size_t curr_row);
 
 
 // 3d render

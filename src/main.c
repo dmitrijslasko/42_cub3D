@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 
 	dt.scene_img = protected_malloc(sizeof(t_img), &dt);
 	dt.minimap = protected_malloc(sizeof(t_img), &dt);
-	dt.minimap_base_img = protected_malloc(sizeof(t_img), &dt);
 	dt.view = protected_malloc(sizeof(t_view), &dt);
 	dt.last_time = 0;
 

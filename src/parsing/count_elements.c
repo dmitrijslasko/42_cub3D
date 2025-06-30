@@ -2,8 +2,8 @@
 
 size_t	count_elements_in_the_map(t_map *map, char *element)
 {
-	int	row;
-	int	col;
+	int		row;
+	int		col;
 	size_t	element_count;
 
 	element_count = 0;

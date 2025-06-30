@@ -7,7 +7,6 @@ bool	check_type_file(char *file, char *type)
 
 	len_file = ft_strlen(file);
 	len_type = ft_strlen(type);
-
 	if (len_file < len_type || \
 		ft_strncmp(file + len_file - len_type, type, len_type))
 		return (error_message("Error type file.", 0));

@@ -134,6 +134,8 @@
 # define PLAYER_SPAWN_POINT_TYPES			"NSWE"
 # define SPRITE_TYPES     	 	            "spqha"
 # define WALL_TYPES							"1"
+# define VERTICAL_WALL_TYPES				"v"
+# define HORIZONTAL_WALL_TYPES				"h"
 # define VERTICAL_DOOR_TYPES				"|"
 # define HORIZONTAL_DOOR_TYPES				"-"
 

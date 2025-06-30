@@ -487,7 +487,15 @@ void		find_all_sprites(t_data *dt);
 void		sort_sprites(t_sprite *sprites, size_t num_sprites);
 void		sort_sprites_by_distance(t_data *dt);
 void		sort_sprites(t_sprite *sprites, size_t num_sprites);
-
+int			render_all_sprites(t_data *dt);
+int			get_position_and_render_sprite(t_data *dt, t_sprite *sprite);
+bool		set_texture_sprites(t_data *dt);
+void		sprite_put_color(t_data *dt, t_sprite *sprite, \
+										t_coor *coor, t_coor *tex_coor);
+t_coor		calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, \
+									t_coor *offset, t_coor *sprite_size);
+bool		check_sprite_closer_than_wall(t_data *dt, t_coor *coor, \
+															t_sprite *spr);
 int			init_keys(t_data *dt);
 int			load_messages(t_data *dt);
 void		setup_view(t_data *dt);

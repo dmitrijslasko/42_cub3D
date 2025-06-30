@@ -23,22 +23,30 @@ bool	check_sprite_closer_than_wall(t_data *dt, t_coor *coor, t_sprite *spr)
 // 	return (color);
 // }
 
-// unsigned int	find_color_texture(t_sprite_texture *texture, t_coor *coor, t_coor *offset, t_coor *sprite_size, int time)
-// {
-// 	unsigned int	color;
-// 	int				tex_y;
-// 	int				tex_x;
+t_coor	calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, t_coor *offset, t_coor *sprite_size)
+{
+	t_coor	tex_coor;
 
-// 	tex_y = (coor->y - offset->y) * texture->height / sprite_size->y;
-// 	tex_x = (coor->x - offset->x) * texture->width / sprite_size->x;
-// 	color = texture->sprite_data[tex_y * texture->width + tex_x];
-// 	return (color);
-// }
+	tex_coor.y = (coor->y - offset->y) * texture->height / sprite_size->y;
+	tex_coor.x = (coor->x - offset->x) * texture->width / sprite_size->x;
+	return (tex_coor);
+}
 
-
-int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, float transform_y)
+void	sprite_put_color(t_data *dt, t_sprite_texture *texture, t_coor *coor, t_coor *offset, t_coor *sprite_size, int time)
 {
 	unsigned int	color;
+	t_coor			tex_coor;
+
+	tex_coor = calculate_tex_x_y(texture, coor, offset, sprite_size);
+	color = texture->sprite_data[time][tex_coor.y * texture->width + tex_coor.x];
+	if (color == TRANSPARENT_COLOR)
+		return ;
+	img_pix_put(dt->scene_img, coor->x, coor->y, color);
+}
+
+int	render_sprite(t_data *dt, t_sprite *sprite, \
+					int sprite_screen_x, float transform_y)
+{
 	t_coor			coor;
 	t_coor			offset;
 	t_coor			sprite_size;
@@ -57,16 +65,7 @@ int	render_sprite(t_data *dt, t_sprite *sprite, int sprite_screen_x, float trans
 		{
 			if (check_sprite_closer_than_wall(dt, &coor, sprite))
 			{
-				int tex_y = (coor.y - offset.y) * sprite->texture->height / sprite_size.y;
-				int tex_x = (coor.x - offset.x) * sprite->texture->width / sprite_size.x;
-				color = sprite->texture->sprite_data[time][tex_y * sprite->texture->width + tex_x];
-				// color = find_color_texture(sprite->texture, &coor, &offset, &sprite_size);
-				if (color == TRANSPARENT_COLOR)
-				{
-					coor.x++;
-					continue;
-				}
-				img_pix_put(dt->scene_img, coor.x, coor.y, color);
+				sprite_put_color(dt, sprite->texture, &coor, &offset, &sprite_size, time);
 			}
 			coor.x++;
 		}

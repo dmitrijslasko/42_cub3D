@@ -504,5 +504,11 @@ int			move_forward_backward(t_data *dt, int direction);
 int			map_position_is_walkable(t_data *dt, float *new_x, float *new_y);
 
 int			render_ui_message(t_data *dt);
+void		free_graphic(t_data *dt);
+void		free_wall_tile_texture(t_data *dt);
+void		free_texture(t_data *dt, t_texture *texture);
+void		free_img(t_img *img, void *mlx_ptr);
+void		free_texture_sprite(t_data *dt);
+void		ft_free(void *ptr);
 
 #endif

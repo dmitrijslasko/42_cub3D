@@ -7,13 +7,13 @@ void	free_audio(void *ptr)
 {
 	Mix_Music	*music;
 
-	music = (Mix_Music *) ptr;
-	if (music != NULL)
-	{
-		Mix_FreeMusic(music);
-		music = NULL;
-	}
-	Mix_CloseAudio();
+	music = (Mix_Music *)ptr;
+    if (music != NULL)
+    {
+        Mix_FreeMusic(music);
+        music = NULL;
+    }
+    Mix_CloseAudio();  // Shut down audio subsystem
 }
 
 Mix_Music	*init_audio(void)

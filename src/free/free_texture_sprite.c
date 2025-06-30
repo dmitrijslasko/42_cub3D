@@ -12,7 +12,8 @@ void	free_texture_sprite(t_data *dt)
 		while (j < SPRITE_FRAMES)
 		{
 			if (dt->sprite_textures[i].sprite_img[j])
-				mlx_destroy_image(dt->mlx_ptr, dt->sprite_textures[i].sprite_img[j]);
+				mlx_destroy_image(dt->mlx_ptr, \
+									dt->sprite_textures[i].sprite_img[j]);
 			dt->sprite_textures[i].sprite_img[j] = NULL;
 			j++;
 		}

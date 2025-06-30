@@ -30,6 +30,7 @@
 		"sound.h": "c",
 		"system_error": "c",
 		"colors.h": "c",
-		"sdl.h": "c"
+		"sdl.h": "c",
+		"cmath": "c"
 	}
 }

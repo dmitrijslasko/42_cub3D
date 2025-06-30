@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+#define INV_FIELD_OF_VIEW_SCALE (-1.0f / FIELD_OF_VIEW_SCALE)
+
 int get_position_and_render_sprite(t_data *dt, t_sprite *sprite)
 {
 	float	dx;
@@ -11,7 +13,7 @@ int get_position_and_render_sprite(t_data *dt, t_sprite *sprite)
 	dx = sprite->pos.x - dt->player.pos.x;
 	dy = sprite->pos.y - dt->player.pos.y;
 
-	transform_x = (1 / -FIELD_OF_VIEW_SCALE) *
+	transform_x = INV_FIELD_OF_VIEW_SCALE *
 					(dt->player.direction_vector.y * dx -
 								dt->player.direction_vector.x * dy);
 

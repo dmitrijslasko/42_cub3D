@@ -7,7 +7,6 @@ void	show_debug_info(t_data *dt)
 	void	*win;
 	size_t	field_1_x;
 	size_t	field_2_x;
-
 	size_t	ray_index;
 
 	if (CASTED_RAYS_COUNT == 1)

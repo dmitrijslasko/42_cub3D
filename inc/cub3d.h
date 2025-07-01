@@ -455,11 +455,15 @@ int			load_sprites(t_data *dt);
 int			precalculate_trig_tables(t_data *dt);
 
 int			render_all_sprites(t_data *dt);
+void		render_3d_each_ray(t_data *dt, t_ray *ray, int screen_slice_width);
 
 int			apply_distance_shadow(t_ray *ray, int *color);
 
 int			reset_mouse_position(t_data *dt);
 void		process_keypresses(t_data *dt);
+int			get_color_render3d(t_data *dt, t_ray *ray, t_coor *tex_coor);
+void		calc_texture_coor(t_data *dt, int *texture_y, \
+							float *distance_to_wall, int d);
 
 // inits
 void		init_doors(t_data *dt);

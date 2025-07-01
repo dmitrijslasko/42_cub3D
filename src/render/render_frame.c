@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int update_prompt_message(t_data *dt)
+int	update_prompt_message(t_data *dt)
 {
 	t_coor	cell_ahead;
 
@@ -19,7 +19,6 @@ int	render_frame(void *param)
 	long		current_time;
 
 	dt = (t_data *)param;
-
 	current_time = get_current_time_in_ms();
 	dt->delta_time = current_time - dt->last_time;
 	if (dt->delta_time < (1000 / FPS))
@@ -31,9 +30,11 @@ int	render_frame(void *param)
 	update_prompt_message(dt);
 	render_3d_scene(dt);
 	update_minimap(dt);
-	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
+	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, \
+							dt->scene_img->mlx_img, 0, 0);
 	if (dt->view->show_minimap)
-		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, \
+					dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
 	if (dt->view->show_debug_info)
 		show_debug_info(dt);
 	if (dt->view->show_door_open_message)

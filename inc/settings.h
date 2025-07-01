@@ -146,5 +146,6 @@
 # define DISTANCE_SHADOW_STRENGTH 			0.2f
 
 # define ENABLE_MOVING_SKY					1
+# define ROTATION_SCALE					1
 
 #endif

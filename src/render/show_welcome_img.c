@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int show_welcome_img(t_data *dt)
+int	show_welcome_img(t_data *dt)
 {
 	if (dt->win_ptr == NULL)
 		return (1);

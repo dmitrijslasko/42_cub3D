@@ -39,6 +39,7 @@ int	draw_sky1(t_data *dt, float angle_offset, int texture_start_y)
 	t_coor		screen;
 	t_coor		texture;
 	uint32_t	color;
+	char		*pixel;
 
 	screen.y = 0;
 	while (screen.y < dt->view->screen_center_y)
@@ -52,10 +53,8 @@ int	draw_sky1(t_data *dt, float angle_offset, int texture_start_y)
 				texture.y = 0;
 			if (texture.y > dt->sky_image->height)
 				texture.y = dt->sky_image->height;
-			char *pixel = dt->sky_image->addr
-				+ texture.y * dt->sky_image->line_len
+			pixel = dt->sky_image->addr + texture.y * dt->sky_image->line_len \
 				+ texture.x * (dt->sky_image->bpp / 8);
-
 			color = *(uint32_t *)pixel;
 			img_pix_put(dt->scene_img, screen.x, screen.y, color);
 			screen.x++;

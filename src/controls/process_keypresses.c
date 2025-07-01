@@ -22,6 +22,7 @@ static void	process_door(t_data *dt)
 
 	if (dt->keys[XK_bracketleft])
 	{
+		dt->has_changed = 1;
 		cell_ahead = get_cell_ahead(dt);
 		if (get_cell_type(&dt->map, &cell_ahead) == '|')
 		{
@@ -32,6 +33,7 @@ static void	process_door(t_data *dt)
 	}
 	if (dt->keys[XK_bracketright])
 	{
+		dt->has_changed = 1;
 		cell_ahead = get_cell_ahead(dt);
 		if (get_cell_type(&dt->map, &cell_ahead) == '|')
 		{

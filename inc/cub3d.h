@@ -269,6 +269,8 @@ typedef struct s_data
 	float				ambient_light;
 	void				*background_music;
 	int					frame_counter;
+	int					has_changed;
+	int					frames_drawn;
 }	t_data;
 
 static inline int	pixel_is_in_window(int x, int y)
@@ -428,7 +430,7 @@ void		print_separator_default(void);
 
 int			set_coor_values(t_coor *coor, int x, int y);
 
-t_x_y		rotate_vector(t_x_y *vet, float angle_degrees);
+t_x_y	rotate_vector(t_x_y *vet, float angle_degrees, t_data *dt);
 
 // minimap
 int			update_minimap(t_data *dt);
@@ -481,6 +483,8 @@ size_t		count_types_elements_in_the_map(t_map *map, char *element);
 size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(int *count, char *line);
+
+int my_sleep(void);
 
 t_coor		get_cell_ahead(t_data *dt);
 void		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);

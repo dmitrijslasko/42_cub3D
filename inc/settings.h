@@ -26,7 +26,10 @@
 # define FPS								30
 # define SCALING				            500
 
-# define PRECALCULATED_TRIG					3600
+// constants.h or at the top of your .c file
+#define TRIG_PRECISION                      10                   // 10 samples per degree
+#define PRECALCULATED_TRIG                  (360 * TRIG_PRECISION)
+
 # define TRACKED_KEYS						70000
 // dummy map
 # define DUMMY_MAP_TOP						"1111111111111111111111111111111"
@@ -145,6 +148,6 @@
 # define ENABLE_SHADERS						1
 # define DISTANCE_SHADOW_STRENGTH 			0.2f
 
-# define ENABLE_MOVING_SKY					1
+# define ENABLE_MOVING_SKY					0
 
 #endif

@@ -9,6 +9,7 @@ void	rotate_player(t_data *dt, float d_angle, int direction)
 	float	old_dir_x;
 	float	old_dir_y;
 
+	dt->has_changed = 1;
 	angle_rad = deg_to_rad(d_angle * -direction);
 	old_dir_x = dt->player.direction_vector.x;
 	old_dir_y = dt->player.direction_vector.y;

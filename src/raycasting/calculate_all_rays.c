@@ -13,7 +13,7 @@ int	calculate_all_rays(t_data *dt)
 	i = 0;
 	while (i < CASTED_RAYS_COUNT)
 	{
-		vector = rotate_vector(&dt->player.direction_vector, angle);
+		vector = rotate_vector(&dt->player.direction_vector, angle, dt);
 		dt->rays[i].id = i;
 		dt->rays[i].vector = vector;
 		update_single_ray(dt, &dt->rays[i]);

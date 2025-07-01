@@ -21,11 +21,17 @@ int	render_frame(void *param)
 	dt = (t_data *)param;
 	current_time = get_current_time_in_ms();
 	dt->delta_time = current_time - dt->last_time;
-	if (dt->delta_time < (1000 / FPS))
-		return (0);
+	if (dt->delta_time < (1000 / 60))
+		{
+			my_sleep();
+			return (0);
+		}
 	dt->last_time = current_time;
 	reset_mouse_position(dt);
+	dt->has_changed = 0;
 	process_keypresses(dt);
+	if (dt->has_changed == 0)
+		return (0);
 	calculate_all_rays(dt);
 	update_prompt_message(dt);
 	render_3d_scene(dt);
@@ -38,6 +44,7 @@ int	render_frame(void *param)
 	if (dt->view->show_door_open_message)
 		render_ui_message(dt);
 	add_ui(dt);
+	dt->frames_drawn++;
 	return (EXIT_SUCCESS);
 }
 

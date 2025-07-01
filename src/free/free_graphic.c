@@ -3,6 +3,7 @@
 void	free_graphic(t_data *dt)
 {
 	free_img(dt->scene_img, dt->mlx_ptr);
+	free_img(dt->frames_img, dt->mlx_ptr);
 	free_img(dt->minimap_base_img, dt->mlx_ptr);
 	free_img(dt->minimap, dt->mlx_ptr);
 	free_img(dt->sky_image, dt->mlx_ptr);

@@ -464,7 +464,7 @@ int			render_sprite(t_data *dt, t_sprite *sprite, t_coor *offset,
 						t_coor *sprite_size);
 float		fix_fish_eye(t_ray *ray, t_player *player);
 int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
-
+int			load_sprite_textures(t_data *dt);
 int			load_textures(t_data *dt);
 int			load_sprites(t_data *dt);
 int			precalculate_trig_tables(t_data *dt);
@@ -494,7 +494,7 @@ size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(int *count, char *line);
 
-int 		my_sleep(void);
+int			my_sleep(void);
 
 t_coor		get_cell_ahead(t_data *dt);
 void		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
@@ -517,6 +517,8 @@ t_coor		calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, \
 bool		check_sprite_closer_than_wall(t_data *dt, t_coor *coor, \
 															t_sprite *spr);
 int			init_keys(t_data *dt);
+void		init_graphic(t_data *dt);
+void		init_text_sprites(t_sprite_texture *texture);
 int			load_messages(t_data *dt);
 void		setup_view(t_data *dt);
 

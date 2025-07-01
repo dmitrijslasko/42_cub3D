@@ -351,8 +351,6 @@ void		rotate_player(t_data *dt, float d_angle, int direction);
 //ray
 void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, \
 												t_coor *map_coor);
-void		init_raycasting(t_coor *step, t_coor *map_coor, \
-							t_data *dt, t_ray *ray);
 void		step_and_set_side(t_dda_info *info);
 int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 void		finish_ray_casting(t_data *dt, t_ray *ray, t_coor *map_coor, \

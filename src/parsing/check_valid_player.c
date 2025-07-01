@@ -6,8 +6,8 @@ bool	check_valid_player(t_map *map)
 
 	count = count_elements_in_the_map(map, "NSWE");
 	if (count == 0)
-		return (error_message("Error: Player not found.", 0));
+		return (error_msg("Error: Player not found.", 0));
 	else if (count > 1)
-		return (error_message("Error: Multi player.", 0));
+		return (error_msg("Error: Multi player.", 0));
 	return (1);
 }

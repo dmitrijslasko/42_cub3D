@@ -1,5 +1,17 @@
 #include "cub3d.h"
 
+bool	is_invalid_map(t_map *map)
+{
+	size_t	count;
+
+	if (BONUS)
+		return (0);
+	count = count_if_there_is_others_elements(map, "10NSWE");
+	if (count > 0)
+		return (error_msg("Error:There's caracter not allowed on the map.", 1));
+	return (0);
+}
+
 bool	is_open_map(char **map, char **visited, int row, int col)
 {
 	if (row < 0 || col < 0 || map[row] == NULL || map[row][col] == '\0')
@@ -24,7 +36,7 @@ bool	check_valid_map(t_map *map, t_player *player, t_data *dt)
 
 	create_double_array(&visited, map->map_size_rows, map->map_size_cols, dt);
 	if (is_open_map(map->map_data, visited, (int)player->pos.y, \
-											(int)player->pos.x))
+					(int)player->pos.x) || is_invalid_map(map))
 		return (error_message_free("Error: Invalid map.", visited, 0));
 	return (free_array_return(visited, 1));
 }

@@ -34,7 +34,7 @@ bool	check_valid_wall_tile_file1(int fd)
 		if (!check_single_line_wall_tile(line))
 		{
 			free_line_get_next(line, -1);
-			return (error_message("Error: Reading textures/colors.", 0));
+			return (error_msg("Error: Reading textures/colors.", 0));
 		}
 		line = free_line_get_next(line, fd);
 	}

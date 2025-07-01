@@ -6,14 +6,12 @@ int	main(int argc, char **argv)
 	t_data	dt;
 
 	if (argc != 2)
-		return (error_message("Try again! Format ./cub3D <name_file>.cub\n", 1));
-
+		return (error_msg("Try again! Format ./cub3D <name_file>.cub\n", 1));
 	if (parsing(&dt, argv[1]))
 	{
 		free_dt(&dt);
 		return (EXIT_FAILURE);
 	}
-
 	print_level_map(&dt.map);
 
 	// Initialize ray array. Later the rays get updated in render function.

@@ -35,7 +35,7 @@ bool	set_size_map_data1(t_map *map, int fd)
 	count_row = 0;
 	line = get_first_line_map(fd);
 	if (!line)
-		return (error_message("Error: map not found.", 1));
+		return (error_msg("Error: map not found.", 1));
 	while (line)
 	{
 		if (is_empty_line(line))

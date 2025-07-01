@@ -22,6 +22,6 @@ bool	check_valid_color(char **color)
 		free_array(array);
 	}
 	if (count != 3)
-		return (error_message("Color indefined", 0));
+		return (error_msg("Color indefined", 0));
 	return (1);
 }

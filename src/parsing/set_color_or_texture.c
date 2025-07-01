@@ -22,7 +22,7 @@ bool	check_valid_texture(char **value)
 bool	set_color_or_texture(t_map *map, char *identifier, char **value)
 {
 	if (!identifier || !*value)
-		return (error_message("Error: Split.", 1));
+		return (error_msg("Error: Split.", 1));
 	if (check_valid_texture(value))
 		return (set_texture(identifier, *value, map));
 	return (set_color(identifier, value, map));

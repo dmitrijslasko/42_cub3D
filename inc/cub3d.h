@@ -412,7 +412,7 @@ bool		check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side);
 
 void		print_single_ray_info(t_ray ray);
 
-int			error_message(char *msg, int ret);
+int			error_msg(char *msg, int ret);
 int			error_message_close_fd(char *msg, int fd, int ret);
 int			error_message2(char *msg, char*msg2, int ret);
 int			error_message_free(char *msg, char **array, int ret);
@@ -539,5 +539,6 @@ void		free_img(t_img *img, void *mlx_ptr);
 void		free_texture_sprite(t_data *dt);
 void		ft_free(void *ptr);
 int			count_sprite_textures(t_data *dt);
+size_t		count_if_there_is_others_elements(t_map *map, char *element);
 
 #endif

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_texture_coor(t_data *dt, float screen_x, t_coor *texture, \
+void	ft_texture_coor(t_data *dt, float screen_x, int *texture_x, \
 							float angle_offset)
 {
 	float	rotation_scale;
@@ -9,7 +9,7 @@ void	ft_texture_coor(t_data *dt, float screen_x, t_coor *texture, \
 
 	view_ratio = screen_x / (float)WINDOW_W;
 	tex_ratio = fmodf(view_ratio + angle_offset, 1.0f);
-	texture->x = (int)(tex_ratio * dt->sky_image->width);
+	*texture_x = (int)(tex_ratio * dt->sky_image->width);
 }
 
 float	calculate_angle_offset(t_data *dt)
@@ -34,29 +34,24 @@ int	calculate_t_start_y(t_data *dt)
 	return (texture_start_y);
 }
 
-int	draw_sky1(t_data *dt, float angle_offset, int texture_start_y)
+int	draw_sky1(t_data *dt, float angle_offset, int txt_start_y)
 {
 	t_coor		screen;
-	t_coor		texture;
+	int			texture_x;
 	uint32_t	color;
 	char		*pixel;
 
-	screen.y = 0;
-	while (screen.y < dt->view->screen_center_y)
+	screen.y = txt_start_y;
+	while (screen.y < dt->view->screen_center_y + txt_start_y)
 	{
 		screen.x = 0;
 		while (screen.x < WINDOW_W)
 		{
-			ft_texture_coor(dt, screen.x, &texture, angle_offset);
-			texture.y = texture_start_y + screen.y;
-			if (texture.y < 0)
-				texture.y = 0;
-			if (texture.y > dt->sky_image->height)
-				texture.y = dt->sky_image->height;
-			pixel = dt->sky_image->addr + texture.y * dt->sky_image->line_len \
-				+ texture.x * (dt->sky_image->bpp / 8);
+			ft_texture_coor(dt, screen.x, &texture_x, angle_offset);
+			pixel = dt->sky_image->addr + (screen.y - txt_start_y) * \
+				dt->sky_image->line_len + texture_x * (dt->sky_image->bpp / 8);
 			color = *(uint32_t *)pixel;
-			img_pix_put(dt->scene_img, screen.x, screen.y, color);
+			img_pix_put(dt->scene_img, screen.x, screen.y - txt_start_y, color);
 			screen.x++;
 		}
 		screen.y++;

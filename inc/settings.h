@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   settings.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:40:38 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
@@ -17,7 +29,7 @@
 # define BONUS								0
 
 // bonus part
-# define SKY_TEXTURE_PATHFILE				"./textures/sky_1.xpm"
+# define SKY_TXT_PATHFILE	"./textures/sky_1.xpm"
 
 // window size
 # define WINDOW_W							1200
@@ -27,8 +39,9 @@
 # define SCALING				            500
 
 // constants.h or at the top of your .c file
-#define TRIG_PRECISION                      10                   // 10 samples per degree
-#define PRECALCULATED_TRIG                  3600
+// 10 samples per degree
+# define TRIG_PRECISION                      10
+# define PRECALCULATED_TRIG                  3600
 
 # define TRACKED_KEYS						70000
 
@@ -128,10 +141,10 @@
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  				0
 
-
 # define PUT_DOOR				            1
 # define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
-# define NUMBER_TEXTURES    	            6 // four walls + celling + floor even if is a color
+// four walls + celling + floor even if is a color
+# define NUMBER_TEXTURES    	            6 
 
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 

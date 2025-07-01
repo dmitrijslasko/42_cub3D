@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:09:24 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 00:34:16 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	render_ui_message(t_data *dt)
 			color = *(unsigned int *)src_pixel;
 			draw.x = ((WINDOW_W - dt->message_img[0].width) / 2) + col;
 			draw.y = UI_MESSAGE_OFFSET_Y + row;
-
 			if (color != TRANSPARENT_COLOR)
 				img_pix_put(dt->scene_img, draw.x, draw.y, color);
 			col++;

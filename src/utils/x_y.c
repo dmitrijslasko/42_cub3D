@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:11:46 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:12:03 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 00:34:32 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	set_values_x_y(t_x_y *new, float x, float y)
 	new->x = x;
 	new->y = y;
 }
-
 
 t_coor	get_values_coor(int x, int y)
 {

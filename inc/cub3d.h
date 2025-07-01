@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:35:51 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:37:40 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -398,7 +410,6 @@ void		draw_square_from_center(t_img *img, t_coor *coor,
 void		draw_square_from_top_left(t_img *img, t_coor coor,
 						int size, int clr);
 
-
 t_map		*load_dummy_map(void);
 void		print_level_map(t_map *map);
 
@@ -547,21 +558,21 @@ void		step_and_set_side(t_dda_info *info);
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
 int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 int			check_hit_door_cell(t_coor *map, t_data *dt);
-void		init_raycasting(t_coor *step, t_coor *map_coor,
-				t_data *dt, t_ray *ray);
-void		finish_ray_casting(t_data *dt, t_ray *ray,
-				t_coor *map_coor, int door_hit);
-void		calculate_ray_distance(t_data *dt, t_ray *ray,
-			t_x_y *delta_dist, t_x_y *side_dist);
-void		finish_ray_casting(t_data *dt, t_ray *ray,
-			t_coor *map_coor, int door_hit);
+void		init_raycasting(t_coor *step, t_coor *map_coor, \
+						t_data *dt, t_ray *ray);
+void		finish_ray_casting(t_data *dt, t_ray *ray, \
+						t_coor *map_coor, int door_hit);
+void		calculate_ray_distance(t_data *dt, t_ray *ray, \
+						t_x_y *delta_dist, t_x_y *side_dist);
+void		finish_ray_casting(t_data *dt, t_ray *ray, \
+						t_coor *map_coor, int door_hit);
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
 int			run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info);
 
 // debug
 void		show_debug_info(t_data *dt);
 void		print_time_stats(t_data *dt, void *mlx, void *win, int *y);
-void 		print_cell_info(t_data *dt, void *mlx, void *win, int *y);
-void 		print_door_hit_stats(t_data *dt, void *mlx, void *win, int *y);
+void		print_cell_info(t_data *dt, void *mlx, void *win, int *y);
+void		print_door_hit_stats(t_data *dt, void *mlx, void *win, int *y);
 
 #endif

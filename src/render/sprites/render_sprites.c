@@ -23,6 +23,7 @@ int	get_position_and_render_sprite(t_data *dt, t_sprite *sprite)
 	offset.x = sprite_screen_x - sprite_size.x / 2;
 	offset.y = dt->view->screen_center_y - sprite_size.y / 3;
 	render_sprite(dt, sprite, &offset, &sprite_size);
+	dt->has_changed = 1;
 	return (EXIT_SUCCESS);
 }
 

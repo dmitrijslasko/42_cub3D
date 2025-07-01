@@ -244,6 +244,7 @@ typedef struct s_data
 	void				*mlx_ptr;
 	void				*win_ptr;
 	t_img				*scene_img;
+	t_img				*frames_img;
 	t_img				*minimap_base_img;
 	t_img				*minimap;
 	t_map				map;

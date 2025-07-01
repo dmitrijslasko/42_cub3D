@@ -29,14 +29,16 @@ int	render_frame(void *param)
 	dt->last_time = current_time;
 	reset_mouse_position(dt);
 	process_keypresses(dt);
-	if (dt->has_changed == 0)
-		return (0);
+	//if (dt->has_changed == 0)
+	//	return (0);
 	calculate_all_rays(dt);
 	update_prompt_message(dt);
 	render_3d_scene(dt);
+	put_img_to_img(dt->frames_img, dt->scene_img, 0, 0);
 	render_all_sprites(dt);
 	update_minimap(dt);
-	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
+	//mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
+	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->frames_img->mlx_img, 0, 0);
 	if (dt->view->show_minimap)
 		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
 	if (dt->view->show_debug_info)

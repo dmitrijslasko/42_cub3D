@@ -16,8 +16,8 @@ int my_sleep(void)
 {
 	int sleep_time;
 
-	sleep_time = 1000000000 / FPS;
-    struct timespec ts = {0, sleep_time}; // ~30 FPS (33.3ms)
+	sleep_time = 1e9 / FPS;
+    struct timespec ts = {0, sleep_time};
     nanosleep(&ts, NULL);
     return (0);
 }

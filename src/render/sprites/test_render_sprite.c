@@ -28,20 +28,19 @@ void	sprite_put_color(t_data *dt, t_sprite_texture *texture,
 
 	color = texture->sprite_data[time][tex_coor->y * texture->width + \
 			tex_coor->x];
-	dt->has_changed = 1;
 	if (color == TRANSPARENT_COLOR)
 		return ;
-	img_pix_put(dt->scene_img, coor->x, coor->y, color);
+	img_pix_put(dt->frames_img, coor->x, coor->y, color);
 }
 
 int	render_sprite(t_data *dt, t_sprite *sprite, \
 					t_coor *offset, t_coor	*sprite_size)
 {
-	t_coor	coor;
-	t_coor	tex_coor;
-	int		time;
+	t_coor		coor;
+	t_coor		tex_coor;
+	int			time;
 
-	time = (dt->last_time - dt->start_time) / 1000 % 2;
+	time = (dt->last_time - dt->start_time) / 100 % 2;
 	coor.y = ft_max(offset->y, 0);
 	while (coor.y < sprite_size->y + offset->y && coor.y < WINDOW_H)
 	{

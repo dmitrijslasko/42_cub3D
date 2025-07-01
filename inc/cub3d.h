@@ -429,7 +429,7 @@ void		print_separator_default(void);
 
 int			set_coor_values(t_coor *coor, int x, int y);
 
-t_x_y	rotate_vector(t_x_y *vet, float angle_degrees, t_data *dt);
+t_x_y		rotate_vector(t_x_y *vec, float angle_degrees, t_data *dt);
 
 // minimap
 int			update_minimap(t_data *dt);

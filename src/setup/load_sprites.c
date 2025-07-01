@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:10:31 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/06/30 20:10:31 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/01 17:35:38 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_sprite_file
 static const t_sprite_file	g_sprites[] = {
 {'s', "./sprites/heart.xpm", "./sprites/heart.xpm"},
 {'q', "./sprites/test.xpm", "./sprites/test.xpm"},
-{'p', "./sprites/container.xpm", "./sprites/container.xpm"},
+{'p', "./sprites/sprite-1.xpm", "./sprites/sprite-2.xpm"},
 {'h', "./sprites/sammy1.xpm", "./sprites/sammy2.xpm"},
 {'a', "./sprites/tommy1.xpm", "./sprites/tommy2.xpm"},
 };

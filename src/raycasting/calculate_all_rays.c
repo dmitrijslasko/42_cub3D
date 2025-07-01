@@ -6,6 +6,8 @@ int	calculate_all_rays(t_data *dt)
 	t_x_y	vector;
 	double	angle;
 
+	if (dt->has_changed == 0)
+		return (0);
 	if (CASTED_RAYS_COUNT == 1)
 		angle = 0.0f;
 	else
@@ -13,7 +15,7 @@ int	calculate_all_rays(t_data *dt)
 	i = 0;
 	while (i < CASTED_RAYS_COUNT)
 	{
-		vector = rotate_vector(&dt->player.direction_vector, angle);
+		vector = rotate_vector(&dt->player.direction_vector, angle, dt);
 		dt->rays[i].id = i;
 		dt->rays[i].vector = vector;
 		update_single_ray(dt, &dt->rays[i]);

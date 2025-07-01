@@ -2,16 +2,21 @@
 
 static void	process_vertical_look(t_data *dt)
 {
-	if (ENABLE_VERTICAL_LOOK)
+	if (!ENABLE_VERTICAL_LOOK)
+		return ;
+	if (dt->keys[XK_Up])
 	{
-		if (dt->keys[XK_Up])
-			dt->view->screen_center_y = ft_min(
-					dt->view->screen_center_y + KEYBOARD_VERTICAL_LOOK_STEP,
-					WINDOW_H / 2 + VERTICAL_LOOK_LOCK_UP);
-		if (dt->keys[XK_Down])
-			dt->view->screen_center_y = ft_max(
-					dt->view->screen_center_y - KEYBOARD_VERTICAL_LOOK_STEP,
-					WINDOW_H / 2 - VERTICAL_LOOK_LOCK_DOWN);
+		dt->has_changed = 1;
+		dt->view->screen_center_y = ft_min(
+				dt->view->screen_center_y + KEYBOARD_VERTICAL_LOOK_STEP,
+				WINDOW_H / 2 + VERTICAL_LOOK_LOCK_UP);
+	}
+	if (dt->keys[XK_Down])
+	{
+		dt->has_changed = 1;
+		dt->view->screen_center_y = ft_max(
+				dt->view->screen_center_y - KEYBOARD_VERTICAL_LOOK_STEP,
+				WINDOW_H / 2 - VERTICAL_LOOK_LOCK_DOWN);
 	}
 }
 
@@ -22,6 +27,7 @@ static void	process_door(t_data *dt)
 
 	if (dt->keys[XK_bracketleft])
 	{
+		dt->has_changed = 1;
 		cell_ahead = get_cell_ahead(dt);
 		if (get_cell_type(&dt->map, &cell_ahead) == '|')
 		{
@@ -32,6 +38,7 @@ static void	process_door(t_data *dt)
 	}
 	if (dt->keys[XK_bracketright])
 	{
+		dt->has_changed = 1;
 		cell_ahead = get_cell_ahead(dt);
 		if (get_cell_type(&dt->map, &cell_ahead) == '|')
 		{

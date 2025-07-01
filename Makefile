@@ -5,7 +5,7 @@ include colors.mk
 NAME = cub3D
 
 # COMPILER
-CC = cc
+CC = gcc
 
 # DIRECTORIES
 INC_DIR = ./inc
@@ -32,13 +32,17 @@ CFLAGS += -g
 CFLAGS += -I$(INC_DIR)
 CFLAGS += -std=c99
 CFLAGS += -Wno-error=type-limits
+CFLAGS += -D_POSIX_C_SOURCE=200112L
+
 CFLAGS += -I$(SDL2_INC) -I$(SDL2_MIXER_INC) -D_REENTRANT
 
 # LINKER FLAGS
 LDFLAGS = -L$(LIBFT_DIR) -lft
-LDFLAGS += -lm -lXext -lX11
 LDFLAGS += -L$(MINILIBX_DIR) -lmlx
+LDFLAGS += -lX11 -lXext -lm
+# LDFLAGS += -lSDL2 -lSDL2_mixer
 LDFLAGS += -Llib/SDL2/build/lib -Llib/SDL2_mixer/build/lib -lSDL2 -lSDL2_mixer
+
 
 # EXTRA FLAGS
 BONUSFLAGS = -DBONUS=1
@@ -66,7 +70,7 @@ DEPS_BONUS = $(OBJ_BONUS:.o=.d)
 # ------------------------------------------------------------------------------
 
 test: all
-	./${NAME} ./maps/good/works.cub
+	./${NAME} ./maps/good/works2.cub
 
 all: libft $(NAME) $(MINILIBX) $(HEADER_FILE_M)
 

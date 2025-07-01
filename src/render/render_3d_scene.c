@@ -15,6 +15,8 @@ void	render_3d_scene(t_data *dt)
 	int	i;
 	int	screen_slice_width;
 
+	if (dt->has_changed == 0)
+		return ;
 	i = 0;
 	screen_slice_width = WINDOW_W / CASTED_RAYS_COUNT;
 	render_floor_and_ceiling(dt);

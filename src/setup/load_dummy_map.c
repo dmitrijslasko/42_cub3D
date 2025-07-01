@@ -1,4 +1,4 @@
-//#include "cub3d.h"
+// #include "cub3d.h"
 
 // // TODO DL: rename curr_col to curr_row BECAUSE IT IS A ROW!
 // // TODO DL: replace strcpy with ft_strcpy
@@ -20,8 +20,8 @@
 
 // 	for (size_t curr_col = 0; curr_col < map->map_size_cols; curr_col++)
 // 	{
-// 		map->map_data[curr_col] = malloc((map->map_size_rows + 1) * \
-//			sizeof(char));  // +1 for '\0'
+// 		map->map_data[curr_col] = malloc((map->map_size_rows + 1) *
+// 			sizeof(char));  // +1 for '\0'
 // 		if (!map->map_data[curr_col])
 // 			return (NULL); // ideally free previously malloc'd rows
 // 		if (curr_col == 0 || curr_col == map->map_size_rows - 1)

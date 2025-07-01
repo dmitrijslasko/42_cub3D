@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
-void	sprite_put_color(t_data *dt, t_sprite *sprite,
-	t_coor *coor, t_coor *tex_coor)
+void	sprite_put_color(t_data *dt, t_sprite *sprite, \
+							t_coor *coor, t_coor *tex_coor)
 {
 	int					time;
 	t_sprite_texture	*texture;

@@ -115,10 +115,14 @@ typedef struct s_x_y
 	float	y;
 }	t_x_y;
 
-typedef struct s_camera_plane
+typedef struct s_dda_info
 {
-	t_x_y	plane;
-}	t_camera;
+	t_coor	*map;
+	t_coor	*step;
+	t_x_y	*delta;
+	t_x_y	*side;
+	char	*hit_side;
+}	t_dda_info;
 
 typedef struct s_ray
 {
@@ -238,6 +242,7 @@ typedef struct s_data
 	void				*mlx_ptr;
 	void				*win_ptr;
 	t_img				*scene_img;
+	t_img				*frames_img;
 	t_img				*minimap_base_img;
 	t_img				*minimap;
 	t_map				map;
@@ -263,6 +268,8 @@ typedef struct s_data
 	float				ambient_light;
 	void				*background_music;
 	int					frame_counter;
+	int					has_changed;
+	int					frames_drawn;
 }	t_data;
 
 static inline int	pixel_is_in_window(int x, int y)
@@ -339,7 +346,7 @@ int			move_forward_backward(t_data *dt, int direction);
 void		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
-void		update_ray_dist_to_cell_edge(t_data *dt, t_ray *ray,
+void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray,
 						t_coor *map_coor);
 
 //constructor_ray.c
@@ -387,7 +394,7 @@ t_map		*load_dummy_map(void);
 void		print_level_map(t_map *map);
 
 int			render_frame(void *param);
-void		add_ui(t_data *dt);
+void		render_ui(t_data *dt);
 
 int			init_player(t_data *dt);
 
@@ -422,7 +429,7 @@ void		print_separator_default(void);
 
 int			set_coor_values(t_coor *coor, int x, int y);
 
-t_x_y		rotate_vector(t_x_y *vet, float angle_degrees);
+t_x_y	rotate_vector(t_x_y *vet, float angle_degrees, t_data *dt);
 
 // minimap
 int			update_minimap(t_data *dt);
@@ -479,6 +486,8 @@ size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(int *count, char *line);
 
+int 		my_sleep(void);
+
 t_coor		get_cell_ahead(t_data *dt);
 void		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
 
@@ -519,5 +528,6 @@ void		free_texture(t_data *dt, t_texture *texture);
 void		free_img(t_img *img, void *mlx_ptr);
 void		free_texture_sprite(t_data *dt);
 void		ft_free(void *ptr);
+int			count_sprite_textures(t_data *dt);
 
 #endif

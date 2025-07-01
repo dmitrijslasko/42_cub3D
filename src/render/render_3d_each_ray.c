@@ -14,11 +14,9 @@ void	render_3d_each_ray(t_data *dt, t_ray *ray, int screen_slice_width)
 	int		top_y;
 	t_coor	coor;
 	t_coor	texture;
-	t_coor	tex_size;
 
 	wall_height = 1.0f / ray->corrected_distance_to_wall * SCALING;
 	top_y = dt->view->screen_center_y - wall_height;
-	tex_size.y = dt->map.wall_tile->texture.height;
 	coor.y = ft_max(top_y, 0);
 	while (coor.y < ft_min(WINDOW_H, dt->view->screen_center_y + wall_height))
 	{

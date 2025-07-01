@@ -12,7 +12,7 @@ void	add_crosshair(t_data *dt, int color)
 							color);
 }
 
-void	add_ui(t_data *dt)
+void	render_ui(t_data *dt)
 {
 	if (ENABLE_CROSSHAIR)
 		add_crosshair(dt, DEFAULT_CROSSHAIR_COLOR);

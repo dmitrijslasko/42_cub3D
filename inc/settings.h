@@ -23,11 +23,15 @@
 # define WINDOW_W							1200
 # define WINDOW_H							900
 # define CASTED_RAYS_COUNT					400
-# define FPS								30
+# define FPS								60
 # define SCALING				            500
 
-# define PRECALCULATED_TRIG					3600
+// constants.h or at the top of your .c file
+#define TRIG_PRECISION                      10                   // 10 samples per degree
+#define PRECALCULATED_TRIG                  3600
+
 # define TRACKED_KEYS						70000
+
 // dummy map
 # define DUMMY_MAP_TOP						"1111111111111111111111111111111"
 # define DUMMY_MAP_MID						"1000001001001000000000001001001"
@@ -83,8 +87,8 @@
 
 // default scale
 # define KEYBOARD_PLAYER_STEP_FORWARD		0.1f
-# define KEYBOARD_PLAYER_STEP_BACKWARD		0.1f
-# define KEYBOARD_PLAYER_STEP_SIDE 			0.1f
+# define KEYBOARD_PLAYER_STEP_BACKWARD		0.05f
+# define KEYBOARD_PLAYER_STEP_SIDE 			0.05f
 # define KEYBOARD_PLAYER_ROTATION_STEP 		2.0f
 # define KEYBOARD_VERTICAL_LOOK_STEP 10.0f
 # define MOVE_SPEED_MULTIPLIER_SLOW 		0.4f
@@ -146,6 +150,6 @@
 # define DISTANCE_SHADOW_STRENGTH 			0.2f
 
 # define ENABLE_MOVING_SKY					1
-# define ROTATION_SCALE					1
+# define ROTATION_SCALE					    1
 
 #endif

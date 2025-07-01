@@ -4,7 +4,7 @@ include config.mk
 NAME = libft.a
 
 AR = ar
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIC
 
 INC = ./inc
 

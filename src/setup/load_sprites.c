@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:10:31 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/07/01 18:42:04 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:42:33 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	load_sprite_images(t_data *dt)
 	sprite_textures = dt->sprite_textures;
 	printf("Sprite types to be loaded: %zu\n", dt->sprite_texture_count);
 	i = 0;
-	count_sprite_textures(dt);
 	while (i < dt->sprite_texture_count)
 	{
 		sprite_textures[i].type = g_sprites[i].minimap_repr;

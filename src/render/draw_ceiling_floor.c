@@ -24,7 +24,6 @@ int	draw_ceiling(t_data *dt)
 							dt->map.wall_tile[CEILING].color.g,
 							dt->map.wall_tile[CEILING].color.b);
 	draw_rectangle(dt->scene_img, top_left, bottom_right, color);
-
 	return (EXIT_SUCCESS);
 }
 

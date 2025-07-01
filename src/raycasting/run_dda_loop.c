@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static int	check_hit_door_cell(t_coor *map, t_data *dt)
+int	check_hit_door_cell(t_coor *map, t_data *dt)
 {
 	return (dt->map.map_data[map->y][map->x] == '|');
 }

@@ -42,7 +42,7 @@ int	reset_mouse_position(t_data *dt)
 			new_x = WINDOW_W / 2 + sign(dx) * MOUSE_CENTER_TOLERANCE_PX;
 		if (abs(dy) > MOUSE_CENTER_TOLERANCE_PX)
 			new_y = WINDOW_H / 2 + sign(dy) * MOUSE_CENTER_TOLERANCE_PX;
-		dt->mouse.suppress_mouse_frames = 2;
+		dt->mouse.suppress_mouse_frames = 1;
 		mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, new_x, new_y);
 	}
 	return (EXIT_SUCCESS);

@@ -51,6 +51,7 @@ void	setup_keyboard_hooks(t_data *dt)
 	mlx_hook(dt->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, dt);
 	mlx_hook(dt->win_ptr, 17, 0, keypress_exit, dt);
 	mlx_do_key_autorepeatoff(dt->mlx_ptr);
-	mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
+	if (BONUS && ENABLE_MOUSE)
+		mlx_mouse_hide(dt->mlx_ptr, dt->win_ptr);
 	printf(" Done!\n");
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_keypresses.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:04:00 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:04:01 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	process_vertical_look(t_data *dt)
@@ -31,8 +43,10 @@ void	maneger_door_open_close(t_data *dt, int dir)
 	{
 		dt->view->show_door_open_message = 1;
 		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
-		door->open_progress = fmax(0.0f, door->open_progress + \
-												dir * door->speed);
+		if (dir == 1)
+			door->open_progress = fmax(0.0f, door->open_progress - door->speed);
+		else
+			door->open_progress = fmin(1.0f, door->open_progress + door->speed);
 	}
 }
 

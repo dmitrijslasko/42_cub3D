@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_valid_color.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:06:16 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:06:17 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 bool	check_valid_color(char **color)
@@ -22,6 +34,6 @@ bool	check_valid_color(char **color)
 		free_array(array);
 	}
 	if (count != 3)
-		return (error_message("Color indefined", 0));
+		return (error_msg("Color indefined", 0));
 	return (1);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   size_map_data.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:07:21 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:07:22 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 bool	check_empty_line_end_file(char *line, int fd)
@@ -35,7 +47,7 @@ bool	set_size_map_data1(t_map *map, int fd)
 	count_row = 0;
 	line = get_first_line_map(fd);
 	if (!line)
-		return (error_message("Error: map not found.", 1));
+		return (error_msg("Error: map not found.", 1));
 	while (line)
 	{
 		if (is_empty_line(line))

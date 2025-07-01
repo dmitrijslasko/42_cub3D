@@ -1,4 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_elements.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:06:33 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:06:34 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
+
+size_t	count_if_there_is_others_elements(t_map *map, char *element)
+{
+	int		row;
+	int		col;
+	size_t	element_count;
+
+	element_count = 0;
+	row = 0;
+	while (row < map->map_size_rows)
+	{
+		col = 0;
+		while (col < map->map_size_cols)
+		{
+			if (!ft_strchr(element, map->map_data[row][col]))
+				return (1);
+			col++;
+		}
+		row++;
+	}
+	return (element_count);
+}
 
 size_t	count_elements_in_the_map(t_map *map, char *element)
 {

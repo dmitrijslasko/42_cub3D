@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:35:51 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:37:40 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -398,7 +410,6 @@ void		draw_square_from_center(t_img *img, t_coor *coor,
 void		draw_square_from_top_left(t_img *img, t_coor coor,
 						int size, int clr);
 
-
 t_map		*load_dummy_map(void);
 void		print_level_map(t_map *map);
 
@@ -413,7 +424,7 @@ bool		check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side);
 
 void		print_single_ray_info(t_ray ray);
 
-int			error_message(char *msg, int ret);
+int			error_msg(char *msg, int ret);
 int			error_message_close_fd(char *msg, int fd, int ret);
 int			error_message2(char *msg, char*msg2, int ret);
 int			error_message_free(char *msg, char **array, int ret);
@@ -540,27 +551,28 @@ void		free_img(t_img *img, void *mlx_ptr);
 void		free_texture_sprite(t_data *dt);
 void		ft_free(void *ptr);
 int			count_sprite_textures(t_data *dt);
+size_t		count_if_there_is_others_elements(t_map *map, char *element);
 
 //dda
 void		step_and_set_side(t_dda_info *info);
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
 int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 int			check_hit_door_cell(t_coor *map, t_data *dt);
-void		init_raycasting(t_coor *step, t_coor *map_coor,
-				t_data *dt, t_ray *ray);
-void		finish_ray_casting(t_data *dt, t_ray *ray,
-				t_coor *map_coor, int door_hit);
-void		calculate_ray_distance(t_data *dt, t_ray *ray,
-			t_x_y *delta_dist, t_x_y *side_dist);
-void		finish_ray_casting(t_data *dt, t_ray *ray,
-			t_coor *map_coor, int door_hit);
+void		init_raycasting(t_coor *step, t_coor *map_coor, \
+						t_data *dt, t_ray *ray);
+void		finish_ray_casting(t_data *dt, t_ray *ray, \
+						t_coor *map_coor, int door_hit);
+void		calculate_ray_distance(t_data *dt, t_ray *ray, \
+						t_x_y *delta_dist, t_x_y *side_dist);
+void		finish_ray_casting(t_data *dt, t_ray *ray, \
+						t_coor *map_coor, int door_hit);
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
 int			run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info);
 
 // debug
 void		show_debug_info(t_data *dt);
 void		print_time_stats(t_data *dt, void *mlx, void *win, int *y);
-void 		print_cell_info(t_data *dt, void *mlx, void *win, int *y);
-void 		print_door_hit_stats(t_data *dt, void *mlx, void *win, int *y);
+void		print_cell_info(t_data *dt, void *mlx, void *win, int *y);
+void		print_door_hit_stats(t_data *dt, void *mlx, void *win, int *y);
 
 #endif

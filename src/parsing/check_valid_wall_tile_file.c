@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_valid_wall_tile_file.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:06:27 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:06:28 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 bool	check_single_line_wall_tile(char *line)
@@ -34,7 +46,7 @@ bool	check_valid_wall_tile_file1(int fd)
 		if (!check_single_line_wall_tile(line))
 		{
 			free_line_get_next(line, -1);
-			return (error_message("Error: Reading textures/colors.", 0));
+			return (error_msg("Error: Reading textures/colors.", 0));
 		}
 		line = free_line_get_next(line, fd);
 	}

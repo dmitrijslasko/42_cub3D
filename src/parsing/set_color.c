@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_color.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:07:16 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:07:17 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	add_color(t_color *color, int num_color, int count)
@@ -40,7 +52,7 @@ bool	set_color(char *identifier, char **color, t_map *map)
 
 	wall_type = check_valid_identifier_texture_wall(identifier);
 	if (map->wall_tile[wall_type].wall_type != DEFAULT_WALL)
-		return (error_message("Error: duplicated wall/door/floor.", 1));
+		return (error_msg("Error: duplicated wall/door/floor.", 1));
 	map->wall_tile[wall_type].wall_type = wall_type;
 	map->wall_tile[wall_type].is_color = true;
 	if (get_color(&map->wall_tile[wall_type].color, color))

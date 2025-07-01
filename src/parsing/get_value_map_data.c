@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_value_map_data.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:06:54 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:06:55 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 bool	check_valid_caracter_map(char c)
@@ -6,7 +18,7 @@ bool	check_valid_caracter_map(char c)
 		return (1);
 	if (!ft_strchr(SPRITE_TYPES, c))
 		return (1);
-	return (error_message("Error: Caracter in map not valid!", 0));
+	return (error_msg("Error: Caracter in map not valid!", 0));
 }
 
 bool	copy_line(t_map *map, int row, char *line)

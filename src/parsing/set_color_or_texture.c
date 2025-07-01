@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_color_or_texture.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 00:07:13 by fvargas           #+#    #+#             */
+/*   Updated: 2025/07/02 00:07:14 by fvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 /**
  * A file texture should have this format .xpm
@@ -22,7 +34,7 @@ bool	check_valid_texture(char **value)
 bool	set_color_or_texture(t_map *map, char *identifier, char **value)
 {
 	if (!identifier || !*value)
-		return (error_message("Error: Split.", 1));
+		return (error_msg("Error: Split.", 1));
 	if (check_valid_texture(value))
 		return (set_texture(identifier, *value, map));
 	return (set_color(identifier, value, map));

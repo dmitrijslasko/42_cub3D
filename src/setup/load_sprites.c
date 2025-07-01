@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:10:31 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/07/01 19:04:31 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/01 21:32:29 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static const t_sprite_file	g_sprites[] = {
 {'a', {"./sprites/tommy1.xpm", "./sprites/tommy2.xpm"}},
 };
 
-char *get_filepath(size_t i, size_t frame)
+char	*get_filepath(size_t i, size_t frame)
 {
 	return (g_sprites[i].filepath[frame]);
 }
@@ -82,20 +82,6 @@ int	load_sprite_images(t_data *dt)
 		printf("Sprite image loaded!\n");
 		i++;
 	}
-	return (EXIT_SUCCESS);
-}
-
-int	load_sprite_textures(t_data *dt)
-{
-	size_t	sprite_element_count;
-
-	sprite_element_count = count_elements_in_the_map(&dt->map, SPRITE_TYPES);
-	count_sprite_textures(dt);
-	printf("Sprite elements found in the map: %zu\n", sprite_element_count);
-	printf("Sprite types found in the map: %zu\n", dt->sprite_texture_count);
-	dt->sprite_textures = protected_malloc(sizeof(t_sprite_texture) * \
-		dt->sprite_texture_count, dt);
-	load_sprite_images(dt);
 	return (EXIT_SUCCESS);
 }
 

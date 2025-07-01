@@ -346,13 +346,21 @@ int			move_forward_backward(t_data *dt, int direction);
 void		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
-void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray,
-						t_coor *map_coor);
+void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, \
+												t_coor *map_coor);
+void		init_raycasting(t_coor *step, t_coor *map_coor, \
+							t_data *dt, t_ray *ray);
+void		step_and_set_side(t_dda_info *info);
+int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
+void		finish_ray_casting(t_data *dt, t_ray *ray, t_coor *map_coor, \
+																int door_hit);
+void		update_ray_hit_point(t_data *dt, t_ray *ray);
+int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
-void		calculate_ray_distance(t_data *dt, t_ray *ray,
-						t_x_y *delta_dist, t_x_y *side_dist);
+void		calculate_ray_distance(t_data *dt, t_ray *ray, \
+									t_x_y *delta_dist, t_x_y *side_dist);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool		init_rays(t_data *dt);
@@ -389,7 +397,7 @@ void		draw_square_from_center(t_img *img, t_coor *coor,
 void		draw_square_from_top_left(t_img *img, t_coor coor,
 						int size, int clr);
 
-//
+
 t_map		*load_dummy_map(void);
 void		print_level_map(t_map *map);
 
@@ -429,7 +437,7 @@ void		print_separator_default(void);
 
 int			set_coor_values(t_coor *coor, int x, int y);
 
-t_x_y	rotate_vector(t_x_y *vet, float angle_degrees, t_data *dt);
+t_x_y		rotate_vector(t_x_y *vec, float angle_degrees, t_data *dt);
 
 // minimap
 int			update_minimap(t_data *dt);
@@ -456,7 +464,7 @@ int			render_sprite(t_data *dt, t_sprite *sprite, t_coor *offset,
 						t_coor *sprite_size);
 float		fix_fish_eye(t_ray *ray, t_player *player);
 int			fix_fish_eye_2(t_ray *ray, t_player *player, float *distance);
-
+int			load_sprite_textures(t_data *dt);
 int			load_textures(t_data *dt);
 int			load_sprites(t_data *dt);
 int			precalculate_trig_tables(t_data *dt);
@@ -486,7 +494,7 @@ size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(int *count, char *line);
 
-int 		my_sleep(void);
+int			my_sleep(void);
 
 t_coor		get_cell_ahead(t_data *dt);
 void		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);
@@ -509,6 +517,8 @@ t_coor		calculate_tex_x_y(t_sprite_texture *texture, t_coor *coor, \
 bool		check_sprite_closer_than_wall(t_data *dt, t_coor *coor, \
 															t_sprite *spr);
 int			init_keys(t_data *dt);
+void		init_graphic(t_data *dt);
+void		init_text_sprites(t_sprite_texture *texture);
 int			load_messages(t_data *dt);
 void		setup_view(t_data *dt);
 

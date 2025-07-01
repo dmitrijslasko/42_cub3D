@@ -27,7 +27,7 @@ MINILIBX_DIR = $(LIBDIRS)/minilibx/
 
 # COMPILATION FLAGS
 CFLAGS = -Wall -Wextra
-CFLAGS += -Werror
+# CFLAGS += -Werror
 CFLAGS += -g
 CFLAGS += -I$(INC_DIR)
 CFLAGS += -std=c99

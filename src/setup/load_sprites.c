@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:10:31 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/07/01 17:44:23 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:42:04 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static const t_sprite_file	g_sprites[] = {
 {'p', {"./sprites/sprite-1.xpm", "./sprites/sprite-2.xpm"}},
 {'h', {"./sprites/sammy1.xpm", "./sprites/sammy2.xpm"}},
 {'a', {"./sprites/tommy1.xpm", "./sprites/tommy2.xpm"}},
+{0, {NULL, NULL}},
 };
 
 static int	set_sprite_img(t_data *dt, t_sprite_texture *texture,
@@ -37,6 +38,17 @@ static int	set_sprite_img(t_data *dt, t_sprite_texture *texture,
 	return (EXIT_SUCCESS);
 }
 
+int	count_sprite_textures(t_data *dt)
+{
+	size_t	len;
+
+	len = 0;
+	while (g_sprites[len].minimap_repr)
+		len++;
+	dt->sprite_texture_count = len;
+	return (EXIT_SUCCESS);
+}
+
 int	load_sprite_images(t_data *dt)
 {
 	size_t				i;
@@ -45,6 +57,7 @@ int	load_sprite_images(t_data *dt)
 	sprite_textures = dt->sprite_textures;
 	printf("Sprite types to be loaded: %zu\n", dt->sprite_texture_count);
 	i = 0;
+	count_sprite_textures(dt);
 	while (i < dt->sprite_texture_count)
 	{
 		sprite_textures[i].type = g_sprites[i].minimap_repr;
@@ -69,17 +82,13 @@ int	load_sprite_images(t_data *dt)
 int	load_sprite_textures(t_data *dt)
 {
 	size_t	sprite_element_count;
-	size_t	sprite_type_count;
 
 	sprite_element_count = count_elements_in_the_map(&dt->map, SPRITE_TYPES);
-	sprite_type_count = count_types_elements_in_the_map(&dt->map, SPRITE_TYPES);
-	if (sprite_type_count == 0)
-		return (EXIT_SUCCESS);
+	count_sprite_textures(dt);
 	printf("Sprite elements found in the map: %zu\n", sprite_element_count);
-	printf("Sprite types found in the map: %zu\n", sprite_type_count);
+	printf("Sprite types found in the map: %zu\n", dt->sprite_texture_count);
 	dt->sprite_textures = protected_malloc(sizeof(t_sprite_texture) * \
-		sprite_type_count, dt);
-	dt->sprite_texture_count = sprite_type_count;
+		dt->sprite_texture_count, dt);
 	load_sprite_images(dt);
 	return (EXIT_SUCCESS);
 }

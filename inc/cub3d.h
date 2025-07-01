@@ -519,5 +519,6 @@ void		free_texture(t_data *dt, t_texture *texture);
 void		free_img(t_img *img, void *mlx_ptr);
 void		free_texture_sprite(t_data *dt);
 void		ft_free(void *ptr);
+int			count_sprite_textures(t_data *dt);
 
 #endif

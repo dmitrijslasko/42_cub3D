@@ -115,14 +115,14 @@
 # define DEF_SEPARATOR_COUNT				1
 
 // menu & UI
-# define DEBUG_MENU_NL	 					10
-# define DEBUG_MENU_NL_2					20
-# define UI_CLR_1    	    				WHITE
-# define UI_CLR_2    	    				GOLD
-# define DEBUG_FIELD_1_OFFSET_X				270
-# define DEBUG_FIELD_2_OFFSET_X				90
-# define DEBUG_FIELD_OFFSET_Y				20
-# define UI_MESSAGE_OFFSET_Y				700
+# define DBG_MN_NL	 					10
+# define DBG_MN_NL_2					20
+# define UI_CLR_1    	    			WHITE
+# define UI_CLR_2    	    			GOLD
+# define DBG_1_X						930
+# define DBG_2_X						1110
+# define DBG_FIELD_OFFST_Y				20
+# define UI_MESSAGE_OFFSET_Y			700
 
 // welcome screens
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"

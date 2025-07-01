@@ -556,4 +556,9 @@ void		finish_ray_casting(t_data *dt, t_ray *ray,
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
 int			run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info);
 
+void		show_debug_info(t_data *dt);
+void		print_time_stats(t_data *dt, void *mlx, void *win, int *y);
+void 		print_cell_info(t_data *dt, void *mlx, void *win, int *y);
+void 		print_door_hit_stats(t_data *dt, void *mlx, void *win, int *y);
+
 #endif

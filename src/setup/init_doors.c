@@ -1,6 +1,7 @@
 #include <cub3d.h>
 
-static void	init_a_door(t_data *dt, t_door **door_ptr, int curr_row, int curr_col)
+static void	init_a_door(t_data *dt, t_door **door_ptr, \
+						int curr_row, int curr_col)
 {
 	t_door	*door_ptr_ref;
 

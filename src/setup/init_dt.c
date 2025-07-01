@@ -38,33 +38,6 @@ void	init_img(t_img *img)
 	img->mlx_img = NULL;
 }
 
-void	init_graphic(t_data *dt)
-{
-	dt->mlx_ptr = NULL;
-	dt->win_ptr = NULL;
-	dt->scene_img = NULL;
-	dt->minimap_base_img = NULL;
-	dt->minimap = NULL;
-	dt->sky_image = NULL;
-	dt->message_img = NULL;
-
-}
-
-
-//TODO: change hardcode 2
-void	init_text_sprites(t_sprite_texture *texture)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < 2)
-	{
-		texture->sprite_data[i] = NULL;
-		texture->sprite_img[i] = NULL;
-	}
-	texture->filepath = NULL;
-}
-
 void	init_dt(t_data *dt)
 {
 	dt->doors = NULL;
@@ -77,6 +50,7 @@ void	init_dt(t_data *dt)
 	dt->welcome_img = NULL;
 	dt->background_music = NULL;
 	dt->frames_drawn = 0;
+	dt->has_changed = 1;
 	init_mouse(&dt->mouse);
 	init_map(&dt->map);
 	init_graphic(dt);

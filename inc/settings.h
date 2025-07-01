@@ -14,7 +14,7 @@
 
 # define GRID_SIZE  						64
 
-# define BONUS								1
+# define BONUS								0
 
 // bonus part
 # define SKY_TEXTURE_PATHFILE				"./textures/sky_1.xpm"
@@ -23,7 +23,7 @@
 # define WINDOW_W							1200
 # define WINDOW_H							900
 # define CASTED_RAYS_COUNT					400
-# define FPS								60
+# define FPS								50
 # define SCALING				            500
 
 // constants.h or at the top of your .c file

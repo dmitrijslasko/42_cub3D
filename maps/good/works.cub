@@ -5,11 +5,11 @@ NO      textures/wolfenstein/red_brick.xpm
 
 SO textures/wolfenstein/red_brick.xpm
 
-F     textures/wolfenstein/red_brick.xpm
+F      255,    0,     0
 
 EA textures/wolfenstein/wood.xpm
 
-C textures/wolfenstein/red_brick.xpm
+C  255,    255,     255
 
 111111111111111111111111111111111111111111111111111111111
 10000000000000000000000000000001ssssssssssssssssssssssss1

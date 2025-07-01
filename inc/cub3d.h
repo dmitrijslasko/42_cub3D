@@ -541,13 +541,14 @@ void		free_texture_sprite(t_data *dt);
 void		ft_free(void *ptr);
 int			count_sprite_textures(t_data *dt);
 
- void		step_and_set_side(t_dda_info *info);
- void		update_ray_hit_point(t_data *dt, t_ray *ray);
- int		handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
- int		check_hit_door_cell(t_coor *map, t_data *dt);
- void		init_raycasting(t_coor *step, t_coor *map_coor,
+//dda
+void		step_and_set_side(t_dda_info *info);
+void		update_ray_hit_point(t_data *dt, t_ray *ray);
+int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
+int			check_hit_door_cell(t_coor *map, t_data *dt);
+void		init_raycasting(t_coor *step, t_coor *map_coor,
 				t_data *dt, t_ray *ray);
- void		finish_ray_casting(t_data *dt, t_ray *ray,
+void		finish_ray_casting(t_data *dt, t_ray *ray,
 				t_coor *map_coor, int door_hit);
 void		calculate_ray_distance(t_data *dt, t_ray *ray,
 			t_x_y *delta_dist, t_x_y *side_dist);
@@ -556,6 +557,7 @@ void		finish_ray_casting(t_data *dt, t_ray *ray,
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
 int			run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info);
 
+// debug
 void		show_debug_info(t_data *dt);
 void		print_time_stats(t_data *dt, void *mlx, void *win, int *y);
 void 		print_cell_info(t_data *dt, void *mlx, void *win, int *y);

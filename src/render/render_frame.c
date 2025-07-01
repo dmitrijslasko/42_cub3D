@@ -41,7 +41,8 @@ int	render_frame(void *param)
 		return (0);
 	}
 	dt->last_time = current_time;
-	reset_mouse_position(dt);
+	if (BONUS)
+		reset_mouse_position(dt);
 	process_keypresses(dt);
 	calculate_all_rays(dt);
 	update_prompt_message(dt);
@@ -49,7 +50,7 @@ int	render_frame(void *param)
 	put_img_to_img(dt->frames_img, dt->scene_img, 0, 0);
 	render_all_sprites(dt);
 	update_minimap(dt);
-	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, 
+	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,
 		dt->frames_img->mlx_img, 0, 0);
 	render_minimap_and_ui(dt);
 	return (EXIT_SUCCESS);

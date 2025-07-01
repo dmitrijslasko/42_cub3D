@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:10 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:09:11 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 01:05:01 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_texture_coor(t_data *dt, float screen_x, int *texture_x, \
 							float angle_offset)
 {
-	float	rotation_scale;
 	float	view_ratio;
 	float	tex_ratio;
 
@@ -79,4 +78,5 @@ int	draw_sky(t_data *dt)
 	angle_offset = calculate_angle_offset(dt);
 	texture_start_y = calculate_t_start_y(dt);
 	draw_sky1(dt, angle_offset, texture_start_y);
+	return (EXIT_SUCCESS);
 }

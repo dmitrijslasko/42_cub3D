@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:09:22 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 01:05:11 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	render_minimap_and_ui(t_data *dt)
 	render_ui(dt);
 	dt->has_changed = 0;
 	dt->frames_drawn++;
+	return (EXIT_SUCCESS);
 }
 
 int	render_frame(void *param)

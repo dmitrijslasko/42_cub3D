@@ -6,23 +6,25 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:12:07 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:32:20 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 01:03:40 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "sound.h"
 
-static int	check_and_parse_args(t_data *dt, int argc, char **argv)
+static void	check_and_parse_args(t_data *dt, int argc, char **argv)
 {
 	if (argc != 2)
-		return (error_msg("Try again! Format ./cub3D <name_file>.cub\n", 1));
+	{
+		error_msg("Try again! Format ./cub3D <name_file>.cub\n", 1);
+		exit(1);
+	}
 	if (parsing(dt, argv[1]))
 	{
 		free_dt(dt);
-		return (EXIT_FAILURE);
+		exit(1);
 	}
-	return (EXIT_SUCCESS);
 }
 
 static int	setup_controls(t_data *dt)

@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:33:06 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:33:07 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 01:03:04 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,9 @@ void	show_debug_info(t_data *dt)
 	int		y;
 	void	*mlx;
 	void	*win;
-	size_t	i;
 	int		(*f)(void*, void*, int, int, int, char*);
 
 	f = mlx_string_put;
-	if (CASTED_RAYS_COUNT == 1)
-		i = 0;
-	else
-		i = CASTED_RAYS_COUNT / 2;
 	y = DBG_FIELD_OFFST_Y;
 	mlx = dt->mlx_ptr;
 	win = dt->win_ptr;

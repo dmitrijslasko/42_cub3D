@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:35:51 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:37:40 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 01:06:07 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -574,5 +574,10 @@ void		show_debug_info(t_data *dt);
 void		print_time_stats(t_data *dt, void *mlx, void *win, int *y);
 void		print_cell_info(t_data *dt, void *mlx, void *win, int *y);
 void		print_door_hit_stats(t_data *dt, void *mlx, void *win, int *y);
+void		print_window_info(t_data *dt, void *mlx, void *win, int *y);
+void		print_obstacle_info(t_data *dt, void *mlx, void *win, int *y);
+void		print_player_position(t_data *dt, void *mlx, void *win, int *y);
+
+int			load_sprite_images(t_data *dt);
 
 #endif

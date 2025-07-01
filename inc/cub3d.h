@@ -395,7 +395,7 @@ t_map		*load_dummy_map(void);
 void		print_level_map(t_map *map);
 
 int			render_frame(void *param);
-void		add_ui(t_data *dt);
+void		render_ui(t_data *dt);
 
 int			init_player(t_data *dt);
 
@@ -484,7 +484,7 @@ size_t		size_array(char **array);
 void		free_array(char **array);
 void		update_value_max(int *count, char *line);
 
-int my_sleep(void);
+int 		my_sleep(void);
 
 t_coor		get_cell_ahead(t_data *dt);
 void		set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor);

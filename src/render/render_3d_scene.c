@@ -87,5 +87,4 @@ void render_3d_scene(t_data *dt)
 		}
 		i++;
 	}
-	render_all_sprites(dt);
 }

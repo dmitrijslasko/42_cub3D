@@ -14,7 +14,10 @@ long	get_current_time_in_ms(void)
 
 int my_sleep(void)
 {
-    struct timespec ts = {0, 16666666}; // ~30 FPS (33.3ms)
+	int sleep_time;
+
+	sleep_time = 1000000000 / FPS;
+    struct timespec ts = {0, sleep_time}; // ~30 FPS (33.3ms)
     nanosleep(&ts, NULL);
-    return 0;
+    return (0);
 }

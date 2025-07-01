@@ -6,7 +6,7 @@ bool	is_invalid_map(t_map *map)
 
 	if (BONUS)
 		return (0);
-	count = count_if_there_is_others_elements(map, "10NSWE");
+	count = count_if_there_is_others_elements(map, "10NSWE ");
 	if (count > 0)
 		return (error_msg("Error:There's caracter not allowed on the map.", 1));
 	return (0);

@@ -31,8 +31,10 @@ void	maneger_door_open_close(t_data *dt, int dir)
 	{
 		dt->view->show_door_open_message = 1;
 		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
-		door->open_progress = fmax(0.0f, door->open_progress + \
-												dir * door->speed);
+		if (dir == 1)
+			door->open_progress = fmax(0.0f, door->open_progress - door->speed);
+		else
+			door->open_progress = fmin(1.0f, door->open_progress + door->speed);
 	}
 }
 

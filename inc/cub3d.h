@@ -346,13 +346,21 @@ int			move_forward_backward(t_data *dt, int direction);
 void		rotate_player(t_data *dt, float d_angle, int direction);
 
 //ray
-void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray,
-						t_coor *map_coor);
+void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, \
+												t_coor *map_coor);
+void		init_raycasting(t_coor *step, t_coor *map_coor, \
+							t_data *dt, t_ray *ray);
+void		step_and_set_side(t_dda_info *info);
+int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
+void		finish_ray_casting(t_data *dt, t_ray *ray, t_coor *map_coor, \
+																int door_hit);
+void		update_ray_hit_point(t_data *dt, t_ray *ray);
+int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
-void		calculate_ray_distance(t_data *dt, t_ray *ray,
-						t_x_y *delta_dist, t_x_y *side_dist);
+void		calculate_ray_distance(t_data *dt, t_ray *ray, \
+									t_x_y *delta_dist, t_x_y *side_dist);
 
 void		set_delta_dist(t_x_y *delta_dis, t_x_y direction);
 bool		init_rays(t_data *dt);
@@ -389,7 +397,7 @@ void		draw_square_from_center(t_img *img, t_coor *coor,
 void		draw_square_from_top_left(t_img *img, t_coor coor,
 						int size, int clr);
 
-//
+
 t_map		*load_dummy_map(void);
 void		print_level_map(t_map *map);
 

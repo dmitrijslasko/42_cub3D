@@ -2,9 +2,12 @@
 # define CUB3D_H
 
 // # define _POSIX_C_SOURCE 200112L
-# include <unistd.h>        // for usleep()
-# include <stdlib.h>        // for EXIT_SUCCESS, EXIT_FAILURE
-# include <sys/time.h>      // for gettimeofday()
+# define _POSIX_C_SOURCE 200112L
+# include <time.h>
+# include <unistd.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/time.h>
 
 # include <stdio.h>
 # include <stdint.h>
@@ -529,5 +532,20 @@ void		free_img(t_img *img, void *mlx_ptr);
 void		free_texture_sprite(t_data *dt);
 void		ft_free(void *ptr);
 int			count_sprite_textures(t_data *dt);
+
+ void		step_and_set_side(t_dda_info *info);
+ void		update_ray_hit_point(t_data *dt, t_ray *ray);
+ int		handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
+ int		check_hit_door_cell(t_coor *map, t_data *dt);
+ void		init_raycasting(t_coor *step, t_coor *map_coor,
+				t_data *dt, t_ray *ray);
+ void		finish_ray_casting(t_data *dt, t_ray *ray,
+				t_coor *map_coor, int door_hit);
+void		calculate_ray_distance(t_data *dt, t_ray *ray,
+			t_x_y *delta_dist, t_x_y *side_dist);
+void		finish_ray_casting(t_data *dt, t_ray *ray,
+			t_coor *map_coor, int door_hit);
+void		update_ray_hit_point(t_data *dt, t_ray *ray);
+int			run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info);
 
 #endif

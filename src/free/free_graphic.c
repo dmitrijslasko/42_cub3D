@@ -11,7 +11,10 @@ void	free_graphic(t_data *dt)
 	if (dt->win_ptr)
 		mlx_destroy_window(dt->mlx_ptr, dt->win_ptr);
 	if (dt->mlx_ptr)
+	{
 		mlx_destroy_display(dt->mlx_ptr);
+		free(dt->mlx_ptr);
+	}
 	dt->mlx_ptr = NULL;
 	dt->win_ptr = NULL;
 }

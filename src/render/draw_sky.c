@@ -1,12 +1,10 @@
 #include "cub3d.h"
 
-int draw_sky(t_data *dt)
+int	draw_sky(t_data *dt)
 {
-	int screen_x;
-	int screen_y;
-	int texture_x;
-	int	texture_y;
-	uint32_t color;
+	t_coor		screen;
+	t_coor		texture;
+	uint32_t	color;
 
 	// Player angle in radians
 	float angle_rad = dt->player.direction_vector_deg * (M_PI / 180.0f);
@@ -24,38 +22,37 @@ int draw_sky(t_data *dt)
 	// Where to start sampling vertically from sky texture
 	int texture_start_y = (dt->sky_image->height / 3) - (WINDOW_H / 20) + delta;
 
-	screen_y = 0;
-	while (screen_y < dt->view->screen_center_y)
+	screen.y = 0;
+	while (screen.y < dt->view->screen_center_y)
 	{
-		screen_x = 0;
-		while (screen_x < WINDOW_W)
+		screen.x = 0;
+		while (screen.x < WINDOW_W)
 		{
 			// Horizontal wrapping based on angle
-			float view_ratio = (float)screen_x / (float)WINDOW_W;
+			float view_ratio = (float)screen.x / (float)WINDOW_W;
 			float tex_ratio = fmodf(view_ratio + angle_offset, 1.0f);
-			texture_x = (int)(tex_ratio * dt->sky_image->width);
+			texture.x = (int)(tex_ratio * dt->sky_image->width);
 			if (ENABLE_MOVING_SKY)
-				texture_x += (dt->last_time - dt->start_time) / 100;
+				texture.x += (dt->last_time - dt->start_time) / 100;
 
 			// Vertical sampling without stretching
-			texture_y = texture_start_y + screen_y;
+			texture.y = texture_start_y + screen.y;
 
 			// Clamp to texture bounds
-			if (texture_y < 0)
-				texture_y = 0;
-			if (texture_y > dt->sky_image->height)
-				texture_y = dt->sky_image->height;
+			if (texture.y < 0)
+				texture.y = 0;
+			if (texture.y > dt->sky_image->height)
+				texture.y = dt->sky_image->height;
 
 			char *pixel = dt->sky_image->addr
-				+ texture_y * dt->sky_image->line_len
-				+ texture_x * (dt->sky_image->bpp / 8);
+				+ texture.y * dt->sky_image->line_len
+				+ texture.x * (dt->sky_image->bpp / 8);
 
 			color = *(uint32_t *)pixel;
-
-			img_pix_put(dt->scene_img, screen_x, screen_y, color);
-			screen_x++;
+			img_pix_put(dt->scene_img, screen.x, screen.y, color);
+			screen.x++;
 		}
-		screen_y++;
+		screen.y++;
 	}
 	return (EXIT_SUCCESS);
 }

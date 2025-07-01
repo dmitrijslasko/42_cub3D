@@ -149,6 +149,7 @@
 # define ENABLE_SHADERS						1
 # define DISTANCE_SHADOW_STRENGTH 			0.2f
 
-# define ENABLE_MOVING_SKY					0
+# define ENABLE_MOVING_SKY					1
+# define ROTATION_SCALE					    1
 
 #endif

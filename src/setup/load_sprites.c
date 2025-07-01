@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 20:10:31 by dmlasko           #+#    #+#             */
-/*   Updated: 2025/07/01 18:42:33 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/01 19:04:31 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,22 @@ typedef struct s_sprite_file
 static const t_sprite_file	g_sprites[] = {
 {'s', {"./sprites/heart.xpm", "./sprites/heart.xpm"}},
 {'q', {"./sprites/test.xpm", "./sprites/test.xpm"}},
-{'p', {"./sprites/sprite-1.xpm", "./sprites/sprite-2.xpm"}},
+{'p', {"./sprites/container.xpm", "./sprites/container.xpm"}},
 {'h', {"./sprites/sammy1.xpm", "./sprites/sammy2.xpm"}},
 {'a', {"./sprites/tommy1.xpm", "./sprites/tommy2.xpm"}},
-{0, {NULL, NULL}},
 };
 
-static int	set_sprite_img(t_data *dt, t_sprite_texture *texture,
-	size_t i, size_t frame, char *filepath)
+char *get_filepath(size_t i, size_t frame)
 {
+	return (g_sprites[i].filepath[frame]);
+}
+
+static int	set_sprite_img(t_data *dt, t_sprite_texture *texture,
+	size_t i, size_t frame)
+{
+	char	*filepath;
+
+	filepath = get_filepath(i, frame);
 	texture[i].sprite_img[frame] = mlx_xpm_file_to_image(\
 		dt->mlx_ptr, \
 		filepath, \
@@ -60,13 +67,13 @@ int	load_sprite_images(t_data *dt)
 	while (i < dt->sprite_texture_count)
 	{
 		sprite_textures[i].type = g_sprites[i].minimap_repr;
-		set_sprite_img(dt, sprite_textures, i, 0, g_sprites[i].filepath[0]);
+		set_sprite_img(dt, sprite_textures, i, 0);
 		sprite_textures[i].sprite_data[0] = (int *)mlx_get_data_addr(\
 						sprite_textures[i].sprite_img[0], \
 						&sprite_textures[i].bpp, \
 						&sprite_textures[i].size_line, \
 						&sprite_textures[i].endian);
-		set_sprite_img(dt, sprite_textures, i, 1, g_sprites[i].filepath[1]);
+		set_sprite_img(dt, sprite_textures, i, 1);
 		sprite_textures[i].sprite_data[1] = (int *)mlx_get_data_addr(\
 						sprite_textures[i].sprite_img[1], \
 						&sprite_textures[i].bpp, \

@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-int update_prompt_message(t_data *dt)
+int	update_prompt_message(t_data *dt)
 {
-	t_coor cell_ahead;
+	t_coor	cell_ahead;
 
 	cell_ahead = get_cell_ahead(dt);
 	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
@@ -40,7 +40,8 @@ int	render_frame(void *param)
 	//mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->scene_img->mlx_img, 0, 0);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->frames_img->mlx_img, 0, 0);
 	if (dt->view->show_minimap)
-		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, \
+					dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
 	if (dt->view->show_debug_info)
 		show_debug_info(dt);
 	if (dt->view->show_door_open_message)

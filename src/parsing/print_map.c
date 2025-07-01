@@ -8,7 +8,7 @@ void	print_level_map(t_map *map)
 	row = 0;
 	printf(TXT_YELLOW "Printing out the level map->..\n" TXT_RESET);
 	print_separator(1, DEF_SEPARATOR_CHAR);
-	if (!map->map_data[0] || !map->map_data[0][0])
+	if (!map || !map->map_data || !map->map_data[0] || !map->map_data[0][0])
 		return ;
 	while (row < map->map_size_rows)
 	{

@@ -102,4 +102,7 @@ void	show_debug_info(t_data *dt)
 	snprintf(buffer, sizeof(buffer), "%ld", (dt->last_time - dt->start_time) / 1000);
 	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL_2, UI_CLR_1, "Elapsed time (s):");
 	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_1, buffer);
+
+	mlx_string_put(mlx, win, field_1_x, y += DEBUG_MENU_NL, UI_CLR_2, "Frames drawn:");
+	mlx_string_put(mlx, win, field_2_x, y, UI_CLR_2, ft_itoa(dt->frames_drawn));
 }

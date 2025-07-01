@@ -8,14 +8,16 @@ long	get_current_time_in_ms(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-// // #define _POSIX_C_SOURCE 200112L
-// #include <unistd.h>
-// #include <time.h>
+#define _POSIX_C_SOURCE 200112L
+#include <time.h>
+#include <unistd.h>
 
-// int my_sleep(void) 
-// {
-//     struct timespec ts = {0, 20000000}; // 0.5 seconds
-//     nanosleep(&ts, NULL);
-//     // printf("Slept 0.5s\n");
-//     return 0;
-// }
+int my_sleep(void)
+{
+	int sleep_time;
+
+	sleep_time = 1e9 / FPS;
+    struct timespec ts = {0, sleep_time};
+    nanosleep(&ts, NULL);
+    return (0);
+}

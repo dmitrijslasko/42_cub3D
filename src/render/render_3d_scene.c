@@ -23,6 +23,8 @@ void render_3d_scene(t_data *dt)
 	int		screen_slice_width;
 	int		y;
 
+	if (dt->has_changed == 0)
+		return ;
 	render_floor_and_ceiling(dt);
 
 	i = 0;
@@ -87,5 +89,4 @@ void render_3d_scene(t_data *dt)
 		}
 		i++;
 	}
-	render_all_sprites(dt);
 }

@@ -1,5 +1,6 @@
 *.o
 cub3D
+.pdf
 #README.md
 
 # ⛳ Keep local SDL builds

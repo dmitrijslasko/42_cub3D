@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Hardcoded folder path
-FOLDER="./maps/bad"
+FOLDER="../maps/bad"
 
 # Check if folder exists
 if [ ! -d "$FOLDER" ]; then

@@ -3,6 +3,7 @@ include colors.mk
 
 # PROJECT NAME
 NAME = cub3D
+NAME = cub3D_bonus
 
 # COMPILER
 CC = gcc
@@ -12,7 +13,6 @@ INC_DIR = ./inc
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 OBJ_DIR_BONUS = ./obj_bonus
-OBJ_DIR_DEV = ./obj_devmode
 
 # LIBRARIES
 LIBDIRS = ./lib
@@ -40,7 +40,6 @@ CFLAGS += -I$(SDL2_INC) -I$(SDL2_MIXER_INC) -D_REENTRANT
 LDFLAGS = -L$(LIBFT_DIR) -lft
 LDFLAGS += -L$(MINILIBX_DIR) -lmlx
 LDFLAGS += -lX11 -lXext -lm
-# LDFLAGS += -lSDL2 -lSDL2_mixer
 LDFLAGS += -Llib/SDL2/build/lib -Llib/SDL2_mixer/build/lib -lSDL2 -lSDL2_mixer
 
 
@@ -50,8 +49,6 @@ BONUSFLAGS = -DBONUS=1
 # ------------------------------------------------------------------------------
 
 # SOURCE FILES
-# SRC := $(shell find $(SRC_DIR) -name "*.c")
-
 SRC =	./src/controls/map_position_is_walkable.c \
 		./src/controls/move_forward_backward.c \
 		./src/controls/move_sideways.c \
@@ -188,15 +185,9 @@ SRC =	./src/controls/map_position_is_walkable.c \
 		./src/utils/update_max_value.c \
 		./src/utils/x_y.c
 		
-OBJ := $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC:.c=.o))
-DEPS := $(OBJ:.o=.d)
-
 # OBJECT FILES
+OBJ = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC:.c=.o))
 OBJ_BONUS = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR_BONUS)/%, $(SRC:.c=.o))
-
-# DEPENDENCIES
-DEPS_BONUS = $(OBJ_BONUS:.o=.d)
-
 
 # MAKE RULES
 # ------------------------------------------------------------------------------
@@ -209,7 +200,7 @@ DEPS_BONUS = $(OBJ_BONUS:.o=.d)
 test: all
 	./${NAME} ./maps/good/creepy.cub
 
-all: libft $(NAME) $(MINILIBX) $(HEADER_FILE_M)
+all: libft $(NAME) $(HEADER_FILE_M)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $@
@@ -221,7 +212,21 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(CYAN)Compiling $<$(RST)"
 
-#-include $(DEPS)
+-include $(DEPS)
+
+# ------------------------------------------------------------------------------
+
+bonus: libft $(NAME_BONUS) $(HEADER_FILE_B)
+
+$(NAME_BONUS): $(OBJ_BONUS)
+	@$(CC) $(CFLAGS) $(BONUSFLAGS) $(OBJ_BONUS) $(LDFLAGS) -o $@
+	@echo "$(B_MAGENTA)✅ $@ successfully compiled.$(RST)"
+	@echo "🚩 $(MAGENTA)Bonus Flags:\n$(CFLAGS)\n$(LDFLAGS)\n$(BONUSFLAGS)$(RST)"
+
+$(OBJ_DIR_BONUS)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(BONUSFLAGS) -c $< -o $@
+	@echo "$(MAGENTA)Compiling $< (BONUS)$(RST)"
 
 # ------------------------------------------------------------------------------
 

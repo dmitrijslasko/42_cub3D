@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+         #
+#    By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 14:55:41 by fvargas           #+#    #+#              #
-#    Updated: 2025/07/02 14:55:41 by fvargas          ###   ########.fr        #
+#    Updated: 2025/07/02 14:58:43 by dmlasko          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -266,6 +266,7 @@ re: fclean all
 	@echo "$(RED)Failure:$(RESET) target '$@' is not a valid target."
 	@echo "Please use one of the following valid targets:"
 	@echo "- $(GREEN)make$(RESET): compiles the project"
+	@echo "- $(GREEN)make bonus$(RESET): compiles bonus part"
 	@echo "- $(GREEN)make re$(RESET): recompiles the project"
 	@echo "- $(GREEN)make clean$(RESET): removes object files"
 	@echo "- $(GREEN)make fclean$(RESET): removes object files and the final binary"

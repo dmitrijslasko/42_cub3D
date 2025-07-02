@@ -3,7 +3,7 @@ include colors.mk
 
 # PROJECT NAME
 NAME = cub3D
-NAME = cub3D_bonus
+NAME_BONUS = cub3D_bonus
 
 # COMPILER
 CC = gcc
@@ -184,7 +184,7 @@ SRC =	./src/controls/map_position_is_walkable.c \
 		./src/utils/toggle_setting.c \
 		./src/utils/update_max_value.c \
 		./src/utils/x_y.c
-		
+
 # OBJECT FILES
 OBJ = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC:.c=.o))
 OBJ_BONUS = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR_BONUS)/%, $(SRC:.c=.o))
@@ -197,8 +197,14 @@ OBJ_BONUS = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR_BONUS)/%, $(SRC:.c=.o))
 
 # ------------------------------------------------------------------------------
 
-test: all
-	./${NAME} ./maps/good/creepy.cub
+test:
+	@if [ -f "${NAME_BONUS}" ]; then \
+		echo "Running bonus: ${NAME_BONUS}"; \
+		./${NAME_BONUS} ./maps/good/bonus.cub; \
+	else \
+		echo "Running regular: ${NAME}"; \
+		./${NAME} ./maps/good/creepy.cub; \
+	fi
 
 all: libft $(NAME) $(HEADER_FILE_M)
 

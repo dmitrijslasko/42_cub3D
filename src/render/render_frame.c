@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 01:05:11 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:45:29 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	update_prompt_message(t_data *dt)
 
 static int	render_minimap_and_ui(t_data *dt)
 {
-	if (dt->view->show_minimap)
+	if (BONUS && dt->view->show_minimap)
 		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, \
 				dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
-	if (dt->view->show_debug_info)
+	if (BONUS && dt->view->show_debug_info)
 		show_debug_info(dt);
 	if (dt->view->show_door_open_message)
 		render_ui_message(dt);

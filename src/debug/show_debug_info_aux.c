@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_debug_info_aux.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:33:03 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:33:04 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:45:04 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_window_info(t_data *dt, void *mlx, void *win, int *y)
 	f(mlx, win, DBG_2_X, *y, UI_CLR_1, ft_itoa(WINDOW_W));
 	f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Window H:");
 	f(mlx, win, DBG_2_X, *y, UI_CLR_1, ft_itoa(WINDOW_H));
-	f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_2, "Casted ra*ys:");
+	f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_2, "Casted rays:");
 	f(mlx, win, DBG_2_X, *y, UI_CLR_2, ft_itoa(CASTED_RAYS_COUNT));
 }
 

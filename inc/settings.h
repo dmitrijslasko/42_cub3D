@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   settings.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:40:38 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:43:09 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #  define M_PI 3.14
 # endif
 
+# ifndef BONUS
+#  define BONUS 0
+# endif
+
 // window name
 # define WINDOW_NAME       "cub3D - fvargas & dmlasko @ 42Berlin"
 # define VERSION_INFO      "cub3D project - 42 Berlin - fvargas & dmlasko, v1.0"
@@ -25,8 +29,6 @@
 # define SHOW_DEBUG_INFO 					0
 
 # define GRID_SIZE  						64
-
-# define BONUS								0
 
 // bonus part
 # define SKY_TXT_PATHFILE	"./textures/sky_1.xpm"
@@ -144,7 +146,7 @@
 # define PUT_DOOR				            1
 # define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
 // four walls + celling + floor even if is a color
-# define NUMBER_TEXTURES    	            6 
+# define NUMBER_TEXTURES    	            6
 
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 

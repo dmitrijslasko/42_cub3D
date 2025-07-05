@@ -47,7 +47,7 @@ static int	setup_dt(t_data *dt)
 	load_sky_image(dt);
 	load_messages(dt);
 	init_doors(dt);
-	load_sprites(dt);
+	// load_sprites(dt);
 	setup_view(dt);
 	draw_minimap_base_img(dt);
 	setup_img(dt, dt->scene_img, WINDOW_W, WINDOW_H);

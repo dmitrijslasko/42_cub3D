@@ -32,7 +32,7 @@ LIBFT_DIR = $(LIBDIRS)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SDL2_INC := lib/SDL2/build/include/SDL2
-SDL2_MIXER_INC := lib/SDL2_mixer/build/include
+SDL2_MIXER_INC := lib/SDL2_mixer/build/include/SDL2
 
 MINILIBX = $(MINILIBX_DIR)libmlx.a
 MINILIBX_DIR = $(LIBDIRS)/minilibx/
@@ -42,10 +42,11 @@ CFLAGS = -Wall -Wextra
 CFLAGS += -Werror
 CFLAGS += -g
 CFLAGS += -I$(INC_DIR)
+CFLAGS += -I$(MINILIBX_DIR)
+
 CFLAGS += -std=c99
 CFLAGS += -Wno-error=type-limits
 CFLAGS += -D_POSIX_C_SOURCE=200112L
-
 CFLAGS += -I$(SDL2_INC) -I$(SDL2_MIXER_INC) -D_REENTRANT
 
 # LINKER FLAGS
@@ -212,10 +213,10 @@ OBJ_BONUS = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR_BONUS)/%, $(SRC:.c=.o))
 test:
 	@if [ -f "${NAME_BONUS}" ]; then \
 		echo "Running bonus: ${NAME_BONUS}"; \
-		./${NAME_BONUS} ./maps/good/bonus.cub; \
+		LD_LIBRARY_PATH=lib/SDL2/build/lib:lib/SDL2_mixer/build/lib ./${NAME_BONUS} ./maps/good/bonus.cub; \
 	else \
 		echo "Running regular: ${NAME}"; \
-		./${NAME} ./maps/good/creepy.cub; \
+		LD_LIBRARY_PATH=lib/SDL2/build/lib:lib/SDL2_mixer/build/lib ./${NAME} ./maps/good/creepy.cub; \
 	fi
 
 all: libft $(NAME) $(HEADER_FILE_M)

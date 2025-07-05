@@ -1,4 +1,4 @@
-prefix=/home/dmlasko/_cursus/cub3d/lib/SDL_mixer-release-2.8.1/build
+prefix=/home/parallels/Desktop/cub3d3/lib/SDL2_mixer/build/../build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

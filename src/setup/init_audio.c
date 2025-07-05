@@ -12,8 +12,8 @@
 
 #include "sound.h"
 #include "colors.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 void	free_audio(void *ptr)
 {

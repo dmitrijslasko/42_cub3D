@@ -1,6 +1,6 @@
 # sdl pkg-config source file
 
-prefix=/home/dmlasko/_cursus/cub3d/lib/SDL2/build
+prefix=/home/parallels/Desktop/cub3d3/lib/SDL2/build/../build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
@@ -10,6 +10,6 @@ Description: Simple DirectMedia Layer is a cross-platform multimedia library des
 Version: 2.30.2
 Requires.private: 
 Conflicts:
-Libs: -L${libdir} -Wl,-rpath,${libdir} -Wl,--enable-new-dtags  -lSDL2 
-Libs.private:  -lSDL2 -pthread  -lm
-Cflags: -I${includedir} -I${includedir}/SDL2  -D_REENTRANT
+Libs: -L${libdir} -Wl,-rpath,${libdir} -Wl,--enable-new-dtags -lSDL2 
+Libs.private:  -lm -lpthread
+Cflags: -I${includedir} -I${includedir}/SDL2   -D_REENTRANT

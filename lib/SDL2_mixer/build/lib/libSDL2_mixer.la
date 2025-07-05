@@ -17,7 +17,7 @@ old_library='libSDL2_mixer.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -lSDL2 -lm'
+dependency_libs=' -L/home/parallels/Desktop/cub3d3/lib/SDL2/build/lib /home/parallels/Desktop/cub3d3/lib/SDL2/build/../build/lib/libSDL2.la -lpthread -lm'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/dmlasko/_cursus/cub3d/lib/SDL_mixer-release-2.8.1/build/lib'
+libdir='/home/parallels/Desktop/cub3d3/lib/SDL2_mixer/build/../build/lib'

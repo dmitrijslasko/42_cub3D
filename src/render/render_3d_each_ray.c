@@ -17,7 +17,7 @@ void	put_pix_img(t_data *dt, t_ray *ray, t_coor *texture, t_coor *coor)
 	int		color;
 
 	color = get_color_render3d(dt, ray, texture);
-	img_pix_put(dt->scene_img, coor->x, coor->y, color);
+	img_pix_put(dt->raycasting_scene_img, coor->x, coor->y, color);
 }
 
 void	render_3d_each_ray(t_data *dt, t_ray *ray, int screen_slice_width)
@@ -28,12 +28,13 @@ void	render_3d_each_ray(t_data *dt, t_ray *ray, int screen_slice_width)
 	t_coor	texture;
 
 	wall_height = 1.0f / ray->corrected_distance_to_wall * SCALING;
+	ray->wall_height = wall_height;
+	printf("%f\n", ray->wall_height);
 	top_y = dt->view->screen_center_y - wall_height;
 	coor.y = ft_max(top_y, 0);
 	while (coor.y < ft_min(WINDOW_H, dt->view->screen_center_y + wall_height))
 	{
-		calc_texture_coor(dt, &texture.y, &ray->corrected_distance_to_wall, \
-																coor.y - top_y);
+		calc_texture_coor(dt, &texture.y, &ray->corrected_distance_to_wall, coor.y - top_y);
 		coor.x = ft_max(ray->id * screen_slice_width, 0);
 		while (coor.x < (ray->id + 1) * screen_slice_width && coor.x < WINDOW_W)
 		{

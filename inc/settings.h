@@ -34,11 +34,11 @@
 # define SKY_TXT_PATHFILE	"./textures/sky_1.xpm"
 
 // window size
-# define WINDOW_W							1200
-# define WINDOW_H							900
-# define CASTED_RAYS_COUNT					400
-# define FPS								50
-# define SCALING				            500
+# define WINDOW_W							600
+# define WINDOW_H							450
+# define CASTED_RAYS_COUNT					200
+# define FPS								60
+# define SCALING				            250
 
 // constants.h or at the top of your .c file
 // 10 samples per degree
@@ -72,7 +72,7 @@
 
 # define MINIMAP_DOOR_THICKNESS_PX			3
 
-# define MINIMAP_PLAYER_SIZE_PX 			1
+# define MINIMAP_PLAYER_SIZE_PX 			5
 # define MINIMAP_PLAYER_DISPLAY_STYLE 		CIRCLE
 # define MINIMAP_PLAYER_COLOR 				WHITE
 
@@ -83,6 +83,7 @@
 
 # define MINIMAP_RENDER_RAYS_ENABLE         1
 # define MINIMAP_RENDER_RAY_COLOR		    YELLOW
+# define MINIMAP_DRAW_EVERY_NTH_RENDER_RAY  5
 
 // gameplay
 # define FIELD_OF_VIEW_DEG					60.0f
@@ -101,11 +102,11 @@
 # define DOOR_OPEN_VALUE                    1.0f
 
 // default scale
-# define KEYBOARD_PLAYER_STEP_FORWARD		0.1f
-# define KEYBOARD_PLAYER_STEP_BACKWARD		0.05f
-# define KEYBOARD_PLAYER_STEP_SIDE 			0.05f
-# define KEYBOARD_PLAYER_ROTATION_STEP 		2.0f
-# define KEYBOARD_VERTICAL_LOOK_STEP 10.0f
+# define KEYBOARD_PLAYER_STEP_FORWARD		0.04f
+# define KEYBOARD_PLAYER_STEP_BACKWARD		0.025f
+# define KEYBOARD_PLAYER_STEP_SIDE 			0.025f
+# define KEYBOARD_PLAYER_ROTATION_STEP 		1.0f
+# define KEYBOARD_VERTICAL_LOOK_STEP        10.0f
 # define MOVE_SPEED_MULTIPLIER_SLOW 		0.4f
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f
 
@@ -120,7 +121,7 @@
 # define MOUSE_SENS_SCROLL 					0.1f
 # define MOUSE_CENTER_TOLERANCE_PX			25
 
-# define ENABLE_CROSSHAIR					0
+# define ENABLE_CROSSHAIR					1
 # define DEFAULT_CROSSHAIR_COLOR			WHITE
 # define DEFAULT_CROSSHAIR_SIZE				5
 
@@ -162,7 +163,7 @@
 
 // shaders
 # define ENABLE_SHADERS						1
-# define DISTANCE_SHADOW_STRENGTH 			0.2f
+# define DISTANCE_SHADOW_STRENGTH 			0.1f
 
 # define ENABLE_MOVING_SKY					1
 # define ROTATION_SCALE					    1

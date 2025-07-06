@@ -35,7 +35,9 @@ int	handle_keypress(int keycode, t_data *dt)
 int	handle_keyrelease(int keycode, t_data *dt)
 {
 	if (keycode == XK_Tab)
+	{
 		toggle_setting(&dt->view->show_minimap);
+	}
 	if (keycode == XK_F12)
 		toggle_setting(&dt->view->show_debug_info);
 	else if (keycode >= 0 && keycode < TRACKED_KEYS)

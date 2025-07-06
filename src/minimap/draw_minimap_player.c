@@ -28,13 +28,13 @@ int	draw_minimap_player(t_data *dt)
 {
 	t_coor	player_pos;
 
-	player_pos.x = dt->minimap->width / 2;
-	player_pos.y = dt->minimap->height / 2;
+	player_pos.x = dt->minimap_img->width / 2;
+	player_pos.y = dt->minimap_img->height / 2;
 	if (MINIMAP_PLAYER_DISPLAY_STYLE == CIRCLE)
-		draw_circle(dt->minimap, &player_pos, MINIMAP_PLAYER_SIZE_PX,
+		draw_circle(dt->minimap_img, &player_pos, MINIMAP_PLAYER_SIZE_PX,
 			MINIMAP_PLAYER_COLOR);
 	else if (MINIMAP_PLAYER_DISPLAY_STYLE == SQUARE)
-		draw_square_from_center(dt->minimap, &player_pos,
+		draw_square_from_center(dt->minimap_img, &player_pos,
 			MINIMAP_PLAYER_SIZE_PX, MINIMAP_PLAYER_COLOR);
 	return (EXIT_SUCCESS);
 }

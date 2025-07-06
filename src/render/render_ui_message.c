@@ -32,7 +32,7 @@ int	render_ui_message(t_data *dt)
 			draw.x = ((WINDOW_W - dt->message_img[0].width) / 2) + col;
 			draw.y = UI_MESSAGE_OFFSET_Y + row;
 			if (color != TRANSPARENT_COLOR)
-				img_pix_put(dt->scene_img, draw.x, draw.y, color);
+				img_pix_put(dt->raycasting_scene_img, draw.x, draw.y, color);
 			col++;
 		}
 		row++;

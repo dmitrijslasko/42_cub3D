@@ -25,5 +25,5 @@ void	sprite_put_color(t_data *dt, t_sprite *sprite, \
 			tex_coor->x];
 	if (color == TRANSPARENT_COLOR)
 		return ;
-	img_pix_put(dt->frames_img, coor->x, coor->y, color);
+	img_pix_put(dt->final_frame_img, coor->x, coor->y, color);
 }

@@ -27,7 +27,7 @@ static void	check_and_parse_args(t_data *dt, int argc, char **argv)
 	}
 }
 
-static int	setup_controls(t_data *dt)
+static int	setup_keyboard_and_mouse_controls(t_data *dt)
 {
 	setup_keyboard_hooks(dt);
 	if (BONUS && ENABLE_MOUSE)
@@ -39,22 +39,26 @@ static int	setup_dt(t_data *dt)
 {
 	init_rays(dt);
 	init_keys(dt);
-	dt->scene_img = protected_malloc(sizeof(t_img), dt);
-	dt->frames_img = protected_malloc(sizeof(t_img), dt);
-	dt->minimap = protected_malloc(sizeof(t_img), dt);
+	dt->raycasting_scene_img = protected_malloc(sizeof(t_img), dt);
+	dt->final_frame_img = protected_malloc(sizeof(t_img), dt);
+	dt->minimap_img = protected_malloc(sizeof(t_img), dt);
+	dt->ui_img = protected_malloc(sizeof(t_img), dt);
 	dt->view = protected_malloc(sizeof(t_view), dt);
 	load_textures(dt);
 	load_sky_image(dt);
 	load_messages(dt);
 	init_doors(dt);
-	load_sprites(dt);
+	// load_sprites(dt);
 	setup_view(dt);
 	draw_minimap_base_img(dt);
-	setup_img(dt, dt->scene_img, WINDOW_W, WINDOW_H);
-	setup_img(dt, dt->frames_img, WINDOW_W, WINDOW_H);
-	setup_img(dt, dt->minimap, MINIMAP_SIZE, MINIMAP_SIZE);
-	if (BONUS)
-		dt->background_music = init_audio();
+	setup_img(dt, dt->final_frame_img, WINDOW_W, WINDOW_H);
+	setup_img(dt, dt->raycasting_scene_img, WINDOW_W, WINDOW_H);
+	setup_img(dt, dt->minimap_img, MINIMAP_SIZE, MINIMAP_SIZE);
+	setup_img(dt, dt->ui_img, WINDOW_W, WINDOW_H);
+	dt->start_time = get_current_time_in_ms();
+	dt->last_time = 0;
+	// if (BONUS)
+	// 	dt->background_music = init_audio();
 	return (EXIT_SUCCESS);
 }
 
@@ -65,12 +69,11 @@ int	main(int argc, char **argv)
 	check_and_parse_args(&dt, argc, argv);
 	print_level_map(&dt.map);
 	precalculate_trig_tables(&dt);
-	setup_mlx_and_win(&dt);
+	if (setup_mlx_and_win(&dt))
+		return (MLX_ERROR);
 	setup_dt(&dt);
-	setup_controls(&dt);
+	setup_keyboard_and_mouse_controls(&dt);
 	print_separator(3, DEF_SEPARATOR_CHAR);
-	dt.start_time = get_current_time_in_ms();
-	dt.last_time = 0;
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 	free_dt(&dt);

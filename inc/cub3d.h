@@ -31,7 +31,7 @@
 
 # include "../lib/libft/inc/libft.h"
 
-# include <mlx.h>
+# include "mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <X11/Xlib.h>
@@ -144,6 +144,7 @@ typedef struct s_ray
 	int			id;
 	float		distance_to_wall;
 	float		corrected_distance_to_wall;
+	float		wall_height;
 	float		percentage_of_image;
 	int			cell_type;
 	int			wall_type;
@@ -256,10 +257,11 @@ typedef struct s_data
 {
 	void				*mlx_ptr;
 	void				*win_ptr;
-	t_img				*scene_img;
-	t_img				*frames_img;
+	t_img				*raycasting_scene_img;
+	t_img				*final_frame_img;
 	t_img				*minimap_base_img;
-	t_img				*minimap;
+	t_img				*minimap_img;
+	t_img				*ui_img;
 	t_map				map;
 	t_door				*doors;
 	size_t				door_count;
@@ -284,7 +286,7 @@ typedef struct s_data
 	void				*background_music;
 	int					frame_counter;
 	int					has_changed;
-	int					frames_drawn;
+	int					frames_drawn_count;
 }	t_data;
 
 static inline int	pixel_is_in_window(int x, int y)

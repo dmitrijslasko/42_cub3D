@@ -27,16 +27,14 @@ int	update_prompt_message(t_data *dt)
 
 static int	render_minimap_and_ui(t_data *dt)
 {
-	if (BONUS && dt->view->show_minimap)
+	if (dt->view->show_minimap)
 		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, \
-				dt->minimap->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
-	if (BONUS && dt->view->show_debug_info)
+				dt->minimap_img->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+	if (dt->view->show_debug_info)
 		show_debug_info(dt);
 	if (dt->view->show_door_open_message)
 		render_ui_message(dt);
 	render_ui(dt);
-	dt->has_changed = 0;
-	dt->frames_drawn++;
 	return (EXIT_SUCCESS);
 }
 
@@ -58,13 +56,15 @@ int	render_frame(void *param)
 		reset_mouse_position(dt);
 	process_keypresses(dt);
 	calculate_all_rays(dt);
-	update_prompt_message(dt);
 	render_3d_scene(dt);
-	put_img_to_img(dt->frames_img, dt->scene_img, 0, 0);
-	render_all_sprites(dt);
-	update_minimap(dt);
-	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,
-		dt->frames_img->mlx_img, 0, 0);
+	put_img_to_img(dt->final_frame_img, dt->raycasting_scene_img, 0, 0);
+	// render_all_sprites(dt);
+	if (dt->view->show_minimap)
+		update_minimap(dt);
+	update_prompt_message(dt);
+	// put_img_to_img(dt->final_frame_img, dt->ui_img, 100, 100);
+	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,dt->final_frame_img->mlx_img, 0, 0);
 	render_minimap_and_ui(dt);
+	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);
 }

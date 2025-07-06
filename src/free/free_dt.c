@@ -22,5 +22,5 @@ void	free_dt(t_data *dt)
 	free_wall_tile_texture(dt);
 	ft_free(dt->sprites);
 	free_graphic(dt);
-	free_audio(dt->background_music);
+	// free_audio(dt->background_music);
 }

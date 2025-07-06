@@ -33,6 +33,7 @@ bool	init_rays(t_data *dt)
 		dt->rays[i].door = 0;
 		dt->rays[i].hit_side = 0;
 		dt->rays[i].hit_content = 0;
+		dt->rays[i].wall_height = 0;
 		i++;
 	}
 	printf(TXT_GREEN "Done!\n" TXT_RESET);

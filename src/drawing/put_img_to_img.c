@@ -44,7 +44,8 @@ void	put_img_to_img(t_img *dest, t_img *src, int dx, int dy)
 				(int)src->width && src_y <= (int)src->height)
 			{
 				color = get_pixel(src, src_x, src_y);
-				put_pixel(dest, x, y, color);
+				if (color != BLACK)
+					put_pixel(dest, x, y, color);
 			}
 			x++;
 		}

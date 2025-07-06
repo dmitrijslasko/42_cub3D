@@ -14,6 +14,7 @@
 
 static int	render_floor_and_ceiling(t_data *dt)
 {
+	// (void) dt;
 	if (BONUS)
 		draw_sky(dt);
 	else
@@ -37,5 +38,4 @@ void	render_3d_scene(t_data *dt)
 		dt->rays[i].id = i;
 		render_3d_each_ray(dt, &dt->rays[i++], screen_slice_width);
 	}
-	render_all_sprites(dt);
 }

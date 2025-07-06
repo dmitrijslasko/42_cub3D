@@ -35,37 +35,86 @@ float	calculate_angle_offset(t_data *dt)
 	return (angle_offset);
 }
 
-int	calculate_t_start_y(t_data *dt)
+int	calc_texture_start_y(t_data *dt)
 {
-	int	delta;
-	int	texture_start_y;
+	int texture_start_y;
 
-	delta = (int)(-(dt->view->screen_center_y - (WINDOW_H / 2)) * 1.0f);
-	texture_start_y = (dt->sky_image->height / 3) - (WINDOW_H / 20) + delta;
+	texture_start_y = dt->sky_image->height - dt->view->screen_center_y;
 	return (texture_start_y);
 }
 
-int	draw_sky1(t_data *dt, float angle_offset, int txt_start_y)
+uint32_t	get_pixel_color_from_img(t_img *tex, int x, int y)
+{
+	char	*pixel;
+	
+	pixel = tex->addr + y * tex->line_len + x * (tex->bpp / 8);
+	return (*(uint32_t *)pixel);
+}
+// int	render_sky(t_data *dt, float angle_offset, int texture_start_y)
+// {
+// 	t_coor		screen;
+// 	int			texture_x;
+// 	uint32_t	color;
+// 	int			max_sky_y;
+
+// 	screen.y = 0;
+// 	while (screen.y < dt->view->screen_center_y)
+// 	{
+// 		screen.x = 0;
+// 		// max_sky_y = dt->view->screen_center_y - dt->rays[screen.x * (WINDOW_W / CASTED_RAYS_COUNT)].wall_height / 2;
+// 		// if (max_sky_y > screen.y)
+// 		while (screen.x < WINDOW_W)
+// 		{
+// 			ft_texture_coor(dt, screen.x, &texture_x, angle_offset);
+// 			color = get_pixel_color_from_img(dt->sky_image, texture_x, screen.y + texture_start_y);
+// 			img_pix_put(dt->raycasting_scene_img, screen.x, screen.y, color);
+// 			screen.x++;
+// 		}
+// 		screen.y++;
+// 	}
+// 	return (EXIT_SUCCESS);
+// }
+
+int	ft_max_float(float num1, float num2)
+{
+	if (num1 > num2)
+		return (num1);
+	return (num2);
+}
+
+int	ft_min_float(float num1, float num2)
+{
+	if (num1 < num2)
+		return (num1);
+	return (num2);
+}
+
+
+int	render_sky(t_data *dt, float angle_offset, int texture_start_y)
 {
 	t_coor		screen;
 	int			texture_x;
 	uint32_t	color;
-	char		*pixel;
+	int			max_sky_y;
+	float		wall_height;
 
-	screen.y = txt_start_y;
-	while (screen.y < dt->view->screen_center_y + txt_start_y)
+	screen.x = 0;
+	while (screen.x < WINDOW_W)
 	{
-		screen.x = 0;
-		while (screen.x < WINDOW_W)
+		printf("%d\n", screen.x * CASTED_RAYS_COUNT / WINDOW_W);
+		wall_height = ft_min_float(dt->rays[screen.x * CASTED_RAYS_COUNT / WINDOW_W].wall_height, (float)WINDOW_H);
+		printf("%d %f\n", screen.x * CASTED_RAYS_COUNT / WINDOW_W, dt->rays[screen.x * CASTED_RAYS_COUNT / WINDOW_W].wall_height);
+		max_sky_y = dt->view->screen_center_y - (int)wall_height / 2;
+		screen.y = 0;
+		while (screen.y < max_sky_y)
 		{
-			ft_texture_coor(dt, screen.x, &texture_x, angle_offset);
-			pixel = dt->sky_image->addr + (screen.y - txt_start_y) * \
-				dt->sky_image->line_len + texture_x * (dt->sky_image->bpp / 8);
-			color = *(uint32_t *)pixel;
-			img_pix_put(dt->scene_img, screen.x, screen.y - txt_start_y, color);
-			screen.x++;
+			// ft_texture_coor(dt, screen.x, &texture_x, angle_offset);
+			// color = get_pixel_color_from_img(dt->sky_image, texture_x, screen.y + texture_start_y);
+			color = RED;
+			img_pix_put(dt->raycasting_scene_img, screen.x, screen.y, color);
+			screen.y++;
 		}
-		screen.y++;
+		screen.x++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -76,7 +125,8 @@ int	draw_sky(t_data *dt)
 	int		texture_start_y;
 
 	angle_offset = calculate_angle_offset(dt);
-	texture_start_y = calculate_t_start_y(dt);
-	draw_sky1(dt, angle_offset, texture_start_y);
+	angle_offset += (dt->last_time - dt->start_time) * 0.00001f;
+	texture_start_y = calc_texture_start_y(dt);
+	render_sky(dt, angle_offset, texture_start_y);
 	return (EXIT_SUCCESS);
 }

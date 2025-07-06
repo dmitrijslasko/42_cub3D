@@ -101,16 +101,16 @@ int	render_sky(t_data *dt, float angle_offset, int texture_start_y)
 	screen.x = 0;
 	while (screen.x < WINDOW_W)
 	{
-		printf("%d\n", screen.x * CASTED_RAYS_COUNT / WINDOW_W);
+		// printf("%d\n", screen.x * CASTED_RAYS_COUNT / WINDOW_W);
 		wall_height = ft_min_float(dt->rays[screen.x * CASTED_RAYS_COUNT / WINDOW_W].wall_height, (float)WINDOW_H);
-		printf("%d %f\n", screen.x * CASTED_RAYS_COUNT / WINDOW_W, dt->rays[screen.x * CASTED_RAYS_COUNT / WINDOW_W].wall_height);
+		// printf("%d %f\n", screen.x * CASTED_RAYS_COUNT / WINDOW_W, dt->rays[screen.x * CASTED_RAYS_COUNT / WINDOW_W].wall_height);
 		max_sky_y = dt->view->screen_center_y - (int)wall_height / 2;
 		screen.y = 0;
 		while (screen.y < max_sky_y)
 		{
-			// ft_texture_coor(dt, screen.x, &texture_x, angle_offset);
-			// color = get_pixel_color_from_img(dt->sky_image, texture_x, screen.y + texture_start_y);
-			color = RED;
+			ft_texture_coor(dt, screen.x, &texture_x, angle_offset);
+			color = get_pixel_color_from_img(dt->sky_image, texture_x, screen.y + texture_start_y);
+			// color = RED;
 			img_pix_put(dt->raycasting_scene_img, screen.x, screen.y, color);
 			screen.y++;
 		}

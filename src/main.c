@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:12:07 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 14:44:04 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/07 18:16:13 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	main(int argc, char **argv)
 {
 	t_data	dt;
 
+	system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true");
+	system("xdotool windowmove 79691786 500 500");
 	check_and_parse_args(&dt, argc, argv);
 	print_level_map(&dt.map);
 	precalculate_trig_tables(&dt);

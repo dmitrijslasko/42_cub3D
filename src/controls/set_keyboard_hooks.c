@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_keyboard_hooks.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:04:26 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:04:27 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/07 18:04:50 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	keypress_exit(t_data *dt)
 	printf("ESC button pressed, closing the window...");
 	free_dt(dt);
 	printf(" Done!\n");
+	system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled false");
 	exit(0);
 	return (EXIT_SUCCESS);
 }

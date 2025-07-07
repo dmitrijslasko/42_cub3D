@@ -6,7 +6,7 @@
 #    By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 14:55:41 by fvargas           #+#    #+#              #
-#    Updated: 2025/07/02 14:58:43 by dmlasko          ###   ########.fr        #
+#    Updated: 2025/07/07 18:03:11 by dmlasko          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -210,6 +210,7 @@ OBJ_BONUS = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR_BONUS)/%, $(SRC:.c=.o))
 # ------------------------------------------------------------------------------
 
 test: fclean bonus
+	gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true
 	@if [ -f "${NAME_BONUS}" ]; then \
 		echo "Running bonus: ${NAME_BONUS}"; \
 		./${NAME_BONUS} ./maps/good/bonus.cub; \

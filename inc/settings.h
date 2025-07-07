@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 14:43:09 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/07 17:03:48 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@
 # define SKY_TXT_PATHFILE	"./textures/sky_1.xpm"
 
 // window size
-# define WINDOW_W							1200
-# define WINDOW_H							900
-# define CASTED_RAYS_COUNT					400
+# define WINDOW_W							640
+# define WINDOW_H							360
+# define CASTED_RAYS_COUNT					320
 # define FPS								60
-# define SCALING				            500
+# define SCALING				            200
 
 // constants.h or at the top of your .c file
 // 10 samples per degree
@@ -59,7 +59,7 @@
 
 # define MINIMAP_BACKGROUND_COLOR			ORANGE
 
-# define MINIMAP_SIZE                       250
+# define MINIMAP_SIZE                       100
 # define MINIMAP_GRID_SIZE					20
 # define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
@@ -84,7 +84,7 @@
 # define MINIMAP_RENDER_RAYS_ENABLE         1
 # define MINIMAP_RENDER_RAY_COLOR		    YELLOW
 # define MINIMAP_DRAW_EVERY_NTH_RENDER_RAY  5
-# define MINIMAP_ENABLE_ON_START            1
+# define MINIMAP_ENABLE_ON_START            0
 
 // gameplay
 # define FIELD_OF_VIEW_DEG					60.0f

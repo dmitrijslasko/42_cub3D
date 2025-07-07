@@ -48,9 +48,8 @@ static int	setup_dt(t_data *dt)
 	load_sky_image(dt);
 	load_messages(dt);
 	init_doors(dt);
-	// load_sprites(dt);
+	load_sprites(dt);
 	setup_view(dt);
-	draw_minimap_base_img(dt);
 	setup_img(dt, dt->final_frame_img, WINDOW_W, WINDOW_H);
 	setup_img(dt, dt->raycasting_scene_img, WINDOW_W, WINDOW_H);
 	setup_img(dt, dt->minimap_img, MINIMAP_SIZE, MINIMAP_SIZE);
@@ -72,6 +71,7 @@ int	main(int argc, char **argv)
 	if (setup_mlx_and_win(&dt))
 		return (MLX_ERROR);
 	setup_dt(&dt);
+	draw_minimap_base_img(&dt);
 	setup_keyboard_and_mouse_controls(&dt);
 	print_separator(3, DEF_SEPARATOR_CHAR);
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);

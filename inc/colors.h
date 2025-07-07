@@ -25,7 +25,7 @@
 # define TXT_RESET			"\033[0m"
 
 // colors
-# define TRANSPARENT_COLOR 	0xFF000000
+# define BLACK 	0xFF000000
 
 # define BLACK				0xFF000000
 # define WHITE				0xFFFFFFFF

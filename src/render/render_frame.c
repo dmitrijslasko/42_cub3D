@@ -27,9 +27,16 @@ int	update_prompt_message(t_data *dt)
 
 static int	render_minimap_and_ui(t_data *dt)
 {
+	t_coor	minimap_center;
+
 	if (dt->view->show_minimap)
-		mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, \
-				dt->minimap_img->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+	{
+		// mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr, \
+		// 		dt->minimap_img->mlx_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+		set_coor_values(&minimap_center, MINIMAP_OFFSET_X + MINIMAP_SIZE / 2, MINIMAP_OFFSET_Y + MINIMAP_SIZE / 2);
+		draw_circle(dt->final_frame_img, &minimap_center, MINIMAP_SIZE / 2 + 10, BLACK);
+		put_img_to_img(dt->final_frame_img, dt->minimap_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
+	}
 	if (dt->view->show_debug_info)
 		show_debug_info(dt);
 	if (dt->view->show_door_open_message)
@@ -58,13 +65,13 @@ int	render_frame(void *param)
 	calculate_all_rays(dt);
 	render_3d_scene(dt);
 	put_img_to_img(dt->final_frame_img, dt->raycasting_scene_img, 0, 0);
-	// render_all_sprites(dt);
+	render_all_sprites(dt);
 	if (dt->view->show_minimap)
 		update_minimap(dt);
 	update_prompt_message(dt);
 	// put_img_to_img(dt->final_frame_img, dt->ui_img, 100, 100);
-	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,dt->final_frame_img->mlx_img, 0, 0);
 	render_minimap_and_ui(dt);
+	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,dt->final_frame_img->mlx_img, 0, 0);
 	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);
 }

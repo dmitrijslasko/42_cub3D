@@ -28,8 +28,7 @@ void	render_3d_each_ray(t_data *dt, t_ray *ray, int screen_slice_width)
 	t_coor	texture;
 
 	wall_height = 1.0f / ray->corrected_distance_to_wall * SCALING;
-	ray->wall_height = wall_height;
-	printf("%f\n", ray->wall_height);
+	ray->wall_height = (int)wall_height;
 	top_y = dt->view->screen_center_y - wall_height;
 	coor.y = ft_max(top_y, 0);
 	while (coor.y < ft_min(WINDOW_H, dt->view->screen_center_y + wall_height))

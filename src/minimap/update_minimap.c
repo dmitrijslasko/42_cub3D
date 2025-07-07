@@ -20,7 +20,7 @@ int	update_minimap(t_data *dt)
 	draw_background(dt->minimap_img, MINIMAP_WALL_CELL_COLOR);
 	dx = MINIMAP_SIZE / 2 - dt->player.pos.x * MINIMAP_GRID_SIZE;
 	dy = MINIMAP_SIZE / 2 - dt->player.pos.y * MINIMAP_GRID_SIZE;
-	put_img_to_img(dt->minimap_img, dt->minimap_base_img, dx, dy);
+	put_img_to_img_circle(dt->minimap_img, dt->minimap_base_img, dx, dy);
 	draw_minimap_player(dt);
 	if (MINIMAP_RENDER_RAYS_ENABLE)
 		draw_minimap_rays(dt, 0);

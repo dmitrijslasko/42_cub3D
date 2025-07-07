@@ -34,11 +34,11 @@
 # define SKY_TXT_PATHFILE	"./textures/sky_1.xpm"
 
 // window size
-# define WINDOW_W							600
-# define WINDOW_H							450
-# define CASTED_RAYS_COUNT					200
+# define WINDOW_W							1200
+# define WINDOW_H							900
+# define CASTED_RAYS_COUNT					400
 # define FPS								60
-# define SCALING				            250
+# define SCALING				            500
 
 // constants.h or at the top of your .c file
 // 10 samples per degree
@@ -54,13 +54,13 @@
 # define DUMMY_MAP_PLAYER					"10N0000000000000000000000000001"
 
 // Minimap settings
-# define MINIMAP_OFFSET_X					20
-# define MINIMAP_OFFSET_Y					20
+# define MINIMAP_OFFSET_X					WINDOW_W - MINIMAP_SIZE - 20
+# define MINIMAP_OFFSET_Y					WINDOW_H - MINIMAP_SIZE - 20
 
 # define MINIMAP_BACKGROUND_COLOR			ORANGE
 
-# define MINIMAP_SIZE                       300
-# define MINIMAP_GRID_SIZE					40
+# define MINIMAP_SIZE                       250
+# define MINIMAP_GRID_SIZE					20
 # define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
 
@@ -84,6 +84,7 @@
 # define MINIMAP_RENDER_RAYS_ENABLE         1
 # define MINIMAP_RENDER_RAY_COLOR		    YELLOW
 # define MINIMAP_DRAW_EVERY_NTH_RENDER_RAY  5
+# define MINIMAP_ENABLE_ON_START            1
 
 // gameplay
 # define FIELD_OF_VIEW_DEG					60.0f
@@ -102,10 +103,10 @@
 # define DOOR_OPEN_VALUE                    1.0f
 
 // default scale
-# define KEYBOARD_PLAYER_STEP_FORWARD		0.04f
+# define KEYBOARD_PLAYER_STEP_FORWARD		0.05f
 # define KEYBOARD_PLAYER_STEP_BACKWARD		0.025f
 # define KEYBOARD_PLAYER_STEP_SIDE 			0.025f
-# define KEYBOARD_PLAYER_ROTATION_STEP 		1.0f
+# define KEYBOARD_PLAYER_ROTATION_STEP 		2.0f
 # define KEYBOARD_VERTICAL_LOOK_STEP        10.0f
 # define MOVE_SPEED_MULTIPLIER_SLOW 		0.4f
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f

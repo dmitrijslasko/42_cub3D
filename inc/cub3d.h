@@ -144,7 +144,7 @@ typedef struct s_ray
 	int			id;
 	float		distance_to_wall;
 	float		corrected_distance_to_wall;
-	float		wall_height;
+	int			wall_height;
 	float		percentage_of_image;
 	int			cell_type;
 	int			wall_type;
@@ -319,6 +319,7 @@ void		free_dt(t_data *dt);
 void		free_audio(void *ptr);
 
 void		put_img_to_img(t_img *dest, t_img *src, int dx, int dy);
+void		put_img_to_img_circle(t_img *dest, t_img *src, int dx, int dy);
 //parsing
 char		*free_line_get_next(char *line, int fd);
 bool		parsing(t_data *dt, char *file);

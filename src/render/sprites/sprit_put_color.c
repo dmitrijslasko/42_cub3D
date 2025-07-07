@@ -23,7 +23,7 @@ void	sprite_put_color(t_data *dt, t_sprite *sprite, \
 	texture = sprite->texture;
 	color = texture->sprite_data[time][tex_coor->y * texture->width + \
 			tex_coor->x];
-	if (color == TRANSPARENT_COLOR)
+	if (color == BLACK)
 		return ;
 	img_pix_put(dt->final_frame_img, coor->x, coor->y, color);
 }

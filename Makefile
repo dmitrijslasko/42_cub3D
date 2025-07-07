@@ -209,7 +209,7 @@ OBJ_BONUS = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR_BONUS)/%, $(SRC:.c=.o))
 
 # ------------------------------------------------------------------------------
 
-test:
+test: fclean bonus
 	@if [ -f "${NAME_BONUS}" ]; then \
 		echo "Running bonus: ${NAME_BONUS}"; \
 		./${NAME_BONUS} ./maps/good/bonus.cub; \

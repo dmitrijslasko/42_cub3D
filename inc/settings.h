@@ -34,11 +34,12 @@
 # define SKY_TXT_PATHFILE	"./textures/sky_1.xpm"
 
 // window size
-# define WINDOW_W							640
-# define WINDOW_H							360
-# define CASTED_RAYS_COUNT					320
+# define WINDOW_W							1200
+# define WINDOW_H							900
+# define CASTED_RAYS_COUNT					300
 # define FPS								60
-# define SCALING				            200
+# define SCALING				            500
+# define MIMIC_FULLSCREEN                   0
 
 // constants.h or at the top of your .c file
 // 10 samples per degree
@@ -54,17 +55,18 @@
 # define DUMMY_MAP_PLAYER					"10N0000000000000000000000000001"
 
 // Minimap settings
-# define MINIMAP_OFFSET_X					WINDOW_W - MINIMAP_SIZE - 20
-# define MINIMAP_OFFSET_Y					WINDOW_H - MINIMAP_SIZE - 20
+# define MINIMAP_OFFSET_X					20
+# define MINIMAP_OFFSET_Y					20
 
 # define MINIMAP_BACKGROUND_COLOR			ORANGE
 
-# define MINIMAP_SIZE                       100
-# define MINIMAP_GRID_SIZE					20
+# define MINIMAP_STYLE                      0   // 0 - square, 1 - circle
+# define MINIMAP_SIZE                       300
+# define MINIMAP_GRID_SIZE					30
 # define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
 
-# define MINIMAP_WALL_CELL_COLOR			BLACK
+# define MINIMAP_WALL_CELL_COLOR			DARKGREY
 # define MINIMAP_PLAYER_SPAWN_CELL_COLOR	0xFFBB00
 # define MINIMAP_DOOR_COLOR					GREY
 # define MINIMAP_THIN_WALL_COLOR			BLACK
@@ -164,9 +166,10 @@
 
 // shaders
 # define ENABLE_SHADERS						1
-# define DISTANCE_SHADOW_STRENGTH 			0.1f
+# define DISTANCE_SHADOW_STRENGTH 			0.2f
 
 # define ENABLE_MOVING_SKY					1
 # define ROTATION_SCALE					    1
 
+# define RENDER_SPRITES                     0
 #endif

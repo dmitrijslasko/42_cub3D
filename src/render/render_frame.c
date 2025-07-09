@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/09 18:00:16 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/09 19:38:25 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,21 @@ int	render_frame(void *param)
 		mlx_string_put(dt->mlx_ptr, dt->win_ptr, 240, 300, WHITE, "Press [ / ] to open the door");
 		// render_ui_message(dt);
 	}
-	put_img_to_img(dt->final_frame_img, dt->weapon_img, (WINDOW_W - 360) / 2, 0);
+		float speed;
+		speed = 0.004f; // higher = faster oscillation (tweak to taste)
+		int amplitude;
+		if (dt->player.move_speed_multiplier == 1)
+			amplitude = 20;
+		else
+			amplitude = 2;
+		int y_offset = amplitude * sin((dt->time.last_time - dt->time.start_time) * speed); // total_time in seconds, or use a step counter
+
+		put_img_to_img(
+			dt->final_frame_img,
+			dt->weapon_img,
+			(WINDOW_W - 360) / 2 + y_offset / 4,
+			20 + y_offset
+		);
 	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);
 }

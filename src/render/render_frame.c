@@ -62,12 +62,13 @@ int	render_frame(void *param)
 	render_minimap_and_ui(dt);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,dt->final_frame_img->mlx_img, 0, 0);
 	if (dt->view->show_debug_info)
-		show_debug_info(dt);
+		// show_debug_info(dt);
 	if (dt->view->show_door_open_message)
 	{
 		mlx_string_put(dt->mlx_ptr, dt->win_ptr, 240, 300, WHITE, "Press [ / ] to open the door");
 		// render_ui_message(dt);
 	}
+	put_img_to_img(dt->final_frame_img, dt->weapon_img, (WINDOW_W - 360) / 2, 0);
 	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);
 }

@@ -287,6 +287,7 @@ typedef struct s_data
 	t_gametime			time;
 	t_img				*sky_image;
 	t_img				*message_img;
+	t_img				*weapon_img;
 	float				ambient_light;
 	void				*background_music;
 	int					has_changed;
@@ -586,5 +587,6 @@ void		print_obstacle_info(t_data *dt, void *mlx, void *win, int *y);
 void		print_player_position(t_data *dt, void *mlx, void *win, int *y);
 
 int			load_sprite_images(t_data *dt);
+int			load_weapons(t_data *dt);
 
 #endif

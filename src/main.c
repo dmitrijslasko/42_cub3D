@@ -47,6 +47,7 @@ static int	setup_dt(t_data *dt)
 	load_textures(dt);
 	load_sky_image(dt);
 	load_messages(dt);
+    load_weapons(dt);
 	init_doors(dt);
 	load_sprites(dt);
 	setup_view(dt);
@@ -179,8 +180,6 @@ int move_active_window_to_mouse_position_with_xdotool() {
 int	main(int argc, char **argv)
 {
 	t_data	dt;
-
-
 	
 	check_and_parse_args(&dt, argc, argv);
 	print_level_map(&dt.map);

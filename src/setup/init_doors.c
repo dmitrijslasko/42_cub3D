@@ -24,6 +24,10 @@ static void	init_a_door(t_data *dt, t_door **door_ptr, \
 	door_ptr_ref->pos_x = DEF_DOOR_OFFSET_X;
 	door_ptr_ref->pos_y = DEF_DOOR_OFFSET_Y;
 	door_ptr_ref->open_progress = 0.0f;
+	if (get_cell_type_by_coordinates(&dt->map, curr_row, curr_col) == '|')
+		door_ptr_ref->orientation = 1;
+	else
+		door_ptr_ref->orientation = 0;
 	door_ptr_ref->speed = 0.05f;
 	door_ptr_ref->state = 0;
 	printf("Door [%zu] at X Y (%d, %d) added with id:\t%zu\n",
@@ -39,7 +43,7 @@ void	init_doors(t_data *dt)
 
 	print_separator_default();
 	printf(TXT_YELLOW ">>> INITIALISING DOORS\n" TXT_RESET);
-	dt->door_count = count_elements_in_the_map(&dt->map, "|-");
+	dt->door_count = count_elements_in_the_map(&dt->map, DOOR_TYPES);
 	printf("Doors found: %zu\n", dt->door_count);
 	dt->doors = protected_malloc(sizeof(t_door) * dt->door_count, dt);
 	door_ptr = dt->doors;

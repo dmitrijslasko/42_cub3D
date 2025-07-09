@@ -34,12 +34,12 @@
 # define SKY_TXT_PATHFILE	"./textures/sky_1.xpm"
 
 // window size
-# define WINDOW_W							1200
-# define WINDOW_H							900
-# define CASTED_RAYS_COUNT					300
+# define WINDOW_W							640
+# define WINDOW_H							360
+# define CASTED_RAYS_COUNT					320
 # define FPS								60
-# define SCALING				            500
-# define MIMIC_FULLSCREEN                   0
+# define SCALING				            250
+# define MIMIC_FULLSCREEN                   1
 
 // constants.h or at the top of your .c file
 // 10 samples per degree
@@ -61,8 +61,8 @@
 # define MINIMAP_BACKGROUND_COLOR			ORANGE
 
 # define MINIMAP_STYLE                      0   // 0 - square, 1 - circle
-# define MINIMAP_SIZE                       300
-# define MINIMAP_GRID_SIZE					30
+# define MINIMAP_SIZE                       200
+# define MINIMAP_GRID_SIZE					20
 # define MINIMAP_GRID_COLOR					0xFF8800
 # define MINIMAP_GRID_ENABLE				1
 
@@ -138,8 +138,8 @@
 # define DBG_MN_NL_2					20
 # define UI_CLR_1    	    			WHITE
 # define UI_CLR_2    	    			GOLD
-# define DBG_1_X						930
-# define DBG_2_X						1110
+# define DBG_1_X						380
+# define DBG_2_X						540
 # define DBG_FIELD_OFFST_Y				20
 # define UI_MESSAGE_OFFSET_Y			700
 

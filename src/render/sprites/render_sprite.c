@@ -18,7 +18,7 @@ int	render_sprite(t_data *dt, t_sprite *sprite, \
 	t_coor	coor;
 	t_coor	tex_coor;
 
-	sprite->time = (dt->last_time - dt->start_time) / 100 % 2;
+	sprite->time = (dt->time.last_time - dt->time.start_time) / 100 % 2;
 	coor.y = ft_max(offset->y, 0);
 	while (coor.y < sprite_size->y + offset->y && coor.y < WINDOW_H)
 	{

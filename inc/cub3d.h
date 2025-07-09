@@ -253,6 +253,13 @@ typedef struct s_sprite
 	t_sprite_texture	*texture;
 }	t_sprite;
 
+typedef struct s_gametime
+{
+	long				last_time;
+	long				delta_time;
+	long				start_time;
+}	t_gametime;
+
 typedef struct s_data
 {
 	void				*mlx_ptr;
@@ -277,14 +284,11 @@ typedef struct s_data
 	float				cos_table[PRECALCULATED_TRIG];
 	char				keys[TRACKED_KEYS];
 	void				*welcome_img;
-	long				last_time;
-	long				delta_time;
-	long				start_time;
+	t_gametime			time;
 	t_img				*sky_image;
 	t_img				*message_img;
 	float				ambient_light;
 	void				*background_music;
-	int					frame_counter;
 	int					has_changed;
 	int					frames_drawn_count;
 }	t_data;
@@ -367,11 +371,11 @@ void		rotate_player(t_data *dt, float d_angle, int direction);
 void		update_ray_distance_to_cell_edge(t_data *dt, t_ray *ray, \
 												t_coor *map_coor);
 void		step_and_set_side(t_dda_info *info);
-int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
+int			check_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 void		finish_ray_casting(t_data *dt, t_ray *ray, t_coor *map_coor, \
 																int door_hit);
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
-int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
+int			check_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 
 //constructor_ray.c
 void		update_single_ray(t_data *dt, t_ray *ray);
@@ -559,7 +563,7 @@ size_t		count_if_there_is_others_elements(t_map *map, char *element);
 //dda
 void		step_and_set_side(t_dda_info *info);
 void		update_ray_hit_point(t_data *dt, t_ray *ray);
-int			handle_door_hit(t_data *dt, t_ray *ray, t_coor *map);
+int			check_door_hit(t_data *dt, t_ray *ray, t_coor *map);
 int			check_hit_door_cell(t_coor *map, t_data *dt);
 void		init_raycasting(t_coor *step, t_coor *map_coor, \
 						t_data *dt, t_ray *ray);

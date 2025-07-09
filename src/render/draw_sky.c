@@ -125,7 +125,7 @@ int	draw_sky(t_data *dt)
 	int		texture_start_y;
 
 	angle_offset = calculate_angle_offset(dt);
-	angle_offset += (dt->last_time - dt->start_time) * 0.00001f;
+	angle_offset += (dt->time.last_time - dt->time.start_time) * 0.00001f;
 	texture_start_y = calc_texture_start_y(dt);
 	render_sky(dt, angle_offset, texture_start_y);
 	return (EXIT_SUCCESS);

@@ -18,7 +18,7 @@ int	update_prompt_message(t_data *dt)
 
 	cell_ahead = get_cell_ahead(dt);
 	dt->player.cell_type_ahead = get_cell_type(&dt->map, &cell_ahead);
-	if (dt->player.cell_type_ahead == '|')
+	if (ft_strchr(DOOR_TYPES, dt->player.cell_type_ahead))
 		dt->view->show_door_open_message = 1;
 	else
 		dt->view->show_door_open_message = 0;
@@ -29,13 +29,6 @@ static int	render_minimap_and_ui(t_data *dt)
 {
 	if (dt->view->show_minimap)
 		put_img_to_img(dt->final_frame_img, dt->minimap_img, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y);
-	if (dt->view->show_debug_info)
-		show_debug_info(dt);
-	if (dt->view->show_door_open_message)
-	{
-		// put_img_to_img(dt->final_frame_img, dt->minimap_img, 0, 0);
-		render_ui_message(dt);
-	}
 	render_ui(dt);
 	return (EXIT_SUCCESS);
 }
@@ -47,15 +40,15 @@ int	render_frame(void *param)
 
 	dt = (t_data *)param;
 	current_time = get_current_time_in_ms();
-	dt->delta_time = current_time - dt->last_time;
-	if (dt->delta_time < (1000 / FPS))
+	dt->time.delta_time = current_time - dt->time.last_time;
+	if (dt->time.delta_time < (1000 / FPS))
 	{
 		my_sleep();
 		return (0);
 	}
-	dt->last_time = current_time;
+	dt->time.last_time = current_time;
 	//if (BONUS)
-	//	reset_mouse_position(dt);
+	reset_mouse_position(dt);
 	process_keypresses(dt);
 	calculate_all_rays(dt);
 	render_3d_scene(dt);
@@ -68,6 +61,13 @@ int	render_frame(void *param)
 	// put_img_to_img(dt->final_frame_img, dt->ui_img, 100, 100);
 	render_minimap_and_ui(dt);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,dt->final_frame_img->mlx_img, 0, 0);
+	if (dt->view->show_debug_info)
+		show_debug_info(dt);
+	if (dt->view->show_door_open_message)
+	{
+		mlx_string_put(dt->mlx_ptr, dt->win_ptr, 240, 300, WHITE, "Press [ / ] to open the door");
+		// render_ui_message(dt);
+	}
 	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);
 }

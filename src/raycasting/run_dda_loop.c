@@ -12,9 +12,10 @@
 
 #include "cub3d.h"
 
-int	check_hit_door_cell(t_coor *map, t_data *dt)
+int	check_hit_door_cell(t_coor *coor, t_data *dt)
 {
-	return (dt->map.map_data[map->y][map->x] == '|');
+	return (dt->map.map_data[coor->y][coor->x] == '|' ||
+		dt->map.map_data[coor->y][coor->x] == '-');
 }
 
 int	run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info)
@@ -31,7 +32,8 @@ int	run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info)
 		update_ray_hit_point(dt, ray);
 		if (check_hit_door_cell(info->map, dt))
 		{
-			door_hit = handle_door_hit(dt, ray, info->map);
+			// printf("Door cell is hit!\n");
+			door_hit = check_door_hit(dt, ray, info->map);
 			if (door_hit)
 				break ;
 		}

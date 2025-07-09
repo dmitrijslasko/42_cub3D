@@ -18,7 +18,7 @@ void	draw_crosshair(t_data *dt, int color)
 
 	coor.x = WINDOW_W / 2;
 	coor.y = WINDOW_H / 2;
-	draw_square_from_center(dt->ui_img, \
+	draw_square_from_center(dt->final_frame_img, \
 							&coor, \
 							DEFAULT_CROSSHAIR_SIZE, \
 							color);

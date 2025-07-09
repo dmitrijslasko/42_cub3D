@@ -25,23 +25,23 @@ static void	process_vertical_look(t_data *dt)
 	}
 	if (dt->keys[XK_Down])
 	{
-		dt->has_changed = 1;
+		// dt->has_changed = 1;
 		dt->view->screen_center_y = ft_max(
 				dt->view->screen_center_y - KEYBOARD_VERTICAL_LOOK_STEP,
 				WINDOW_H / 2 - VERTICAL_LOOK_LOCK_DOWN);
 	}
 }
 
-void	maneger_door_open_close(t_data *dt, int dir)
+void	open_close_door(t_data *dt, int dir)
 {
 	t_coor	cell_ahead;
 	t_door	*door;
 
-	dt->has_changed = 1;
+	// dt->has_changed = 1;
 	cell_ahead = get_cell_ahead(dt);
-	if (get_cell_type(&dt->map, &cell_ahead) == '|')
+	if (ft_strchr(DOOR_TYPES, get_cell_type(&dt->map, &cell_ahead)))
 	{
-		dt->view->show_door_open_message = 1;
+		// dt->view->show_door_open_message = 1;
 		door = find_door_at(dt, cell_ahead.x, cell_ahead.y);
 		if (dir == 1)
 			door->open_progress = fmax(0.0f, door->open_progress - door->speed);
@@ -53,9 +53,9 @@ void	maneger_door_open_close(t_data *dt, int dir)
 static void	process_door(t_data *dt)
 {
 	if (dt->keys[XK_bracketleft])
-		maneger_door_open_close(dt, -1);
+		open_close_door(dt, -1);
 	if (dt->keys[XK_bracketright])
-		maneger_door_open_close(dt, 1);
+		open_close_door(dt, 1);
 }
 
 void	process_keypresses(t_data *dt)

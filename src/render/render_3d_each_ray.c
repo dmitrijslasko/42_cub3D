@@ -26,13 +26,14 @@ void	render_3d_each_ray(t_data *dt, t_ray *ray, int screen_slice_width)
 	int		top_y;
 	t_coor	coor;
 	t_coor	texture;
+	size_t	render_limit;
 
 	wall_height = 1.0f / ray->corrected_distance_to_wall * SCALING;
-	// wall_height = (2 * WINDOW_H) / ray->corrected_distance_to_wall;
 	ray->wall_height = (int)wall_height;
 	top_y = dt->view->screen_center_y - wall_height;
 	coor.y = ft_max(top_y, 0);
-	while (coor.y < ft_min(WINDOW_H, dt->view->screen_center_y + wall_height))
+	render_limit = ft_min(WINDOW_H, dt->view->screen_center_y + wall_height);
+	while (coor.y < render_limit)
 	{
 		calc_texture_coor(dt, &texture.y, &ray->corrected_distance_to_wall, coor.y - top_y);
 		coor.x = ft_max(ray->id * screen_slice_width, 0);

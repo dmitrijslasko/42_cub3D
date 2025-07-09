@@ -21,6 +21,7 @@ int	get_color_render3d(t_data *dt, t_ray *ray, t_coor *tex_coor)
 	texture = dt->map.wall_tile[ray->wall_type].texture;
 	tex_coor->x = (texture.width * ray->percentage_of_image);
 	tex_index = texture.width * tex_coor->y + tex_coor->x;
+	// TODO DL: but both door types together
 	if (ray->cell_type == DOOR_VERTICAL)
 	{
 		texture = dt->map.door.texture;
@@ -30,6 +31,16 @@ int	get_color_render3d(t_data *dt, t_ray *ray, t_coor *tex_coor)
 		else
 			tex_index = texture.width * (tex_coor->y + \
 				(1.0f - ray->percentage_of_image - ray->door->open_progress));
+	}
+	else if (ray->cell_type == DOOR_HORIZONTAL)
+	{
+		texture = dt->map.door.texture;
+		if (ray->vector.y > 0)
+			tex_index = texture.width * (tex_coor->y + \
+						(1.0f - ray->percentage_of_image - ray->door->open_progress));
+		else
+			tex_index = texture.width * (tex_coor->y + \
+				(ray->percentage_of_image - ray->door->open_progress));
 	}
 	color = texture.texture_data[tex_index];
 	if (ENABLE_SHADERS)

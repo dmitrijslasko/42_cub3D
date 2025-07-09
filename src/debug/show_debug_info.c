@@ -52,14 +52,20 @@ void	print_door_hit_stats(t_data *dt, void *mlx, void *win, int *y)
 		i = CASTED_RAYS_COUNT / 2;
 	if (dt->door_count > 0 && dt->rays[i].door_hit_coor.x)
 	{
+		f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Door ID:");
+		f(mlx, win, DBG_2_X, *y, UI_CLR_1, ft_itoa(dt->rays[i].door->id));
 		snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[i].door_hit_coor.x);
 		f(mlx, win, DBG_1_X, *y += DBG_MN_NL_2, UI_CLR_1, "Door hit point X:");
 		f(mlx, win, DBG_2_X, *y, UI_CLR_1, buffer);
 		snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[i].door_hit_coor.y);
 		f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Door hit point Y:");
 		f(mlx, win, DBG_2_X, *y, UI_CLR_1, buffer);
-		f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Door ID:");
-		f(mlx, win, DBG_2_X, *y, UI_CLR_1, ft_itoa(dt->rays[i].door->id));
+		snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[i].distance_to_door);
+		f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Distance to door:");
+		f(mlx, win, DBG_2_X, *y, UI_CLR_1, buffer);
+		snprintf(buffer, sizeof(buffer), "%.2f", dt->rays[i].door->open_progress);
+		f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Door open progress:");
+		f(mlx, win, DBG_2_X, *y, UI_CLR_1, buffer);
 	}
 }
 
@@ -69,11 +75,11 @@ void	print_time_stats(t_data *dt, void *mlx, void *win, int *y)
 	int		(*f)(void*, void*, int, int, int, char*);
 
 	f = mlx_string_put;
-	snprintf(buffer, sizeof(buffer), "%ld", dt->last_time);
+	snprintf(buffer, sizeof(buffer), "%ld", dt->time.last_time);
 	f(mlx, win, DBG_1_X, *y += DBG_MN_NL_2, UI_CLR_1, "Current time:");
 	f(mlx, win, DBG_2_X, *y, UI_CLR_1, buffer);
 	snprintf(buffer, sizeof(buffer), "%ld",
-		(dt->last_time - dt->start_time) / 1000);
+		(dt->time.last_time - dt->time.start_time) / 1000);
 	f(mlx, win, DBG_1_X, *y += DBG_MN_NL_2, UI_CLR_1, "Elapsed time (s):");
 	f(mlx, win, DBG_2_X, *y, UI_CLR_1, buffer);
 	f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_2, "Frames drawn:");
@@ -91,6 +97,7 @@ void	show_debug_info(t_data *dt)
 	y = DBG_FIELD_OFFST_Y;
 	mlx = dt->mlx_ptr;
 	win = dt->win_ptr;
+	
 	print_window_info(dt, mlx, win, &y);
 	print_player_position(dt, mlx, win, &y);
 	print_obstacle_info(dt, mlx, win, &y);

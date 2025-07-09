@@ -20,5 +20,4 @@ void	finish_ray_casting(t_data *dt, t_ray *ray,
 		ray->distance_to_wall += ray->distance_to_door;
 	set_wall_type(ray);
 	set_perc_wall(&dt->player.pos, ray);
-	ray->corrected_distance_to_wall = fix_fish_eye(ray, &dt->player);
 }

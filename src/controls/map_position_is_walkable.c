@@ -22,8 +22,16 @@ t_coor	get_cell_ahead(t_data *dt)
 	player_pos.x = (int) dt->player.pos.x;
 	player_pos.y = (int) dt->player.pos.y;
 	set_step(&step, &dt->player.direction_vector);
-	cell_ahead.x = player_pos.x + step.x;
-	cell_ahead.y = player_pos.y + 0;
+	if (fabs(dt->player.direction_vector.x) > fabs(dt->player.direction_vector.y))
+	{
+		cell_ahead.x = player_pos.x + step.x;
+		cell_ahead.y = player_pos.y + 0;
+	}
+	else
+	{
+		cell_ahead.x = player_pos.x + 0;
+		cell_ahead.y = player_pos.y + step.y;
+	}
 	return (cell_ahead);
 }
 
@@ -76,10 +84,10 @@ static int	handle_door2(t_data *dt, float *new_x, float *new_y)
 	max.y = (int)(*new_y + MIN_DISTANCE_TO_WALL);
 	set_coor_values(&new_pos, (int)*new_x, (int)*new_y);
 	door = find_door_at(dt, new_pos.x, new_pos.y);
-	if (ft_strchr("|", dt->map.map_data[min.y][min.x]) ||
-	ft_strchr("|", dt->map.map_data[min.y][max.x]) ||
-	ft_strchr("|", dt->map.map_data[max.y][min.x]) ||
-	ft_strchr("|", dt->map.map_data[max.y][max.x]))
+	if (ft_strchr(DOOR_TYPES, dt->map.map_data[min.y][min.x]) ||
+	ft_strchr(DOOR_TYPES, dt->map.map_data[min.y][max.x]) ||
+	ft_strchr(DOOR_TYPES, dt->map.map_data[max.y][min.x]) ||
+	ft_strchr(DOOR_TYPES, dt->map.map_data[max.y][max.x]))
 	{
 		if (door && door->open_progress < DOOR_OPEN_VALUE)
 			return (0);

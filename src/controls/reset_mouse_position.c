@@ -14,8 +14,10 @@
 
 int	set_mouse_to_screen_center(t_data *dt)
 {
-	mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W / 2, \
-											dt->view->screen_center_y);
+	// mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W / 2, \
+	// 										dt->view->screen_center_y);
+	mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, 0, 0);
+	mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, WINDOW_W, WINDOW_H);
 	return (EXIT_SUCCESS);
 }
 
@@ -44,6 +46,7 @@ int	reset_mouse_position(t_data *dt)
 			new_y = WINDOW_H / 2 + sign(dy) * MOUSE_CENTER_TOLERANCE_PX;
 		dt->mouse.suppress_mouse_frames = 1;
 		mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, new_x, new_y);
+		// system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking true");
 	}
 	return (EXIT_SUCCESS);
 }

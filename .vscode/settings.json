@@ -31,6 +31,13 @@
 		"system_error": "c",
 		"colors.h": "c",
 		"sdl.h": "c",
-		"cmath": "c"
+		"cmath": "c",
+		"chrono": "c",
+		"deque": "c",
+		"string": "c",
+		"unordered_map": "c",
+		"vector": "c",
+		"iterator": "c",
+		"format": "c"
 	}
 }

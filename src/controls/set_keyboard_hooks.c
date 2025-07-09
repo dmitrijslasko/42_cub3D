@@ -17,7 +17,8 @@ static int	keypress_exit(t_data *dt)
 	printf("ESC button pressed, closing the window...");
 	free_dt(dt);
 	printf(" Done!\n");
-	// system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled false");
+	system("gnome-extensions enable ubuntu-dock@ubuntu.com");
+	system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled false");
 	exit(0);
 	return (EXIT_SUCCESS);
 }

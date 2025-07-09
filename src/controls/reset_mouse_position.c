@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset_mouse_position.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:04:07 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:04:08 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/09 18:00:13 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	reset_mouse_position(t_data *dt)
 			new_y = WINDOW_H / 2 + sign(dy) * MOUSE_CENTER_TOLERANCE_PX;
 		dt->mouse.suppress_mouse_frames = 1;
 		mlx_mouse_move(dt->mlx_ptr, dt->win_ptr, new_x, new_y);
-		// system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking true");
+		 system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking true");
 	}
 	return (EXIT_SUCCESS);
 }

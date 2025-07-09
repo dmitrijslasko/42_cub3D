@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:12:07 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/07 18:16:13 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/09 18:45:56 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int move_active_window_to_mouse_position_with_xdotool() {
 
     // Build and run move command
     char cmd[128];
-    snprintf(cmd, sizeof(cmd), "xdotool windowmove %s %d %d", win_id, x-WINDOW_W/2, y-WINDOW_H/2-40);
+    snprintf(cmd, sizeof(cmd), "xdotool windowmove %s %d %d", win_id, x-WINDOW_W/2, y-WINDOW_H/2-38);
     int result = system(cmd);
     return result == 0 ? 0 : 1;
 }
@@ -180,7 +180,9 @@ int move_active_window_to_mouse_position_with_xdotool() {
 int	main(int argc, char **argv)
 {
 	t_data	dt;
-	
+
+	system("xdotool mousemove 960 540");
+	sleep(1);
 	check_and_parse_args(&dt, argc, argv);
 	print_level_map(&dt.map);
 	precalculate_trig_tables(&dt);
@@ -192,14 +194,33 @@ int	main(int argc, char **argv)
 	print_separator(3, DEF_SEPARATOR_CHAR);
 	system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled false");
 	if (MIMIC_FULLSCREEN)
-	{	
+	{
 		system("gnome-extensions disable ubuntu-dock@ubuntu.com");
+		system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking centered");
+		sleep(1);
 		move_active_window_to_mouse_position_with_xdotool();
-		system("gsettings set org.gnome.desktop.a11y.magnifier screen-position 'centered'");
 		system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true");
+		sleep(2);
+		system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking push");
+		sleep(1);
 	}
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);
 	free_dt(&dt);
 	return (EXIT_SUCCESS);
 }
+
+//int main() {
+//    Display *dpy = XOpenDisplay(0);
+//    int x = 960, y = 500;
+
+//    if (!dpy) return 1;
+
+//    while (1) {
+//        XWarpPointer(dpy, None, DefaultRootWindow(dpy), 0, 0, 0, 0, x, y);
+//        XFlush(dpy);
+//        usleep(100);
+//    }
+//    XCloseDisplay(dpy);
+//    return 0;
+//}

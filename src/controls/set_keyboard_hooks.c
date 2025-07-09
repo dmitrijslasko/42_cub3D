@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:04:26 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/09 18:13:07 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/09 19:11:44 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	keypress_exit(t_data *dt)
 	system("gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed true");
 	system("gsettings set org.gnome.shell.extensions.dash-to-dock autohide false");
 	system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled false");
+	system("gsettings set org.gnome.desktop.peripherals.mouse speed 0");
 
 	exit(0);
 	return (EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_debug_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:33:06 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 01:03:04 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/10 19:55:12 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	show_debug_info(t_data *dt)
 	y = DBG_FIELD_OFFST_Y;
 	mlx = dt->mlx_ptr;
 	win = dt->win_ptr;
-	
+
 	print_window_info(dt, mlx, win, &y);
 	print_player_position(dt, mlx, win, &y);
 	print_obstacle_info(dt, mlx, win, &y);
@@ -106,4 +106,27 @@ void	show_debug_info(t_data *dt)
 	f(mlx, win, DBG_1_X, y += DBG_MN_NL_2, UI_CLR_1, "LMB presses:");
 	f(mlx, win, DBG_2_X, y, UI_CLR_1, ft_itoa(dt->mouse.lmb_press_count));
 	print_time_stats(dt, mlx, win, &y);
+}
+
+void	show_player_info(t_data *dt)
+{
+	int		x;
+	void	*mlx;
+	void	*win;
+	//int		(*f)(void*, void*, int, int, int, char*);
+
+	x = 20;
+	mlx = dt->mlx_ptr;
+	win = dt->win_ptr;
+	mlx_string_put(mlx, win, x, WINDOW_H - 20, GOLD, "Health: ");
+	mlx_string_put(mlx, win, x += 65, WINDOW_H - 20, GOLD, "100");
+
+	mlx_string_put(mlx, win, x += 100, WINDOW_H - 20, GOLD, "Weapon: ");
+	mlx_string_put(mlx, win, x += 65, WINDOW_H - 20, GOLD, "PISTOL");
+
+	mlx_string_put(mlx, win, x += 100, WINDOW_H - 20, GOLD, "Ammo: ");
+	mlx_string_put(mlx, win, x += 65, WINDOW_H - 20, GOLD, ft_itoa(dt->player.ammo_level));
+
+	mlx_string_put(mlx, win, x += 100, WINDOW_H - 20, GOLD, "Is moving: ");
+	mlx_string_put(mlx, win, x += 65, WINDOW_H - 20, GOLD, "N/D");
 }

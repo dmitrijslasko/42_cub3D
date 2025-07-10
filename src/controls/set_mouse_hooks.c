@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   set_mouse_hooks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:04:29 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:04:30 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/10 20:26:40 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	fire_gun(t_data *dt)
+{
+	dt->weapon_current_frame = 1;
+}
 
 // Handle mouse press
 // Currently only works for LMB
@@ -25,6 +30,9 @@ int	mouse_press(int button, int x, int y, t_data *dt)
 		system("aplay sounds/shot.wav &");
 		printf("🖱️  LMB is pressed! Total press count: %zu\n", \
 			dt->mouse.lmb_press_count);
+		dt->player.ammo_level = ft_max(0, --dt->player.ammo_level);
+		if (dt->player.ammo_level > 0)
+			fire_gun(dt);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -39,6 +47,7 @@ int	mouse_release(int button, int x, int y, t_data *dt)
 	{
 		dt->mouse.lmb_is_pressed = 0;
 		printf("LMB released!\n");
+		dt->weapon_current_frame = 0;
 	}
 	return (0);
 }

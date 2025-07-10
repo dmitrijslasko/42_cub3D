@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:12:07 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/09 19:10:23 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/10 20:13:30 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	setup_dt(t_data *dt)
 	init_doors(dt);
 	load_sprites(dt);
 	setup_view(dt);
+	dt->player.ammo_level = STARTING_AMMO_LEVEL;
+	dt->weapon_current_frame = 0;
 	setup_img(dt, dt->final_frame_img, WINDOW_W, WINDOW_H);
 	setup_img(dt, dt->raycasting_scene_img, WINDOW_W, WINDOW_H);
 	setup_img(dt, dt->minimap_img, MINIMAP_SIZE, MINIMAP_SIZE);

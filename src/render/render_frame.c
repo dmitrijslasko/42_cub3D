@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/09 19:38:25 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/10 20:14:04 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	render_frame(void *param)
 	render_minimap_and_ui(dt);
 	mlx_put_image_to_window(dt->mlx_ptr, dt->win_ptr,dt->final_frame_img->mlx_img, 0, 0);
 	if (dt->view->show_debug_info)
-		// show_debug_info(dt);
+		 show_debug_info(dt);
+ 	show_player_info(dt);
 	if (dt->view->show_door_open_message)
 	{
 		mlx_string_put(dt->mlx_ptr, dt->win_ptr, 240, 300, WHITE, "Press [ / ] to open the door");
@@ -77,12 +78,7 @@ int	render_frame(void *param)
 			amplitude = 2;
 		int y_offset = amplitude * sin((dt->time.last_time - dt->time.start_time) * speed); // total_time in seconds, or use a step counter
 
-		put_img_to_img(
-			dt->final_frame_img,
-			dt->weapon_img,
-			(WINDOW_W - 360) / 2 + y_offset / 4,
-			20 + y_offset
-		);
+		put_img_to_img(dt->final_frame_img, &dt->weapon_img[dt->weapon_current_frame], (WINDOW_W - 360) / 2 + y_offset / 4, 20 + y_offset);
 	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);
 }

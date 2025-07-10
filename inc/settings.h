@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/09 14:42:19 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/10 19:52:07 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define SCALING				            250
 # define MIMIC_FULLSCREEN                   1
 
+# define STARTING_AMMO_LEVEL				9
 // constants.h or at the top of your .c file
 // 10 samples per degree
 # define TRIG_PRECISION                      10
@@ -114,8 +115,8 @@
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f
 
 # define ENABLE_VERTICAL_LOOK				1
-# define VERTICAL_LOOK_LOCK_UP				200
-# define VERTICAL_LOOK_LOCK_DOWN			200
+# define VERTICAL_LOOK_LOCK_UP				100
+# define VERTICAL_LOOK_LOCK_DOWN			100
 
 // mouse sensitivity
 # define ENABLE_MOUSE       				1

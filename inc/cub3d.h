@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:35:51 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 01:06:07 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/10 20:13:20 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,11 @@ typedef struct s_player
 	char	cell_type_ahead;
 	float	move_speed_multiplier;
 	bool	can_move;
+	bool	is_moving;
+	int		health_level;
+	int		selected_weapon;
+	int		ammo_level;
+
 }	t_player;
 
 typedef struct s_mouse
@@ -292,6 +297,7 @@ typedef struct s_data
 	void				*background_music;
 	int					has_changed;
 	int					frames_drawn_count;
+	int					weapon_current_frame;
 }	t_data;
 
 static inline int	pixel_is_in_window(int x, int y)
@@ -588,5 +594,7 @@ void		print_player_position(t_data *dt, void *mlx, void *win, int *y);
 
 int			load_sprite_images(t_data *dt);
 int			load_weapons(t_data *dt);
+
+void	show_player_info(t_data *dt);
 
 #endif

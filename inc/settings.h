@@ -40,6 +40,7 @@
 # define FPS								60
 # define SCALING				            250
 # define MIMIC_FULLSCREEN                   1
+# define OLD_LINUX                          0
 
 # define STARTING_AMMO_LEVEL				9
 // constants.h or at the top of your .c file

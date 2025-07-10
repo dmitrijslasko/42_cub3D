@@ -265,6 +265,13 @@ typedef struct s_gametime
 	long				start_time;
 }	t_gametime;
 
+// typedef struct s_item
+// {
+// 	int	is_weapon;
+// 	int ammo_level;
+// 	int frame_count;
+// }	t_item;
+
 typedef struct s_data
 {
 	void				*mlx_ptr;
@@ -298,6 +305,8 @@ typedef struct s_data
 	int					has_changed;
 	int					frames_drawn_count;
 	int					weapon_current_frame;
+	int 				weapon_is_animating;
+	long					weapon_last_frame_time;
 }	t_data;
 
 static inline int	pixel_is_in_window(int x, int y)
@@ -595,6 +604,6 @@ void		print_player_position(t_data *dt, void *mlx, void *win, int *y);
 int			load_sprite_images(t_data *dt);
 int			load_weapons(t_data *dt);
 
-void	show_player_info(t_data *dt);
+void		show_player_info(t_data *dt);
 
 #endif

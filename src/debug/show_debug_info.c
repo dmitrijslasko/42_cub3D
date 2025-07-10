@@ -128,5 +128,5 @@ void	show_player_info(t_data *dt)
 	mlx_string_put(mlx, win, x += 65, WINDOW_H - 20, GOLD, ft_itoa(dt->player.ammo_level));
 
 	mlx_string_put(mlx, win, x += 100, WINDOW_H - 20, GOLD, "Is moving: ");
-	mlx_string_put(mlx, win, x += 65, WINDOW_H - 20, GOLD, "N/D");
+	mlx_string_put(mlx, win, x += 65, WINDOW_H - 20, GOLD, ft_itoa(dt->player.is_moving));
 }

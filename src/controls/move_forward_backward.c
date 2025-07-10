@@ -19,6 +19,7 @@ int	move_forward_backward(t_data *dt, int direction)
 	float	new_y;
 	float	speed;
 
+	dt->player.is_moving = 1;
 	dt->has_changed = 1;
 	player_pos = &dt->player.pos;
 	speed = KEYBOARD_PLAYER_STEP_FORWARD;

@@ -60,14 +60,32 @@ static void	process_door(t_data *dt)
 
 void	process_keypresses(t_data *dt)
 {
+	int is_moving_now = 0;
+
 	if (dt->keys[XK_w])
+	{
 		move_forward_backward(dt, 1);
-	if (dt->keys[XK_s])
+		is_moving_now = 1;
+	}
+	else if (dt->keys[XK_s])
+	{
 		move_forward_backward(dt, -1);
+		is_moving_now = 1;
+	}
+
 	if (dt->keys[XK_a])
+	{
 		move_sideways(dt, -1);
-	if (dt->keys[XK_d])
+		is_moving_now = 1;
+	}
+	else if (dt->keys[XK_d])
+	{
 		move_sideways(dt, 1);
+		is_moving_now = 1;
+	}
+
+	dt->player.is_moving = is_moving_now;
+
 	if (dt->keys[XK_Left])
 		rotate_player(dt, KEYBOARD_PLAYER_ROTATION_STEP, 1);
 	if (dt->keys[XK_Right])
@@ -75,7 +93,10 @@ void	process_keypresses(t_data *dt)
 	if (dt->keys[XK_Shift_L])
 		dt->player.move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
 	else
+	{
 		dt->player.move_speed_multiplier = 1;
+	}
+
 	process_door(dt);
 	process_vertical_look(dt);
 }

@@ -45,3 +45,5 @@ void	render_3d_each_ray(t_data *dt, t_ray *ray, int screen_slice_width)
 		coor.y++;
 	}
 }
+
+

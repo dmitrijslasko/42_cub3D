@@ -21,6 +21,7 @@ int	move_sideways(t_data *dt, int to_the_right)
 	t_x_y	rotated_vector;
 
 	dt->has_changed = 1;
+	dt->player.is_moving = 1;
 	player_pos = &(dt->player.pos);
 	rotated_vector = rotate_vector(&dt->player.direction_vector, \
 									90.0f * to_the_right, dt);

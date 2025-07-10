@@ -33,6 +33,24 @@ static int	render_minimap_and_ui(t_data *dt)
 	return (EXIT_SUCCESS);
 }
 
+void	bob_walls(t_data *dt)
+{
+		float speed;
+		float amplitude;
+		if (dt->player.move_speed_multiplier == 1)
+		{
+			amplitude = 2.0f;
+			speed = 0.008f;
+		}
+		else
+		{
+			amplitude = 1.0f;
+			speed = 0.005f; // higher = faster oscillation (tweak to taste)
+		}
+		int y_offset = amplitude * sin((dt->time.last_time - dt->time.start_time) * speed); // total_time in seconds, or use a step counter
+		dt->view->screen_center_y += y_offset;
+}
+
 int	render_frame(void *param)
 {
 	t_data		*dt;
@@ -48,6 +66,20 @@ int	render_frame(void *param)
 	}
 	dt->time.last_time = current_time;
 	//if (BONUS)
+	if (dt->weapon_is_animating == 1)
+	{	
+		long now = get_current_time_in_ms();
+		if (now - dt->weapon_last_frame_time > (1000 / FPS) * 4)
+		{
+			dt->weapon_current_frame++;
+			dt->weapon_last_frame_time = now;
+			if (dt->weapon_current_frame == 5)
+			{
+				dt->weapon_is_animating = 0;
+				dt->weapon_current_frame = 0;
+			}
+		}
+	}
 	reset_mouse_position(dt);
 	process_keypresses(dt);
 	calculate_all_rays(dt);
@@ -73,11 +105,13 @@ int	render_frame(void *param)
 		speed = 0.004f; // higher = faster oscillation (tweak to taste)
 		int amplitude;
 		if (dt->player.move_speed_multiplier == 1)
-			amplitude = 20;
+			amplitude = 10;
 		else
 			amplitude = 2;
 		int y_offset = amplitude * sin((dt->time.last_time - dt->time.start_time) * speed); // total_time in seconds, or use a step counter
-
+		// dt->view->screen_center_y += y_offset;
+		if (dt->player.is_moving == 1)
+			bob_walls(dt);
 		put_img_to_img(dt->final_frame_img, &dt->weapon_img[dt->weapon_current_frame], (WINDOW_W - 360) / 2 + y_offset / 4, 20 + y_offset);
 	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);

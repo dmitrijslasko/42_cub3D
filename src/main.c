@@ -60,6 +60,8 @@ static int	setup_dt(t_data *dt)
 	dt->time.start_time = get_current_time_in_ms();
 	dt->time.last_time = 0;
 	dt->view->show_debug_info = 1;
+    dt->weapon_last_frame_time = 0;
+    dt->player.is_moving = 0;
 	// if (BONUS)
 	// 	dt->background_music = init_audio();
 	return (EXIT_SUCCESS);
@@ -197,24 +199,17 @@ int	main(int argc, char **argv)
 	system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled false");
 	if (MIMIC_FULLSCREEN)
 	{
-        if (OLD_LINUX)
+        system("gsettings set org.gnome.desktop.a11y.magnifier mag-factor 3.0");
+        system("gnome-extensions disable ubuntu-dock@ubuntu.com");
+        system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking centered");
+        system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true");
+		move_active_window_to_mouse_position_with_xdotool();
+        if (1)
         {
-            system("gnome-extensions disable ubuntu-dock@ubuntu.com");
-            system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking centered");
-            move_active_window_to_mouse_position_with_xdotool();
-            system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true");
             system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking push");
-            system("gsettings set org.gnome.desktop.periapherals.mouse speed -0.99");
             // sleep(1);
         }
-        else
-        {
-            system("gnome-extensions disable ubuntu-dock@ubuntu.com");
-		    move_active_window_to_mouse_position_with_xdotool();
-		    system("gsettings set org.gnome.desktop.a11y.magnifier screen-position 'centered'");
-		    system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true");
-        }
-
+        system("gsettings set org.gnome.desktop.peripherals.mouse speed -0.99");
 	}
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
 	mlx_loop(dt.mlx_ptr);

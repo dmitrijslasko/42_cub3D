@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:12:07 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 13:31:23 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:03:38 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,16 @@ int move_active_window_to_mouse_position_with_xdotool() {
 		return 1;
 	}
 
-	int x = -1, y = -1;
+	int x = -1;
+	int y = -1;
+
 	char line[128];
 	while (fgets(line, sizeof(line), fp)) {
 		if (sscanf(line, "X=%d", &x) == 1) continue;
 		if (sscanf(line, "Y=%d", &y) == 1) continue;
 	}
 	pclose(fp);
+	printf("X Y: %d %d\n", x, y);
 
 	if (x < 0 || y < 0) {
 		fprintf(stderr, "Could not get mouse coordinates\n");
@@ -169,7 +172,7 @@ int move_active_window_to_mouse_position_with_xdotool() {
 
 	// Build and run move command
 	char cmd[128];
-	snprintf(cmd, sizeof(cmd), "xdotool windowmove %s %d %d", win_id, x - WINDOW_W/2 - 144, y - WINDOW_H/2 - 63);
+	snprintf(cmd, sizeof(cmd), "xdotool windowmove %s %d %d", win_id, x - WINDOW_W/2, y - WINDOW_H/2 - 38);
 	int result = system(cmd);
 	return result == 0 ? 0 : 1;
 }
@@ -197,15 +200,13 @@ int	main(int argc, char **argv)
 			system("xdotool mousemove 960 540");
 		system("gsettings set org.gnome.desktop.a11y.magnifier mag-factor 3.0");
 		system("gnome-extensions disable ubuntu-dock@ubuntu.com");
-		system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking center");
+		system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking centered");
 		move_active_window_to_mouse_position_with_xdotool();
 		system("gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true");
 		if (LINUX_22)
 		{
-			system("xdotool mousemove 960 540");
 			sleep(1);
 			system("gsettings set org.gnome.desktop.a11y.magnifier mouse-tracking push");
-			// sleep(1);
 		}
 	}
 	mlx_loop_hook(dt.mlx_ptr, &render_frame, &dt);
@@ -213,18 +214,3 @@ int	main(int argc, char **argv)
 	free_dt(&dt);
 	return (EXIT_SUCCESS);
 }
-
-//int main() {
-//    Display *dpy = XOpenDisplay(0);
-//    int x = 960, y = 500;
-
-//    if (!dpy) return 1;
-
-//    while (1) {
-//        XWarpPointer(dpy, None, DefaultRootWindow(dpy), 0, 0, 0, 0, x, y);
-//        XFlush(dpy);
-//        usleep(100);
-//    }
-//    XCloseDisplay(dpy);
-//    return 0;
-//}

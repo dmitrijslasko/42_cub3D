@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 14:17:17 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:00:01 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@
 # define MOUSE_SENS_ROTATE 					1.5f
 //# define MOUSE_SENS_DRAG					0.05f
 # define MOUSE_SENS_SCROLL 					0.1f
-# define MOUSE_CENTER_TOLERANCE_PX			25
+# define MOUSE_CENTER_TOLERANCE_PX			0
 
 # define ENABLE_CROSSHAIR					1
 # define DEFAULT_CROSSHAIR_COLOR			WHITE

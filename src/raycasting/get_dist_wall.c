@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_dist_wall.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:45 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:07:46 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:23:28 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,16 @@ void	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor)
 
 	cell_type = get_cell_type(&dt->map, map_coor);
 	if (cell_type == '1')
-		ray->cell_type = SOLID_WALL;
+		ray->cell_type = WALL_1;
+	else if (cell_type == '2')
+		ray->cell_type = WALL_2;
+	else if (cell_type == '3')
+	{
+		puts("THIS!");
+		ray->cell_type = 3;
+	}
+	else if (cell_type == '4')
+		ray->cell_type = 4;
 	else if (cell_type == '|')
 		ray->cell_type = DOOR_VERTICAL;
 	else if (cell_type == '-')

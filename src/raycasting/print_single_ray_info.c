@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_single_ray_info.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:57 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:07:58 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:04:03 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	print_single_ray_info(t_ray ray)
 {
 	printf(TXT_YELLOW "Ray distance:\t%f \n" TXT_RESET, ray.distance_to_wall);
 	printf("Wall type: \t");
-	if (ray.wall_type == NORTH)
+	if (ray.wall_orientation == NORTH)
 		printf("NORTH\n");
-	if (ray.wall_type == WEST)
+	if (ray.wall_orientation == WEST)
 		printf("WEST\n");
-	if (ray.wall_type == EAST)
+	if (ray.wall_orientation == EAST)
 		printf("EAST\n");
-	if (ray.wall_type == SOUTH)
+	if (ray.wall_orientation == SOUTH)
 		printf("SOUTH\n");
 	printf("Ray hits wall at x == %f\n", ray.percentage_of_image);
 }

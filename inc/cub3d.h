@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:35:51 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/10 20:13:20 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:24:12 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 
 // structs
 
-typedef enum e_wall_type
+typedef enum e_wall_orientation
 {
 	DEFAULT_WALL = -1,
 	NORTH,
@@ -54,12 +54,15 @@ typedef enum e_wall_type
 	FLOOR,
 	CEILING,
 	DOOR,
-}	t_wall_type;
+}	t_wall_orientation;
 
 typedef enum e_cell_type
 {
 	EMPTY_CELL = 0,
-	SOLID_WALL,
+	WALL_1,
+	WALL_2,
+	WALL_3,
+	WALL_4,
 	THIN_WALL_VERTICAL,
 	THIN_WALL_HORIZONTAL,
 	DOOR_VERTICAL,
@@ -72,7 +75,7 @@ typedef struct s_texture_match
 {
 	const char				*str;
 	const size_t			length;
-	const int				wall_type;
+	const int				wall_orientation;
 }							t_texture_match;
 
 static const t_texture_match	g_txt_lookup[] = {
@@ -147,7 +150,7 @@ typedef struct s_ray
 	int			wall_height;
 	float		percentage_of_image;
 	int			cell_type;
-	int			wall_type;
+	int			wall_orientation;
 	t_x_y		vector;
 	t_x_y		wall_hit;
 	char		hit_side;
@@ -171,7 +174,7 @@ typedef struct s_texture
 
 typedef struct s_wall_tile
 {
-	int			wall_type;
+	int			wall_orientation;
 	t_texture	texture;
 	t_color		color;
 	bool		is_color;
@@ -364,7 +367,7 @@ bool		init_value_map_data(char *file, t_data *dt);
 bool		init_default_map(t_map *map);
 bool		init_value_player(t_map *map, t_player *player);
 int			ft_open(char *file);
-t_wall_type	check_valid_identifier_texture_wall(char *identifier);
+t_wall_orientation	check_valid_identifier_texture_wall(char *identifier);
 bool		check_all_wall_tile(t_map *map);
 bool		get_value_file(t_map *map, char *file);
 bool		get_value_file(t_map *map, char *file);
@@ -407,8 +410,8 @@ void		set_step(t_coor *step, t_x_y *dir_vec);
 //update_coor_player->c
 void		set_perc_wall(t_x_y *pos_player, t_ray *ray);
 
-//wall_type.c
-void		set_wall_type(t_ray *ray);
+//wall_orientation.c
+void		set_wall_orientation(t_ray *ray);
 void		print_ray(t_ray ray);
 
 //x_y.c

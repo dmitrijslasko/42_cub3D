@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_hit_wall.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:34 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:07:35 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:25:08 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side)
 		if (neighbour_right == 'v')
 			return (1);
 	}
-	if (tile == '1')
+	if (tile == '1' || tile == '2' || tile == '3' || tile == '4')
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:55 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:07:56 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:04:03 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	init_rays(t_data *dt)
 		dt->rays[i].percentage_of_image = 0;
 		dt->rays[i].wall_hit.x = 0;
 		dt->rays[i].wall_hit.y = 0;
-		dt->rays[i].wall_type = -1;
+		dt->rays[i].wall_orientation = -1;
 		dt->rays[i].cell_type = -1;
 		dt->rays[i].door = 0;
 		dt->rays[i].hit_side = 0;

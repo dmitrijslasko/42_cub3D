@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_default_map.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:39 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:09:40 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:04:03 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_default_texture(t_texture *texture)
 void	init_default_wall_tile(t_wall_tile *wall_tile)
 {
 	wall_tile->is_color = 0;
-	wall_tile->wall_type = DEFAULT_WALL;
+	wall_tile->wall_orientation = DEFAULT_WALL;
 	init_default_texture(&wall_tile->texture);
 	init_default_color(&wall_tile->color);
 }

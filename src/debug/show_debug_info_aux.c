@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:33:03 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 14:45:04 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:14:29 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,8 @@ void	print_obstacle_info(t_data *dt, void *mlx, void *win, int *y)
 	f(mlx, win, DBG_1_X, *y += DBG_MN_NL_2, UI_CLR_1, "Distance to obstacle:");
 	f(mlx, win, DBG_2_X, *y, UI_CLR_1, buffer);
 	f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Obstacle type:");
-	if (dt->rays[i].cell_type == DOOR_VERTICAL)
-		f(mlx, win, DBG_2_X, *y, UI_CLR_1, "DOOR");
-	else if (dt->rays[i].cell_type == SOLID_WALL)
-		f(mlx, win, DBG_2_X, *y, UI_CLR_1, "WALL");
-	else if (dt->rays[i].cell_type == THIN_WALL_VERTICAL)
-		f(mlx, win, DBG_2_X, *y, UI_CLR_1, "THIN (V)");
-	else
-		f(mlx, win, DBG_2_X, *y, UI_CLR_1, "N/D");
-	f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Wall type:");
-	if (dt->rays[i].cell_type == SOLID_WALL)
-		f(mlx, win, DBG_2_X, *y, UI_CLR_1, ft_itoa(dt->rays[i].wall_type));
+	f(mlx, win, DBG_2_X, *y, UI_CLR_1, ft_itoa(dt->rays[i].cell_type));
+	f(mlx, win, DBG_1_X, *y += DBG_MN_NL, UI_CLR_1, "Wall orientation:");
+	//if (dt->rays[i].cell_type == WALL_1)
+	f(mlx, win, DBG_2_X, *y, UI_CLR_1, ft_itoa(dt->rays[i].wall_orientation));
 }

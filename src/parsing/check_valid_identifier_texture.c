@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_identifier_texture.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:06:19 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:06:20 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:04:03 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	is_valid_line_texture(char *line)
 	return (0);
 }
 
-t_wall_type	check_valid_identifier_texture_wall(char *identifier)
+t_wall_orientation	check_valid_identifier_texture_wall(char *identifier)
 {
 	size_t	i;
 
@@ -39,7 +39,7 @@ t_wall_type	check_valid_identifier_texture_wall(char *identifier)
 	while (g_txt_lookup[i].str)
 	{
 		if (!ft_strncmp(identifier, g_txt_lookup[i].str, ft_strlen(identifier)))
-			return (g_txt_lookup[i].wall_type);
+			return (g_txt_lookup[i].wall_orientation);
 		i++;
 	}
 	return (DEFAULT_WALL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_dda_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:08:02 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:08:03 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:11:02 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	run_dda_loop(t_data *dt, t_ray *ray, t_dda_info *info)
 		update_ray_hit_point(dt, ray);
 		if (check_hit_door_cell(info->map, dt))
 		{
-			// printf("Door cell is hit!\n");
 			door_hit = check_door_hit(dt, ray, info->map);
 			if (door_hit)
 				break ;

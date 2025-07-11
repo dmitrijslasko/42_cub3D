@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/10 19:52:07 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 14:17:17 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@
 // window size
 # define WINDOW_W							640
 # define WINDOW_H							360
-# define CASTED_RAYS_COUNT					320
+# define CASTED_RAYS_COUNT					640
 # define FPS								60
 # define SCALING				            250
 # define MIMIC_FULLSCREEN                   1
-# define OLD_LINUX                          0
+# define LINUX_22                          1
 
 # define STARTING_AMMO_LEVEL				9
 // constants.h or at the top of your .c file
 // 10 samples per degree
-# define TRIG_PRECISION                      10
-# define PRECALCULATED_TRIG                  3600
+# define TRIG_PRECISION                      20
+# define PRECALCULATED_TRIG                  7200
 
 # define TRACKED_KEYS						70000
 

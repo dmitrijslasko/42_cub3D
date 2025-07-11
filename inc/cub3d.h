@@ -51,6 +51,8 @@ typedef enum e_wall_orientation
 	WEST,
 	SOUTH,
 	EAST,
+	W_5,
+	W_6,
 	FLOOR,
 	CEILING,
 	DOOR,
@@ -84,18 +86,14 @@ typedef struct s_texture_match
 }							t_texture_match;
 
 static const t_texture_match	g_txt_lookup[] = {
-{"SO", 2, SOUTH},
-{"NO", 2, NORTH},
-{"WE", 2, WEST},
-{"EA", 2, EAST},
-//{"W5", 2, WALL_5},
-//{"W6", 2, WALL_6},
-//{"W7", 2, WALL_7},
-//{"W8", 2, WALL_8},
-//{"W9", 2, WALL_9},
+{"SO", 2, WALL_1},
+{"NO", 2, WALL_2},
+{"WE", 2, WALL_3},
+{"EA", 2, WALL_4},
+{"W5", 2, WALL_5},
+{"W6", 2, WALL_6},
 {"F", 1, FLOOR},
 {"C", 1, CEILING},
-{"D", 1, DOOR},
 {NULL, -1, -1}
 };
 

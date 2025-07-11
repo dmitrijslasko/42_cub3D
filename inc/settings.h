@@ -40,7 +40,7 @@
 # define FPS								60
 # define SCALING				            250
 # define MIMIC_FULLSCREEN                   1
-# define LINUX_22                          1
+# define LINUX_22                           0
 
 # define STARTING_AMMO_LEVEL				9
 // constants.h or at the top of your .c file
@@ -154,7 +154,7 @@
 # define PUT_DOOR				            1
 # define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
 // four walls + celling + floor even if is a color
-# define NUMBER_TEXTURES    	            9
+# define NUMBER_TEXTURES    	            8
 
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 

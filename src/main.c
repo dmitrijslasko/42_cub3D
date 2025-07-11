@@ -59,7 +59,7 @@ static int	setup_dt(t_data *dt)
 	setup_img(dt, dt->ui_img, WINDOW_W, WINDOW_H);
 	dt->time.start_time = get_current_time_in_ms();
 	dt->time.last_time = 0;
-	dt->view->show_debug_info = 0;
+	dt->view->show_debug_info = 1;
 	dt->weapon_last_frame_time = 0;
 	dt->player.is_moving = 0;
 	// if (BONUS)

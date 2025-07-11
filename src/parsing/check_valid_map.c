@@ -20,7 +20,7 @@ bool	is_invalid_map(t_map *map)
 		return (0);
 	count = count_if_there_is_others_elements(map, "10NSWE ");
 	if (count > 0)
-		return (error_msg("Error:There's caracter not allowed on the map.", 1));
+		return (error_msg("Error: There's character not allowed on the map.", 1));
 	return (0);
 }
 
@@ -28,7 +28,7 @@ bool	is_open_map(char **map, char **visited, int row, int col)
 {
 	if (row < 0 || col < 0 || map[row] == NULL || map[row][col] == '\0')
 		return (1);
-	if (map[row][col] == '1' || visited[row][col] == 'V')
+	if (ft_strchr(WALL_TYPES, map[row][col]) || visited[row][col] == 'V')
 		return (0);
 	visited[row][col] = 'V';
 	if (is_open_map(map, visited, row + 1, col))

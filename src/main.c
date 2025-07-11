@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:12:07 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 16:03:38 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:14:49 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	setup_dt(t_data *dt)
 	setup_img(dt, dt->ui_img, WINDOW_W, WINDOW_H);
 	dt->time.start_time = get_current_time_in_ms();
 	dt->time.last_time = 0;
-	dt->view->show_debug_info = 1;
+	dt->view->show_debug_info = 0;
 	dt->weapon_last_frame_time = 0;
 	dt->player.is_moving = 0;
 	// if (BONUS)

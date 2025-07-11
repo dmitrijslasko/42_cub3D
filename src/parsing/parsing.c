@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:08 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:07:09 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:14:17 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	parsing(t_data *dt, char *file)
 {
 	init_dt(dt);
-	if (!check_type_file(file, ".cub"))
+	if (!check_type_file(file, REQUIRED_MAP_EXTENSION))
 		return (1);
 	if (!check_valid_wall_tile_file(file))
 		return (1);

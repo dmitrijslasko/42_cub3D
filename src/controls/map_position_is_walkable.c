@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_position_is_walkable.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:04:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/02 00:04:24 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:15:17 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static int	handle_wall(t_data *dt, float *new_x, float *new_y)
 	max.x = (int)(*new_x + MIN_DISTANCE_TO_WALL);
 	min.y = (int)(*new_y - MIN_DISTANCE_TO_WALL);
 	max.y = (int)(*new_y + MIN_DISTANCE_TO_WALL);
-	if (ft_strchr("1v", dt->map.map_data[min.y][min.x]) ||
-	ft_strchr("1v", dt->map.map_data[min.y][max.x]) ||
-	ft_strchr("1v", dt->map.map_data[max.y][min.x]) ||
-	ft_strchr("1v", dt->map.map_data[max.y][max.x]))
+	if (ft_strchr(WALL_TYPES, dt->map.map_data[min.y][min.x]) ||
+	ft_strchr(WALL_TYPES, dt->map.map_data[min.y][max.x]) ||
+	ft_strchr(WALL_TYPES, dt->map.map_data[max.y][min.x]) ||
+	ft_strchr(WALL_TYPES, dt->map.map_data[max.y][max.x]))
 		return (0);
 	return (1);
 }

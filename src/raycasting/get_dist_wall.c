@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:45 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 16:23:28 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:34:21 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,19 @@ void	set_cell_type(t_data *dt, t_ray *ray, t_coor *map_coor)
 	else if (cell_type == '2')
 		ray->cell_type = WALL_2;
 	else if (cell_type == '3')
-	{
-		puts("THIS!");
-		ray->cell_type = 3;
-	}
+		ray->cell_type = WALL_3;
 	else if (cell_type == '4')
-		ray->cell_type = 4;
+		ray->cell_type = WALL_4;
+	else if (cell_type == '5')
+		ray->cell_type = WALL_5;
+	else if (cell_type == '6')
+		ray->cell_type = WALL_6;
+	else if (cell_type == '7')
+		ray->cell_type = WALL_7;
+	else if (cell_type == '8')
+		ray->cell_type = WALL_8;
+	else if (cell_type == '9')
+		ray->cell_type = WALL_9;
 	else if (cell_type == '|')
 		ray->cell_type = DOOR_VERTICAL;
 	else if (cell_type == '-')

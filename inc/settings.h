@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 16:00:01 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:48:54 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,20 +146,22 @@
 # define UI_MESSAGE_OFFSET_Y			700
 
 // welcome screens
+# define REQUIRED_MAP_EXTENSION			".cub"
+
 # define WELCOME_IMAGE       				"./assets/images/intro.xpm"
 # define SHOW_WELCOME_IMAGE  				0
 
 # define PUT_DOOR				            1
 # define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
 // four walls + celling + floor even if is a color
-# define NUMBER_TEXTURES    	            6
+# define NUMBER_TEXTURES    	            9
 
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 
 # define PLAYER_SPAWN_POINT_TYPES			"NSWE"
 # define SPRITE_TYPES     	 	            "spqha"
 # define SPRITE_FRAMES						2
-# define WALL_TYPES							"1"
+# define WALL_TYPES							"123456789"
 # define VERTICAL_WALL_TYPES				"v"
 # define HORIZONTAL_WALL_TYPES				"h"
 # define DOOR_TYPES							"|-"

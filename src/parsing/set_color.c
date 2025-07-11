@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:16 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 16:04:03 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:43:08 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	set_color(char *identifier, char **color, t_map *map)
 
 	wall_orientation = check_valid_identifier_texture_wall(identifier);
 	if (map->wall_tile[wall_orientation].wall_orientation != DEFAULT_WALL)
-		return (error_msg("Error: duplicated wall/door/floor.", 1));
+		return (error_msg("Error: set color: duplicated wall/door/floor.", 1));
 	map->wall_tile[wall_orientation].wall_orientation = wall_orientation;
 	map->wall_tile[wall_orientation].is_color = true;
 	if (get_color(&map->wall_tile[wall_orientation].color, color))

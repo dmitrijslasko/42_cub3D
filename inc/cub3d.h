@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:35:51 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 16:24:12 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:51:57 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,16 @@ typedef enum e_wall_orientation
 
 typedef enum e_cell_type
 {
-	EMPTY_CELL = 0,
+	EMPTY_CELL = -1,
 	WALL_1,
 	WALL_2,
 	WALL_3,
 	WALL_4,
+	WALL_5,
+	WALL_6,
+	WALL_7,
+	WALL_8,
+	WALL_9,
 	THIN_WALL_VERTICAL,
 	THIN_WALL_HORIZONTAL,
 	DOOR_VERTICAL,
@@ -83,6 +88,11 @@ static const t_texture_match	g_txt_lookup[] = {
 {"NO", 2, NORTH},
 {"WE", 2, WEST},
 {"EA", 2, EAST},
+//{"W5", 2, WALL_5},
+//{"W6", 2, WALL_6},
+//{"W7", 2, WALL_7},
+//{"W8", 2, WALL_8},
+//{"W9", 2, WALL_9},
 {"F", 1, FLOOR},
 {"C", 1, CEILING},
 {"D", 1, DOOR},

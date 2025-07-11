@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:07:34 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 16:25:08 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:15:04 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side)
 
 	tile = get_cell_type(map, coord);
 	neighbour_right = get_cell_type_by_coordinates(map, coord->y, coord->x + 1);
+	// NOTE DL: thin wall functionality
 	if (side == 'x' && ray->vector.x > 0)
 	{
 		if (tile == 'v')
@@ -40,7 +41,7 @@ bool	check_hit_wall(t_coor *coord, t_map *map, t_ray *ray, char side)
 		if (neighbour_right == 'v')
 			return (1);
 	}
-	if (tile == '1' || tile == '2' || tile == '3' || tile == '4')
+	if (ft_strchr(WALL_TYPES, tile))
 		return (1);
 	return (0);
 }

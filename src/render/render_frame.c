@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:09:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/10 20:14:04 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:16:46 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	render_frame(void *param)
 	dt->time.last_time = current_time;
 	//if (BONUS)
 	if (dt->weapon_is_animating == 1)
-	{	
+	{
 		long now = get_current_time_in_ms();
 		if (now - dt->weapon_last_frame_time > (1000 / FPS) * 4)
 		{

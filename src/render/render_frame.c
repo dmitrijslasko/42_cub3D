@@ -37,18 +37,15 @@ void	bob_walls(t_data *dt)
 {
 		float speed;
 		float amplitude;
-		if (dt->player.move_speed_multiplier == 1)
+		int y_offset;
+		if (dt->player.is_moving == 1)
 		{
 			amplitude = 2.0f;
 			speed = 0.008f;
+			y_offset = amplitude * sin((dt->time.last_time - dt->time.start_time) * speed); // total_time in seconds, or use a step counter
+			dt->view->screen_center_y += y_offset;
 		}
-		else
-		{
-			amplitude = 1.0f;
-			speed = 0.005f; // higher = faster oscillation (tweak to taste)
-		}
-		int y_offset = amplitude * sin((dt->time.last_time - dt->time.start_time) * speed); // total_time in seconds, or use a step counter
-		dt->view->screen_center_y += y_offset;
+
 }
 
 int	render_frame(void *param)
@@ -110,8 +107,8 @@ int	render_frame(void *param)
 			amplitude = 2;
 		int y_offset = amplitude * sin((dt->time.last_time - dt->time.start_time) * speed); // total_time in seconds, or use a step counter
 		// dt->view->screen_center_y += y_offset;
-		if (dt->player.is_moving == 1)
-			bob_walls(dt);
+		// if (dt->player.is_moving == 1)
+		bob_walls(dt);
 		put_img_to_img(dt->final_frame_img, &dt->weapon_img[dt->weapon_current_frame], (WINDOW_W - 360) / 2 + y_offset / 4, 20 + y_offset);
 	dt->frames_drawn_count++;
 	return (EXIT_SUCCESS);

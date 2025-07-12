@@ -38,6 +38,7 @@
 		"unordered_map": "c",
 		"vector": "c",
 		"iterator": "c",
-		"format": "c"
+		"format": "c",
+		"cstdint": "c"
 	}
 }

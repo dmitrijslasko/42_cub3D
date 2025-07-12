@@ -6,7 +6,7 @@
 /*   By: dmlasko <dmlasko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 00:39:14 by fvargas           #+#    #+#             */
-/*   Updated: 2025/07/11 18:48:54 by dmlasko          ###   ########.fr       */
+/*   Updated: 2025/07/12 16:17:49 by dmlasko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define FPS								60
 # define SCALING				            250
 # define MIMIC_FULLSCREEN                   1
-# define LINUX_22                           0
+# define LINUX_22                           1
 
 # define STARTING_AMMO_LEVEL				9
 // constants.h or at the top of your .c file

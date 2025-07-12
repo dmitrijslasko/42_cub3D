@@ -21,7 +21,7 @@ bool	check_all_wall_tile(t_map *map)
 	{
 		if (map->wall_tile[i].wall_orientation == DEFAULT_WALL)
 			return (error_msg("Error: Wall, floor or ceiling NOT DEFINED.", 0));
-		if (i == NORTH || i == SOUTH || i == WEST || i == EAST || i == WALL_5 || i == WALL_6)
+		if (i < NUMBER_TEXTURES - 2)
 		{
 			if (map->wall_tile[i].is_color)
 			{

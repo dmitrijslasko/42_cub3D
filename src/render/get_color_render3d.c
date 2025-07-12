@@ -22,7 +22,7 @@ int	get_color_render3d(t_data *dt, t_ray *ray, t_coor *tex_coor)
 	tex_coor->x = (texture.width * ray->percentage_of_image);
 	tex_index = texture.width * tex_coor->y + tex_coor->x;
 	// TODO DL: but both door types together
-	if (ray->cell_type == DOOR_VERTICAL)
+	if (ray->cell_type == DOOR_VERTICAL_1)
 	{
 		texture = dt->map.door.texture;
 		if (ray->vector.x > 0)
@@ -32,7 +32,7 @@ int	get_color_render3d(t_data *dt, t_ray *ray, t_coor *tex_coor)
 			tex_index = texture.width * (tex_coor->y + \
 				(1.0f - ray->percentage_of_image - ray->door->open_progress));
 	}
-	else if (ray->cell_type == DOOR_HORIZONTAL)
+	else if (ray->cell_type == DOOR_HORIZONTAL_1)
 	{
 		texture = dt->map.door.texture;
 		if (ray->vector.y > 0)

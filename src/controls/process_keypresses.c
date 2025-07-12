@@ -92,9 +92,15 @@ void	process_keypresses(t_data *dt)
 		rotate_player(dt, KEYBOARD_PLAYER_ROTATION_STEP, -1);
 	if (dt->keys[XK_Shift_L])
 		dt->player.move_speed_multiplier = MOVE_SPEED_MULTIPLIER_SLOW;
+	// if (dt->keys[XK_Control_L])
+	// {
+	// 	dt->player.move_speed_multiplier = 0.4f;
+	// 	dt->view->crouch = 1.5f;
+	// }
 	else
 	{
 		dt->player.move_speed_multiplier = 1;
+		dt->view->crouch = 1.0f;
 	}
 
 	process_door(dt);

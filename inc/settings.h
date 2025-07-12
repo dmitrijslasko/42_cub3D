@@ -112,7 +112,7 @@
 # define KEYBOARD_PLAYER_STEP_SIDE 			0.025f
 # define KEYBOARD_PLAYER_ROTATION_STEP 		2.0f
 # define KEYBOARD_VERTICAL_LOOK_STEP        10.0f
-# define MOVE_SPEED_MULTIPLIER_SLOW 		0.4f
+# define MOVE_SPEED_MULTIPLIER_SLOW 		2.4f
 # define MOVE_SPEED_MULTIPLIER_FAST			1.5f
 
 # define ENABLE_VERTICAL_LOOK				1
@@ -154,7 +154,7 @@
 # define PUT_DOOR				            1
 # define DOOR_TEXTURE_PATHFILE				"./textures/wolf37.xpm"
 // four walls + celling + floor even if is a color
-# define NUMBER_TEXTURES    	            8
+# define NUMBER_TEXTURES    	            11
 
 # define WHITE_SPACE        	            " \a\b\t\n\v\f\r"
 

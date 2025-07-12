@@ -53,6 +53,9 @@ typedef enum e_wall_orientation
 	EAST,
 	W_5,
 	W_6,
+	W_7,
+	W_8,
+	W_9,
 	FLOOR,
 	CEILING,
 	DOOR,
@@ -70,10 +73,12 @@ typedef enum e_cell_type
 	WALL_7,
 	WALL_8,
 	WALL_9,
+	WALL_10,
 	THIN_WALL_VERTICAL,
 	THIN_WALL_HORIZONTAL,
-	DOOR_VERTICAL,
-	DOOR_HORIZONTAL,
+	DOOR_VERTICAL_1,
+	DOOR_VERTICAL_2,
+	DOOR_HORIZONTAL_1,
 	ELEVATOR_VERTICAL,
 	ELEVATOR_HORIZONTAL,
 }	t_cell_type;
@@ -86,12 +91,15 @@ typedef struct s_texture_match
 }							t_texture_match;
 
 static const t_texture_match	g_txt_lookup[] = {
-{"SO", 2, WALL_1},
-{"NO", 2, WALL_2},
-{"WE", 2, WALL_3},
-{"EA", 2, WALL_4},
+{"W1", 2, WALL_1},
+{"W2", 2, WALL_2},
+{"W3", 2, WALL_3},
+{"W4", 2, WALL_4},
 {"W5", 2, WALL_5},
 {"W6", 2, WALL_6},
+{"W7", 2, WALL_7},
+{"W8", 2, WALL_8},
+{"W9", 2, WALL_9},
 {"F", 1, FLOOR},
 {"C", 1, CEILING},
 {NULL, -1, -1}
@@ -119,7 +127,7 @@ typedef struct s_door
 	size_t	id;
 	float	pos_x;
 	float	pos_y;
-	float	width;
+	// float	width;
 	int		cell_x;
 	int		cell_y;
 	int		tex_id;
@@ -227,11 +235,13 @@ typedef struct s_mouse
 typedef struct s_view
 {
 	int		screen_center_y;
+	float	z_plane_height;
 	char	show_minimap;
-	int		minimap_color;
+	// int		minimap_color;
 	char	show_debug_info;
 	char	show_door_open_message;
 	float	door_open;
+	float	crouch;
 }	t_view;
 
 typedef struct s_img
@@ -506,6 +516,7 @@ int			draw_sky(t_data *dt);
 void		render_3d_scene(t_data *dt);
 int			draw_ceiling(t_data *dt);
 int			draw_floor(t_data *dt);
+int	draw_textured_floor(t_data *dt);
 int			render_sprite(t_data *dt, t_sprite *sprite, t_coor *offset,
 						t_coor *sprite_size);
 float		fix_fish_eye(t_ray *ray, t_player *player);

@@ -14,7 +14,8 @@ This version was used as a **basis for a more advanced raycasting engine** with 
 
 - 🕹️ First-person 3D view built from a 2D map  
 - 🔦 Raycasting algorithm for wall rendering  
-- 🎨 Textured walls, floor, and ceiling  
+- 🎨 Textured walls with distance shadows, single-color floor and ceiling
+- Open-air moving sky
 - 🚪 Doors (opening and closing on button press)  
 - 🐈 Animated sprites  
 - 🎵 Smooth player movement and rotation

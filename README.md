@@ -34,11 +34,10 @@ cd cub3d
 ---
 
 ## 🗺️ Map Format
-Maps are defined in .cub files.
-Each map includes:
-Textures for each wall (North, South, East, West)
-Floor and ceiling colors
-2D layout with:
+Maps are defined in .cub files. Each map includes:  
+Textures for each wall (North, South, East, West)  
+Floor and ceiling colors  
+2D layout with:  
 
 1 → Wall
 0 → Empty space
@@ -60,16 +59,22 @@ C 225,30,0
 ```
 
 ## 🎯 Goals of the Project
-Understand the math behind raycasting (DDA algorithm)
-Work with MinilibX for window management and graphics
-Strengthen skills in C, memory management, and clean coding
-Discover how a simple 2D grid can be transformed into a 3D world
+Understand the math behind raycasting (DDA algorithm)  
+Work with MinilibX for window management and graphics  
+Strengthen skills in C, memory management, and clean coding  
+Discover how a simple 2D grid can be transformed into a 3D world  
 
 ## 📚 Resources
-Lode's Raycasting Tutorial
-MinilibX Documentation
-Wolfenstein 3D (Wikipedia)
+Lode's Raycasting Tutorial  
+MinilibX Documentation  
+Wolfenstein 3D (Wikipedia)  
 
 ## 👨‍💻 Authors
-Dmitrijs Lasko
-Fernanda Vargas
+Dmitrijs Lasko  
+Fernanda Vargas  
+
+## Questions? 🤔
+**Feel free to contact me:**
+**Slack:** @dmlasko  
+**E-mail**: dmitrijs.lasko@gmail.com  
+**Telegram:** @lalamoose  

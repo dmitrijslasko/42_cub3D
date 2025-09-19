@@ -29,13 +29,16 @@ Clone the repository:
 ```bash
 git clone https://github.com/dmitrijslasko/cub3d.git
 cd cub3d
+'''
+
 Build the project:
-make
+'''make'''
 
 Run the game with a map file:
-./cub3d maps/example.cub
+'''./cub3d maps/example.cub'''
 
 ## 🗺️ Map Format
+
 Maps are defined in .cub files.
 Each map includes:
 Textures for each wall (North, South, East, West)

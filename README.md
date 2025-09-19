@@ -1,7 +1,12 @@
 # 🧊 Cub3D
 
-Cub3D is a **raycasting engine** inspired by the classic *Wolfenstein 3D*.  
-The project is part of the **42 curriculum**, focusing on understanding computer graphics, mathematics behind raycasting, and low-level programming in C.
+## Score:
+✅ 125/125 (with bonus)
+⚠️ Fully compliant with 42 Norm code style rules  
+🧹 No memory leaks  
+
+This version was used as a **basis for a more advanced raycasting engine** with many additional features:  
+[Sushi Ninja 3D – Cub3D Advanced]https://github.com/dmitrijslasko/cub3d_advanced
 
 ---
 
@@ -10,9 +15,10 @@ The project is part of the **42 curriculum**, focusing on understanding computer
 - 🕹️ First-person 3D view built from a 2D map  
 - 🔦 Raycasting algorithm for wall rendering  
 - 🎨 Textured walls, floor, and ceiling  
-- 🚪 Doors  
+- 🚪 Doors (opening and closing on button press)  
 - 🐈 Animated sprites  
-- 🎵 Smooth player movement and rotation  
+- 🎵 Smooth player movement and rotation
+- Audio implemented with SDL2 library
 
 ---
 

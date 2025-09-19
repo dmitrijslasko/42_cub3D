@@ -28,4 +28,4 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/dmitrijslasko/cub3d.git
-cd cub3d
+cd cub3d'''

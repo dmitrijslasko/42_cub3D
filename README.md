@@ -26,8 +26,10 @@ The project is part of the **42 curriculum**, focusing on understanding computer
 
 Clone the repository:
 
+```bash
 git clone https://github.com/dmitrijslasko/cub3d.git
 cd cub3d
+```
 
 ---
 
@@ -37,10 +39,13 @@ Each map includes:
 Textures for each wall (North, South, East, West)
 Floor and ceiling colors
 2D layout with:
+
 1 → Wall
 0 → Empty space
 N, S, E, W → Player spawn + orientation
+
 Example:
+```bash
 NO ./textures/north.xpm
 SO ./textures/south.xpm
 WE ./textures/west.xpm
@@ -52,6 +57,7 @@ C 225,30,0
 100001
 1000N1
 111111
+```
 
 ## 🎯 Goals of the Project
 Understand the math behind raycasting (DDA algorithm)

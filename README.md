@@ -34,7 +34,7 @@ This version was used as a **basis for a more advanced raycasting engine** with 
 Clone the repository:
 
 ```bash
-git clone https://github.com/dmitrijslasko/cub3d.git
+git clone https://github.com/dmitrijslasko/42_cub3d.git
 cd cub3d
 ```
 

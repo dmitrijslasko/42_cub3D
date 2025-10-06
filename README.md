@@ -6,7 +6,7 @@
 🧹 No memory leaks  
 
 This version was used as a **basis for a more advanced raycasting engine** with many additional features:  
-[Sushi Ninja 3D – Cub3D Advanced] https://github.com/dmitrijslasko/cub3d_advanced
+[Sushi Ninja 3D – Cub3D Advanced] https://github.com/dmitrijslasko/42_cub3D_advanced
 
 ---
 

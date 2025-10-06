@@ -72,9 +72,9 @@ Strengthen skills in C, memory management, and clean coding
 Discover how a simple 2D grid can be transformed into a 3D world  
 
 ## 📚 Resources
-Lode's Raycasting Tutorial  
-MinilibX Documentation  
-Wolfenstein 3D (Wikipedia)  
+[Lode’s Raycasting Tutorial](https://lodev.org/cgtutor/raycasting.html)  
+[MinilibX Documentation](https://harm-smits.github.io/42docs/libs/minilibx)  
+[Wolfenstein 3D (Wikipedia)](https://en.wikipedia.org/wiki/Wolfenstein_3D)
 
 ## 👨‍💻 Authors
 Dmitrijs Lasko  

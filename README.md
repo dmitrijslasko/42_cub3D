@@ -17,7 +17,7 @@ This version was used as a **basis for a more advanced raycasting engine** with 
 - 🎨 Textured walls with distance shadows, single-color floor and ceiling
 - Open-air moving sky
 - 🚪 Doors (opening and closing on button press)  
-- 🐈 Animated sprites  
+- 🐈 Animated sprites (simple animation with 2 frames)
 - 🎵 Smooth player movement and rotation
 - Audio implemented with SDL2 library
 
